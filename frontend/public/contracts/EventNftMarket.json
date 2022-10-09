@@ -1,0 +1,122 @@
+{
+  "contractName": "EventNftMarket",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/EventNftMarket.sol\":\"EventNftMarket\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/EventNftMarket.sol\":{\"keccak256\":\"0x5e339d12d384c6e2bac18ca7aa338921eb3dba42b501a74fae0f7f31501249b0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1d96bca594ffc91054db0fa4ed02a6b8608ccb812ce55dfd5e24dd53199cf560\",\"dweb:/ipfs/QmXy7U9ishL3M9NamqL6gi8qtSunGZJT7pmHAVVsk19f5y\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212206fb3c248436145b2e423e639f09b6e44c27b413e46a4dbaf77c30d3108233d5464736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600080fdfea26469706673582212206fb3c248436145b2e423e639f09b6e44c27b413e46a4dbaf77c30d3108233d5464736f6c63430008110033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "57:57:0:-:0;;;88:22;;;;;;;;;;57:57;;;;;;",
+  "deployedSourceMap": "57:57:0:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ncontract EventNftMarket {\n\n    constructor() {\n\n    }\n\n\n}",
+  "sourcePath": "/Users/sabin2000/Documents/eventnftsapp/frontend/contracts/EventNftMarket.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/EventNftMarket.sol",
+    "exportedSymbols": {
+      "EventNftMarket": [
+        6
+      ]
+    },
+    "id": 7,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".7"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:0"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "EventNftMarket",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 6,
+        "linearizedBaseContracts": [
+          6
+        ],
+        "name": "EventNftMarket",
+        "nameLocation": "66:14:0",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 4,
+              "nodeType": "Block",
+              "src": "102:8:0",
+              "statements": []
+            },
+            "id": 5,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "99:2:0"
+            },
+            "returnParameters": {
+              "id": 3,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "102:0:0"
+            },
+            "scope": 6,
+            "src": "88:22:0",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 7,
+        "src": "57:57:0",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:82:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x167312DBc1C2abD9f1A5bCB0A12a11DEEa4F2A16",
+      "transactionHash": "0x0bb1b2f7f401ad721ad5f894c91eed9cadee80103930d13addcd37b03397dd3b"
+    }
+  },
+  "schemaVersion": "3.4.9",
+  "updatedAt": "2022-10-09T17:32:58.862Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
