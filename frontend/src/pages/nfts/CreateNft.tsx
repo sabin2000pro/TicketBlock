@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 
 const CreateNft = () => {
   return (
-    <div>CreateNft</div>
+
+    
+    <div>
+
+    </div>
   )
 }
 
