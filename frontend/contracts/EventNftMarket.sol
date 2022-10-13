@@ -77,7 +77,8 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
        address currentOwner = msg.sender;
        mappedNftData[tokenId] = EventNft(tokenId, tokenPrice, currentOwner, true);
 
-       // Emit new event
+       emit EventNftCreated(tokenId, tokenPrice, msg.sender, true); // Emit new created event
+
     }
 
     function getPriceOfNftToken(uint256 tokenId) public view returns (uint256) {
@@ -142,7 +143,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         // Logic for getting all of the user's owned Event Ticket NFT's
     // @description Fetch all of the user's owned NFTs
     // @returns: An array of event nft items
-    
+
     function fetchAllOwnedNFTs() public view returns(EventNft[] memory) {
        
     }
