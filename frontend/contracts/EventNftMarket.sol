@@ -116,6 +116,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return msg.sender == ERC721.ownerOf(tokenId); // The owner of the token ID is equal to the ERC721 invoked routine of the token ID
     }
 
+    // Check if the listing price is valid or not
     function isValidListingPrice() public payable returns (bool) {
         return msg.value == ticketListingPrice;
     }
