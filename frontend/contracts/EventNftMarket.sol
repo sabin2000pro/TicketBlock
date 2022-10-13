@@ -67,6 +67,10 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) public payable override returns (uint256) {
         address tokenOwner = msg.sender;
         require(msg.value == ticketListingPrice, "Please make sure the price of the NFT is set to the listing price");
+        require(!checkTokenExists(tokenUri), "Before registering a new token. Please ensure that it does not exist"); // Check to see if the token does NOT already exist
+
+        // 1.
+
     }
 
     function createNewNftItem(uint256 tokenId, uint256 tokenPrice) private {
@@ -102,8 +106,12 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return msg.value == ticketListingPrice;
     }
 
+    function isTokenNotOnSale(uint256 tokenId) public payable returns (bool) {
+        return mappedNftData[tokenId].isTokenListed == !true;
+    }
+
     function isTokenAlreadyOnSale(uint256 tokenId) public payable returns (bool) {
-        return mappedNftData[tokenId].isTokenListed == false;
+         return mappedNftData[tokenId].isTokenListed == !false;
     }
 
     function setNftOnSale(uint256 tokenId, uint256 newTokenPrice) external payable override {
@@ -121,7 +129,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     }
 
     function removeNftFromSale(uint256 tokenId) external payable override {
-        uint256 currentEventNfts = listedTokenItems.current();
+        require(isTokenAlreadyOnSale(tokenId), "Before removing from sale. Please make sure it is already on sale");
     }
 
 
@@ -134,6 +142,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         // Logic for getting all of the user's owned Event Ticket NFT's
     // @description Fetch all of the user's owned NFTs
     // @returns: An array of event nft items
+    
     function fetchAllOwnedNFTs() public view returns(EventNft[] memory) {
        
     }
