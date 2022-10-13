@@ -12,6 +12,7 @@ interface NftRoutines {
     function setNftOnSale(uint256 tokenIndex, uint256 newTokenPrice) external payable; // 3. Routine to set the nft on sale
     function buyNft(uint256 tokenIndex, uint256 tokenPrice) external payable returns (uint256); // Routing to buy the NFT given a token Index and price
     function removeNftFromSale(uint256 tokenIndex) external payable; // Removing an NFT from sale requires that we pay some ether 
+    function checkTokenCreatorIsOwner(uint256 tokenId) external returns (bool);
 }
 
 contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
@@ -59,24 +60,29 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
 // TODO
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) public payable override returns (uint256) {
-       
-    }
-
-    function fetchTokenOwner(uint256 tokenId) public view returns (bool) {
-        return mappedNftData[tokenId].tokenCreator == ERC721.ownerOf(tokenId); // The owner of the token ID is equal to the ERC721 invoked routine of the token ID
-    }
-
-    function setNftOnSale(uint256 tokenIndex, uint256 newTokenPrice) external payable override {
-        address nftOwner = ERC721.ownerOf(tokenIndex);
-        address ownerOfNft = msg.sender; // Store the owner of the NFT
-
-        require(ownerOfNft == nftOwner, "Please ensure you are the owner of this token");
         
-        // Update struct values
-        mappedNftData[tokenIndex].isTokenListed = true;
-        mappedNftData[tokenIndex].tokenPrice = newTokenPrice; // Update the new token price
+    }
 
-        // Increment Listed Items
+    function checkTokenCreatorIsOwner(uint256 tokenId) public view override returns (bool) {
+        return msg.sender == ERC721.ownerOf(tokenId); // The owner of the token ID is equal to the ERC721 invoked routine of the token ID
+    }
+
+    function isValidListingPrice() public payable returns (bool) {
+        return msg.value == ticketListingPrice;
+    }
+
+    function isTokenAlreadyOnSale(uint256 tokenId) public payable returns (bool) {
+        return mappedNftData[tokenId].isTokenListed == false;
+    }
+
+    function setNftOnSale(uint256 tokenId, uint256 newTokenPrice) external payable override {
+        require(checkTokenCreatorIsOwner(tokenId), "Please make sure that the creator of the token is the current owner before placing the nft on sale");
+        require(isTokenAlreadyOnSale(tokenId), "Please make sure that the token is not already on sale...");
+
+        mappedNftData[tokenId].isTokenListed = true;
+        mappedNftData[tokenId].tokenPrice = newTokenPrice; // Update the new token price
+
+                // Increment Listed Items
         if(listedTokenItems.current() == 0) { // If the current items on sale is by default 0
             listedTokenItems.increment();
         }
@@ -84,12 +90,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     }
 
     function removeNftFromSale(uint256 tokenId) external payable override {
-        // We require that before removing an NFT from sale, the token ID is already on sale
-
-
         uint256 currentEventNfts = listedTokenItems.current();
-
-
     }
 
     function buyNft(uint256 tokenIndex, uint256 tokenPrice) external payable override returns (uint256) {
@@ -120,7 +121,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return mappedNftData[tokenId]; // Return the mapped NFT ID to the token ID
     }
 
- // Logic for getting all of the user's owned Event Ticket NFT's
+    // Logic for getting all of the user's owned Event Ticket NFT's
     // @description Fetch all of the user's owned NFTs
     // @returns: An array of event nft items
     function fetchAllOwnedNFTs() public view returns(EventNft[] memory) {
