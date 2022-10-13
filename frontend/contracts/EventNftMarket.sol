@@ -10,7 +10,7 @@ interface NftRoutines {
     function initialiseListingPrice(uint256 newListingPrice) external;
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable returns (uint256);
     function setNftOnSale(uint256 tokenIndex, uint256 newTokenPrice) external payable; // 3. Routine to set the nft on sale
-    function buyNft(uint256 tokenIndex, uint256 tokenPrice) external payable returns (uint256); // Routing to buy the NFT given a token Index and price
+    function buyNft(uint256 tokenInde) external payable returns (uint256); // Routing to buy the NFT given a token Index and price
     function removeNftFromSale(uint256 tokenIndex) external payable; // Removing an NFT from sale requires that we pay some ether 
     function checkTokenCreatorIsOwner(uint256 tokenId) external returns (bool);
 }
@@ -60,7 +60,19 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
 // TODO
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) public payable override returns (uint256) {
-        
+
+    }
+
+    function getPriceOfNftToken(uint256 tokenId) public view returns (uint256) {
+        uint currentPrice = mappedNftData[tokenId].tokenPrice;
+        return currentPrice;
+    }
+
+    function buyNft(uint256 tokenId) external payable override returns (uint256) {
+        address currentOwner = ERC721.ownerOf(tokenId);
+        require(msg.sender == currentOwner, "Please ensure that you are the owner of the token");
+        require(msg.value == getPriceOfNftToken(tokenId), "Please submit a value price for the token");
+
     }
 
     function checkTokenCreatorIsOwner(uint256 tokenId) public view override returns (bool) {
@@ -93,9 +105,20 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         uint256 currentEventNfts = listedTokenItems.current();
     }
 
-    function buyNft(uint256 tokenIndex, uint256 tokenPrice) external payable override returns (uint256) {
+
+        // @description: Retrieves all of the event ticket NFT's on sale.
+    // @returns: An array of Event NFT Tokens stored in memory
+    function fetchAllNftsOnSale() public view returns (EventNft[] memory) {
 
     }
+
+        // Logic for getting all of the user's owned Event Ticket NFT's
+    // @description Fetch all of the user's owned NFTs
+    // @returns: An array of event nft items
+    function fetchAllOwnedNFTs() public view returns(EventNft[] memory) {
+       
+    }
+
 
     // @description: Fetch a token by its index
     function retrieveTokenByIndex(uint index) public view returns (uint) {
@@ -111,21 +134,8 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return usedTokenURIs[tokenURI] == true;
     }
 
-    // @description: Retrieves all of the event ticket NFT's on sale.
-    // @returns: An array of Event NFT Tokens stored in memory
-    function fetchAllNftsOnSale() public view returns (EventNft[] memory) {
-
-    }
-
     function returnSingleNftItem(uint256 tokenId) public view returns(EventNft memory) {
         return mappedNftData[tokenId]; // Return the mapped NFT ID to the token ID
-    }
-
-    // Logic for getting all of the user's owned Event Ticket NFT's
-    // @description Fetch all of the user's owned NFTs
-    // @returns: An array of event nft items
-    function fetchAllOwnedNFTs() public view returns(EventNft[] memory) {
-       
     }
 
 }
