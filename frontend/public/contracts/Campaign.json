@@ -1,0 +1,114 @@
+{
+  "contractName": "Campaign",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Campaign.sol\":\"Campaign\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Campaign.sol\":{\"keccak256\":\"0xac064ed72b97d802ec66bc22cef6e9338992f2946fadfa34630573a756693d85\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8ebb0b36160e1acdfffa8c9332f2ebe122114147765d4ee5860e63a1ba7ad7a5\",\"dweb:/ipfs/QmciDXv7mrd6Gchi95DM6oohNVATujb9BmT8NDfai67pS2\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212202ac59c1db2be12a26eb11e55d806d9ee556977c0586b20d1cbaea7cffe72b20864736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600080fdfea26469706673582212202ac59c1db2be12a26eb11e55d806d9ee556977c0586b20d1cbaea7cffe72b20864736f6c63430008110033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "57:51:1:-:0;;;82:22;;;;;;;;;;57:51;;;;;;",
+  "deployedSourceMap": "57:51:1:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ncontract Campaign {\n\n    constructor() {\n\n    }\n\n\n}",
+  "sourcePath": "/Users/sabin2000/Documents/ticketblock/frontend/contracts/Campaign.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/Campaign.sol",
+    "exportedSymbols": {
+      "Campaign": [
+        13
+      ]
+    },
+    "id": 14,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".7"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:1"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "Campaign",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 13,
+        "linearizedBaseContracts": [
+          13
+        ],
+        "name": "Campaign",
+        "nameLocation": "66:8:1",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 11,
+              "nodeType": "Block",
+              "src": "96:8:1",
+              "statements": []
+            },
+            "id": 12,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 9,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "93:2:1"
+            },
+            "returnParameters": {
+              "id": 10,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "96:0:1"
+            },
+            "scope": 13,
+            "src": "82:22:1",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 14,
+        "src": "57:51:1",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:76:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.9",
+  "updatedAt": "2022-10-13T11:37:19.066Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

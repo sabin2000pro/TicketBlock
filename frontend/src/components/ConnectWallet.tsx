@@ -1,14 +1,13 @@
 import React from 'react'
 
-const Button = () => {
+const ConnectWallet: React.FC = () => {
+
   return (
 
     <div>
 
     </div>
-
-    
   )
 }
 
-export default Button
+export {ConnectWallet}

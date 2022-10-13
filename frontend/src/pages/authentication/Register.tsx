@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 const Register: React.FC = (props) => {
   return (
-    <div>Register</div>
+    <>
+
+    </>
+
+    
   )
 }
 
