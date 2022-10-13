@@ -38,11 +38,20 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         bool isTokenListed; // Determines if the token is listed for sale or not
     }
 
+    // 1. Event for Creating New Ticket nft Data
     event EventNftCreated (
         uint tokenId,
         uint price,
         address creator,
         bool isTokenListed
+    );
+
+    // 2. Event For Updating NFT data
+    event EventNftUpdated (
+        uint tokenId,
+        uint newPrice,
+        address newCreator,
+        bool newIsTokenListed
     );
 
     constructor() ERC721("Event Tickets NFT NFT", "ETNFT") {}
@@ -78,6 +87,10 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
        mappedNftData[tokenId] = EventNft(tokenId, tokenPrice, currentOwner, true);
 
        emit EventNftCreated(tokenId, tokenPrice, msg.sender, true); // Emit new created event
+
+    }
+
+    function editExistingNftItem(uint256 tokenId, uint256 tokenPrice, bool newIsListed) public view {
 
     }
 
