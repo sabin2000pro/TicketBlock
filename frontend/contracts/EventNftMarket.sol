@@ -10,7 +10,7 @@ interface NftRoutines {
     function initialiseListingPrice(uint256 newListingPrice) external;
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable returns (uint256);
     function setNftOnSale(uint256 tokenIndex, uint256 newTokenPrice) external payable; // 3. Routine to set the nft on sale
-    function buyNft(uint256 tokenInde) external payable returns (uint256); // Routing to buy the NFT given a token Index and price
+    function buyNft(uint256 tokenInde) external payable; // Routing to buy the NFT given a token Index and price
     function removeNftFromSale(uint256 tokenIndex) external payable; // Removing an NFT from sale requires that we pay some ether 
     function checkTokenCreatorIsOwner(uint256 tokenId) external returns (bool);
 }
@@ -54,13 +54,26 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         ticketListingPrice = newListingPrice;
     }
 
+    function fetchCurrentTokenIds() public view returns (uint256) {
+        return tokenIds.current();
+    }
+
+
     // @description: Register a new token on the blockchain.
     // @returns: The ID of that token minted
      // Logic Here to mint an NFT token
 
 // TODO
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) public payable override returns (uint256) {
+        address tokenOwner = msg.sender;
+        require(msg.value == ticketListingPrice, "Please make sure the price of the NFT is set to the listing price");
+    }
 
+    function createNewNftItem(uint256 tokenId, uint256 tokenPrice) private {
+       address currentOwner = msg.sender;
+       mappedNftData[tokenId] = EventNft(tokenId, tokenPrice, currentOwner, true);
+
+       // Emit new event
     }
 
     function getPriceOfNftToken(uint256 tokenId) public view returns (uint256) {
@@ -68,11 +81,17 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return currentPrice;
     }
 
-    function buyNft(uint256 tokenId) external payable override returns (uint256) {
+    function buyNft(uint256 tokenId) public payable {
         address currentOwner = ERC721.ownerOf(tokenId);
         require(msg.sender == currentOwner, "Please ensure that you are the owner of the token");
         require(msg.value == getPriceOfNftToken(tokenId), "Please submit a value price for the token");
 
+        // Now we need to delist it from the struct
+        mappedNftData[tokenId].isTokenListed = false;
+        listedTokenItems.decrement(); // Decrement the listed items by 1.
+
+         _transfer(currentOwner, msg.sender, tokenId); // Transfer Ownership of the NFT from the current owner to ms.sender
+         payable(currentOwner).transfer(msg.value); // Pay the new owner
     }
 
     function checkTokenCreatorIsOwner(uint256 tokenId) public view override returns (bool) {
