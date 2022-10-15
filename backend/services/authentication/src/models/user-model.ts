@@ -65,11 +65,12 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
 
 // Hash User Password
 UserSchema.pre("save", async function(next) {
-    if(!this.isModified("password")) {
 
+    if(!this.isModified("password")) {
+        return next();
     }
 
-
+    this.password = await bcrypt.hash(this.password, 10);
     return next();
 })
 
