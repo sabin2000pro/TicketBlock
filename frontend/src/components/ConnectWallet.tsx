@@ -1,12 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import {ethers} from 'ethers';
 
-const ConnectWallet: React.FC = () => {
+// Load the Ganache Environment
+
+type ConnectWalletProps = {
+  connectWallet: () => Promise<any>
+  walletConnected: Boolean
+}
+
+// Component used to connect the meta mask wallet.
+// @props: Conenct Wallet Function. Rendered from Navigation Bar && Wallet Connected determines if the meta mask wallet is connected or not
+const ConnectWallet: React.FC<ConnectWalletProps> = ({connectWallet, walletConnected}) => {
+  const [account, setAccount] = useState("");
+  const [accountBalance, setAccountBalance] = useState("");
+
+  useEffect(() => {
+    
+    if(!walletConnected) {
+       connectWallet();
+    }
+
+  }, [])
 
   return (
 
-    <div>
+    <>
 
-    </div>
+    </>
   )
 }
 

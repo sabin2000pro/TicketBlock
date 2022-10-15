@@ -1,12 +1,19 @@
 import React, {useEffect, useState, useRef} from 'react'
 
-const CreateNft = () => {
+type CreateNftProps = {
+  
+}
+
+const CreateNft: React.FC = () => {
   return (
 
-    
-    <div>
+    <>
+      <div className = "create--container">
+         
+      </div>
+    </>
 
-    </div>
+
   )
 }
 
