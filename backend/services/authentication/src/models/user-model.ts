@@ -61,6 +61,8 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
         type: Number,
         default: 0
     },
+
+    
 }, {toJSON: {virtuals: true}, timestamps: true});
 
 // Hash User Password

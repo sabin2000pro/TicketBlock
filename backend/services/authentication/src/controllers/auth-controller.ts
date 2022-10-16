@@ -1,5 +1,6 @@
 import {User} from '../models/user-model';
 import express, {Request, Response, NextFunction} from 'express';
+import { isValidObjectId } from 'mongoose';
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     const {email, username, password} = request.body;
@@ -10,15 +11,30 @@ export const registerUser = async(request: Request, response: Response, next: Ne
 
     }
 
+    const user = await User.create({email, username, password});
+    await user.save();
 
+    // Get JWT token and return it
+
+    return response.status(201).json({success: true, userData: user});
 }
 
 export const verifyEmailAddress = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
+    const {ownerId, OTP} = request.body;
+
+    if(!isValidObjectId(ownerId)) {
+
+    }
+
+    if(!OTP) { // If no OTP is entered throw an error
+
+    }
+
 
 }
 
 export const login = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-
+    const {email, password} = request.body;
 }
 
 export const verifyLoginMfa = async(request: Request, response: Response, next: NextFunction): Promise<any> => {

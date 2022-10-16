@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {ethers} from 'ethers';
+import { useAuth } from '../pages/authentication/context/AuthContext';
 
 // Load the Ganache Environment
 
@@ -13,6 +14,7 @@ type ConnectWalletProps = {
 const ConnectWallet: React.FC<ConnectWalletProps> = ({connectWallet, walletConnected}) => {
   const [account, setAccount] = useState("");
   const [accountBalance, setAccountBalance] = useState("");
+  const {authContext} = useAuth();
 
   useEffect(() => {
     
