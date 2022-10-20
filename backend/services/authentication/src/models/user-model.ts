@@ -7,8 +7,8 @@ interface IUserAttributes {
     username: string;
     email: string;
     password: string;
-    role:string;
-    nftsOwned: string;
+    role: string;
+    nftsOwned: string; // Number of NFTs the user owns
 }
 
 interface IUserDocument extends mongoose.Model<IUserAttributes> {

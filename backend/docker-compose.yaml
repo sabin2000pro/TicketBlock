@@ -1,0 +1,47 @@
+version: '3.2'
+
+services:
+  authentication-service:
+    image: sabin2000/ticketblock-auth-service
+    build: 
+      context: ../backend/services/authentication
+      dockerfile: Dockerfile
+      
+    volumes:
+      - /app/node_modules
+      - ../backend/services/authentication:/app
+    restart: always
+
+    ports:
+      - "5200:5200"
+
+  nft-service:
+    image: sabin2000/ticketblock-nft-service
+
+    build:
+      context: ../backend/services/nfts
+      dockerfile: Dockerfile
+
+    volumes:
+      - /app/node_modules
+      - ../backend/services/nfts:/app
+
+    restart: always
+    ports:
+      - "5201:5201"
+
+    
+  frontend:
+    image: sabin2000/ticketblock-frontend-service
+
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+
+    volumes:
+      - /app/node_modules
+      - ../frontend:/app
+    
+
+volumes:
+  mongodb_data_volume:

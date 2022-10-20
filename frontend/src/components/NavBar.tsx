@@ -4,9 +4,10 @@ import { ConnectWallet } from './ConnectWallet'
 const NavBar: React.FC = () => {
   const [walletConnected, setWalletConnected] = useState(false);
 
-  const connectWallet = (): Promise<any> => {
+  const connectWallet = (): any => {
     try {
 
+      return undefined;
     } 
     
     catch(error: any) {

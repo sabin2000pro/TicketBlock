@@ -67,7 +67,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return tokenIds.current();
     }
 
-
     // @description: Register a new token on the blockchain.
     // @returns: The ID of that token minted
      // Logic Here to mint an NFT token
@@ -77,8 +76,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         address tokenOwner = msg.sender;
         require(msg.value == ticketListingPrice, "Please make sure the price of the NFT is set to the listing price");
         require(!checkTokenExists(tokenUri), "Before registering a new token. Please ensure that it does not exist"); // Check to see if the token does NOT already exist
-
-        // 1.
 
     }
 
@@ -91,7 +88,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     }
 
     function editExistingNftItem(uint256 tokenId, uint256 tokenPrice, bool newIsListed) public view {
-
+        
     }
 
     function getPriceOfNftToken(uint256 tokenId) public view returns (uint256) {
