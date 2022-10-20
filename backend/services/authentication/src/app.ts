@@ -32,5 +32,4 @@ app.use(cookieSession({
 // Error Handler middleware
 app.use('/api/v1/auth', authRouter);
 
-
 export {app}
