@@ -14,6 +14,8 @@ const helmet_1 = __importDefault(require("helmet"));
 const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
 const cors_1 = __importDefault(require("cors"));
 const auth_routes_1 = __importDefault(require("./routes/auth-routes"));
+const auth_schema_1 = __importDefault(require("./database/auth-schema"));
+(0, auth_schema_1.default)();
 const app = (0, express_1.default)();
 exports.app = app;
 if (process.env.NODE_ENV === 'development') {
