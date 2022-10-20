@@ -9,8 +9,8 @@ export interface IErrorResponse { // Error Response interface
 }
 
 export interface IError { // Error Interface
-    message: string;
-    statusCode: number;
+    message: string; // Custom Error Message
+    statusCode: number; // Status Code for the error
     status: string;
 }
 
