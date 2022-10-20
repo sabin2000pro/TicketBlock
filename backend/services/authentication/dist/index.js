@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = require("./app");
-const port = process.env.PORT || 5300;
+const port = process.env.PORT || 5200;
 // Start of authentication server
 const startAuthServer = () => __awaiter(void 0, void 0, void 0, function* () {
     return app_1.app.listen(port, () => {
-        console.log('Authentication Service Live On Port 5300');
+        console.log('Authentication Service Live On Port 5200');
     });
 });
 startAuthServer();

@@ -7,11 +7,9 @@
     "build": "tsc",
     "watch": "tsc -w",
     "prestart": "npm run build ",
-    "dev": "nodemon dist/index.js",
+    "dev": "nodemon build/index.js",
     "start:server": "npm run dev"
   },
-
-  
   "keywords": [],
   "author": "",
   "license": "ISC",

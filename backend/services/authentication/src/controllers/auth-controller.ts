@@ -1,5 +1,5 @@
 import {User} from '../models/user-model';
-import express, {Request, Response, NextFunction} from 'express';
+import {Request, Response, NextFunction} from 'express';
 import { isValidObjectId } from 'mongoose';
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
