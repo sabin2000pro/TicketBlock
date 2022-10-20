@@ -2,12 +2,12 @@
   "name": "authentication",
   "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
     "prestart": "npm run build ",
-    "dev": "nodemon build/index.js",
+    "dev": "nodemon dist/index.js",
     "start:server": "npm run dev"
   },
   "keywords": [],

@@ -7,13 +7,10 @@ import hpp from "hpp"
 import helmet from "helmet"
 import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
-import connectAuthSchema from './database/auth-schema';
 
 import authRouter from './routes/auth-routes';
 
 const app: Application = express();
-
-connectAuthSchema();
 
 if(process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
