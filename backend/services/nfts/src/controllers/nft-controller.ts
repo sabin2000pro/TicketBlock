@@ -4,10 +4,18 @@ import { Request, Response, NextFunction } from 'express';
 import { UploadedFile } from 'express-fileupload';
 
 export const fetchAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-    return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
+    const nfts = await Nft.find();
+    return response.status(StatusCodes.OK).json({success: true, data: nfts});
 }
 
 export const fetchNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
+    const id = request.params.id;
+
+    if(!id) {
+
+    }
+
+    
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
 

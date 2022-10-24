@@ -39,7 +39,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.5",
     "morgan": "^1.10.0",
-    "typescript": "^4.8.4"
+    "typescript": "^4.8.4",
+    "xss-clean": "^0.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

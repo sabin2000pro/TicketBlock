@@ -4,10 +4,9 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import morgan from "morgan"
 import hpp from "hpp"
 import helmet from "helmet"
-import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 import { errorHandler } from "./middleware/error-handler";
-
+import mongoSanitize from 'express-mongo-sanitize';
 import {authRouter} from './routes/auth-routes';
 import connectAuthSchema from './database/auth-schema';
 
@@ -26,6 +25,8 @@ if(process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.set('trust proxy', true);
 app.use(hpp());
+app.use(xss());
+app.use(mongoSanitize()); // Used to prevent NoSQLI injections
 
 app.use(cors({
     origin: "*",
