@@ -13,6 +13,7 @@ export interface IGetUserData extends Request {
     user: any | undefined;
 }
 
+
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
         const {email, username, password, passwordConfirm} = request.body;
@@ -43,10 +44,6 @@ export const registerUser = async(request: Request, response: Response, next: Ne
 export const verifyEmailAddress = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
     const {ownerId, OTP} = request.body;
 
-    if(!isValidObjectId(ownerId)) {
-
-    }
-
     if(!OTP) {
         return next(new NotFoundError("No OTP found. Please check entry again", StatusCodes.NOT_FOUND));
     }
@@ -75,12 +72,8 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     if(!passwordsMatch) {
         return next(new BadRequestError("Passwords do not match. Please try again", StatusCodes.BAD_REQUEST))
     }
-
-    // Check if passwords match
-    // Set the JWT token as a cookie
-    const token = user.returnAuthToken();
-
-    request.session = {token};
+   
+    return sendTokenResponse(request, user as any, 200, response);
 
 });
 
@@ -147,4 +140,10 @@ export const updatePassword = async(request: Request, response: Response, next: 
 
 export const updateProfileDetails = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
+}
+
+const sendTokenResponse = (request: Express.Request, user: any, statusCode: number, response: Response) => {
+    const token = user.returnAuthToken();
+    request.session = {token};
+    return response.status(statusCode).json({success: true, user, token});
 }
