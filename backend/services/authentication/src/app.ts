@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 require('dotenv').config();
 import cookieSession from 'cookie-session';
 import express, { Application, NextFunction, Request, Response } from "express";
@@ -9,6 +10,7 @@ import { errorHandler } from "./middleware/error-handler";
 import mongoSanitize from 'express-mongo-sanitize';
 import {authRouter} from './routes/auth-routes';
 import connectAuthSchema from './database/auth-schema';
+import csurf from 'csurf';
 
 connectAuthSchema();
 
@@ -25,7 +27,7 @@ if(process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.set('trust proxy', true);
 app.use(hpp());
-app.use(xss());
+app.use(csurf());
 app.use(mongoSanitize()); // Used to prevent NoSQLI injections
 
 app.use(cors({
@@ -35,8 +37,14 @@ app.use(cors({
 
 app.use(helmet());
 app.use(cookieSession({
-    keys: ['session']
+    keys: ['session'],
+    secure: process.env.NODE_ENV !== 'development'
 }));
+
+// Handles 404 Not Found Routes
+app.all("*", (request: Request, response: Response, next: NextFunction) => {
+    return response.status(StatusCodes.NOT_FOUND).json({success: false, message: "The route your requested cannot be found on the server"});
+})
 
 // Error Handler middleware
 app.use('/api/v1/auth', authRouter);

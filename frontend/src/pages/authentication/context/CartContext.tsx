@@ -1,6 +1,6 @@
 import { useContext, createContext, useState } from "react";
 
-type CartProps = {
+type CartContextProps = {
     children: any
 }
 
@@ -12,7 +12,7 @@ export const defaultCartState = { // Initial State for the cart that will hold t
 
 export const CartContext = createContext(defaultCartState);
 
-export const CartProvider: React.FC<CartProps> = ({children}) => {
+export const CartProvider: React.FC<CartContextProps> = ({children}) => {
     const [cartItems, setCartItems] = useState<[]>([]);
 
     const addOneToCart = (itemId: number): any => {

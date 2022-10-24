@@ -103,7 +103,7 @@ export const getCurrentUser = asyncHandler(async(request: IGetUserData, response
     const user = request.user._id as IGetUserData;
     console.log(`User data ; ${user}`);
 
-    return response.status(200).json({success: true, user});
+    return response.status(StatusCodes.OK).json({success: true, user});
 });
 
 // @desc      Register New User
