@@ -13,7 +13,7 @@ export interface IGetUserData extends Request {
     user: any | undefined;
 }
 
-export const registerUser = asyncHandler(async(request: Request, response: Response, next: NextFunction): Promise<any> => {
+export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
         const {email, username, password, passwordConfirm} = request.body;
         const existingUser = await User.findOne({email});
@@ -35,7 +35,6 @@ export const registerUser = asyncHandler(async(request: Request, response: Respo
         return response.status(StatusCodes.CREATED).json({success: true, userData: user, token});
     }
      
-)
 
 // @desc      Verify User's E-mail Address
 // @route     POST /api/v1/auth/verify-email
