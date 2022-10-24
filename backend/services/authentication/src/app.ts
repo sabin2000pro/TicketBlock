@@ -8,7 +8,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 import { errorHandler } from "./middleware/error-handler";
 
-import authRouter from './routes/auth-routes';
+import {authRouter} from './routes/auth-routes';
 import connectAuthSchema from './database/auth-schema';
 
 connectAuthSchema();

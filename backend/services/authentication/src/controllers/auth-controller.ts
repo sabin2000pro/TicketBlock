@@ -2,7 +2,7 @@ import { BadRequestError, NotFoundError } from './../middleware/error-handler';
 import { StatusCodes } from 'http-status-codes';
 import {User} from '../models/user-model';
 import {Request, Response, NextFunction} from 'express';
-import { isValidObjectId, SessionOperation } from 'mongoose';
+import { isValidObjectId } from 'mongoose';
 import asyncHandler from 'express-async-handler';
 
 // @desc      Register New User
@@ -13,7 +13,7 @@ export interface IGetUserData extends Request {
     user: any | undefined;
 }
 
-export const registerUser = asyncHandler(async(request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
+export const registerUser = asyncHandler(async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
         const {email, username, password, passwordConfirm} = request.body;
         const existingUser = await User.findOne({email});
