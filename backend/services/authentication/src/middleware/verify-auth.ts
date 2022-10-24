@@ -25,14 +25,13 @@ export const verifyUserAuth = async (request: IAuthRequest, response: Response, 
    try {
 
       let token;
-      const authHeader = request.headers.authorization;
 
-      if(!token) {
-        return next(new UnauthorizedError("You are unauthorized to perform this action", StatusCodes.UNAUTHORIZED));
+      if(request.headers.authorization && request.headers.authorization.includes("Bearer ")) {
+         token = request.headers.authorization.split(" ")[1]
       }
 
-      if(authHeader && authHeader.includes("Bearer ")) {
-         token = authHeader.split(" ")[1]
+      if(!token) {
+        return next(new UnauthorizedError("dgYou are unauthorized to perform this action", StatusCodes.UNAUTHORIZED));
       }
 
       const decoded: any = jwt.verify(token, process.env.JWT_TOKEN);
@@ -45,7 +44,8 @@ export const verifyUserAuth = async (request: IAuthRequest, response: Response, 
    catch(err: any) {
 
     if(err) {
-        return next(new UnauthorizedError("You are unauthorized to perform this action", StatusCodes.UNAUTHORIZED));
+        console.log(err);
+        return next(new UnauthorizedError("ttYou are unauthorized to perform this action", StatusCodes.UNAUTHORIZED));
     }
 
 
