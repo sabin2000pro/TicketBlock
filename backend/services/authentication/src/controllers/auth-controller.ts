@@ -92,12 +92,17 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
 
 }
 
-// @desc      Register New User
-// @route     POST /api/v1/auth/register
-// @access    Public (No Authorization Token Required)
+// @desc      Logout User
+// @route     GET /api/v1/auth/logout
+// @access    Private (JWT Token Required)
 
 export const logout = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
-    request.session = null
+    // Clear the session
+
+    if(request.session !== null) {
+        request.session = null;
+    }
+
 });
 
 // @desc      Register New User
