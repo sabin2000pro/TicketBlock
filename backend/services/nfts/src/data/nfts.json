@@ -8,7 +8,8 @@
         "convertedPrice": "25 GBP",
         "inStock": true,
         "stock": 5,
-        "category": "Event Ticket"
+        "category": "Event Ticket",
+        "isRare": false
     },
 
     {
@@ -20,7 +21,8 @@
         "convertedPrice": "57 GBP",
         "inStock": true,
         "stock": 1,
-        "category": "Event Ticket"
+        "category": "Event Ticket",
+        "isRare": true
     },
 
     {

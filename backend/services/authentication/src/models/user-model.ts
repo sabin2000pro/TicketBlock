@@ -67,12 +67,14 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
 
 // Hash User Password
 UserSchema.pre("save", async function(next) {
+    let HASH_ROUNDS = 10;
 
     if(!this.isModified("password")) {
         return next();
     }
 
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, HASH_ROUNDS);
+    this.passwordConfirm = await bcrypt.hash(this.passwordConfirm, HASH_ROUNDS);
     return next();
 })
 

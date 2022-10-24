@@ -1,18 +1,26 @@
 [
     {
-        "_id": "",
-        "username": "",
-        "email": "",
-        "password": "",
-        "passwordConfirm": ""
+        "_id": "5d7a514b5d2c12c7449ac9050",
+        "username": "sabinlungu293",
+        "email": "sabinlungu290@gmail.com",
+        "password": "lol12345",
+        "passwordConfirm": "lol12345"
     },
 
     {
-        
+        "_id": "5d7a514b5d2c12c7449ac9051",
+        "username": "johnnyboy90",
+        "email": "johnnyboy90@gmail.com",
+        "password": "power12345",
+        "passwordConfirm": "power12345"
     },
 
     {
-
+        "_id": "5d7a514b5d2c12c7449ac9052",
+        "username": "mikeandrews2000",
+        "email": "mikeandrews2000@gmail.com",
+        "password": "123mini123",
+        "passwordConfirm": "123mini123"
     }
 
 
