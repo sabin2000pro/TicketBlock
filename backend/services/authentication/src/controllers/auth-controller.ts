@@ -147,9 +147,9 @@ export const logout = asyncHandler(async (request: Request, response: Response, 
 
 });
 
-// @desc      Register New User
-// @route     POST /api/v1/auth/register
-// @access    Public (No Authorization Token Required)
+// @desc      Get Currently Logged In User
+// @route     GET /api/v1/auth/me
+// @access    Private (Authorization Token Required)
 
 export const getCurrentUser = asyncHandler(async(request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
     const user = request.user._id as IGetUserData;
