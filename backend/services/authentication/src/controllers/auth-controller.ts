@@ -142,8 +142,9 @@ export const updateProfileDetails = async(request: Request, response: Response, 
     
 }
 
-const sendTokenResponse = (request: Express.Request, user: any, statusCode: number, response: Response) => {
+const sendTokenResponse = (request: Express.Request, user: any, statusCode: number, response: Response)=> {
     const token = user.returnAuthToken();
     request.session = {token};
+
     return response.status(statusCode).json({success: true, user, token});
 }
