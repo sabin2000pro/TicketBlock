@@ -61,13 +61,19 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     const {email, password} = request.body;
 
     if(!email || !password) {
-        
+        return next(new NotFoundError("E-mail or password not found. Please check again", StatusCodes.NOT_FOUND));
     }
 
     const user = await User.findOne({email});
 
     if(!user) {
+        return next(new NotFoundError("Could not find that user", StatusCodes.NOT_FOUND));
+    }
 
+    const passwordsMatch = await user.compareLoginPasswords(password) as boolean;
+
+    if(!passwordsMatch) {
+        return next(new BadRequestError("Passwords do not match. Please try again", StatusCodes.BAD_REQUEST))
     }
 
     // Check if passwords match
@@ -101,6 +107,8 @@ export const logout = asyncHandler(async (request: Request, response: Response, 
 export const getCurrentUser = asyncHandler(async(request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
     const user = request.user._id as IGetUserData;
     console.log(`User data ; ${user}`);
+
+    return response.status(200).json({success: true, user});
 });
 
 // @desc      Register New User
