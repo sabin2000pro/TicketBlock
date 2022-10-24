@@ -1,8 +1,14 @@
-import React from 'react'
+import React, {useContext, useState} from 'react'
 
-const ForgotPassword = () => {
+const ForgotPassword: React.FC = () => {
+
   return (
-    <div>ForgotPassword</div>
+
+    <>
+
+    </>
+
+    
   )
 }
 

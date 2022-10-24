@@ -2,7 +2,7 @@ import { BadRequestError, NotFoundError } from './../middleware/error-handler';
 import { StatusCodes } from 'http-status-codes';
 import {User} from '../models/user-model';
 import {Request, Response, NextFunction} from 'express';
-import { isValidObjectId } from 'mongoose';
+import { isValidObjectId, SessionOperation } from 'mongoose';
 import asyncHandler from 'express-async-handler';
 
 // @desc      Register New User
@@ -43,6 +43,15 @@ export const registerUser = asyncHandler(async(request: Request, response: Respo
 
 export const verifyEmailAddress = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
     const {ownerId, OTP} = request.body;
+
+    if(!isValidObjectId(ownerId)) {
+
+    }
+
+    if(!OTP) {
+        return next(new NotFoundError("No OTP found. Please check entry again", StatusCodes.NOT_FOUND));
+    }
+
 });
 
 // @desc      Login User
@@ -51,6 +60,23 @@ export const verifyEmailAddress = asyncHandler(async (request: Request, response
 
 export const login = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
     const {email, password} = request.body;
+
+    if(!email || !password) {
+        
+    }
+
+    const user = await User.findOne({email});
+
+    if(!user) {
+
+    }
+
+    // Check if passwords match
+    // Set the JWT token as a cookie
+    const token = user.returnAuthToken();
+
+    request.session = {token};
+
 });
 
 // @desc      Register New User
@@ -74,7 +100,7 @@ export const logout = asyncHandler(async (request: Request, response: Response, 
 // @access    Public (No Authorization Token Required)
 
 export const getCurrentUser = asyncHandler(async(request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
-    const user = request.user._id;
+    const user = request.user._id as IGetUserData;
     console.log(`User data ; ${user}`);
 });
 
@@ -90,15 +116,15 @@ export const forgotPassword = async(request: Request, response: Response, next: 
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 
-export const resetPassword = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
+export const resetPassword = asyncHandler(async(request: Request, response: Response, next: NextFunction): Promise<any> => {
 
-}
+});
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 
-export const updatePassword = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
+export const updatePassword = async(request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
     const currentPassword = request.body.currentPassword;
     const newPassword = request.body.newPassword;
 }  
