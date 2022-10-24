@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NotFoundError = exports.BadRequestError = exports.errorHandler = exports.CustomError = void 0;
+exports.ForbiddenError = exports.UnauthorizedError = exports.JwtExpiredError = exports.JwtMalformedError = exports.NotFoundError = exports.BadRequestError = exports.errorHandler = exports.CustomError = void 0;
 const http_status_codes_1 = require("http-status-codes");
 class CustomError extends Error {
     constructor(message) {
@@ -36,4 +36,40 @@ class NotFoundError extends CustomError {
     }
 }
 exports.NotFoundError = NotFoundError;
+class JwtMalformedError extends CustomError {
+    constructor(message, statusCode) {
+        super(message);
+        this.statusCode = http_status_codes_1.StatusCodes.UNAUTHORIZED;
+        this.status = "JWT Malformed. Please check its signature and/or payload";
+        this.statusCode = statusCode;
+    }
+}
+exports.JwtMalformedError = JwtMalformedError;
+class JwtExpiredError extends CustomError {
+    constructor(message, statusCode) {
+        super(message);
+        this.statusCode = http_status_codes_1.StatusCodes.UNAUTHORIZED;
+        this.status = "JWT Has expired.";
+        this.statusCode = statusCode;
+    }
+}
+exports.JwtExpiredError = JwtExpiredError;
+class UnauthorizedError extends CustomError {
+    constructor(message, statusCode) {
+        super(message);
+        this.statusCode = http_status_codes_1.StatusCodes.UNAUTHORIZED;
+        this.status = "You are not authorized to perform this action";
+        this.statusCode = statusCode;
+    }
+}
+exports.UnauthorizedError = UnauthorizedError;
+class ForbiddenError extends CustomError {
+    constructor(message, statusCode) {
+        super(message);
+        this.statusCode = http_status_codes_1.StatusCodes.FORBIDDEN;
+        this.status = "You are forbidden to perform this action. Please try again";
+        this.statusCode = statusCode;
+    }
+}
+exports.ForbiddenError = ForbiddenError;
 //# sourceMappingURL=error-handler.js.map

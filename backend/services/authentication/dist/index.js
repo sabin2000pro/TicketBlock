@@ -14,7 +14,7 @@ const port = process.env.PORT || 5200;
 // Start of authentication server
 const startAuthServer = () => __awaiter(void 0, void 0, void 0, function* () {
     return app_1.app.listen(port, () => {
-        console.log('Authentication Service Live On Port 5200!!!!');
+        console.log('Authentication Service Live On Port 5200!!');
     });
 });
 startAuthServer();

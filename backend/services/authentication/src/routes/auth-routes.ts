@@ -15,9 +15,9 @@ const authLimiter = rateLimit({
 
 authRouter.route('/register').post(authLimiter, registerUser as any)
 authRouter.route('/verify-email').post(authLimiter, verifyEmailAddress as any)
-authRouter.route('/login').post(authLimiter, verifyUserAuth, login as any)
+authRouter.route('/login').post(authLimiter, login as any)
 authRouter.route('/logout').get(authLimiter, logout as any);
 authRouter.route('/forgot-password').post(authLimiter, forgotPassword as any);
 authRouter.route('/reset-password').post(authLimiter, resetPassword as any);
-authRouter.route('/me').get(authLimiter, getCurrentUser as any);
+authRouter.route('/me').get(authLimiter, verifyUserAuth as any, getCurrentUser as any);
 authRouter.route('/verify-mfa').post(authLimiter, verifyLoginMfa as any)

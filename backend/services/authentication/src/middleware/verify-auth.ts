@@ -2,7 +2,6 @@ import { StatusCodes } from 'http-status-codes';
 import { UnauthorizedError } from './error-handler';
 import { NextFunction } from 'express';
 import jwt from "jsonwebtoken";
-import { EnumDeclaration } from 'typescript';
 import { User } from "../models/user-model";
 
 // Bearer <token>

@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const UserSchema = new mongoose_1.default.Schema({
@@ -52,13 +53,23 @@ const UserSchema = new mongoose_1.default.Schema({
 // Hash User Password
 UserSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
+        let HASH_ROUNDS = 10;
         if (!this.isModified("password")) {
             return next();
         }
-        this.password = yield bcryptjs_1.default.hash(this.password, 10);
+        this.password = yield bcryptjs_1.default.hash(this.password, HASH_ROUNDS);
+        this.passwordConfirm = yield bcryptjs_1.default.hash(this.passwordConfirm, HASH_ROUNDS);
         return next();
     });
 });
+UserSchema.methods.compareLoginPasswords = function (providedPassword) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield bcryptjs_1.default.compare(providedPassword, this.password);
+    });
+};
+UserSchema.methods.returnAuthToken = function () {
+    return jsonwebtoken_1.default.sign({ _id: this._id }, process.env.JWT_TOKEN, { expiresIn: process.env.JWT_EXPIRES_IN });
+};
 const User = mongoose_1.default.model("User", UserSchema);
 exports.User = User;
 //# sourceMappingURL=user-model.js.map
