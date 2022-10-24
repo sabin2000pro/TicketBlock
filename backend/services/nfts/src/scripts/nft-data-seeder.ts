@@ -1,1 +1,1 @@
-import {Nft}
+import {Nft} from '../models/nft-model';

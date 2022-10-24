@@ -28,6 +28,9 @@ services:
       - ../backend/services/nfts:/app
 
     restart: always
+    depends_on:
+      - auth-service
+      
     ports:
       - "5201:5201"
 
