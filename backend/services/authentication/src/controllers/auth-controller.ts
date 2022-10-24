@@ -30,7 +30,7 @@ export const registerUser = async(request: Request, response: Response, next: Ne
         const user = await User.create({email, username, password, passwordConfirm});
         await user.save();
 
-        return sendTokenResponse(request, user as any, 200, response);
+        return sendTokenResponse(request, user as any, StatusCodes.CREATED, response);
     }
      
 
