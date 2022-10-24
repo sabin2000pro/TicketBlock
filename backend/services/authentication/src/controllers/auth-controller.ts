@@ -1,4 +1,4 @@
-import { BadRequestError } from './../middleware/error-handler';
+import { BadRequestError, NotFoundError } from './../middleware/error-handler';
 import { StatusCodes } from 'http-status-codes';
 import {User} from '../models/user-model';
 import {Request, Response, NextFunction} from 'express';
@@ -10,9 +10,13 @@ import { isValidObjectId } from 'mongoose';
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     try {
-        
         const {email, username, password, passwordConfirm} = request.body;
         const existingUser = await User.findOne({email});
+
+        if(!email || !username || !password || !passwordConfirm) {
+            return next(new NotFoundError("Some fields are missing. Please check again", StatusCodes.NOT_FOUND));
+
+        }
     
         if(existingUser) {
             return next(new BadRequestError("User already exists", StatusCodes.BAD_REQUEST));
@@ -65,7 +69,7 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
 // @access    Public (No Authorization Token Required)
 
 export const logout = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-
+    request.session = null
 }
 
 // @desc      Register New User
