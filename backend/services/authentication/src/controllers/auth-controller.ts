@@ -1,9 +1,11 @@
+import { generateRandomResetPasswordToken } from './../utils/generate-reset-token';
 import { BadRequestError, NotFoundError } from './../middleware/error-handler';
 import { StatusCodes } from 'http-status-codes';
 import {User} from '../models/user-model';
 import {Request, Response, NextFunction} from 'express';
 import { isValidObjectId } from 'mongoose';
 import asyncHandler from 'express-async-handler';
+import { PasswordReset } from 'models/password-reset-model';
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
