@@ -9,6 +9,7 @@ export default () => {
 
         try {
 
+            // Conent to the NFT Schema
             return await mongoose.connect(process.env.DB_URI!).then(dbConn => {
 
                 if(dbConn.connection) {
