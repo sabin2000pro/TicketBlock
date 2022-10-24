@@ -16,9 +16,9 @@ const user_model_1 = require("../models/user-model");
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 const registerUser = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, username, password } = request.body;
+    const { email, username, password, passwordConfirm } = request.body;
     const existingUser = yield user_model_1.User.findOne({ email });
-    const user = yield user_model_1.User.create({ email, username, password });
+    const user = yield user_model_1.User.create({ email, username, password, passwordConfirm });
     yield user.save();
     // Get JWT token and return it
     return response.status(http_status_codes_1.StatusCodes.CREATED).json({ success: true, userData: user });

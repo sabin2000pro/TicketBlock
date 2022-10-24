@@ -8,10 +8,10 @@ import { isValidObjectId } from 'mongoose';
 // @access    Public (No Authorization Token Required)
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-    const {email, username, password} = request.body;
+    const {email, username, password, passwordConfirm} = request.body;
     const existingUser = await User.findOne({email});
 
-    const user = await User.create({email, username, password});
+    const user = await User.create({email, username, password, passwordConfirm});
     await user.save();
 
     // Get JWT token and return it

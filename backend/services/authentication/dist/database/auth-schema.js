@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 exports.default = () => {
     const connectAuthSchema = () => __awaiter(void 0, void 0, void 0, function* () {
-        return yield mongoose_1.default.connect("mongodb+srv://sabin2000:<password>@ticketblock.erhl8xc.mongodb.net/?retryWrites=true&w=majority").then(connection => {
+        return yield mongoose_1.default.connect("mongodb+srv://sabin2000:123mini123@ticketblock.erhl8xc.mongodb.net/?retryWrites=true&w=majority").then(connection => {
             if (connection.connection) {
                 return console.log(`Connected to AUTH database..`);
             }

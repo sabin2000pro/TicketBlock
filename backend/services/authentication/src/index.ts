@@ -6,7 +6,7 @@ const port = process.env.PORT || 5200;
 const startAuthServer = async () => {
 
       return app.listen(port, () => {
-        console.log('Authentication Service Live On Port 5200');
+        console.log('Authentication Service Live On Port 5200!!');
       });
 
 }

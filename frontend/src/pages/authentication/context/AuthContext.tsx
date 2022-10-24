@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useContext, useState, createContext, useEffect } from "react";
+import { useContext, useState, createContext, useEffect, ReactNode } from "react";
 
 type ChildrenProps = {
-    children: any
+    children: ReactNode
 }
 
 // Default state for a user

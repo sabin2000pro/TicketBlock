@@ -21,6 +21,7 @@ exports.app = app;
 if (process.env.NODE_ENV === 'development') {
     app.use((0, morgan_1.default)('dev'));
 }
+//test
 if (process.env.NODE_ENV === 'production') {
     app.use((0, express_mongo_sanitize_1.default)()); // Prevent against NoSQL Injection attacks in production environment
 }

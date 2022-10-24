@@ -1,19 +1,20 @@
 version: '3.2'
 
 services:
-  authentication-service:
+  auth-service:
     image: sabin2000/ticketblock-auth-service
     build: 
       context: ../backend/services/authentication
       dockerfile: Dockerfile
+
+    ports:
+      - "5200:5200"
+    restart: always
       
     volumes:
       - /app/node_modules
       - ../backend/services/authentication:/app
-    restart: always
 
-    ports:
-      - "5200:5200"
 
   nft-service:
     image: sabin2000/ticketblock-nft-service
@@ -46,11 +47,19 @@ services:
       - "3000:3000"
 
     restart: always
-    
-    depends_on:
-      - nft-service
-      - authentication-service
-    
+  
+  database-service:
+    image: mongo
+
+    ports:
+      - "27017:27017"
+
+    restart: always
+
+    volumes:
+      - type: volume
+        source: mongodb_data_volume
+        target: /data/db
 
 volumes:
   mongodb_data_volume:

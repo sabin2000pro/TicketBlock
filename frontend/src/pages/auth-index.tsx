@@ -1,3 +1,3 @@
 import Register from './authentication/Register';
 
-export {Register}
+export {Register} 
