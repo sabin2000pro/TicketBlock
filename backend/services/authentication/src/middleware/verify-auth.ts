@@ -20,20 +20,33 @@ export type IAuthRequest = IRequestUser & {
 }
 
 export const verifyUserAuth = async (request: IAuthRequest, response: Response, next: NextFunction) => {
+
    try {
+    
       let token;
       const authHeader = request.headers.authorization;
+
+      if(!token) {
+
+      }
 
       if(authHeader && authHeader.includes("Bearer ")) {
          token = authHeader.split(" ")[1]
       }
 
-      const user = await User.findOne(request.user._id as unknown as IRequestUser);
-      const decoded = jwt.verify(user._id, token);
+      const decoded: any = jwt.verify(token, process.env.JWT_TOKEN);
+      request.user = await User.findById(decoded.id);
+
+      return next();
 
    } 
    
    catch(err: any) {
+
+    if(err) {
+       
+    }
+
 
    }
     

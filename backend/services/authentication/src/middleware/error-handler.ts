@@ -81,3 +81,25 @@ export class JwtExpiredError extends CustomError {
   }
 
 }
+
+export class UnauthorizedError extends CustomError {
+    statusCode = StatusCodes.UNAUTHORIZED;
+    status = "You are not authorized to perform this action"
+
+    constructor(message: string, statusCode: number) {
+        super(message);
+        this.statusCode = statusCode;
+  }
+
+}
+
+export class ForbiddenError extends CustomError {
+    statusCode = StatusCodes.FORBIDDEN;
+    status = "You are forbidden to perform this action. Please try again"
+
+    constructor(message: string, statusCode: number) {
+        super(message);
+        this.statusCode = statusCode;
+  }
+
+}
