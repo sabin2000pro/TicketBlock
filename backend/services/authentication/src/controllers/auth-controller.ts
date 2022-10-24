@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import {User} from '../models/user-model';
 import {Request, Response, NextFunction} from 'express';
 import { isValidObjectId } from 'mongoose';
+import asyncHandler from 'express-async-handler';
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
@@ -12,9 +13,8 @@ export interface IGetUserData extends Request {
     user: any | undefined;
 }
 
-export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-    try {
-
+export const registerUser = asyncHandler(async(request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
+    
         const {email, username, password, passwordConfirm} = request.body;
         const existingUser = await User.findOne({email});
 
@@ -34,34 +34,24 @@ export const registerUser = async(request: Request, response: Response, next: Ne
     
         return response.status(StatusCodes.CREATED).json({success: true, userData: user, token});
     }
-    
-    catch(error: any) {
-
-        if(error) {
-            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({success: false, message: error.message});
-        }
-    }
-
-
-
-}
+     
+)
 
 // @desc      Verify User's E-mail Address
 // @route     POST /api/v1/auth/verify-email
 // @access    Public (No Authorization Token Required)
 
-export const verifyEmailAddress = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
+export const verifyEmailAddress = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
     const {ownerId, OTP} = request.body;
-}
+});
 
 // @desc      Login User
 // @route     POST /api/v1/auth/login
 // @access    Public (No Authorization Token Required)
 
-export const login = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
+export const login = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
     const {email, password} = request.body;
-    
-}
+});
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
@@ -75,18 +65,18 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 
-export const logout = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
+export const logout = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
     request.session = null
-}
+});
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 
-export const getCurrentUser = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
+export const getCurrentUser = asyncHandler(async(request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
     const user = request.user._id;
     console.log(`User data ; ${user}`);
-}
+});
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register

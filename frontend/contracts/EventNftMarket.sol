@@ -55,7 +55,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         bool newIsTokenListed
     );
 
-    constructor() ERC721("Event Tickets NFT NFT", "ETNFT") {}
+    constructor() ERC721("Event Tickets NFT", "ETNFT") {}
 
     // @description: Set the listing price for a token
     function initialiseListingPrice(uint256 newListingPrice) public override onlyOwner {
@@ -63,7 +63,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         require(newListingPrice > defaultPrice, "Make sure that the listing is > 0 GWEI");
         ticketListingPrice = newListingPrice;
     }
-
 
     function isTokenNotOnSale(uint256 tokenId) public payable returns (bool) {
         return mappedNftData[tokenId].isTokenListed == !true;
@@ -156,7 +155,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
         if(listedTokenItems.current() == 0) { // If the current items on sale is by default 0
             listedTokenItems.increment();    // Increment Listed Items
-
         }
 
     }
