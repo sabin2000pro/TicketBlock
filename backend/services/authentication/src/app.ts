@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-dotenv.config();
 import cookieSession from 'cookie-session';
 import express, { Application, NextFunction, Request, Response } from "express";
 import morgan from "morgan"

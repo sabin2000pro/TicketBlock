@@ -12,11 +12,11 @@ export default () => {
             return await mongoose.connect(process.env.DB_URI!).then(dbConn => {
 
                 if(dbConn.connection) {
-                    return {message: "Connected to NFT Schema", connectionError: false}
+                    console.log("Connected to NFT Schema")
                 }
 
                 if(!dbConn.connection) {
-                    return {message: "Could not connect to database", connectionError: true};
+                    console.log("Could not connect to NFT schema")
                 }
 
             })
