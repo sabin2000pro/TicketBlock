@@ -154,9 +154,9 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         mappedNftData[tokenId].isTokenListed = true;
         mappedNftData[tokenId].tokenPrice = newTokenPrice; // Update the new token price
 
-                // Increment Listed Items
         if(listedTokenItems.current() == 0) { // If the current items on sale is by default 0
-            listedTokenItems.increment();
+            listedTokenItems.increment();    // Increment Listed Items
+
         }
 
     }
@@ -182,9 +182,9 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
             EventNft storage tokenItem = mappedNftData[tokenIndex];
            
-           if(tokenItem.isTokenListed) {
-              nftItems[currentTokenIndex] = tokenItem;
-              currentTokenIndex +=1;
+           if(tokenItem.isTokenListed) { // If the token is listed
+              nftItems[currentTokenIndex] = tokenItem; // Set the token index from the nft items array to the token item
+              currentTokenIndex +=1; // Increment number of token indexes
            }
         }
 

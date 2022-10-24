@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 interface NftAttributes {
-    owner: mongoose.Schema.Types.ObjectId;
+    tokenCreator: mongoose.Schema.Types.ObjectId;
     name: string | undefined;
     image: string | undefined
-    price: string | undefined;
-    convertedPrice?: string | undefined;
+    tokenPrice: string | undefined;
+    tokenConvertedPrice?: string | undefined;
     inStock: boolean | undefined;
     category: string | undefined;
     isRare: boolean | undefined;
@@ -14,21 +14,22 @@ interface NftAttributes {
 }
 
 interface NftDocument extends mongoose.Model<NftAttributes> {
-    owner: mongoose.Schema.Types.ObjectId;
+    tokenCreator: mongoose.Schema.Types.ObjectId;
     name: string | undefined;
     image: string | undefined
-    price: string | undefined;
-    convertedPrice?: string | undefined;
+    tokenPrice: string | undefined;
+    tokenConvertedPrice?: string | undefined;
     inStock: boolean | undefined;
     category: string | undefined;
     isRare: boolean | undefined;
+    isListed: boolean | undefined;
 
     fetchRareNfts: () => any
 }
 
 const NftSchema = new mongoose.Schema({
 
-    owner: {
+    tokenCreator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
@@ -49,7 +50,7 @@ const NftSchema = new mongoose.Schema({
         required: [true, "Please specify the price of the NFT in ETHER"]
     },
 
-    convertedPrice: {
+    tokenConvertedPrice: {
         type: String
     },
 
