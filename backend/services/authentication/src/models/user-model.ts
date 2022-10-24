@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken"
+import jwt, { Secret, SignOptions } from "jsonwebtoken"
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 
@@ -9,6 +9,13 @@ interface IUserAttributes {
     role: string;
     nftsOwned: string; // Number of NFTs the user owns
     compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
+    returnAuthToken: () => any;
+}
+
+interface JwtPayloadInterface {
+    payload: string | object;
+    secret: Secret;
+    options?: SignOptions;
 }
 
 interface IUserDocument extends mongoose.Model<IUserAttributes> {
@@ -22,6 +29,7 @@ interface IUserDocument extends mongoose.Model<IUserAttributes> {
     nftsOwned: number;
 
     compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
+    returnAuthToken: () => JwtPayloadInterface
 }
 
 const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
@@ -84,9 +92,9 @@ UserSchema.methods.compareLoginPasswords = async function(providedPassword: stri
     return await bcrypt.compare(providedPassword, this.password);
 }
 
-UserSchema.methods.returnAuthToken = function(): any {
-    return jwt.sign({_id: this._id}, process.env.JWT_TOKEN!, {expiresIn: process.env.JWT_EXPIRES_IN})
-}
+UserSchema.methods.returnAuthToken = function(): JwtPayloadInterface {
+    return jwt.sign({_id: this._id}, process.env.JWT_TOKEN!, {expiresIn: process.env.JWT_EXPIRES_IN}) as unknown as JwtPayloadInterface;
+};
 
 const User = mongoose.model<IUserDocument>("User", UserSchema);
 export {User} // Export the model
