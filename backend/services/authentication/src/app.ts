@@ -26,7 +26,13 @@ if(process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.set('trust proxy', true);
 app.use(hpp());
-app.use(cors());
+
+app.use(cors({
+    origin: "*",
+    methods: ['POST', "GET", "PUT", "DELETE"]
+}));
+
+
 app.use(helmet());
 app.use(cookieSession({
     keys: ['session']
