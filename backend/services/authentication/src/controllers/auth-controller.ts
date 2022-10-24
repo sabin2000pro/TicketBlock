@@ -151,12 +151,12 @@ export const logout = asyncHandler(async (request: Request, response: Response, 
 // @route     GET /api/v1/auth/me
 // @access    Private (Authorization Token Required)
 
-export const getCurrentUser = asyncHandler(async(request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
-    const user = request.user._id as IGetUserData;
+export const getCurrentUser = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
+    const user = request.user
     console.log(`User data ; ${user}`);
 
-    return response.status(StatusCodes.OK).json({success: true, user});
-});
+    return response.status(StatusCodes.OK).json({success: true, data: user});
+};
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
