@@ -11,26 +11,50 @@ const nfts = JSON.parse(fs.readFileSync(path.join(__dirname, '../data/nfts.json'
 const loadNftData = async () => {
     try {
 
+        const totalNftCount = await getNftCount();
+
+        // If there are no NFTs in the database
+        if(totalNftCount === 0) {
+            await Nft.create(nfts);
+            console.log("NFT Data loaded to DB...");
+            
+            return process.exit(1);
+        }
+
+        
     } 
     
     catch(err: any) {
-
+        if(err) {
+            return console.error(err);
+        }
     }
+
+}
+
+const getNftCount = async () => {
+    return await Nft.countDocuments({});
 }
 
 const removeNftData = async () => {
 
     try {
-        const totalNfts = await Nft.countDocuments({});
+        const totalNfts = await getNftCount();
 
         if(totalNfts > 0) {
+            
             await Nft.remove();
+
+            console.log("All NFT Data removed from DB..");
+            return process.exit(1);
         }
-       
+
     } 
     
     catch(err: any) {
-
+        if(err) {
+            return console.error(err);
+        }
     }
 
 
