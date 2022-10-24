@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@types/csurf": "^1.11.2",
+    "csurf": "^1.11.0"
+  }
+}

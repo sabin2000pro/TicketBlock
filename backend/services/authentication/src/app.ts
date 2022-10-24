@@ -8,9 +8,8 @@ import helmet from "helmet"
 import cors from "cors";
 import { errorHandler } from "./middleware/error-handler";
 import mongoSanitize from 'express-mongo-sanitize';
-import {authRouter} from './routes/auth-routes';
+import authRouter from './routes/auth-routes';
 import connectAuthSchema from './database/auth-schema';
-import csurf from "csurf";
 
 connectAuthSchema();
 
@@ -26,7 +25,6 @@ if(process.env.NODE_ENV === 'production') {
  
 app.use(express.json());
 app.set('trust proxy', true);
-app.use(csurf());
 app.use(hpp());
 app.use(mongoSanitize()); // Used to prevent NoSQLI injections
 
@@ -41,12 +39,7 @@ app.use(cookieSession({
     secure: process.env.NODE_ENV !== 'development'
 }));
 
-// Handles 404 Not Found Routes
-app.all("*", (request: Request, response: Response, next: NextFunction) => {
-    return response.status(StatusCodes.NOT_FOUND).json({success: false, message: "The route your requested cannot be found on the server"});
-})
 
-// Error Handler middleware
 app.use('/api/v1/auth', authRouter);
 app.use(errorHandler);
 

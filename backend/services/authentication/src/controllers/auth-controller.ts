@@ -74,6 +74,54 @@ export const login = asyncHandler(async (request: Request, response: Response, n
 
 });
 
+export const forgotPassword = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
+    const {email} = request.body;
+    const user = await User.findOne({email});
+
+    if(!user) {
+        return next(new NotFoundError("No user found with that e-mail address", StatusCodes.NOT_FOUND));
+    }
+
+    const userHasResetToken = await PasswordReset.findOne({owner: user._id});
+
+    // If the user already has the reset token
+    if(userHasResetToken) {
+        return next(new BadRequestError("You already have the reset password token. Try again later.", StatusCodes.BAD_REQUEST));
+    }
+
+    const token = generateRandomResetPasswordToken();
+
+    if(token === undefined) {
+        return next(new BadRequestError("Reset Password Token is invalid", StatusCodes.BAD_REQUEST));
+    }
+
+    const resetPasswordToken = await PasswordReset.create({owner: user._id, resetToken: token});
+    await resetPasswordToken.save();
+
+    const resetPasswordURL = `http://localhost:3000/auth/api/reset-password?token=${token}&id=${user._id}` // Create the reset password URL
+    sendPasswordResetEmail(user, resetPasswordURL);
+
+    return response.status(StatusCodes.OK).json({success: true, message: "Reset Password E-mail Sent"});
+}
+
+const sendPasswordResetEmail = (user: any, resetPasswordURL: string) => {
+     
+     const transporter = emailTransporter();
+
+        transporter.sendMail({
+
+            from: 'resetpassword@ethertix.com',
+            to: user.email,
+            subject: 'Reset Password',
+            html: `
+            
+            <h1> ${resetPasswordURL}</h1>
+            `
+
+        })
+
+}
+
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
@@ -105,14 +153,6 @@ export const getCurrentUser = asyncHandler(async(request: IGetUserData, response
 
     return response.status(StatusCodes.OK).json({success: true, user});
 });
-
-// @desc      Register New User
-// @route     POST /api/v1/auth/register
-// @access    Public (No Authorization Token Required)
-
-export const forgotPassword = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-
-}
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
