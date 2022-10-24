@@ -30,10 +30,7 @@ export const registerUser = async(request: Request, response: Response, next: Ne
         const user = await User.create({email, username, password, passwordConfirm});
         await user.save();
 
-        const token = user.returnAuthToken();
-        console.log(`Your JWT TOKEN : ${token}`);
-    
-        return response.status(StatusCodes.CREATED).json({success: true, userData: user, token});
+        return sendTokenResponse(request, user as any, 200, response);
     }
      
 
