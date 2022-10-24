@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 type NftListProps = {
 
@@ -6,7 +6,12 @@ type NftListProps = {
 
 const NftList: React.FC<NftListProps> = () => {
   return (
-    <div>NftList</div>
+    
+    <>
+
+    </>
+
+
   )
 }
 
