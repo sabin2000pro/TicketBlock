@@ -8,14 +8,18 @@ import { isValidObjectId } from 'mongoose';
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 
+export interface IGetUserData extends Request {
+    user: any | undefined;
+}
+
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     try {
+
         const {email, username, password, passwordConfirm} = request.body;
         const existingUser = await User.findOne({email});
 
         if(!email || !username || !password || !passwordConfirm) {
             return next(new NotFoundError("Some fields are missing. Please check again", StatusCodes.NOT_FOUND));
-
         }
     
         if(existingUser) {
@@ -24,6 +28,8 @@ export const registerUser = async(request: Request, response: Response, next: Ne
     
         const user = await User.create({email, username, password, passwordConfirm});
         await user.save();
+
+        const token = 
     
         return response.status(StatusCodes.CREATED).json({success: true, userData: user});
     }
@@ -31,7 +37,7 @@ export const registerUser = async(request: Request, response: Response, next: Ne
     catch(error: any) {
 
         if(error) {
-            return response.status(500).json({success: false, message: error.message});
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({success: false, message: error.message});
         }
     }
 
@@ -76,8 +82,9 @@ export const logout = async(request: Request, response: Response, next: NextFunc
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 
-export const getCurrentUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-
+export const getCurrentUser = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
+    const user = request.user._id;
+    console.log(`User data ; ${user}`);
 }
 
 // @desc      Register New User

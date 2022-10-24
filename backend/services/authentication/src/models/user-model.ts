@@ -1,4 +1,3 @@
-import express from 'express';
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
@@ -9,6 +8,7 @@ interface IUserAttributes {
     password: string;
     role: string;
     nftsOwned: string; // Number of NFTs the user owns
+    compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
 }
 
 interface IUserDocument extends mongoose.Model<IUserAttributes> {
@@ -20,6 +20,8 @@ interface IUserDocument extends mongoose.Model<IUserAttributes> {
 
     accountAddress: string;
     nftsOwned: number;
+
+    compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
 }
 
 const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
@@ -77,6 +79,14 @@ UserSchema.pre("save", async function(next) {
     this.passwordConfirm = await bcrypt.hash(this.passwordConfirm, HASH_ROUNDS);
     return next();
 })
+
+UserSchema.methods.compareLoginPasswords = async function(providedPassword: string): Promise<boolean> {
+    return await bcrypt.compare(providedPassword, this.password);
+}
+
+UserSchema.methods.returnAuthToken = function(): any {
+    return jwt.sign({_id: this._id}, process.env.JWT_TOKEN!, {expiresIn: process.env.JWT_EXPIRES_IN})
+}
 
 const User = mongoose.model<IUserDocument>("User", UserSchema);
 export {User} // Export the model
