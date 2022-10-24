@@ -1,3 +1,4 @@
+import { BadRequestError } from './../middleware/error-handler';
 import { StatusCodes } from 'http-status-codes';
 import {User} from '../models/user-model';
 import {Request, Response, NextFunction} from 'express';
@@ -8,15 +9,30 @@ import { isValidObjectId } from 'mongoose';
 // @access    Public (No Authorization Token Required)
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-    const {email, username, password, passwordConfirm} = request.body;
-    const existingUser = await User.findOne({email});
+    try {
+        
+        const {email, username, password, passwordConfirm} = request.body;
+        const existingUser = await User.findOne({email});
+    
+        if(existingUser) {
+            return next(new BadRequestError("User already exists", StatusCodes.BAD_REQUEST));
+        }
+    
+        const user = await User.create({email, username, password, passwordConfirm});
+        await user.save();
+    
+        return response.status(StatusCodes.CREATED).json({success: true, userData: user});
+    }
+    
+    catch(error: any) {
 
-    const user = await User.create({email, username, password, passwordConfirm});
-    await user.save();
+        if(error) {
+            return response.status(500).json({success: false, message: error.message});
+        }
+    }
 
-    // Get JWT token and return it
 
-    return response.status(StatusCodes.CREATED).json({success: true, userData: user});
+
 }
 
 // @desc      Verify User's E-mail Address
