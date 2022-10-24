@@ -1,3 +1,5 @@
+import { StatusCodes } from 'http-status-codes';
+import { UnauthorizedError } from './error-handler';
 import { NextFunction } from 'express';
 import jwt from "jsonwebtoken";
 import { EnumDeclaration } from 'typescript';
@@ -22,12 +24,12 @@ export type IAuthRequest = IRequestUser & {
 export const verifyUserAuth = async (request: IAuthRequest, response: Response, next: NextFunction) => {
 
    try {
-    
+
       let token;
       const authHeader = request.headers.authorization;
 
       if(!token) {
-
+        return next(new UnauthorizedError("You are unauthorized to perform this action", StatusCodes.UNAUTHORIZED));
       }
 
       if(authHeader && authHeader.includes("Bearer ")) {
@@ -44,7 +46,7 @@ export const verifyUserAuth = async (request: IAuthRequest, response: Response, 
    catch(err: any) {
 
     if(err) {
-       
+        return next(new UnauthorizedError("You are unauthorized to perform this action", StatusCodes.UNAUTHORIZED));
     }
 
 
