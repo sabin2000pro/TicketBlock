@@ -10,7 +10,6 @@ import { errorHandler } from "./middleware/error-handler";
 import mongoSanitize from 'express-mongo-sanitize';
 import {authRouter} from './routes/auth-routes';
 import connectAuthSchema from './database/auth-schema';
-import csurf from 'csurf';
 
 connectAuthSchema();
 
@@ -27,7 +26,6 @@ if(process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.set('trust proxy', true);
 app.use(hpp());
-app.use(csurf());
 app.use(mongoSanitize()); // Used to prevent NoSQLI injections
 
 app.use(cors({
