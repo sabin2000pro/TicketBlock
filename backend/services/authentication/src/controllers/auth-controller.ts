@@ -1,3 +1,4 @@
+import { emailTransporter } from './../utils/send-email';
 import { generateRandomResetPasswordToken } from './../utils/generate-reset-token';
 import { BadRequestError, NotFoundError } from './../middleware/error-handler';
 import { StatusCodes } from 'http-status-codes';
@@ -5,7 +6,7 @@ import {User} from '../models/user-model';
 import {Request, Response, NextFunction} from 'express';
 import { isValidObjectId } from 'mongoose';
 import asyncHandler from 'express-async-handler';
-import { PasswordReset } from 'models/password-reset-model';
+import { PasswordReset } from "../models/password-reset-model";
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
@@ -72,7 +73,7 @@ export const login = asyncHandler(async (request: Request, response: Response, n
         return next(new BadRequestError("Passwords do not match. Please try again", StatusCodes.BAD_REQUEST))
     }
    
-    return sendTokenResponse(request, user as any, 200, response);
+    return sendTokenResponse(request, user as any, StatusCodes.OK, response);
 
 });
 
@@ -112,7 +113,7 @@ const sendPasswordResetEmail = (user: any, resetPasswordURL: string) => {
 
         transporter.sendMail({
 
-            from: 'resetpassword@ethertix.com',
+            from: 'resetpassword@ticketblock.com',
             to: user.email,
             subject: 'Reset Password',
             html: `
@@ -138,10 +139,11 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
 
 export const logout = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
     // Clear the session
-
     if(request.session !== null) {
         request.session = null;
     }
+
+    return response.status(StatusCodes.OK).json({success: true, message: "You have logged out", data: {} })
 
 });
 
