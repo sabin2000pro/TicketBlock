@@ -7,7 +7,7 @@
         "price": "0.022 ETH",
         "convertedPrice": "25 GBP",
         "inStock": true,
-        "stock": 5,
+        "stock": 2,
         "category": "Event Ticket",
         "isRare": false
     },

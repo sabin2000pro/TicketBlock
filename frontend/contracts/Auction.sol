@@ -6,7 +6,8 @@ import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 contract Auction {
-    
+    uint256 immutable startingPrice = 0.030 ether;
+    uint256 immutable reductionPrice = 0.010 ether;
 
     constructor() {
 
