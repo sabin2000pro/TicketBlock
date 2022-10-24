@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+require('dotenv').config();
 import cookieSession from 'cookie-session';
 import express, { Application, NextFunction, Request, Response } from "express";
 import morgan from "morgan"
@@ -31,7 +31,6 @@ app.use(cors({
     origin: "*",
     methods: ['POST', "GET", "PUT", "DELETE"]
 }));
-
 
 app.use(helmet());
 app.use(cookieSession({
