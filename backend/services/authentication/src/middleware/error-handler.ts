@@ -59,3 +59,25 @@ export class NotFoundError extends CustomError {
   }
 
 }
+
+export class JwtMalformedError extends CustomError {
+    statusCode = StatusCodes.UNAUTHORIZED;
+    status = "JWT Malformed. Please check its signature and/or payload"
+
+    constructor(message: string, statusCode: number) {
+        super(message);
+        this.statusCode = statusCode;
+  }
+
+}
+
+export class JwtExpiredError extends CustomError {
+    statusCode = StatusCodes.UNAUTHORIZED;
+    status = "JWT Has expired."
+
+    constructor(message: string, statusCode: number) {
+        super(message);
+        this.statusCode = statusCode;
+  }
+
+}
