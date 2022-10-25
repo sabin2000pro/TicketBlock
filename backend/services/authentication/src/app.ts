@@ -6,7 +6,7 @@ import morgan from "morgan"
 import hpp from "hpp"
 import helmet from "helmet"
 import cors from "cors";
-import { errorHandler } from "./middleware/error-handler";
+import {errorHandler} from './../../shared/src/middleware/error-handler';
 import mongoSanitize from 'express-mongo-sanitize';
 import authRouter from './routes/auth-routes';
 import connectAuthSchema from './database/auth-schema';
