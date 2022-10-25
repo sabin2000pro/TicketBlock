@@ -180,7 +180,7 @@ export const updatePassword = async(request: Request, response: Response, next: 
 // @access    Public (No Authorization Token Required)
 
 export const updateProfileDetails = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-    
+    const fieldsToUpdate = {email: request.body.email, username: request.body.username}
 }
 
 const sendTokenResponse = (request: Express.Request, user: any, statusCode: number, response: Response)=> {
