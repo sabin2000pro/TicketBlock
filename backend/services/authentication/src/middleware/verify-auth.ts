@@ -26,8 +26,9 @@ export const verifyUserAuth = async (request: IAuthRequest & IRequestUser, respo
 
       let token;
 
+      // If the authorization header includes Bearer <>
       if(request.headers.authorization && request.headers.authorization.includes("Bearer")) {
-         token = request.headers.authorization.split(" ")[1]
+         token = request.headers.authorization.split(" ")[1] // Split by a space to get the token at the second index
       }
 
       if(!token) {

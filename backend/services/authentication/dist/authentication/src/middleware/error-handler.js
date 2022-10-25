@@ -11,7 +11,7 @@ class CustomError extends Error {
     }
 }
 exports.CustomError = CustomError;
-const errorHandler = (err, _request, response, next) => {
+const errorHandler = (err, request, response, next) => {
     if (err instanceof CustomError) {
         return response.status(http_status_codes_1.StatusCodes.NOT_FOUND).json({ message: err.message, errors: err.serializeErrors() });
     }
