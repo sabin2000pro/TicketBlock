@@ -20,7 +20,7 @@ export type IAuthRequest = IRequestUser & {
     headers: {authorization: string}
 }
 
-export const verifyUserAuth = async (request: IAuthRequest, response: Response, next: NextFunction) => {
+export const verifyUserAuth = async (request: IAuthRequest & IRequestUser, response: Response, next: NextFunction) => {
 
    try {
 
@@ -34,7 +34,7 @@ export const verifyUserAuth = async (request: IAuthRequest, response: Response, 
         return next(new UnauthorizedError("You are unauthorized to perform this action", StatusCodes.UNAUTHORIZED));
       }
 
-      const decoded: any = jwt.verify(token, process.env.JWT_TOKEN);
+      const decoded: any = jwt.verify(token, process.env.JWT_TOKEN!);
       request.user = await User.findById(decoded._id);
 
       return next();
