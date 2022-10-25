@@ -1,6 +1,5 @@
+require('dotenv').config();
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config({path: '../../config.env'});
 
 // Anonymous Function
 export default () => {

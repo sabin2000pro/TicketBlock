@@ -41,8 +41,7 @@ const NftSchema = new mongoose.Schema({
 
     image: {
         type: String,
-        default: 'no-photo.jpg',
-        required: [true, "Please upload a valid image for the NFT"]
+        default: 'no-photo.jpg'
     },
 
     price: {
@@ -63,8 +62,8 @@ const NftSchema = new mongoose.Schema({
     category: {
         type: String,
         required: [true, "Please specify the category that the NFT is in"],
-        default: "tickets",
-        enum: ["events", "tickets"]
+        default: "ticket",
+        enum: ["ticket"]
     },
 
     isRare: {

@@ -1,33 +1,28 @@
 [
     {
-        "_id": "5d7a514b5d2c12c7449ac8050",
+        "_id": "5d725a4a7b292f5f8ceff750",
         "owner": "5d7a514b5d2c12c7449ac9050",
         "name": "Premium Highland Show Event NFT",
-        "image": "",
+        "image": "no-photo.jpg",
         "price": "0.022 ETH",
         "convertedPrice": "25 GBP",
         "inStock": true,
         "stock": 2,
-        "category": "Event Ticket",
+        "category": "ticket",
         "isRare": false
     },
 
     {
-        "_id": "5d7a514b5d2c12c7449ac8051",
+        "_id": "5d725a4a7b292f5f8ceff751",
         "owner": "5d7a514b5d2c12c7449ac9051",
         "name": "Three Sisters VIP Event NFT",
-        "image": "",
+        "image": "no-photo.jpg",
         "price": "0.050 ETH",
         "convertedPrice": "57 GBP",
         "inStock": true,
         "stock": 1,
-        "category": "Event Ticket",
+        "category": "ticket",
         "isRare": true
-    },
-
-    {
-
     }
-
 
 ]
