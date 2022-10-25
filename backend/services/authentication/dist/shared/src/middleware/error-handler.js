@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ForbiddenError = exports.UnauthorizedError = exports.JwtExpiredError = exports.JwtMalformedError = exports.NotFoundError = exports.BadRequestError = exports.errorHandler = exports.CustomError = void 0;
+exports.ForbiddenError = exports.UnauthorizedError = exports.JwtExpiredError = exports.JwtMalformedError = exports.NotFoundError = exports.BadRequestError = exports.processErrors = exports.CustomError = void 0;
 const http_status_codes_1 = require("http-status-codes");
 class CustomError extends Error {
     constructor(message) {
@@ -11,13 +11,13 @@ class CustomError extends Error {
     }
 }
 exports.CustomError = CustomError;
-const errorHandler = (err, _request, response, next) => {
+const processErrors = (err, _request, response, next) => {
     if (err instanceof CustomError) {
         return response.status(http_status_codes_1.StatusCodes.NOT_FOUND).json({ message: err.message, errors: err.serializeErrors() });
     }
     return next();
 };
-exports.errorHandler = errorHandler;
+exports.processErrors = processErrors;
 class BadRequestError extends CustomError {
     constructor(message, statusCode) {
         super(message);
@@ -72,3 +72,4 @@ class ForbiddenError extends CustomError {
     }
 }
 exports.ForbiddenError = ForbiddenError;
+exports.default = exports.processErrors;

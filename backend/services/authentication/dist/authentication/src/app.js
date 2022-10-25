@@ -11,7 +11,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const hpp_1 = __importDefault(require("hpp"));
 const helmet_1 = __importDefault(require("helmet"));
 const cors_1 = __importDefault(require("cors"));
-const error_handler_1 = require("./../../shared/src/middleware/error-handler");
+const error_handler_1 = __importDefault(require("../../shared/src/middleware/error-handler"));
 const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
 const auth_routes_1 = __importDefault(require("./routes/auth-routes"));
 const auth_schema_1 = __importDefault(require("./database/auth-schema"));
@@ -38,4 +38,4 @@ app.use((0, cookie_session_1.default)({
     secure: process.env.NODE_ENV !== 'development'
 }));
 app.use('/api/v1/auth', auth_routes_1.default);
-app.use(error_handler_1.errorHandler);
+app.use(error_handler_1.default);

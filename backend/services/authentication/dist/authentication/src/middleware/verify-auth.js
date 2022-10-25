@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyUserAuth = void 0;
 const http_status_codes_1 = require("http-status-codes");
-const error_handler_1 = require("./error-handler");
+const error_handler_1 = require("../../../shared/src/middleware/error-handler");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_model_1 = require("../models/user-model");
 const verifyUserAuth = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {

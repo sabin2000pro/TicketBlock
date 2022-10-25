@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = void 0;
 const send_email_1 = require("./../utils/send-email");
 const generate_reset_token_1 = require("./../utils/generate-reset-token");
-const error_handler_1 = require("./../middleware/error-handler");
+const error_handler_1 = require("../../../shared/src/middleware/error-handler");
 const http_status_codes_1 = require("http-status-codes");
 const user_model_1 = require("../models/user-model");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));

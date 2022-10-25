@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { UnauthorizedError } from './error-handler';
+import { UnauthorizedError } from '../middleware/error-handler'
 import { NextFunction } from 'express';
 import jwt from "jsonwebtoken";
 import { User } from "../models/user-model";

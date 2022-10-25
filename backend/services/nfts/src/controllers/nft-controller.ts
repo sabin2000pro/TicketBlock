@@ -10,11 +10,6 @@ export const fetchAllNfts = async (request: Request, response: Response, next: N
 
 export const fetchNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
     const id = request.params.id;
-
-    if(!id) {
-
-    }
-
     
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
@@ -36,7 +31,7 @@ export const deleteNftByID = async (request: Request, response: Response, next: 
 }
 
 export const uploadNftImage = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-    const file = request.files.file as UploadedFile
+    const file = request.files!.file as unknown as UploadedFile | undefined;
    
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
