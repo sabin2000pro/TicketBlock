@@ -116,9 +116,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     function createNewNftItem(uint256 tokenId, uint256 tokenPrice) private {
        address currentOwner = msg.sender;
        mappedNftData[tokenId] = EventNft(tokenId, tokenPrice, currentOwner, true);
-
        emit EventNftCreated(tokenId, tokenPrice, msg.sender, true); // Emit new created event
-
     }
 
     function getPriceOfNftToken(uint256 tokenId) public view returns (uint256) {
@@ -128,6 +126,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
     function buyNft(uint256 tokenId) public payable {
         address currentOwner = ERC721.ownerOf(tokenId);
+        
         require(msg.sender == currentOwner, "Please ensure that you are the owner of the token");
         require(msg.value == getPriceOfNftToken(tokenId), "Please submit a value price for the token");
 
@@ -136,7 +135,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         listedTokenItems.decrement(); // Decrement the listed items by 1.
 
          _transfer(currentOwner, msg.sender, tokenId); // Transfer Ownership of the NFT from the current owner to ms.sender
-         payable(currentOwner).transfer(msg.value); // Pay the new owner
+         payable(currentOwner).transfer(msg.value);
     }
 
     function checkTokenCreatorIsOwner(uint256 tokenId) public view override returns (bool) {
@@ -184,7 +183,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
            
            if(tokenItem.isTokenListed) { // If the token is listed
               nftItems[currentTokenIndex] = tokenItem; // Set the token index from the nft items array to the token item
-              currentTokenIndex +=1; // Increment number of token indexes
+              currentTokenIndex += 1; // Increment number of token indexes
            }
         }
 
@@ -196,7 +195,22 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     // @returns: An array of event nft items
 
     function fetchAllOwnedNFTs() public view returns(EventNft[] memory) {
-       
+       uint256 currentNftCount = ERC721.balanceOf(msg.sender);
+       EventNft[] memory nftItems = new EventNft[](currentNftCount);
+
+       for(uint256 index = 0; index < currentNftCount; index++) {
+        
+         uint256 tokenId = fetchTokenOwner(msg.sender, index);
+
+         EventNft storage nftItem = mappedNftData[tokenId];
+         nftItems[index] = nftItem;
+       }
+
+       return nftItems;
+    }
+
+    function fetchTokenOwner(address tokenOwner, uint256 tokenIndex) public view returns(uint256) {
+        return ownedEventTokens[tokenOwner][tokenIndex];
     }
 
     // @description: Return the total supply of event ticket nft's by returning the array length.
