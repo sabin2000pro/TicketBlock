@@ -11,7 +11,6 @@ interface NftRoutines {
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable returns (uint256);
     function setNftOnSale(uint256 tokenIndex, uint256 newTokenPrice) external payable; // 3. Routine to set the nft on sale
     function buyNft(uint256 tokenInde) external payable; // Routing to buy the NFT given a token Index and price
-    function removeNftFromSale(uint256 tokenIndex) external payable; // Removing an NFT from sale requires that we pay some ether 
     function checkTokenCreatorIsOwner(uint256 tokenId) external returns (bool);
 }
 
@@ -98,6 +97,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) public payable override returns (uint256) {
         require(!checkTokenExists(tokenUri), "Please ensure that the token URI exists");
         require(msg.value == ticketListingPrice, "Please ensure the price of the new token is set to the listing price");
+        
         address messageSender = msg.sender;
 
         tokenIds.increment();
@@ -160,11 +160,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
     }
 
-    function removeNftFromSale(uint256 tokenId) external payable override {
-        require(isTokenAlreadyOnSale(tokenId), "Before removing from sale. Please make sure it is already on sale");
-    }
-
-
     // @description: Retrieves all of the event ticket NFT's on sale.
     // @returns: An array of Event NFT Tokens stored in memory
 
@@ -199,7 +194,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
        EventNft[] memory nftItems = new EventNft[](currentNftCount);
 
        for(uint256 index = 0; index < currentNftCount; index++) {
-        
+
          uint256 tokenId = fetchTokenOwner(msg.sender, index);
 
          EventNft storage nftItem = mappedNftData[tokenId];
