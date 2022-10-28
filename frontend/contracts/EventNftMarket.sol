@@ -93,7 +93,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     // @ Post Condition: Return the new token Id that is created by invoking the _safeMint() in-built function and the create new nft function
     // @ Parameters: Token URI & Price of the token
 
-
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) public payable override returns (uint256) {
         require(!checkTokenExists(tokenUri), "Please ensure that the token URI exists");
         require(msg.value == ticketListingPrice, "Please ensure the price of the new token is set to the listing price");
@@ -180,6 +179,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
               nftItems[currentTokenIndex] = tokenItem; // Set the token index from the nft items array to the token item
               currentTokenIndex += 1; // Increment number of token indexes
            }
+
         }
 
         return nftItems; // Return all of the NFT items

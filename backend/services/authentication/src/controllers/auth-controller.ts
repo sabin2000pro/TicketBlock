@@ -16,7 +16,6 @@ export interface IGetUserData extends Request {
     user: any | undefined;
 }
 
-
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
         const {email, username, password, passwordConfirm} = request.body;

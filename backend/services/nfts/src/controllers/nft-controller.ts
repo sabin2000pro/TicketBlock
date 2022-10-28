@@ -1,3 +1,4 @@
+import { NotFoundError } from './../../../authentication/src/middleware/error-handler';
 import { StatusCodes } from 'http-status-codes';
 import {Nft} from '../models/nft-model';
 import { Request, Response, NextFunction } from 'express';
@@ -10,15 +11,22 @@ export const fetchAllNfts = async (request: Request, response: Response, next: N
 
 export const fetchNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
     const id = request.params.id;
+    const nft = await Nft.findById(id);
+
+    if(!nft) {
+        return next(new NotFoundError("NFT Not found", 404));
+    }
     
-    return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
+    return response.status(StatusCodes.OK).json({success: true, data: nft});
 }
 
 export const createNewNft = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
+    const body = request.body;
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
 
 export const editNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
+    const id = request.params.id;
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
 
