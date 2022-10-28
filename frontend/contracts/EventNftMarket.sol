@@ -55,7 +55,9 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         bool newIsTokenListed
     );
 
-    constructor() ERC721("Event Tickets NFT", "ETNFT") {}
+    constructor(uint256 _ticketListingPrice) ERC721("Event Tickets NFT", "ETNFT") {
+        ticketListingPrice = _ticketListingPrice;
+    }
 
     // @description: Set the listing price for a token
     function initialiseListingPrice(uint256 newListingPrice) public override onlyOwner {
@@ -65,11 +67,11 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     }
 
     function isTokenNotOnSale(uint256 tokenId) public payable returns (bool) {
-        return mappedNftData[tokenId].isTokenListed == !true;
+        return mappedNftData[tokenId].isTokenListed == false;
     }
 
     function isTokenAlreadyOnSale(uint256 tokenId) public payable returns (bool) {
-         return mappedNftData[tokenId].isTokenListed == !false;
+         return mappedNftData[tokenId].isTokenListed == true;
     }
 
     function getNftTotalSupply() public view returns (uint256) {
@@ -103,9 +105,9 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         uint newTokenId = tokenIds.current();
 
         _safeMint(messageSender, newTokenId);
-        _setTokenURI(newTokenId, tokenUri); // Set the new token URI with the token ID
+        _setTokenURI(newTokenId, tokenUri); 
 
-        createNewNftItem(newTokenId, tokenPrice); // Invoke routine to create the new NFT item below
+        createNewNftItem(newTokenId, tokenPrice);
         usedTokenURIs[tokenUri] = true;
 
         return newTokenId;
@@ -174,9 +176,9 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
         EventNft[] memory nftItems = new EventNft[](currentNftItem);
 
-        for(uint256 index = 0; index < totalNftSupply; index++) {
+        for(uint256 index = 0; index < totalNftSupply; index++) { // For every token in supply
 
-            uint256 tokenIndex = retrieveTokenByIndex(index);
+            uint256 tokenIndex = retrieveTokenByIndex(index); // Get the token at index
 
             EventNft storage tokenItem = mappedNftData[tokenIndex];
            
@@ -189,7 +191,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return nftItems; // Return all of the NFT items
     }
 
-        // Logic for getting all of the user's owned Event Ticket NFT's
+    // Logic for getting all of the user's owned Event Ticket NFT's
     // @description Fetch all of the user's owned NFTs
     // @returns: An array of event nft items
 

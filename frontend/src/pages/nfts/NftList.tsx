@@ -1,18 +1,19 @@
+import { Grid, GridItem, Box, Badge } from '@chakra-ui/react'
 import React, {useState, useEffect} from 'react'
 
-type NftListProps = {
 
-}
+const NftList: React.FC = (props: any) => {
 
-const NftList: React.FC<NftListProps> = () => {
-  return (
-    
-    <>
+    return (
 
-    </>
+      <>
+      
+      </>
 
+      
+    )
 
-  )
-}
+    }
+
 
 export default NftList

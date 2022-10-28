@@ -4,19 +4,30 @@ import { Register } from './pages/auth-index';
 import ForgotPassword from './pages/authentication/ForgotPassword';
 import Login from './pages/authentication/Login';
 import ResetPassword from './pages/authentication/ResetPassword';
+import Home from './pages/Home';
+import NavBar from './components/NavBar';
+import './index.css'
+import CreateNft from './pages/nfts/CreateNft';
+import NftList from './pages/nfts/NftList';
 
 const App: React.FC = () => {
 
   return (
 
     <>
+
+     <NavBar />
+
         <Routes>
 
           <Route path = '/register' element = {<Register />} />
+          <Route path = '/' element = {<Home />} />
+
           <Route path = '/login' element = {<Login />} />
           <Route path = '/forgot-password' element = {<ForgotPassword />} />
           <Route path = '/reset-password' element = {<ResetPassword />} />
-
+          <Route path = '/create-nft' element = {<CreateNft />} />
+          <Route path = '/nfts' element = {<NftList />} />
         </Routes>
     </>
 
