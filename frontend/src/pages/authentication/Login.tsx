@@ -49,17 +49,22 @@ const Login = () => {
   }
 
   useEffect(() => {
+
      if(localStorage.getItem("token") !== null) {
 
       alert("You are alredy logged in")
       return navigate('/nfts')
+
      }
+
+
   }, [])
 
   return (
     <>
               
     {formSubmitted && isLoggedIn && <Alert status='success'>
+      
         <AlertIcon />
           You are logged in
         </Alert>
