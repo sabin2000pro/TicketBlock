@@ -2,10 +2,12 @@ import {useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap';
 import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
-
+import { useToast } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile: React.FC = () => {
-
+ 
+const navigate = useNavigate();
  const [user, setUser] = useState([])
 
   useEffect(() => {
