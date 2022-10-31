@@ -102,10 +102,7 @@ exports.verifyLoginMfa = verifyLoginMfa;
 // @route     GET /api/v1/auth/logout
 // @access    Private (JWT Token Required)
 exports.logout = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    // Clear the session
-    if (request.session !== null) {
-        request.session = null;
-    }
+    request.session = null;
     return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "You have logged out", data: {} });
 }));
 // @desc      Get Currently Logged In User
