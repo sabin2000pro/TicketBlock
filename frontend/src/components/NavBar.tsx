@@ -75,18 +75,6 @@ const NavBar: React.FC = () => {
 
   }
 
-  // Code to fetch the token from Local Storage to not login again
-
-  useEffect(() => {
-    const fetchAuthToken = () => {
-
-      localStorage.getItem("token");
-      setAuthTokenPresent(!authTokenPresent);
-    }
-
-    fetchAuthToken();
-
-  }, [])
 
   return (
 
@@ -101,7 +89,7 @@ const NavBar: React.FC = () => {
                <a href = "/nfts"> <li className = "link">Ticket Block</li></a>
 
                <a href = "/register"> <li className = "link">Register</li></a>
-               {authTokenPresent &&  <a onClick={logoutHandler} href = "/login">  <li className = "link">Logout </li>   </a>  }
+               {authTokenPresent ? <a onClick = {logoutHandler} href = "/"> <li className = "link">Logout </li> </a> :  <a href = "/login"> <li className = "link"> Login </li> </a>  }
                <a href = "/create-nft"> <li className = "link">Create NFT</li></a>
                <a href = "/profile"> <li className = "link">My Profile</li></a>
                <a href = "/cart"> <li className = "link">Cart</li></a>
