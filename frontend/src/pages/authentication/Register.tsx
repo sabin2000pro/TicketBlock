@@ -1,15 +1,36 @@
 import React, {useState, useEffect} from 'react'
-import {Alert, AlertIcon, Button, AlertTitle, AlertDescription, Spinner} from '@chakra-ui/react';
+import {Alert, Button} from '@chakra-ui/react';
 
 import axios from 'axios';
 
 const Register: React.FC = (props) => {
   const [username, setUsername] = useState<string | undefined>("");
   const [email, setEmail] = useState<string | undefined>("");
-  const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
+  const [password, setPassword] = useState<string | undefined>("");
 
-  const handleRegisterAccount = async (event: any) => {
-       event.preventDefault();
+  const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
+  const [error, setError] = useState<string | undefined>("");
+  const [isError, setIsError] = useState<boolean| null>(false);
+
+  const handleRegisterAccount = async () => {
+
+       try {
+         console.log("Rgister user")
+          const response = await axios.post(`http://localhost:5299/api/v1/auth/register`, {username, email, password});
+
+          console.log(response);
+
+          setFormSubmitted(true);
+       } 
+       
+       catch(error: any) {
+         
+         if(error.response) {
+            console.log(error.response.data.message);
+         }
+
+       }
+
   }
 
   return (
@@ -42,23 +63,8 @@ const Register: React.FC = (props) => {
                 <input type = "text" placeholder='Enter Password'/>
              </div>
 
-             <div className = "role-container">
-             <label>Select Role</label>
 
-             <select className = "select-container">
-              
-              <option>Admin</option>
-              <option>Moderator</option>
-              <option>User</option>
-
-
-             </select>
-
-
-             </div>
-
-
-              <Button className = "submit-btn" colorScheme='teal' size ='md'>Register Account</Button>
+              <Button onClick = {() => handleRegisterAccount()} className = "submit-btn" colorScheme='teal' size ='md'>Register Account</Button>
 
             <p className='paragraph'> Already have an account ?  <a href = "/login">Login</a>  </p>
             </form>

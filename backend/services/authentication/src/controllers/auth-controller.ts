@@ -18,10 +18,10 @@ export interface IGetUserData extends Request {
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
-        const {email, username, password, passwordConfirm} = request.body;
+        const {email, username, password} = request.body;
         const existingUser = await User.findOne({email});
 
-        if(!email || !username || !password || !passwordConfirm) {
+        if(!email || !username || !password) {
             return next(new NotFoundError("Some fields are missing. Please check again", StatusCodes.NOT_FOUND));
         }
     
@@ -29,7 +29,7 @@ export const registerUser = async(request: Request, response: Response, next: Ne
             return next(new BadRequestError("User already exists", StatusCodes.BAD_REQUEST));
         }
     
-        const user = await User.create({email, username, password, passwordConfirm});
+        const user = await User.create({email, username, password});
         await user.save();
 
         return sendTokenResponse(request, user as any, StatusCodes.CREATED, response);

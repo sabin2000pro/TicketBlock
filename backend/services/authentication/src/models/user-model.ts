@@ -49,11 +49,6 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
         required: [true, "Please specify valid password for the user"]
     },
 
-    passwordConfirm: {
-        type: String,
-        required: [true, "Please confirm user password"]
-    },
-
     role: {
         type: String,
         required: [true, "Please specify the role of the user"],
