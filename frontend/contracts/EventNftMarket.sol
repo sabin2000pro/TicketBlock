@@ -87,11 +87,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     }
 
 
-    // @description: Register a new token on the blockchain.
-    // @returns: The ID of that token minted
-    // @ Pre Condition: Must ensure that the token URI (data) exists and the price of the new token is the actual listing price for the token
-    // @ Post Condition: Return the new token Id that is created by invoking the _safeMint() in-built function and the create new nft function
-    // @ Parameters: Token URI & Price of the token
 
     function mintNftToken(string memory name, uint256 price) public payable override returns (uint256) {
         require(!checkTokenExists(name), "Please ensure that the token URI exists");
