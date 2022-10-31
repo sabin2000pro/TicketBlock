@@ -30,6 +30,10 @@ const Login = () => {
 
         setFormSubmitted(!formSubmitted);
 
+        setTimeout(() => {
+           return navigate('/nfts')
+        }, 2500)
+
         return response;
     }  
     
@@ -41,10 +45,15 @@ const Login = () => {
 
 
     }
-
-    
   }
 
+  useEffect(() => {
+     if(localStorage.getItem("token") !== null) {
+
+      alert("You are alredy logged in")
+      return navigate('/nfts')
+     }
+  }, [])
 
   return (
     <>
