@@ -63,8 +63,6 @@ const Register: React.FC = () => {
 
           <div className = "register-form">
 
-            
-
             <form onSubmit = {handleRegisterAccount} method = "POST">
 
              <h1 className = "heading-primary">Register</h1>

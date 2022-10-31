@@ -182,5 +182,5 @@ const sendTokenResponse = (request: Express.Request, user: any, statusCode: numb
     const token = user.returnAuthToken();
     request.session = {token};
 
-    return response.status(statusCode).json({data: user});
+    return response.status(statusCode).json({data: user, token});
 }

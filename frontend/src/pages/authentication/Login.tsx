@@ -1,6 +1,7 @@
-import { Button } from '@chakra-ui/react'
+import { Button, Alert, AlertIcon} from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useState } from 'react'
+
 
 const Login = () => {
   const [email, setEmail] = useState<string | undefined>("")
@@ -8,22 +9,28 @@ const Login = () => {
 
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined> (false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
+  const [error, setError] = useState<string | undefined>("");
 
   const handleLogin = async (event: any) => {
 
     try {
         event.preventDefault();
+
+        setEmail(email);
+        setPassword(password);
+
         const response = await axios.post("http://localhost:5299/api/v1/auth/login", {email, password});
+        const token = response.data.token;
 
-        console.log(response);
-
+        localStorage.setItem("token", token);
+        
         return response;
     }  
     
     catch(error: any) {
 
       if(error) {
-        return console.error(error);
+        console.log(error);
       }
 
 
@@ -36,7 +43,6 @@ const Login = () => {
     <>
 
       <div className = "login-container">
-
 
         <div className = "login-form">
 
@@ -57,7 +63,7 @@ const Login = () => {
                 <input value = {password} onChange = {(event) => setPassword(event.target.value)} type = "text" placeholder='Enter Password'/>
             </div>
 
-             <Button className = "submit-btn" colorScheme='teal' size ='md'>Login</Button>
+             <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='md'>Login</Button>
 
              <p className = "paragraph">Forgot Password ?  <a href = '/forgot-password'>Reset Here</a>  </p>
 
