@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from '@chakra-ui/react';
 import { MetaMaskInpageProvider } from "@metamask/providers";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {ethers} from 'ethers';
 import Web3 from 'web3';
 
@@ -11,8 +11,9 @@ declare global {
     ethereum?: MetaMaskInpageProvider
 
   }
-
 }
+
+
 
 const provider = new ethers.providers.JsonRpcProvider("http://localhost:7545"); // Connect to ganache provider
 
@@ -48,8 +49,20 @@ const NavBar: React.FC = () => {
 
      }
 
-
   } 
+
+  // Code to fetch the token from Local Storage to not login again
+
+  useEffect(() => {
+    const fetchAuthToken = () => {
+
+      const authToken = localStorage.getItem("token");
+      console.log(`Found auth token : ${authToken}`)
+    }
+
+    fetchAuthToken();
+
+  }, [])
 
   return (
 

@@ -140,5 +140,5 @@ exports.updateProfileDetails = updateProfileDetails;
 const sendTokenResponse = (request, user, statusCode, response) => {
     const token = user.returnAuthToken();
     request.session = { token };
-    return response.status(statusCode).json({ data: user });
+    return response.status(statusCode).json({ data: user, token });
 };

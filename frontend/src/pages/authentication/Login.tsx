@@ -42,16 +42,17 @@ const Login = () => {
   }
 
   useEffect(() => {
-    
-    const fetchLoggedInUserData = async () => {
 
+    const fetchLoggedInUserData = async () => {
 
       try {
         // Send GET request to fetch the user data
       } 
       
       catch(error: any) {
-
+        if(error) {
+          return console.error(error);
+        }
       }
 
 
@@ -76,7 +77,6 @@ const Login = () => {
 
            <form onSubmit={handleLogin} method = "POST">
 
-
            <h1 className = "heading-primary">Login</h1>
 
             <div className = "email-container">
@@ -88,7 +88,7 @@ const Login = () => {
 
             <div className = "password-container">
                 <label className = "password-lbl" htmlFor= "password">Password</label>
-                <input value = {password} onChange = {(event) => setPassword(event.target.value)} type = "text" placeholder='Enter Password'/>
+                <input value = {password} onChange = {(event) => setPassword(event.target.value)} type = "password" placeholder = 'Enter Password'/>
             </div>
 
              <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='md'>Login</Button>
