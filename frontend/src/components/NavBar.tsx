@@ -20,6 +20,8 @@ const NavBar: React.FC = () => {
   const [accounts, setAccounts] = useState<[]>([]);
   const [balance, setBalance] = useState<string | undefined>("");
   const [authTokenPresent, setAuthTokenPresent] = useState<boolean | false>(false)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
+  const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
 
   const handleWalletConnect = async (event: any) => {
 
@@ -48,6 +50,19 @@ const NavBar: React.FC = () => {
      }
 
   } 
+
+  useEffect(() => {
+
+    
+    const fetchAuthToken = () => {
+       localStorage.getItem("token");
+       setIsLoggedIn(true);
+       setTokenPresent(!tokenPresent);
+
+    }
+
+    fetchAuthToken();
+ }, [])
 
   const logoutHandler = async () => {
      // Clear the session by sending GET request to logout to the backend
@@ -85,7 +100,7 @@ const NavBar: React.FC = () => {
                <a href = "/nfts"> <li className = "link">Ticket Block</li></a>
 
                <a href = "/register"> <li className = "link">Register</li></a>
-        {authTokenPresent ? <a onClick = {logoutHandler} href = "/login"> <li className = "link">Logout </li> </a> :  <a href = "/login"> <li className = "link"> Login </li> </a>  }
+        {tokenPresent ? <a onClick = {logoutHandler} href = "/login"> <li className = "link">Logout </li> </a> :  <a href = "/login"> <li className = "link"> Login </li> </a>  }
                <a href = "/create-nft"> <li className = "link">Create NFT</li></a>
                <a href = "/profile"> <li className = "link">My Profile</li></a>
                <a href = "/cart"> <li className = "link">Cart</li></a>

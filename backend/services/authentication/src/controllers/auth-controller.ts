@@ -133,11 +133,7 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
 // @access    Private (JWT Token Required)
 
 export const logout = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
-    // Clear the session
-    if(request.session !== null) {
-        request.session = null;
-    }
-
+    request.session = null
     return response.status(StatusCodes.OK).json({success: true, message: "You have logged out", data: {} })
 
 });
