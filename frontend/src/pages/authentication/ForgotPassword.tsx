@@ -79,7 +79,6 @@ const ForgotPassword: React.FC = () => {
 
     </div>
     
-
       <div className = "forgot-container">
 
          <div className = "forgot-form">
