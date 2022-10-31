@@ -23,7 +23,8 @@ const Register: React.FC = () => {
 
           console.log(response);
 
-          setFormSubmitted(true);
+          setFormSubmitted(!formSubmitted);
+          setIsError(!isError);
        } 
        
        catch(error: any) {

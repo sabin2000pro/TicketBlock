@@ -1,13 +1,6 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "proxy": {
-
-    "/api/*":  {
-      "target": "http://localhost:5299/",
-      "secure": false
-    }
-  },
 
   "private": true,
   "dependencies": {
