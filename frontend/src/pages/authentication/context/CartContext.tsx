@@ -40,12 +40,57 @@ export const CartProvider: React.FC<CartContextProps> = ({children}) => {
         setIsCartOpen(false);
     }
 
-    const increaseCartQuantity = (itemId: number) => {
-        
+    const increaseCartQuantity = (id: number) => {
+
+        setCartItems(currItems => {
+
+            if(currItems.find(item => item.id === id) == null) { // if the item id is not there (we do not have any items in the cart)
+                return [...currItems, {id, quantity: 1}]
+            }
+
+            else {
+
+                return currItems.map(item => {
+
+                    if(item.id === id) { // Otherwise add 1 to the quantity
+                        return {...item, quantity: item.quantity + 1}
+                    }
+
+                    else {
+                        return item;
+                    }
+
+
+                })
+            }
+
+        })
     }
 
-    const decreaseCartQuantity = (itemId: number) => {
-        
+    const decreaseCartQuantity = (id: number) => {
+
+        setCartItems(currItems => {
+
+        if(currItems.find(item => item.id === id)?.quantity === 1) { // if the item id is not there (we do not have any items in the cart)
+            return currItems.filter(item => item.id !== id) // Return a brand new list of the items
+        }
+
+        else {
+
+                return currItems.map(item => {
+
+                    if(item.id === id) { // Otherwise remove 1 to the quantity
+                        return {...item, quantity: item.quantity - 1}
+                    }
+
+                    else {
+                        return item;
+                    }
+
+                })
+            }
+
+        })
     }
 
     const removeOneFromCart = (itemId: number) => {
@@ -53,9 +98,10 @@ export const CartProvider: React.FC<CartContextProps> = ({children}) => {
     }
  
     return <CartContext.Provider value = {{increaseCartQuantity, decreaseCartQuantity, removeOneFromCart, cartItems, getCartQuantity, openCart, closeCart}}>
-        
 
         <Cart isCartOpen = {isCartOpen} />
+
+
     </CartContext.Provider>
 }
 

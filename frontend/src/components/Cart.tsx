@@ -10,11 +10,13 @@ const Cart: React.FC<CartProps> = ({isCartOpen}: CartProps) => {
   return (
 
     <>
-
+  
     </>
 
 
   )
+
+
 }
 
 Cart.propTypes = {
