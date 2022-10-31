@@ -8,7 +8,7 @@
     "watch": "tsc -w",
     "prestart": "npm run build ",
     "dev": "nodemon dist/index.js",
-    "start:server": "npm run dev"
+    "start:server": "npm run dev --ignore client"
   },
   "keywords": [],
   "author": "",
