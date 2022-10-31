@@ -113,7 +113,10 @@ const NavBar: React.FC = () => {
                <a href = "/nfts"> <li className = "link">Ticket Block</li></a>
 
                <a href = "/register"> <li className = "link">Register</li></a>
-    {tokenPresent ? <a onClick = {logoutHandler} href = "/login"> <li className = "link"> Logout </li> </a> : <a href = "/login"> <li className = "link"> Login </li> </a>  }
+    {tokenPresent && isLoggedIn ? <a onClick = {logoutHandler} href = "/login"> <li className = "link"> Logout </li> </a> : 
+      
+      !tokenPresent && !isLoggedIn &&
+    <a href = "/login"> <li className = "link"> Login </li> </a>  }
                <a href = "/create-nft"> <li className = "link">Create NFT</li></a>
                <a href = "/profile"> <li className = "link">My Profile</li></a>
                <a href = "/cart"> <li className = "link">Cart</li></a>
