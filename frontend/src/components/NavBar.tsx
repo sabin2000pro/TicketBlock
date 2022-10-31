@@ -32,11 +32,9 @@ const NavBar: React.FC = () => {
       const web3 = new Web3(window.ethereum as any);
       const currentBalance = await web3.eth.getBalance(accounts[0]); // Get the account balance
     
-      setBalance(currentBalance);
-      console.log(`Account balance : ${currentBalance}`)
-
       setIsWalletConnected(!isWalletConnected);
       setAccounts(accounts)
+      setBalance(currentBalance);
 
       localStorage.setItem("address", JSON.stringify(accounts));
       
@@ -73,7 +71,7 @@ const NavBar: React.FC = () => {
 
        </ul>
 
-       {!isWalletConnected ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : <h2 style = {{color: 'white', textAlign: 'center', marginTop: '20px'}}>{accounts}</h2> }
+       {!isWalletConnected ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}>Account Balance: {balance} ETH</h2> }
       
 
 </nav> 

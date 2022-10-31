@@ -52,6 +52,7 @@ const Register: React.FC = () => {
   return (
 
     <>
+    
       {formSubmitted && !isError && <Alert status='success'>
          <AlertIcon />
          Registered Success

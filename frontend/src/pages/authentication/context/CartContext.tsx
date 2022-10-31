@@ -4,16 +4,39 @@ type CartContextProps = {
     children: any
 }
 
-export const defaultCartState = { // Initial State for the cart that will hold the NFTs
-    items: [],
-    addOneToCart: (itemId: number) => {},
-    removeOneFromCart: (itemId: number) => {}
+type CartItem = {
+    id: number;
+    quantity: number;
 }
 
-export const CartContext = createContext(defaultCartState);
+type CartContext = {
+    addOneToCart: (id: number) => void,
+
+    openCart: () => void,
+    closeCart: () => void,
+
+    getCartQuantity: (id: number) => void,
+    removeOneFromCart: (id: number) => void,
+    cartItems: CartItem[]
+}
+
+export const CartContext = createContext({} as CartContext);
 
 export const CartProvider: React.FC<CartContextProps> = ({children}) => {
-    const [cartItems, setCartItems] = useState<[]>([]);
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+
+    const getCartQuantity = () => {
+
+    }
+
+    const openCart = () => {
+        setIsCartOpen(true);
+    }
+
+    const closeCart = () => {
+        setIsCartOpen(false);
+    }
 
     const addOneToCart = (itemId: number): any => {
         
@@ -23,9 +46,7 @@ export const CartProvider: React.FC<CartContextProps> = ({children}) => {
         
     }
  
-    const cartState = {items: cartItems, addOneToCart, removeOneFromCart}
-
-    return <CartContext.Provider value = {cartState}>
+    return <CartContext.Provider value = {{addOneToCart, removeOneFromCart, cartItems, getCartQuantity, openCart, closeCart}}>
             {children}
     </CartContext.Provider>
 }
