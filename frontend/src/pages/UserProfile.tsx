@@ -3,13 +3,22 @@ import { Card, Row } from 'react-bootstrap';
 import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
 
-type IUserProfile = {
-    user: any[]
-  }
 
-const UserProfile: React.FC<IUserProfile> = ({user}) => {
-   
+const UserProfile: React.FC = () => {
 
+ const [user, setUser] = useState([])
+
+  useEffect(() => {
+
+    const fetchUserData = async () => { // Fetch the logged in user data
+
+        const response = await getLoggedInUser();
+        setUser(response.data.username);
+    }
+
+    fetchUserData();
+
+}, [user])
 
   return (
 

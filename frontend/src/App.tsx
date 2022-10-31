@@ -12,23 +12,7 @@ import NftList from './pages/nfts/NftList';
 import UserProfile from './pages/UserProfile';
 import { getLoggedInUser } from './api/auth-api';
 
-
 const App: React.FC = () => {
-  const [user, setUser] = useState([])
-
-  useEffect(() => {
-
-    const fetchUserData = async () => { // Fetch the logged in user data
-
-        const response = await getLoggedInUser();
-        setUser(response.data.username);
-        
-    }
-
-    fetchUserData();
-
-}, [user])
-
 
   return (
 
@@ -40,11 +24,13 @@ const App: React.FC = () => {
 
           <Route path = '/register' element = {<Register />} />
           <Route path = '/' element = {<Home />} />
-          <Route path = "/profile" element = {<UserProfile user = {user} />} />
+          <Route path = "/profile" element = {<UserProfile />} />
 
           <Route path = '/login' element = {<Login />} />
           <Route path = '/forgot-password' element = {<ForgotPassword />} />
           <Route path = '/reset-password' element = {<ResetPassword />} />
+
+
           <Route path = '/create-nft' element = {<CreateNft />} />
           <Route path = '/nfts' element = {<NftList />} />
 
