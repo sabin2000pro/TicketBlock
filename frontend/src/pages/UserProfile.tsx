@@ -3,12 +3,16 @@ import { Card, Row } from 'react-bootstrap';
 import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
 
+type IUserProfile = {
+    user: []
+}
+
 const UserProfile = () => {
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState<IUserProfile>([]);
 
     useEffect(() => {
 
-        const fetchUserData = async () => {
+        const fetchUserData = async () => { // Fetch the logged in user data
 
             const response = await getLoggedInUser();
             setUser(response.data.username);
@@ -46,7 +50,6 @@ const UserProfile = () => {
             </Card>
 
 
-
          <Card className = "h-25 w-25 mx-5 p-4 mt-5">
 
             <Card.Body className = "d-flex flex-column custom">
@@ -56,7 +59,7 @@ const UserProfile = () => {
                 <span className = "fs-2 card-text">Profile Settings </span>
                
             </Card.Title>
-            
+
 
             <h2 className = "heading-secondary">Username</h2>
 
@@ -86,10 +89,10 @@ const UserProfile = () => {
                 
             </Card.Title>
 
-            </Card.Body>
+         </Card.Body>
 
 
-            </Card>
+         </Card>
           
 
      </Row>
