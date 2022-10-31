@@ -12,7 +12,6 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [authTokenPresent, setAuthTokenPresent] = useState<boolean | undefined>(false);
  
-
   const handleLogin = async (event: any) => {
 
     try {
@@ -25,16 +24,15 @@ const Login = () => {
         const token = response.data.token;
 
         localStorage.setItem("token", token);
+
         setIsLoggedIn(true);
         setAuthTokenPresent(true);
 
         setFormSubmitted(!formSubmitted);
 
         setTimeout(() => {
-           navigate("/"); // After logging in, go to view all NFTs
+           navigate("/nfts"); // After logging in, go to view all NFTs
         }, 3500)
-
-        
 
         return response;
     }  
@@ -50,22 +48,6 @@ const Login = () => {
 
     
   }
-
-  useEffect(() => {
-     
-      const verifyLoggedIn = () => {
-
-        if(localStorage.getItem("token") !== null) {
-          setIsLoggedIn(!isLoggedIn)
-          setAuthTokenPresent(!authTokenPresent)
-       }
-
-      }
-
-      verifyLoggedIn();
-
-
-  }, [])
 
 
   return (
