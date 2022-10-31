@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { forgotPassword } from '../../api/auth-api'
 
 const ForgotPassword: React.FC = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string | undefined>("")
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
 
@@ -15,7 +16,13 @@ const ForgotPassword: React.FC = () => {
         setEmail(email);
         setFormSubmitted(!formSubmitted);
 
-        return forgotPassword(email as any);
+        forgotPassword(email as any);
+
+        setTimeout(() => {
+          return navigate("/login")
+        }, 2000)
+
+        
     } 
     
     catch(error: any) { 
@@ -33,6 +40,8 @@ const ForgotPassword: React.FC = () => {
   return (
 
     <>
+
+
 
       <div className = "forgot-container">
 
