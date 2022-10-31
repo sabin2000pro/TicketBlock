@@ -28,6 +28,10 @@ const Login = () => {
         if(!validateEntries(email as string, password as string)) {
             setIsError(!isError);
             setError("Missing E-mail Or Password")
+
+            setTimeout(() => {
+                setIsError(false)
+            }, 2000)
         }
 
         setEmail(email);
@@ -81,6 +85,12 @@ const Login = () => {
           You are logged in
         </Alert>
     }
+
+    {isError && <Alert status='warning'>
+
+    <AlertIcon />
+      {error}
+    </Alert>}
 
       <div className = "login-container">
 
