@@ -39,11 +39,8 @@ const NavBar: React.FC = () => {
       setAccounts(accounts)
       setBalance(currentBalance);
 
-      const authToken = localStorage.setItem("address", JSON.stringify(accounts));
-
-      if(authToken !== null) {
-        setTokenPresent(!tokenPresent);
-      }
+      localStorage.setItem("address", JSON.stringify(accounts));
+      setTokenPresent(true);
       
      } 
      
@@ -128,7 +125,8 @@ const NavBar: React.FC = () => {
 
        </ul>
 
-       {!isWalletConnected && isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : null}
+       {!isWalletConnected && isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : undefined }
+       {isWalletConnected && <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}>Account Balance: {balance} ETH</h2>}
       
 
 </nav> 
