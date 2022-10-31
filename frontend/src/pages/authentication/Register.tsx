@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {Alert, Button} from '@chakra-ui/react';
 
 import axios from 'axios';
@@ -19,7 +19,7 @@ const Register: React.FC = () => {
          setEmail(email);
          setPassword(password);
          
-          const response = await axios.post(`api/v1/auth/register`, {email, username, password});
+          const response = await axios.post(`http://localhost:5299/api/v1/auth/register`, {email, username, password});
 
           console.log(response);
 
@@ -70,9 +70,11 @@ const Register: React.FC = () => {
              </div>
 
 
-              <Button onClick = {() => handleRegisterAccount()} className = "submit-btn" colorScheme='teal' size ='md'>Register Account</Button>
+            <Button onClick = {() => handleRegisterAccount()} className = "submit-btn" colorScheme='teal' size ='md'>Register Account</Button>
 
-            <p className='paragraph'> Already have an account ?  <a href = "/login">Login</a>  </p>
+            <p className='paragraph'> Already have an account ?  <a href = "/login">Login</a> </p>
+
+
             </form>
 
 

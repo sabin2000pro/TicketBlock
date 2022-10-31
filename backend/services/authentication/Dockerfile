@@ -6,6 +6,6 @@ COPY nodemon.json .
 COPY package-lock.json .
 RUN npm install
 COPY . .
-EXPOSE 5200
+EXPOSE 5299
 RUN npm run build
 CMD [ "npm", "run", "start:server" ]

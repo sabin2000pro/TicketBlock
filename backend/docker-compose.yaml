@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
 
     ports:
-      - "5200:5200"
+      - "5299:5299"
     restart: always
       
     volumes:
