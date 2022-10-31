@@ -31,6 +31,7 @@ const Register: React.FC = () => {
          if(error.response) {
             setIsError(true);
             setError(error);
+            
             console.log(error)
          }
 
