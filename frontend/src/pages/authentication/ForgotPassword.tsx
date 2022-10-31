@@ -15,7 +15,6 @@ const ForgotPassword: React.FC = () => {
   const [isError, setIsError] = useState<boolean | undefined>(false);
   const [error, setError] = useState<string | undefined>("");
 
-
   const handleForgotPassword = async (event: any) => {
 
     try {
@@ -78,8 +77,8 @@ const ForgotPassword: React.FC = () => {
         Forgot Password Submission Sent
       </Alert>}
 
-
     </div>
+    
 
       <div className = "forgot-container">
 
