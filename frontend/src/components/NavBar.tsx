@@ -53,11 +53,16 @@ const NavBar: React.FC = () => {
 
   } 
 
-  const logout = async () => {
+  const logoutHandler = async () => {
      // Clear the session by sending GET request to logout to the backend
      try {
 
          const response = await axios.get('http://localhost:5299/api/v1/logout');
+         console.log(`You are now logged out`)
+
+         localStorage.setItem("token", null as any);
+
+
          return response
      } 
      
@@ -96,7 +101,7 @@ const NavBar: React.FC = () => {
                <a href = "/nfts"> <li className = "link">Ticket Block</li></a>
 
                <a href = "/register"> <li className = "link">Register</li></a>
-               <a href = "/login"> <li className = "link">Login</li></a>
+               {authTokenPresent &&  <a onClick={logoutHandler} href = "/login">  <li className = "link">Logout </li>   </a>  }
                <a href = "/create-nft"> <li className = "link">Create NFT</li></a>
                <a href = "/profile"> <li className = "link">My Profile</li></a>
                <a href = "/cart"> <li className = "link">Cart</li></a>
