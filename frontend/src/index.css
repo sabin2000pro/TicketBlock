@@ -115,6 +115,18 @@ html {
   margin-left: 100px;
 }
 
+.search-container {
+  margin-left: 50px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.search-container input {
+  border-radius: 10px;
+  padding: 2px;
+  text-align: center;
+}
+
 .register-form, .login-form, .forgot-form {
   background-color: #30323D;
   width: 50%;

@@ -110,6 +110,8 @@ const NavBar: React.FC = () => {
 
              <ul className = "links-container">
 
+
+
                <a href = "/nfts"> <li className = "link">Ticket Block</li></a>
 
                <a href = "/register"> <li className = "link">Register</li></a>
@@ -122,6 +124,10 @@ const NavBar: React.FC = () => {
                <a href = "/create-nft"> <li className = "link">Create NFT</li></a>
                <a href = "/profile"> <li className = "link">My Profile</li></a>
                <a href = "/cart"> <li className = "link">Cart</li></a>
+
+               <div className='search-container'>
+                  <input placeholder='Search NFT' type = "text" />
+               </div>
 
        </ul>
 
