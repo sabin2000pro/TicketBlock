@@ -1,9 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Cart: React.FC = (props) => {
+type CartProps = { // Props for the cart
+  isCartOpen: boolean
+}
+
+const Cart: React.FC<CartProps> = ({isCartOpen}: CartProps) => {
     
   return (
+
     <>
 
     </>

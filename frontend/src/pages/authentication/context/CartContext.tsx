@@ -1,4 +1,5 @@
 import { useContext, createContext, useState } from "react";
+import Cart from '../../../components/Cart';
 
 type CartContextProps = {
     children: any
@@ -52,7 +53,9 @@ export const CartProvider: React.FC<CartContextProps> = ({children}) => {
     }
  
     return <CartContext.Provider value = {{increaseCartQuantity, decreaseCartQuantity, removeOneFromCart, cartItems, getCartQuantity, openCart, closeCart}}>
-            {children}
+        
+
+        <Cart isCartOpen = {isCartOpen} />
     </CartContext.Provider>
 }
 
