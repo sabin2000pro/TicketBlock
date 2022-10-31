@@ -15,6 +15,7 @@ const Login = () => {
   const handleLogin = async (event: any) => {
 
     try {
+
         event.preventDefault();
 
         setEmail(email);
@@ -25,8 +26,8 @@ const Login = () => {
 
         localStorage.setItem("token", token);
 
-        setIsLoggedIn(true);
-        setAuthTokenPresent(true);
+        setIsLoggedIn(!isLoggedIn);
+        setAuthTokenPresent(!authTokenPresent);
 
         setFormSubmitted(!formSubmitted);
 
