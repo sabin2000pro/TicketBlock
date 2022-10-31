@@ -14,6 +14,7 @@ let axiosInstance = axios.create(defaultOptions)
 axiosInstance.interceptors.request.use((configData: any | undefined) => {
     
     const authToken = localStorage.getItem("token");
+
     configData.headers.Authorization = authToken ? `Bearer ${authToken}` : "" // Store the token in the header
 
     console.log(`Headers : ${configData.headers}`)
@@ -23,6 +24,7 @@ axiosInstance.interceptors.request.use((configData: any | undefined) => {
 })
 
 export const register = async (email: string, username: string, password: string) => {
+
     try {
 
          const response = await axios.post(`http://localhost:5299/api/v1/auth/register`, {email, username, password});
@@ -64,7 +66,8 @@ export const forgotPassword = async (email: string) => {
 
     try {
 
-        const response = await axios.post(`http://localhost:5299/api/v1/auth/forgot-password`, {email});        
+        const response = await axios.post(`http://localhost:5299/api/v1/auth/forgot-password`, {email});  
+        console.log(response);     
         return response.data;
 
    } 

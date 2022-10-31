@@ -99,7 +99,7 @@ export const forgotPassword = async (request: Request, response: Response, next:
     const resetPasswordURL = `http://localhost:3000/auth/api/reset-password?token=${token}&id=${user._id}` // Create the reset password URL
     sendPasswordResetEmail(user, resetPasswordURL);
 
-    return response.status(StatusCodes.OK).json({success: true, message: "Reset Password E-mail Sent"});
+    return response.status(StatusCodes.OK).json({success: true, message: "Reset Password E-mail Sent", data: user});
 }
 
 const sendPasswordResetEmail = (user: any, resetPasswordURL: string) => {
