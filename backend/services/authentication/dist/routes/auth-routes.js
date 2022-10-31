@@ -17,4 +17,3 @@ authRouter.route('/reset-password').post(auth_controller_1.resetPassword);
 authRouter.route('/me').get(verify_auth_1.verifyUserAuth, auth_controller_1.getCurrentUser);
 authRouter.route('/verify-mfa').post(auth_controller_1.verifyLoginMfa);
 exports.default = authRouter;
-//# sourceMappingURL=auth-routes.js.map

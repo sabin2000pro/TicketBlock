@@ -72,4 +72,3 @@ UserSchema.methods.returnAuthToken = function () {
 };
 const User = mongoose_1.default.model("User", UserSchema);
 exports.User = User;
-//# sourceMappingURL=user-model.js.map

@@ -27,4 +27,3 @@ exports.default = () => {
     });
     connectAuthSchema();
 };
-//# sourceMappingURL=auth-schema.js.map

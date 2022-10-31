@@ -1,4 +1,4 @@
-import { NotFoundError } from './../../../authentication/src/middleware/error-handler';
+import { NotFoundError } from '../middlewares/nft-error-handler';
 import { StatusCodes } from 'http-status-codes';
 import {Nft} from '../models/nft-model';
 import { Request, Response, NextFunction } from 'express';
@@ -22,6 +22,7 @@ export const fetchNftByID = async (request: Request, response: Response, next: N
 
 export const createNewNft = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
     const body = request.body;
+
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
 

@@ -66,7 +66,7 @@ export const login = asyncHandler(async (request: Request, response: Response, n
         return next(new NotFoundError("Could not find that user", StatusCodes.NOT_FOUND));
     }
 
-    const passwordsMatch = await user.compareLoginPasswords(password) as boolean;
+    const passwordsMatch = await user.compareLoginPasswords(password)
 
     if(!passwordsMatch) {
         return next(new BadRequestError("Passwords do not match. Please try again", StatusCodes.BAD_REQUEST))

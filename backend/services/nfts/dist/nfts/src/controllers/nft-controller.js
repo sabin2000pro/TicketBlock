@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadNftImage = exports.deleteNftByID = exports.deleteAllNfts = exports.editNftByID = exports.createNewNft = exports.fetchNftByID = exports.fetchAllNfts = void 0;
+const error_handler_1 = require("./../../../authentication/src/middleware/error-handler");
 const http_status_codes_1 = require("http-status-codes");
 const nft_model_1 = require("../models/nft-model");
 const fetchAllNfts = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -19,14 +20,20 @@ const fetchAllNfts = (request, response, next) => __awaiter(void 0, void 0, void
 exports.fetchAllNfts = fetchAllNfts;
 const fetchNftByID = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const id = request.params.id;
-    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "All Nfts Here" });
+    const nft = yield nft_model_1.Nft.findById(id);
+    if (!nft) {
+        return next(new error_handler_1.NotFoundError("NFT Not found", 404));
+    }
+    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, data: nft });
 });
 exports.fetchNftByID = fetchNftByID;
 const createNewNft = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const body = request.body;
     return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "All Nfts Here" });
 });
 exports.createNewNft = createNewNft;
 const editNftByID = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = request.params.id;
     return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "All Nfts Here" });
 });
 exports.editNftByID = editNftByID;

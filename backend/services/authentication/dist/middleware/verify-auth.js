@@ -14,28 +14,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyUserAuth = void 0;
 const http_status_codes_1 = require("http-status-codes");
-const error_handler_1 = require("./error-handler");
+const error_handler_1 = require("../middleware/error-handler");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const user_model_1 = require("../models/user-model");
 const verifyUserAuth = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let token;
-        const authHeader = request.headers.authorization;
+        // If the authorization header includes Bearer <>
+        if (request.headers.authorization && request.headers.authorization.includes("Bearer")) {
+            token = request.headers.authorization.split(" ")[1]; // Split by a space to get the token at the second index
+        }
         if (!token) {
             return next(new error_handler_1.UnauthorizedError("You are unauthorized to perform this action", http_status_codes_1.StatusCodes.UNAUTHORIZED));
         }
-        if (authHeader && authHeader.includes("Bearer ")) {
-            token = authHeader.split(" ")[1];
-        }
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_TOKEN);
-        request.user = yield user_model_1.User.findById(decoded.id);
+        request.user = yield user_model_1.User.findById(decoded._id);
         return next();
     }
     catch (err) {
         if (err) {
+            console.log(err);
             return next(new error_handler_1.UnauthorizedError("You are unauthorized to perform this action", http_status_codes_1.StatusCodes.UNAUTHORIZED));
         }
     }
 });
 exports.verifyUserAuth = verifyUserAuth;
-//# sourceMappingURL=verify-auth.js.map
