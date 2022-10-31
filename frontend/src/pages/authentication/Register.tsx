@@ -1,10 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import {Alert, AlertIcon, Button, AlertTitle, AlertDescription, Spinner} from '@chakra-ui/react'
+import {Alert, AlertIcon, Button, AlertTitle, AlertDescription, Spinner} from '@chakra-ui/react';
+
+import axios from 'axios';
 
 const Register: React.FC = (props) => {
   const [username, setUsername] = useState<string | undefined>("");
   const [email, setEmail] = useState<string | undefined>("");
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
+
+  const handleRegisterAccount = async (event: any) => {
+       event.preventDefault();
+  }
 
   return (
 

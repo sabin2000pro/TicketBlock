@@ -28,6 +28,4 @@ app.get('/', (request: Request, response: Response, next: NextFunction) => {
     return response.status(200).json({success: true, message: "NFT Root Route"})
 })
 
-
-
 export {app}
