@@ -6,17 +6,18 @@ import { Spinner } from "@chakra-ui/react";
 
 const ForgotPassword: React.FC = () => {
   const navigate = useNavigate();
+
   const [email, setEmail] = useState<string | undefined>("")
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
 
   const handleForgotPassword = async (event: any) => {
+
 
     try {
         event.preventDefault();
 
         setEmail(email);
         
-
         forgotPassword(email as any);
 
         setTimeout(() => {

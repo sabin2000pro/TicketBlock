@@ -26,6 +26,7 @@ const Login = () => {
         event.preventDefault();
 
         if(!validateEntries(email as string, password as string)) {
+          
             setIsError(!isError);
             setError("Missing E-mail Or Password")
 
@@ -38,8 +39,8 @@ const Login = () => {
         setPassword(password);
 
         const response = await axios.post("http://localhost:5299/api/v1/auth/login", {email, password});
-        const token = response.data.token;
 
+        const token = response.data.token;
         localStorage.setItem("token", token);
 
         setIsLoggedIn(!isLoggedIn);

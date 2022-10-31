@@ -77,7 +77,7 @@ const forgotPassword = (request, response, next) => __awaiter(void 0, void 0, vo
     yield resetPasswordToken.save();
     const resetPasswordURL = `http://localhost:3000/auth/api/reset-password?token=${token}&id=${user._id}`; // Create the reset password URL
     sendPasswordResetEmail(user, resetPasswordURL);
-    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "Reset Password E-mail Sent" });
+    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "Reset Password E-mail Sent", data: user });
 });
 exports.forgotPassword = forgotPassword;
 const sendPasswordResetEmail = (user, resetPasswordURL) => {
