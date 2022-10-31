@@ -7,28 +7,22 @@ import axios from 'axios';
 
 
 const ForgotPassword: React.FC = () => {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState<string | undefined>("")
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
-  const [errors, setErrors] = useState([]);
+  const [showSpinner, setShowSpinner] = useState<boolean | undefined>(false);
 
   const handleForgotPassword = async (event: any) => {
 
-
     try {
         event.preventDefault();
-
         setEmail(email);
         
         const response = await axios.post(`http://localhost:5299/api/v1/auth/forgot-password`, {email});
-        console.log(response);
 
-        setTimeout(() => {
-          setFormSubmitted(!formSubmitted);
-          return navigate("/login")
-        }, 2000)
+        setShowSpinner(!showSpinner);
+        setFormSubmitted(!formSubmitted)
 
+        return response.data;
 
     } 
     
@@ -49,7 +43,7 @@ const ForgotPassword: React.FC = () => {
 
     <>
 
-    {formSubmitted && <Spinner size = 'lg' />}
+    {showSpinner && formSubmitted && <Spinner size = 'lg' />}
 
       <div className = "forgot-container">
 
