@@ -34,6 +34,14 @@ export const createNewNft = async (request: Request, response: Response, next: N
 
 export const editNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
     const id = request.params.id;
+    let nft = await Nft.findById(id);
+
+    if(!nft) {
+        return next(new NotFoundError("NFT with that ID not found on the server", 404));
+    }
+
+    nft = await Nft.findByIdAndUpdate(id, request.body, {new: true, runValidators: true});
+
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
 
