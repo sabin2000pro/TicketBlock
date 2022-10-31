@@ -4,24 +4,11 @@ import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
 
 type IUserProfile = {
-    user: []
-}
+    user: any[]
+  }
 
-const UserProfile = () => {
-    const [user, setUser] = useState<IUserProfile>([]);
-
-    useEffect(() => {
-
-        const fetchUserData = async () => { // Fetch the logged in user data
-
-            const response = await getLoggedInUser();
-            setUser(response.data.username);
-            
-        }
-
-        fetchUserData();
-
-    }, [user])
+const UserProfile: React.FC<IUserProfile> = ({user}) => {
+   
 
 
   return (
