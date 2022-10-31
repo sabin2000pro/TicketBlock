@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Alert, AlertIcon, Button} from '@chakra-ui/react';
 import axios from 'axios';
+import { register } from '../../api/auth-api';
 
 const Register: React.FC = () => {
 
@@ -22,7 +23,8 @@ const Register: React.FC = () => {
            setUsername(username);
            setPassword(password);
 
-          const response = await axios.post("http://localhost:5299/api/v1/auth/register", {username, email, password});
+
+         
 
           setFormSubmitted(true);
           setIsError(false);
@@ -31,8 +33,8 @@ const Register: React.FC = () => {
           setUsername("");
           setPassword("");
 
-          return response
-
+       
+         return register(email as string, username as string, password as string);
        } 
        
        catch(error: any) {
