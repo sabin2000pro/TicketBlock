@@ -18,7 +18,7 @@ const Cart: React.FC<CartProps> = ({isCartOpen}: CartProps) => {
 }
 
 Cart.propTypes = {
-
+  isCartOpen: PropTypes.bool.isRequired
 }
 
 export default Cart
