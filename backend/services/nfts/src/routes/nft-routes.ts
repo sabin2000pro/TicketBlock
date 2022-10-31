@@ -1,3 +1,3 @@
 import express, { Router } from "express";
 
-export const nftRouter: Router = express.Router({mergeParams: true});
+export const nftRoutes: Router = express.Router({mergeParams: true});
