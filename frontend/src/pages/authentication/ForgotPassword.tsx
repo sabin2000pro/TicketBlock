@@ -4,10 +4,20 @@ import { useNavigate } from 'react-router-dom'
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string | undefined>("")
-  const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false)
+  const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
 
 
   const handleForgotPassword = async (event: any) => {
+    try {
+        
+    } 
+    
+    catch(error: any) { 
+      if(error) {
+        return console.error(error);
+      }
+    }
+
 
   }
 
@@ -19,7 +29,7 @@ const ForgotPassword: React.FC = () => {
 
          <div className = "forgot-form">
 
-          <form method = "POST">
+          <form onSubmit = {handleForgotPassword} method = "POST">
 
           <h1 className = "heading-primary">Forgot Password</h1>
 
