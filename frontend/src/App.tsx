@@ -13,7 +13,6 @@ import UserProfile from './pages/UserProfile';
 import { getLoggedInUser } from './api/auth-api';
 
 
-
 const App: React.FC = () => {
   const [user, setUser] = useState([])
 

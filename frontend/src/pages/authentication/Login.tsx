@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string | undefined>("")
   const [password, setPassword] = useState<string | undefined>("");
@@ -38,7 +38,7 @@ const Login = () => {
         setEmail(email);
         setPassword(password);
 
-        const response = await axios.post("http://localhost:5299/api/v1/auth/login", {email, password});
+        let response = await axios.post("http://localhost:5299/api/v1/auth/login", {email, password});
 
         const token = response.data.token;
         localStorage.setItem("token", token);
@@ -58,7 +58,8 @@ const Login = () => {
     catch(error: any) {
 
       if(error) {
-        console.log(error);
+        console.log(error.response);
+        setError(error.response.data.errors.message)
       }
 
 
