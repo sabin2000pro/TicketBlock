@@ -86,13 +86,20 @@ export const forgotPassword = async (email: string) => {
 
 }
 
-export const getLoggedInUser = () => {
+export const getLoggedInUser = async () => {
 
     try {
-         
+        const response = await axios.get(`http://localhost:5299/api/v1/auth/me`)
+        console.log(response);
+
+        return response.data
     }
     
     catch(error: any) {
+        
+        if(error) {
+            return console.error(error);
+        }
 
     }
 }
