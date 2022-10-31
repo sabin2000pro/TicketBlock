@@ -14,10 +14,6 @@ declare global {
   }
 }
 
-
-
-const provider = new ethers.providers.JsonRpcProvider("http://localhost:7545"); // Connect to ganache provider
-
 const NavBar: React.FC = () => {
 
   const [isWalletConnected, setIsWalletConnected] = useState<boolean | undefined>(false);

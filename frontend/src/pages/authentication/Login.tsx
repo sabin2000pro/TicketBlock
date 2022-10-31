@@ -1,9 +1,10 @@
 import { Button, Alert, AlertIcon} from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string | undefined>("")
   const [password, setPassword] = useState<string | undefined>("");
 
@@ -26,6 +27,10 @@ const Login = () => {
         setFormSubmitted(!formSubmitted);
         setIsLoggedIn(!isLoggedIn);
 
+        setTimeout(() => {
+           navigate("/"); // After logging in, go to view all NFTs
+        }, 3500)
+
         return response;
     }  
     
@@ -46,7 +51,7 @@ const Login = () => {
     const fetchLoggedInUserData = async () => {
 
       try {
-        // Send GET request to fetch the user data
+       
       } 
       
       catch(error: any) {
