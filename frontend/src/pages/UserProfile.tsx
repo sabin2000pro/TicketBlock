@@ -4,7 +4,6 @@ import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
 
 const UserProfile = () => {
-
     const [user, setUser] = useState([]);
 
     useEffect(() => {
@@ -63,6 +62,10 @@ const UserProfile = () => {
             <input className = "update-username" type = "text" />
 
             <h2 className = "heading-secondary">Password</h2>
+
+            <input className = "update-username" type = "text" />
+
+            <h2 className = "heading-secondary">E-mail</h2>
 
             <input className = "update-username" type = "text" />
 

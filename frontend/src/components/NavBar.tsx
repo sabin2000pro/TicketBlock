@@ -19,7 +19,6 @@ const NavBar: React.FC = () => {
   const [isWalletConnected, setIsWalletConnected] = useState<boolean | undefined>(false);
   const [accounts, setAccounts] = useState<[]>([]); // Metamask state for storing the account
 
-  const [balance, setBalance] = useState<string | undefined>("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
 
@@ -31,11 +30,11 @@ const NavBar: React.FC = () => {
 
       const accounts = await window.ethereum?.request({method: "eth_requestAccounts"}) as any
       const web3 = new Web3(window.ethereum as any);
+
       const currentBalance = await web3.eth.getBalance(accounts[0]); // Get the account balance
     
       setIsWalletConnected(!isWalletConnected);
       setAccounts(accounts);
-      setBalance(currentBalance);
 
       localStorage.setItem("address", JSON.stringify(accounts));
       setTokenPresent(!tokenPresent);
