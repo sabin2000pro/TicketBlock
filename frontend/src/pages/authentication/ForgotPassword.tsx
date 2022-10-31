@@ -1,7 +1,8 @@
-import React, {useContext, useState} from 'react'
+import React, {useState} from 'react'
 import { Button } from "@chakra-ui/react"
 import { useNavigate } from 'react-router-dom'
 import { forgotPassword } from '../../api/auth-api'
+import { Spinner } from "@chakra-ui/react";
 
 const ForgotPassword: React.FC = () => {
   const navigate = useNavigate();
@@ -14,15 +15,16 @@ const ForgotPassword: React.FC = () => {
         event.preventDefault();
 
         setEmail(email);
-        setFormSubmitted(!formSubmitted);
+        
 
         forgotPassword(email as any);
 
         setTimeout(() => {
+          setFormSubmitted(!formSubmitted);
           return navigate("/login")
         }, 2000)
 
-        
+
     } 
     
     catch(error: any) { 
@@ -41,7 +43,7 @@ const ForgotPassword: React.FC = () => {
 
     <>
 
-
+    {formSubmitted && <Spinner size = 'lg' />}
 
       <div className = "forgot-container">
 
