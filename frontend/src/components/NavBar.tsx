@@ -55,10 +55,10 @@ const NavBar: React.FC = () => {
 
     
     const fetchAuthToken = () => {
+
        localStorage.getItem("token");
        setIsLoggedIn(true);
        setTokenPresent(!tokenPresent);
-
     }
 
     fetchAuthToken();
@@ -67,14 +67,11 @@ const NavBar: React.FC = () => {
   const logoutHandler = async () => {
      // Clear the session by sending GET request to logout to the backend
      try {
-
-         const response = await axios.get('http://localhost:5299/api/v1/logout');
-         console.log(`You are now logged out`)
-
-         localStorage.setItem("token", null as any);
-
-
-         return response
+        localStorage.removeItem("token")
+        
+        setTokenPresent(false);
+        setIsLoggedIn(false);
+        
      } 
      
      catch(error: any) {
