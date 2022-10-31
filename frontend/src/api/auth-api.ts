@@ -23,6 +23,23 @@ axiosInstance.interceptors.request.use((configData: any | undefined) => {
 })
 
 export const register = async (email: string, username: string, password: string) => {
+    try {
+
+         const response = await axios.post(`http://localhost:5299/api/v1/auth/register`, {email, username, password});
+         console.log(response);
+         
+         return response.data;
+
+    } 
+    
+    catch(error: any) {
+
+
+        if(error) {
+            return console.error(error);
+        }
+    }
+
 
 }
 
@@ -31,5 +48,5 @@ export const login = async (email: string, password: string) => {
 }
 
 export const forgotPassword = async (email: string) => {
-    
+
 }
