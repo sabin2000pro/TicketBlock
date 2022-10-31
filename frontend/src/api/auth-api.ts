@@ -13,12 +13,11 @@ let axiosInstance = axios.create(defaultOptions)
 // Initialise Axios Interceptor to handle JWT Token
 axiosInstance.interceptors.request.use((configData: any | undefined) => {
     
-    const authToken = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    axios.defaults.baseURL = 'http://localhost:5299/';
+    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
-    configData.headers.Authorization = authToken ? `Bearer ${authToken}` : "" // Store the token in the header
-
-    console.log(`Headers : ${configData.headers}`)
-    console.log(`Auth token : ${authToken}`);
+    configData.headers.Authorization = token ? `Bearer ${token}` : "" // Store the token in the header
 
     return configData;
 })
@@ -49,7 +48,7 @@ export const login = async (email: string, password: string) => {
     try {
 
         const response = await axios.post(`http://localhost:5299/api/v1/auth/login`, {email, password}); 
-           
+
         const token = response.data.token;
         localStorage.setItem("token", token);
     
@@ -85,4 +84,15 @@ export const forgotPassword = async (email: string) => {
    }
 
 
+}
+
+export const getLoggedInUser = () => {
+
+    try {
+         
+    }
+    
+    catch(error: any) {
+
+    }
 }

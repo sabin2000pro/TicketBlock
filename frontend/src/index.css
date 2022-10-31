@@ -208,3 +208,9 @@ html {
   margin-top: 90px;
   position: relative;
 }
+
+.profile-container h1 {
+  color: black;
+  text-align: center;
+}
+

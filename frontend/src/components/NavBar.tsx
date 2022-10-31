@@ -34,7 +34,7 @@ const NavBar: React.FC = () => {
       const currentBalance = await web3.eth.getBalance(accounts[0]); // Get the account balance
     
       setIsWalletConnected(!isWalletConnected);
-      setAccounts(accounts)
+      setAccounts(accounts);
       setBalance(currentBalance);
 
       localStorage.setItem("address", JSON.stringify(accounts));

@@ -9,6 +9,7 @@ import NavBar from './components/NavBar';
 import './index.css'
 import CreateNft from './pages/nfts/CreateNft';
 import NftList from './pages/nfts/NftList';
+import UserProfile from './pages/UserProfile';
 
 const App: React.FC = () => {
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
 
           <Route path = '/register' element = {<Register />} />
           <Route path = '/' element = {<Home />} />
+          <Route path = "/profile" element = {<UserProfile />} />
 
           <Route path = '/login' element = {<Login />} />
           <Route path = '/forgot-password' element = {<ForgotPassword />} />
