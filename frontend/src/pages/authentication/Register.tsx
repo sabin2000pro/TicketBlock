@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {Alert, AlertIcon, Button} from '@chakra-ui/react';
-import axios from 'axios';
 import { register } from '../../api/auth-api';
 
 const Register: React.FC = () => {
@@ -23,9 +22,6 @@ const Register: React.FC = () => {
            setUsername(username);
            setPassword(password);
 
-
-         
-
           setFormSubmitted(true);
           setIsError(false);
 
@@ -44,6 +40,7 @@ const Register: React.FC = () => {
             setIsError(true);
             setError(error);
             console.log(error);
+            
          }
 
        }

@@ -27,7 +27,7 @@ export const register = async (email: string, username: string, password: string
 
          const response = await axios.post(`http://localhost:5299/api/v1/auth/register`, {email, username, password});
          console.log(response);
-         
+
          return response.data;
 
     } 
@@ -44,9 +44,38 @@ export const register = async (email: string, username: string, password: string
 }
 
 export const login = async (email: string, password: string) => {
+    try {
 
+        const response = await axios.post(`http://localhost:5299/api/v1/auth/login`, {email, password});        
+        return response.data;
+
+   } 
+   
+   catch(error: any) {
+
+
+       if(error) {
+           return console.error(error);
+       }
+   }
 }
 
 export const forgotPassword = async (email: string) => {
+
+    try {
+
+        const response = await axios.post(`http://localhost:5299/api/v1/auth/forgot-password`, {email});        
+        return response.data;
+
+   } 
+   
+   catch(error: any) {
+
+
+       if(error) {
+           return console.error(error);
+       }
+   }
+
 
 }
