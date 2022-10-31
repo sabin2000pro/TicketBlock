@@ -1,13 +1,24 @@
 import { Button } from '@chakra-ui/react'
+import axios from 'axios';
 import React, { useState } from 'react'
 
 const Login = () => {
   const [email, setEmail] = useState<string | undefined>("")
+  const [password, setPassword] = useState<string | undefined>("");
 
-  const handleLogin = async () => {
+  const [formSubmitted, setFormSubmitted] = useState<boolean | undefined> (false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
+
+  const handleLogin = async (event: any) => {
+
     try {
+        event.preventDefault();
+        const response = await axios.post("http://localhost:5299/api/v1/auth/login", {email, password});
 
-    } 
+        console.log(response);
+
+        return response;
+    }  
     
     catch(error: any) {
 
@@ -43,9 +54,8 @@ const Login = () => {
 
             <div className = "password-container">
                 <label className = "password-lbl" htmlFor= "password">Password</label>
-                <input type = "text" placeholder='Enter Password'/>
-               
-             </div>
+                <input value = {password} onChange = {(event) => setPassword(event.target.value)} type = "text" placeholder='Enter Password'/>
+            </div>
 
              <Button className = "submit-btn" colorScheme='teal' size ='md'>Login</Button>
 
