@@ -12,8 +12,6 @@ const UserProfile = () => {
 
             const response = await getLoggedInUser();
             setUser(response.data.username);
-
-            console.log(user);
             
         }
 
@@ -28,27 +26,14 @@ const UserProfile = () => {
 
        
     <div className = "profile-container">
-        
+
 
      <h1 className = "heading-primary">You are logged in as : {user}</h1>
 
      <Row md = {2} xs = {1} lg = {3} className = "g-3">
 
-        <Card className = "h-25 w-25">
-
-            <Card.Body className = "d-flex flex-column custom">
-
-            <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
-
-                <span className = "fs-2 card-text">Owned NFTs: </span>
-                   
-            </Card.Title>
-
-                </Card.Body>
-            </Card>
-
-             <Card className = "h-25 w-25">
-
+        <Card className = "h-25 w-25 p-4 mx-5 mt-5">
+ 
             <Card.Body className = "d-flex flex-column custom">
 
             <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
@@ -62,23 +47,41 @@ const UserProfile = () => {
 
 
 
-            <Card className = "h-25 w-25">
+         <Card className = "h-25 w-25 mx-5 p-4 mt-5">
 
             <Card.Body className = "d-flex flex-column custom">
 
             <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
 
-                <span className = "fs-2 card-text">Owned NFTs: </span>
+                <span className = "fs-2 card-text">Profile Settings </span>
+               
+            </Card.Title>
+
+            <h2 className = "heading-secondary">Username</h2>
+
+            <input className = "update-password" type = "text" />
+
+                </Card.Body>
+            </Card>
+
+    
+        <Card className = "h-25 w-25 mx-5 p-4 mt-5">
+
+            <Card.Body className = "d-flex flex-column custom">
+
+            <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
+
+                <span className = "fs-2 card-text">Balance </span>
                 
             </Card.Title>
 
-             </Card.Body>
+            </Card.Body>
 
 
-        </Card>
+            </Card>
+          
 
-            </Row>
-
+     </Row>
 
 
         </div>
