@@ -32,15 +32,15 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     mapping(uint => uint) private _idToOwnedIndex;
 
     struct EventNft { // Struct for holding Event NFT data
-        uint256 tokenId;
-        uint256 tokenPrice;
+        uint256 id;
+        uint256 price;
         address tokenCreator;
         bool isTokenListed; // Determines if the token is listed for sale or not
     }
 
     // 1. Event for Creating New Ticket nft Data
     event EventNftCreated (
-        uint tokenId,
+        uint id,
         uint price,
         address creator,
         bool isTokenListed
@@ -48,7 +48,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
     // 2. Event For Updating NFT data
     event EventNftUpdated (
-        uint tokenId,
+        uint id,
         uint newPrice,
         address newCreator,
         bool newIsTokenListed
@@ -93,8 +93,8 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     // @ Post Condition: Return the new token Id that is created by invoking the _safeMint() in-built function and the create new nft function
     // @ Parameters: Token URI & Price of the token
 
-    function mintNftToken(string memory tokenUri, uint256 tokenPrice) public payable override returns (uint256) {
-        require(!checkTokenExists(tokenUri), "Please ensure that the token URI exists");
+    function mintNftToken(string memory name, uint256 price) public payable override returns (uint256) {
+        require(!checkTokenExists(name), "Please ensure that the token URI exists");
         require(msg.value == ticketListingPrice, "Please ensure the price of the new token is set to the listing price");
         
         address messageSender = msg.sender;
@@ -104,23 +104,24 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         uint newTokenId = tokenIds.current();
 
         _safeMint(messageSender, newTokenId);
-        _setTokenURI(newTokenId, tokenUri); 
+        _setTokenURI(newTokenId, name); 
 
-        createNewNftItem(newTokenId, tokenPrice);
-        usedTokenURIs[tokenUri] = true;
+        createNewNftItem(newTokenId, price);
+        usedTokenURIs[name] = true;
 
         return newTokenId;
     }
 
-    function createNewNftItem(uint256 tokenId, uint256 tokenPrice) private {
+    function createNewNftItem(uint256 tokenId, uint256 price) private {
        address currentOwner = msg.sender;
-       mappedNftData[tokenId] = EventNft(tokenId, tokenPrice, currentOwner, true);
-       emit EventNftCreated(tokenId, tokenPrice, msg.sender, true); // Emit new created event
+       mappedNftData[tokenId] = EventNft(tokenId, price, currentOwner, true);
+
+       emit EventNftCreated(tokenId, price, msg.sender, true); // Emit new created event
     }
 
     function getPriceOfNftToken(uint256 tokenId) public view returns (uint256) {
-        uint currentPrice = mappedNftData[tokenId].tokenPrice;
-        return currentPrice;
+        uint currentPrice = mappedNftData[tokenId].price;
+        return currentPrice; // Return the token price of the nFT
     }
 
     function buyNft(uint256 tokenId) public payable {
@@ -151,7 +152,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         require(isTokenAlreadyOnSale(tokenId), "Please make sure that the token is not already on sale...");
 
         mappedNftData[tokenId].isTokenListed = true;
-        mappedNftData[tokenId].tokenPrice = newTokenPrice; // Update the new token price
+        mappedNftData[tokenId].price = newTokenPrice; // Update the new token price
 
         if(listedTokenItems.current() == 0) { // If the current items on sale is by default 0
             listedTokenItems.increment();    // Increment Listed Items
