@@ -56,6 +56,7 @@ const UserProfile = () => {
                 <span className = "fs-2 card-text">Profile Settings </span>
                
             </Card.Title>
+            
 
             <h2 className = "heading-secondary">Username</h2>
 

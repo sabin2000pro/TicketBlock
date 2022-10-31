@@ -243,3 +243,8 @@ html {
   margin-left: 30px;
   font-size: 24px;
 }
+
+.spinner-container {
+  text-align: center;
+  margin-top: 40px;
+}

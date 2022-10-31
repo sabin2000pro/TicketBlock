@@ -43,7 +43,9 @@ const ForgotPassword: React.FC = () => {
 
     <>
 
+    <div className = "spinner-container">
     {showSpinner && formSubmitted && <Spinner size = 'lg' />}
+    </div>
 
       <div className = "forgot-container">
 
