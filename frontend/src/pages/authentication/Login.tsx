@@ -30,10 +30,6 @@ const Login = () => {
 
         setFormSubmitted(!formSubmitted);
 
-        setTimeout(() => {
-           navigate("/nfts"); // After logging in, go to view all NFTs
-        }, 3500)
-
         return response;
     }  
     
