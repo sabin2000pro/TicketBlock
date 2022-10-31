@@ -1,39 +1,48 @@
 import React, {useState} from 'react'
-import {Alert, Button} from '@chakra-ui/react';
+import {Alert, AlertIcon, Button} from '@chakra-ui/react';
 
 import axios from 'axios';
 
+
 const Register: React.FC = () => {
-  const [username, setUsername] = useState<string | undefined>("");
   const [email, setEmail] = useState<string | undefined>("");
+  const [username, setUsername] = useState<string | undefined>("");
   const [password, setPassword] = useState<string | undefined>("");
 
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
   const [error, setError] = useState<string | undefined>("");
   const [isError, setIsError] = useState<boolean| null>(false);
 
-  const handleRegisterAccount = async () => {
+  const handleRegisterAccount = async (event: any) => {
 
        try {
-         setUsername(username);
-         setEmail(email);
-         setPassword(password);
-         
-          const response = await axios.post(`http://localhost:5299/api/v1/auth/register`, {email, username, password});
+      
+           event.preventDefault();
+           
+           setEmail(email);
+           setUsername(username);
+           setPassword(password);
 
-          console.log(response);
+          const response = await axios.post("http://localhost:5299/api/v1/auth/register", {username, email, password});
 
-          setFormSubmitted(!formSubmitted);
-          setIsError(!isError);
+          setFormSubmitted(true);
+          setIsError(false);
+
+          setEmail("")
+          setUsername("");
+          setPassword("");
+
+          return response
+
        } 
        
        catch(error: any) {
          
-         if(error.response) {
+         if(error) {
+
             setIsError(true);
             setError(error);
-            
-            console.log(error)
+            console.log(error);
          }
 
        }
@@ -43,35 +52,43 @@ const Register: React.FC = () => {
   return (
 
     <>
+      {formSubmitted && !isError && <Alert status='success'>
+         <AlertIcon />
+         Registered Success
+      </Alert>
+      
+      }
 
        <div className = "register-container">
 
           <div className = "register-form">
 
-            <form method = "POST">
+            
+
+            <form onSubmit = {handleRegisterAccount} method = "POST">
 
              <h1 className = "heading-primary">Register</h1>
 
               <div className = "username-container">
 
                 <label htmlFor= "username">Username</label>
-                   <input type = "text" placeholder='Username'/>
+                   <input onChange = {(event) => setUsername(event.target.value)} value = {username} type = "text" placeholder='Username'/>
 
               </div>
 
            <div className = "email-container">
 
                 <label htmlFor= "email">E-mail</label>
-                <input type = "text" placeholder='Enter E-mail Address'/>
+                <input onChange = {(event) => setEmail(event.target.value)} value = {email} type = "text" placeholder='Enter E-mail Address'/>
              </div>
 
              <div className = "password-container">
                 <label className = "password-lbl" htmlFor= "password">Password</label>
-                <input type = "text" placeholder='Enter Password'/>
+                <input onChange = {(event) => setPassword(event.target.value)} value = {password} type = "password" placeholder='Enter Password'/>
              </div>
 
 
-            <Button onClick = {() => handleRegisterAccount()} className = "submit-btn" colorScheme='teal' size ='md'>Register Account</Button>
+            <Button className = "submit-btn" type = "submit" colorScheme='teal' size ='md'>Register Account</Button>
 
             <p className='paragraph'> Already have an account ?  <a href = "/login">Login</a> </p>
 

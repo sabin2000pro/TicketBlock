@@ -6,8 +6,8 @@ interface IUserAttributes {
     username: string;
     email: string;
     password: string;
-    role: string;
-    nftsOwned: string; // Number of NFTs the user owns
+
+    nftsOwned: number; // Number of NFTs the user owns
     compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
     returnAuthToken: () => any;
 }
@@ -23,7 +23,6 @@ interface IUserDocument extends mongoose.Model<IUserAttributes> {
     email: string;
     password: string;
     passwordConfirm: string;
-    role: string;
 
     accountAddress: string;
     nftsOwned: number;
@@ -49,13 +48,6 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
         required: [true, "Please specify valid password for the user"]
     },
 
-    role: {
-        type: String,
-        required: [true, "Please specify the role of the user"],
-        default: 'user',
-        enum: ["user", 'admin']
-    },
-
     // Stores the user's Meta Mask 20-byte address.
     accountAddress: {
         type: String,
@@ -79,7 +71,6 @@ UserSchema.pre("save", async function(next) {
     }
 
     this.password = await bcrypt.hash(this.password, HASH_ROUNDS);
-    this.passwordConfirm = await bcrypt.hash(this.passwordConfirm, HASH_ROUNDS);
     return next();
 })
 

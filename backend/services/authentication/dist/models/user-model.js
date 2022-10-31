@@ -30,12 +30,6 @@ const UserSchema = new mongoose_1.default.Schema({
         type: String,
         required: [true, "Please specify valid password for the user"]
     },
-    role: {
-        type: String,
-        required: [true, "Please specify the role of the user"],
-        default: 'user',
-        enum: ["user", 'admin']
-    },
     // Stores the user's Meta Mask 20-byte address.
     accountAddress: {
         type: String,
@@ -54,7 +48,6 @@ UserSchema.pre("save", function (next) {
             return next();
         }
         this.password = yield bcryptjs_1.default.hash(this.password, HASH_ROUNDS);
-        this.passwordConfirm = yield bcryptjs_1.default.hash(this.passwordConfirm, HASH_ROUNDS);
         return next();
     });
 });

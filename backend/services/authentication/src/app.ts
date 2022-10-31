@@ -23,6 +23,7 @@ if(process.env.NODE_ENV === 'production') {
     app.use(mongoSanitize()); // Prevent against NoSQL Injection attacks in production environment
 }
  
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.set('trust proxy', true);
 app.use(hpp());
@@ -38,6 +39,8 @@ app.use(cookieSession({
     keys: ['session'],
     secure: process.env.NODE_ENV !== 'development'
 }));
+
+
 
 
 app.use('/api/v1/auth', authRouter);

@@ -1,12 +1,12 @@
 import { app } from "./app"
 
-const port = process.env.PORT || 5299;
+const port = process.env.PORT;
 
 // Start of authentication server
 const startAuthServer = async () => {
 
       return app.listen(port, () => {
-        console.log('Authentication Service Live On Port 5299!!');
+        console.log(`Listening auth service on port ${port}`)
       });
 
 }

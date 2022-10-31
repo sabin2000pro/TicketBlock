@@ -21,15 +21,12 @@ const user_model_1 = require("../models/user-model");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const password_reset_model_1 = require("../models/password-reset-model");
 const registerUser = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, username, password } = request.body;
+    const { username, email, password } = request.body;
     const existingUser = yield user_model_1.User.findOne({ email });
-    if (!email || !username || !password) {
-        return next(new error_handler_1.NotFoundError("Some fields are missing. Please check again", http_status_codes_1.StatusCodes.NOT_FOUND));
-    }
     if (existingUser) {
         return next(new error_handler_1.BadRequestError("User already exists", http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
-    const user = yield user_model_1.User.create({ email, username, password });
+    const user = yield user_model_1.User.create({ username, email, password });
     yield user.save();
     return sendTokenResponse(request, user, http_status_codes_1.StatusCodes.CREATED, response);
 });
@@ -143,5 +140,5 @@ exports.updateProfileDetails = updateProfileDetails;
 const sendTokenResponse = (request, user, statusCode, response) => {
     const token = user.returnAuthToken();
     request.session = { token };
-    return response.status(statusCode).json({ success: true, user, token });
+    return response.status(statusCode).json({ data: user });
 };

@@ -18,18 +18,14 @@ export interface IGetUserData extends Request {
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
-        const {email, username, password} = request.body;
+       const {username, email, password} = request.body;
         const existingUser = await User.findOne({email});
-
-        if(!email || !username || !password) {
-            return next(new NotFoundError("Some fields are missing. Please check again", StatusCodes.NOT_FOUND));
-        }
     
         if(existingUser) {
             return next(new BadRequestError("User already exists", StatusCodes.BAD_REQUEST));
         }
     
-        const user = await User.create({email, username, password});
+        const user = await User.create({username, email, password});
         await user.save();
 
         return sendTokenResponse(request, user as any, StatusCodes.CREATED, response);
@@ -186,5 +182,5 @@ const sendTokenResponse = (request: Express.Request, user: any, statusCode: numb
     const token = user.returnAuthToken();
     request.session = {token};
 
-    return response.status(statusCode).json({success: true, user, token});
+    return response.status(statusCode).json({data: user});
 }
