@@ -16,9 +16,11 @@ declare global {
 }
 
 const NavBar: React.FC = () => {
+
   const navigate = useNavigate();
   const [isWalletConnected, setIsWalletConnected] = useState<boolean | undefined>(false);
-  const [accounts, setAccounts] = useState<[]>([]);
+  const [accounts, setAccounts] = useState<[]>([]); // Metamask state for storing the account
+
   const [balance, setBalance] = useState<string | undefined>("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
@@ -53,7 +55,6 @@ const NavBar: React.FC = () => {
   } 
 
   const logoutHandler = async (event: any) => {
-    // Clear the session by sending GET request to logout to the backend
     try {
 
        event.preventDefault()
@@ -64,7 +65,6 @@ const NavBar: React.FC = () => {
 
        return navigate("/login");
        
-      
     } 
     
     catch(error: any) {
@@ -116,7 +116,9 @@ const NavBar: React.FC = () => {
     {tokenPresent && isLoggedIn ? <a onClick = {logoutHandler} href = "/login"> <li className = "link"> Logout </li> </a> : 
       
       !tokenPresent && !isLoggedIn &&
+
     <a href = "/login"> <li className = "link"> Login </li> </a>  }
+    
                <a href = "/create-nft"> <li className = "link">Create NFT</li></a>
                <a href = "/profile"> <li className = "link">My Profile</li></a>
                <a href = "/cart"> <li className = "link">Cart</li></a>
