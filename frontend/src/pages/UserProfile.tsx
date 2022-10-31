@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap';
+import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
 
 const UserProfile = () => {
@@ -59,7 +60,13 @@ const UserProfile = () => {
 
             <h2 className = "heading-secondary">Username</h2>
 
-            <input className = "update-password" type = "text" />
+            <input className = "update-username" type = "text" />
+
+            <h2 className = "heading-secondary">Password</h2>
+
+            <input className = "update-username" type = "text" />
+
+            <Button type = "submit" colorScheme='teal' size='md'>Update Details</Button>
 
                 </Card.Body>
             </Card>

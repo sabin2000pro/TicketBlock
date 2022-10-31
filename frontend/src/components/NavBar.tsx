@@ -38,7 +38,7 @@ const NavBar: React.FC = () => {
       setBalance(currentBalance);
 
       localStorage.setItem("address", JSON.stringify(accounts));
-      setTokenPresent(true);
+      setTokenPresent(!tokenPresent);
       
      } 
      
