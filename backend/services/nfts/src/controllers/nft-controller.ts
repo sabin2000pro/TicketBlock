@@ -15,7 +15,7 @@ export const fetchNftByID = async (request: Request, response: Response, next: N
     const nft = await Nft.findById(id);
 
     if(!nft) {
-        return next(new NotFoundError("NFT Not found", 404));
+        return next(new NotFoundError("NFT Not found", StatusCodes.NOT_FOUND));
     }
     
     return response.status(StatusCodes.OK).json({success: true, data: nft});
@@ -26,7 +26,7 @@ export const createNewNft = async (request: Request, response: Response, next: N
     const nft = await Nft.create(body);
 
     if(nft) {
-        return next(new BadRequestError("NFT Already created on the backend", 400));
+        return next(new BadRequestError("NFT Already created on the backend", StatusCodes.BAD_REQUEST));
     }
 
     return response.status(StatusCodes.OK).json({success: true, data: nft});
@@ -46,10 +46,12 @@ export const editNftByID = async (request: Request, response: Response, next: Ne
 }
 
 export const deleteAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
+    await Nft.remove();
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
 
 export const deleteNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
+    const id = request.params.id;
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
 
