@@ -74,6 +74,7 @@ export const login = asyncHandler(async (request: Request, response: Response, n
 
 export const forgotPassword = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
     const {email} = request.body;
+    
     const user = await User.findOne({email});
 
     if(!user) {

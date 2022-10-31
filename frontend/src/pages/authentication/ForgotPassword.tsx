@@ -3,12 +3,15 @@ import { Button } from "@chakra-ui/react"
 import { useNavigate } from 'react-router-dom'
 import { forgotPassword } from '../../api/auth-api'
 import { Spinner } from "@chakra-ui/react";
+import axios from 'axios';
+
 
 const ForgotPassword: React.FC = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string | undefined>("")
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
+  const [errors, setErrors] = useState([]);
 
   const handleForgotPassword = async (event: any) => {
 
@@ -18,7 +21,8 @@ const ForgotPassword: React.FC = () => {
 
         setEmail(email);
         
-        forgotPassword(email as any);
+        const response = await axios.post(`http://localhost:5299/api/v1/auth/forgot-password`, {email});
+        console.log(response);
 
         setTimeout(() => {
           setFormSubmitted(!formSubmitted);
@@ -31,6 +35,7 @@ const ForgotPassword: React.FC = () => {
     catch(error: any) { 
 
       if(error) {
+        
         return console.error(error);
       }
 
@@ -57,7 +62,7 @@ const ForgotPassword: React.FC = () => {
               <div className = "email-container">
 
                 <label htmlFor= "username">E-mail</label>
-                  <input type = "text" placeholder='E-mail Address'/>
+                  <input value = {email} onChange = {(event) => setEmail(event.target.value)} type = "text" placeholder='E-mail Address'/>
 
               </div>
 
