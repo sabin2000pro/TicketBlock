@@ -10,6 +10,7 @@ const Login = () => {
 
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined> (false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
+  const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
 
   const handleLogin = async (event: any) => {
 
@@ -48,6 +49,19 @@ const Login = () => {
 
   useEffect(() => {
 
+    
+     const fetchAuthToken = () => {
+        localStorage.getItem("token");
+        setIsLoggedIn(true);
+        setTokenPresent(!tokenPresent);
+
+     }
+
+     fetchAuthToken();
+  }, [])
+
+  useEffect(() => {
+
     const fetchLoggedInUserData = async () => {
 
       try {
@@ -66,6 +80,7 @@ const Login = () => {
 
     fetchLoggedInUserData();
   }, [])
+
 
   return (
     <>
