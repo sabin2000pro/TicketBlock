@@ -6,13 +6,15 @@ const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string | undefined>("")
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
 
-
   const handleForgotPassword = async (event: any) => {
+
+
     try {
         
     } 
     
     catch(error: any) { 
+
       if(error) {
         return console.error(error);
       }
@@ -40,10 +42,11 @@ const ForgotPassword: React.FC = () => {
 
               </div>
 
-              <Button className = "submit-btn" colorScheme='teal' size ='md'>Submit</Button>
-
+              <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='md'>Submit</Button>
 
           </form>
+
+
          </div>
       </div>
 
