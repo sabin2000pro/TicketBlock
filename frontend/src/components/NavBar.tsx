@@ -84,14 +84,14 @@ const NavBar: React.FC = () => {
 
        const token = localStorage.getItem("token");
 
-       if(token === undefined || token === null) {
-          setIsLoggedIn(false);
+       if(token === null) {
           setTokenPresent(false);
+          setIsLoggedIn(false);
        }
 
-       if(token !== undefined || token !== null) {
-          setIsLoggedIn(true);
-          setTokenPresent(true);
+       if(token !== null) {
+        setTokenPresent(true);
+        setIsLoggedIn(true);
        }
        
     }
