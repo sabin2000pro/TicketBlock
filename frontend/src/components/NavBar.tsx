@@ -4,6 +4,7 @@ import { MetaMaskInpageProvider } from "@metamask/providers";
 import React, { useEffect, useState } from 'react';
 import {ethers} from 'ethers';
 import Web3 from 'web3';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 declare global {
@@ -15,7 +16,7 @@ declare global {
 }
 
 const NavBar: React.FC = () => {
-
+  const navigate = useNavigate();
   const [isWalletConnected, setIsWalletConnected] = useState<boolean | undefined>(false);
   const [accounts, setAccounts] = useState<[]>([]);
   const [balance, setBalance] = useState<string | undefined>("");
@@ -56,12 +57,14 @@ const NavBar: React.FC = () => {
     try {
 
        event.preventDefault()
-       localStorage.setItem("token", null as any)
+       localStorage.removeItem("token");
 
-       window.location.reload();
+       setIsLoggedIn(false);
+       setTokenPresent(false);
 
-       setIsLoggedIn(false)
-       setTokenPresent(false);       
+       return navigate("/login");
+       
+      
     } 
     
     catch(error: any) {
@@ -75,10 +78,8 @@ const NavBar: React.FC = () => {
 
  }
 
-
   useEffect(() => {
 
-    
     const fetchAuthToken = () => {
 
        const token = localStorage.getItem("token");
@@ -112,7 +113,7 @@ const NavBar: React.FC = () => {
                <a href = "/nfts"> <li className = "link">Ticket Block</li></a>
 
                <a href = "/register"> <li className = "link">Register</li></a>
-    {!tokenPresent ? <a onClick = {logoutHandler} href = "/login"> <li className = "link"> Logout </li> </a> : <a href = "/login"> <li className = "link"> Login </li> </a>  }
+    {tokenPresent ? <a onClick = {logoutHandler} href = "/login"> <li className = "link"> Logout </li> </a> : <a href = "/login"> <li className = "link"> Login </li> </a>  }
                <a href = "/create-nft"> <li className = "link">Create NFT</li></a>
                <a href = "/profile"> <li className = "link">My Profile</li></a>
                <a href = "/cart"> <li className = "link">Cart</li></a>
