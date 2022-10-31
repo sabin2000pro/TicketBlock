@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react'
 import { Button } from "@chakra-ui/react"
 import { useNavigate } from 'react-router-dom'
+import { forgotPassword } from '../../api/auth-api'
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string | undefined>("")
@@ -8,9 +9,13 @@ const ForgotPassword: React.FC = () => {
 
   const handleForgotPassword = async (event: any) => {
 
-
     try {
-        
+        event.preventDefault();
+
+        setEmail(email);
+        setFormSubmitted(!formSubmitted);
+
+        return forgotPassword(email as any);
     } 
     
     catch(error: any) { 
@@ -18,6 +23,8 @@ const ForgotPassword: React.FC = () => {
       if(error) {
         return console.error(error);
       }
+
+
     }
 
 
