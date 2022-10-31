@@ -71,7 +71,30 @@ export const CartProvider = ({children}: CartProviderProps) => {
     }
 
     const decreaseCartQuantity = (id: number) => {
+        
+        setCartItems(currItems => {
 
+            if(currItems.find(item => item.id === id) !== null) { // if the item id is not there (we do not have any items in the cart)
+                return [...currItems, {id, quantity: 1} ]
+            }
+
+            else {
+
+                return currItems.map(item => {
+
+                    if(item.id === id) { // Subtract 1 from quantity
+                        return {...item, quantity: item.quantity - 1}
+                    }
+
+                    else {
+                        return item;
+                    }
+
+
+                })
+            }
+
+        })
     }
 
     const removeFromCart = (id: number) => {
