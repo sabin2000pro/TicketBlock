@@ -1,6 +1,6 @@
 import { Button, Alert, AlertIcon} from '@chakra-ui/react'
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 const Login = () => {
@@ -9,7 +9,6 @@ const Login = () => {
 
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined> (false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
-  const [error, setError] = useState<string | undefined>("");
 
   const handleLogin = async (event: any) => {
 
@@ -23,7 +22,10 @@ const Login = () => {
         const token = response.data.token;
 
         localStorage.setItem("token", token);
-        
+
+        setFormSubmitted(!formSubmitted);
+        setIsLoggedIn(!isLoggedIn);
+
         return response;
     }  
     
@@ -39,8 +41,34 @@ const Login = () => {
     
   }
 
+  useEffect(() => {
+    
+    const fetchLoggedInUserData = async () => {
+
+
+      try {
+        // Send GET request to fetch the user data
+      } 
+      
+      catch(error: any) {
+
+      }
+
+
+
+    } 
+
+    fetchLoggedInUserData();
+  }, [])
+
   return (
     <>
+              
+    {formSubmitted && isLoggedIn && <Alert status='success'>
+        <AlertIcon />
+          You are logged in
+        </Alert>
+    }
 
       <div className = "login-container">
 
