@@ -4,6 +4,7 @@ import { MetaMaskInpageProvider } from "@metamask/providers";
 import React, { useEffect, useState } from 'react';
 import {ethers} from 'ethers';
 import Web3 from 'web3';
+import axios from 'axios';
 
 declare global {
   interface Window{
@@ -22,6 +23,7 @@ const NavBar: React.FC = () => {
   const [isWalletConnected, setIsWalletConnected] = useState<boolean | undefined>(false);
   const [accounts, setAccounts] = useState<[]>([]);
   const [balance, setBalance] = useState<string | undefined>("");
+  const [authTokenPresent, setAuthTokenPresent] = useState<boolean | false>(false)
 
   const handleWalletConnect = async (event: any) => {
 
@@ -51,13 +53,30 @@ const NavBar: React.FC = () => {
 
   } 
 
+  const logout = async () => {
+     // Clear the session by sending GET request to logout to the backend
+     try {
+
+         const response = await axios.get('http://localhost:5299/api/v1/logout');
+         return response
+     } 
+     
+     catch(error: any) {
+      if(error) {
+        return console.error(error);
+      }
+     }
+
+
+  }
+
   // Code to fetch the token from Local Storage to not login again
 
   useEffect(() => {
     const fetchAuthToken = () => {
 
-      const authToken = localStorage.getItem("token");
-      console.log(`Found auth token : ${authToken}`)
+      localStorage.getItem("token");
+      setAuthTokenPresent(!authTokenPresent);
     }
 
     fetchAuthToken();
