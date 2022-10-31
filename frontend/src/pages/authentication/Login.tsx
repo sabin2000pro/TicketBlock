@@ -3,8 +3,12 @@ import React from 'react'
 
 const Login = () => {
 
+  const handleLogin = async () => {
+    
+  }
 
-  
+
+
   return (
     <>
 
@@ -13,7 +17,9 @@ const Login = () => {
 
         <div className = "login-form">
 
-           <form method = "POST">
+           <form onSubmit={handleLogin} method = "POST">
+
+
            <h1 className = "heading-primary">Login</h1>
 
             <div className = "email-container">

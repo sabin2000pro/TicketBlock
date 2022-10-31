@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
 import {Alert, AlertIcon, Button} from '@chakra-ui/react';
-
 import axios from 'axios';
 
-
 const Register: React.FC = () => {
+
   const [email, setEmail] = useState<string | undefined>("");
   const [username, setUsername] = useState<string | undefined>("");
   const [password, setPassword] = useState<string | undefined>("");
