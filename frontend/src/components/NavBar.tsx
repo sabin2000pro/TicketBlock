@@ -2,10 +2,8 @@
 import { Button } from '@chakra-ui/react';
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import React, { useEffect, useState } from 'react';
-import {ethers} from 'ethers';
 import Web3 from 'web3';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 declare global {
   interface Window{
@@ -110,8 +108,6 @@ const NavBar: React.FC = () => {
 
              <ul className = "links-container">
 
-
-
                <a href = "/nfts"> <li className = "link">Ticket Block</li></a>
 
                <a href = "/register"> <li className = "link">Register</li></a>
@@ -122,8 +118,13 @@ const NavBar: React.FC = () => {
     <a href = "/login"> <li className = "link"> Login </li> </a>  }
     
                <a href = "/create-nft"> <li className = "link">Create NFT</li></a>
-               <a href = "/profile"> <li className = "link">My Profile</li></a>
+               {tokenPresent && isLoggedIn && <a href = "/profile"> <li className = "link">My Profile</li></a>}
                <a href = "/cart"> <li className = "link">Cart</li></a>
+
+
+               <div className = "cart-container">
+                  <span className='cart-qty'>0</span>
+               </div>
 
                <div className='search-container'>
                   <input placeholder='Search NFT' type = "text" />

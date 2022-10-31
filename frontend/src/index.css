@@ -190,3 +190,21 @@ html {
   gap: 20px;
   margin-left: 30px;
 }
+
+.cart-container {
+  position: absolute;
+  margin-left: 750px;
+  margin-top: 35px;
+  margin-left: 630px;
+  
+}
+
+.cart-qty {
+  color: red;
+  font-size: 18px;
+  background-color: black;
+  padding: 10px;
+  border-radius: 50%;
+  margin-top: 90px;
+  position: relative;
+}
