@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button } from "@chakra-ui/react"
+import { Alert, AlertIcon, Button } from "@chakra-ui/react"
 import { useNavigate } from 'react-router-dom'
 import { forgotPassword } from '../../api/auth-api'
 import { Spinner } from "@chakra-ui/react";
@@ -10,6 +10,11 @@ const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string | undefined>("")
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);
   const [showSpinner, setShowSpinner] = useState<boolean | undefined>(false);
+  const [showDialog, setShowDialog] = useState<boolean | undefined>(false);
+
+  const [isError, setIsError] = useState<boolean | undefined>(false);
+  const [error, setError] = useState<string | undefined>("");
+
 
   const handleForgotPassword = async (event: any) => {
 
@@ -17,12 +22,23 @@ const ForgotPassword: React.FC = () => {
         event.preventDefault();
         setEmail(email);
         
-        const response = await axios.post(`http://localhost:5299/api/v1/auth/forgot-password`, {email});
+        let response = await axios.post(`http://localhost:5299/api/v1/auth/forgot-password`, {email});
+        let data = response.data;
 
         setShowSpinner(!showSpinner);
         setFormSubmitted(!formSubmitted)
 
-        return response.data;
+        setTimeout(() => {
+
+          setShowSpinner(false);
+
+          setShowDialog(!showDialog);
+
+        }, 2500)
+
+        setEmail("")
+
+        return data;
 
     } 
     
@@ -30,7 +46,10 @@ const ForgotPassword: React.FC = () => {
 
       if(error) {
         
-        return console.error(error);
+        console.log(error.response.data);
+        setIsError(!isError)
+
+        setError(error.response.data.message);
       }
 
 
@@ -44,7 +63,22 @@ const ForgotPassword: React.FC = () => {
     <>
 
     <div className = "spinner-container">
-    {showSpinner && formSubmitted && <Spinner size = 'lg' />}
+
+      {isError && <Alert status='error'>
+
+    <AlertIcon />
+      {error}
+    </Alert>}
+
+      {showSpinner && formSubmitted && <Spinner size = 'xl' />}
+
+      {showDialog && <Alert status='success'>
+
+      <AlertIcon />
+        Forgot Password Submission Sent
+      </Alert>}
+
+
     </div>
 
       <div className = "forgot-container">
