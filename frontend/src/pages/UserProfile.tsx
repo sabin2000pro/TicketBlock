@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
+import { getLoggedInUser } from '../api/auth-api';
 
 const UserProfile = () => {
 
@@ -9,7 +10,7 @@ const UserProfile = () => {
     useEffect(() => {
 
         const fetchUserData = async () => {
-           
+            getLoggedInUser();
         }
 
         fetchUserData();
