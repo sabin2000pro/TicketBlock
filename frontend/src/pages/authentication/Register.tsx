@@ -3,7 +3,7 @@ import {Alert, Button} from '@chakra-ui/react';
 
 import axios from 'axios';
 
-const Register: React.FC = (props) => {
+const Register: React.FC = () => {
   const [username, setUsername] = useState<string | undefined>("");
   const [email, setEmail] = useState<string | undefined>("");
   const [password, setPassword] = useState<string | undefined>("");
@@ -15,8 +15,11 @@ const Register: React.FC = (props) => {
   const handleRegisterAccount = async () => {
 
        try {
-         console.log("Rgister user")
-          const response = await axios.post(`http://localhost:5299/api/v1/auth/register`, {username, email, password});
+         setUsername(username);
+         setEmail(email);
+         setPassword(password);
+         
+          const response = await axios.post(`http://localhost:5299/api/v1/auth/register`, {email, username, password});
 
           console.log(response);
 
@@ -26,7 +29,9 @@ const Register: React.FC = (props) => {
        catch(error: any) {
          
          if(error.response) {
-            console.log(error.response.data.message);
+            setIsError(true);
+            setError(error);
+            console.log(error)
          }
 
        }
