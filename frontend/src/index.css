@@ -209,8 +209,24 @@ html {
   position: relative;
 }
 
+.profile-container {
+  margin-left: 150px;
+  padding: 24px 48px;
+  height: 200%;
+  border-radius: 20px;
+  margin: 50px;
+}
+
 .profile-container h1 {
   color: black;
   text-align: center;
 }
 
+.custom {
+  padding: 20px;
+  margin-left: 50px;
+}
+
+.card-text {
+ padding: 24px 48px;
+}

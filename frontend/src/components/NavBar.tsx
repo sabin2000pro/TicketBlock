@@ -88,8 +88,8 @@ const NavBar: React.FC = () => {
        }
 
        if(token !== null) {
-        setTokenPresent(!tokenPresent) as unknown as boolean;
-        setIsLoggedIn(!isLoggedIn) as unknown as boolean;
+          setTokenPresent(!tokenPresent) as unknown as boolean;
+          setIsLoggedIn(!isLoggedIn) as unknown as boolean;
        }
        
     }
@@ -133,7 +133,7 @@ const NavBar: React.FC = () => {
        </ul>
 
        {!isWalletConnected && isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : undefined }
-       {isWalletConnected && <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}>Account Balance: {balance} ETH</h2>}
+       {isWalletConnected && <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}>Account: {accounts}</h2>}
       
 
 </nav> 
