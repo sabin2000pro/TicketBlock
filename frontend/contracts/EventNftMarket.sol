@@ -166,6 +166,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     function fetchAllNftsOnSale() public view returns (EventNft[] memory) {
         uint totalNftSupply = getNftTotalSupply();
         uint currentTokenIndex = 0; // Current index of the token
+        
         uint currentNftItem = listedTokenItems.current();
 
         EventNft[] memory nftItems = new EventNft[](currentNftItem);

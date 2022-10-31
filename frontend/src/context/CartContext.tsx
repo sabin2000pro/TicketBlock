@@ -43,7 +43,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
         return 0;
     }
 
-    const increaseCartQuantity = (id: number) => {
+    const increaseCartQuantity = (id: number) => { // Increase the cart quantity by 1
 
         setCartItems(currItems => {
 
