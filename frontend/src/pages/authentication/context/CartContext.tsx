@@ -10,7 +10,8 @@ type CartItem = {
 }
 
 type ICartContext = {
-    addOneToCart: (id: number) => void,
+    increaseCartQuantity: (id: number) => void,
+    decreaseCartQuantity: (id: number) => void,
 
     openCart: () => void,
     closeCart: () => void,
@@ -26,8 +27,8 @@ export const CartProvider: React.FC<CartContextProps> = ({children}) => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
     const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
 
-    const getCartQuantity = () => {
-
+    const getCartQuantity = (id: number) => {
+        return cartItems.find(item => item.id === id)?.quantity || 0; // Get the cart quantity for that product
     }
 
     const openCart = () => {
@@ -38,15 +39,19 @@ export const CartProvider: React.FC<CartContextProps> = ({children}) => {
         setIsCartOpen(false);
     }
 
-    const addOneToCart = (itemId: number): any => {
+    const increaseCartQuantity = (itemId: number) => {
         
     }
 
-    const removeOneFromCart = (itemId: number): any => {
+    const decreaseCartQuantity = (itemId: number) => {
         
     }
+
+    const removeOneFromCart = (itemId: number) => {
+       setCartItems(cartItems.filter(item => item.id !== itemId));
+    }
  
-    return <CartContext.Provider value = {{addOneToCart, removeOneFromCart, cartItems, getCartQuantity, openCart, closeCart}}>
+    return <CartContext.Provider value = {{increaseCartQuantity, decreaseCartQuantity, removeOneFromCart, cartItems, getCartQuantity, openCart, closeCart}}>
             {children}
     </CartContext.Provider>
 }
