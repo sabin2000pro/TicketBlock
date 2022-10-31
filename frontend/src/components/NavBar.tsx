@@ -90,8 +90,8 @@ const NavBar: React.FC = () => {
        }
 
        if(token !== null) {
-        setTokenPresent(true);
-        setIsLoggedIn(true);
+        setTokenPresent(!tokenPresent) as unknown as boolean;
+        setIsLoggedIn(!isLoggedIn) as unknown as boolean;
        }
        
     }
