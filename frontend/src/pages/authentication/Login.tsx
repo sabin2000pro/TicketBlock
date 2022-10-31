@@ -11,12 +11,24 @@ const Login = () => {
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined> (false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [authTokenPresent, setAuthTokenPresent] = useState<boolean | undefined>(false);
+
+  const [isError, setIsError] = useState<boolean | undefined>(false);
+  const [error, setError] = useState<string | undefined>("")
+
+  const validateEntries = (email: string, password: string) => {
+      return email.trim().length !== 0 || password.trim().length !== 0
+  }
  
   const handleLogin = async (event: any) => {
 
     try {
 
         event.preventDefault();
+
+        if(!validateEntries(email as string, password as string)) {
+            setIsError(!isError);
+            setError("Missing E-mail Or Password")
+        }
 
         setEmail(email);
         setPassword(password);
@@ -64,7 +76,7 @@ const Login = () => {
     <>
               
     {formSubmitted && isLoggedIn && <Alert status='success'>
-      
+
         <AlertIcon />
           You are logged in
         </Alert>
