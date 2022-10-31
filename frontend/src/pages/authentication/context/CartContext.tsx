@@ -9,7 +9,7 @@ type CartItem = {
     quantity: number;
 }
 
-type CartContext = {
+type ICartContext = {
     addOneToCart: (id: number) => void,
 
     openCart: () => void,
@@ -20,7 +20,7 @@ type CartContext = {
     cartItems: CartItem[]
 }
 
-export const CartContext = createContext({} as CartContext);
+export const CartContext = createContext({} as ICartContext);
 
 export const CartProvider: React.FC<CartContextProps> = ({children}) => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -52,6 +52,5 @@ export const CartProvider: React.FC<CartContextProps> = ({children}) => {
 }
 
 export const useCart = () => { // useCart custom hook
-    const useCart = useContext(CartContext);
-    return {cart: useCart};
+   return useContext(CartContext);
 }
