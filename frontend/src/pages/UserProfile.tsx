@@ -11,6 +11,7 @@ const UserProfile: React.FC = () => {
  
     const navigate = useNavigate();
     const [user, setUser] = useState([])
+    const [accountBalance, setAccountBalance] = useState(0);
 
     const {accounts, balance} = useContext(Web3Context)
 
@@ -25,6 +26,16 @@ const UserProfile: React.FC = () => {
     fetchUserData();
 
 }, [user])
+
+    useEffect(() => {
+
+        const fetchAccountBalance = async () => {
+            setAccountBalance(balance as any);
+        }
+
+        fetchAccountBalance();
+
+    }, [])
 
   return (
 
@@ -87,7 +98,7 @@ const UserProfile: React.FC = () => {
 
             <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
 
-                <span className = "fs-2 card-text">Balance </span>
+                <span className = "fs-2 card-text">Balance: {balance} ETH</span>
                 
             </Card.Title>
 
