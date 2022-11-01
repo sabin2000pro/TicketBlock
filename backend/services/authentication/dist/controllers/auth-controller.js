@@ -22,6 +22,7 @@ const mongoose_1 = require("mongoose");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const password_reset_model_1 = require("../models/password-reset-model");
 const two_factor_verification_model_1 = require("../models/two-factor-verification-model");
+const email_verification_model_1 = require("../models/email-verification-model");
 const registerUser = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = request.body;
     const existingUser = yield user_model_1.User.findOne({ email });
@@ -37,10 +38,28 @@ exports.registerUser = registerUser;
 // @route     POST /api/v1/auth/verify-email
 // @access    Public (No Authorization Token Required)
 exports.verifyEmailAddress = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { ownerId, OTP } = request.body;
+    const { userId, OTP } = request.body;
+    const user = yield user_model_1.User.findById(userId);
+    if (!user) {
+        return next(new error_handler_1.NotFoundError("Could not find that user", 404));
+    }
     if (!OTP) {
         return next(new error_handler_1.NotFoundError("No OTP found. Please check entry again", http_status_codes_1.StatusCodes.NOT_FOUND));
     }
+    const otpToken = yield email_verification_model_1.EmailVerification.findOne({ owner: userId });
+    if (!otpToken) {
+        return next(new error_handler_1.BadRequestError(`OTP Verification token is not found. Please try again`, http_status_codes_1.StatusCodes.BAD_REQUEST));
+    }
+    // Check to see if tokens match
+    const otpTokensMatch = otpToken.compareOtpTokens(OTP);
+    if (!otpTokensMatch) {
+        return next(new error_handler_1.BadRequestError("OTP Tokens do not match. Please try again later", http_status_codes_1.StatusCodes.BAD_REQUEST));
+    }
+    user.isVerified = true;
+    yield user.save();
+    yield email_verification_model_1.EmailVerification.findByIdAndDelete(otpToken._id);
+    // Send token
+    return sendTokenResponse(request, user, 200, response);
 }));
 // @desc      Login User
 // @route     POST /api/v1/auth/login
@@ -94,9 +113,6 @@ const sendPasswordResetEmail = (user, resetPasswordURL) => {
             `
     });
 };
-// @desc      Register New User
-// @route     POST /api/v1/auth/register
-// @access    Public (No Authorization Token Required)
 const verifyLoginMfa = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId, multiFactorToken } = request.body;
     const user = yield user_model_1.User.findById(userId);
@@ -111,6 +127,19 @@ const verifyLoginMfa = (request, response, next) => __awaiter(void 0, void 0, vo
     if (!factorToken) {
         return next(new error_handler_1.BadRequestError("The token associated to the user is invalid", 400));
     }
+    // Verify to see if the tokens match
+    const mfaTokensMatch = factorToken.comapareMfaTokens(multiFactorToken);
+    if (!mfaTokensMatch) {
+        user.isActive = (!user.isActive);
+        user.isVerified = (!user.isVerified);
+        return next(new error_handler_1.BadRequestError("The MFA token you entered is invalid. Try again", http_status_codes_1.StatusCodes.BAD_REQUEST));
+    }
+    // Otherwise
+    user.isActive = true;
+    user.isVerified = true;
+    factorToken.token = undefined;
+    yield user.save();
+    return sendTokenResponse(request, user, 200, response);
 });
 exports.verifyLoginMfa = verifyLoginMfa;
 // @desc      Logout User

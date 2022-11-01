@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PasswordReset = void 0;
+exports.EmailVerification = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-const PasswordResetSchema = new mongoose_1.default.Schema({
+const EmailVerificationSchema = new mongoose_1.default.Schema({
     owner: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "User"
@@ -32,7 +32,7 @@ const PasswordResetSchema = new mongoose_1.default.Schema({
         default: Date.now()
     }
 }, { timestamps: true });
-PasswordResetSchema.pre('save', function (next) {
+EmailVerificationSchema.pre('save', function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         let HASH_ROUNDS = 10;
         if (!this.isModified("token")) {
@@ -42,5 +42,10 @@ PasswordResetSchema.pre('save', function (next) {
         return next();
     });
 });
-const PasswordReset = mongoose_1.default.model("PasswordReset", PasswordResetSchema);
-exports.PasswordReset = PasswordReset;
+EmailVerificationSchema.methods.compareOtpTokens = function (enteredToken) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield bcryptjs_1.default.compare(enteredToken, this.token);
+    });
+};
+const EmailVerification = mongoose_1.default.model("EmailVerification", EmailVerificationSchema);
+exports.EmailVerification = EmailVerification;

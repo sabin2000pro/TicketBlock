@@ -42,5 +42,10 @@ TwoFactorVerificationSchema.pre('save', function (next) {
         return next();
     });
 });
+TwoFactorVerificationSchema.methods.compareMfaTokens = function (enteredToken) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return yield bcryptjs_1.default.compare(enteredToken, this.token);
+    });
+};
 const TwoFactorVerification = mongoose_1.default.model("TwoFactorVerification", TwoFactorVerificationSchema);
 exports.TwoFactorVerification = TwoFactorVerification;

@@ -5,7 +5,6 @@ import { forgotPassword } from '../../api/auth-api'
 import { Spinner } from "@chakra-ui/react";
 import axios from 'axios';
 
-
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string | undefined>("")
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined>(false);

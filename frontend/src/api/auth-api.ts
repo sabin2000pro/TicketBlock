@@ -120,14 +120,27 @@ export const getLoggedInUser = async () => {
 }
 
 export const verifyEmailAddress = async (OTP: IVerifyEmail) => {
-    try {
 
-        
+
+    try {
+        const response = await axios.post(`http://localhost:5299/api/v1/auth/verify-email`, {OTP});
+        const data = response.data;
+
+        console.log(data);
+
+        return data;
     }
     
     catch(err: any) {
 
+        if(err) {
+            console.log(err.response);
+        }
+
+        
     }
+
+
 }
 
 export const verifyLoginMFA = async (mfaToken: IVerifyLoginMfa) => {

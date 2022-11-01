@@ -10,7 +10,8 @@ import './index.css'
 import CreateNft from './pages/nfts/CreateNft';
 import NftList from './pages/nfts/NftList';
 import UserProfile from './pages/UserProfile';
-import { getLoggedInUser } from './api/auth-api';
+import EmailVerification from './pages/authentication/EmailVerification';
+import LoginMfaVerification from './pages/authentication/LoginMfaVerification';
 
 const App: React.FC = () => {
 
@@ -29,6 +30,9 @@ const App: React.FC = () => {
           <Route path = '/login' element = {<Login />} />
           <Route path = '/forgot-password' element = {<ForgotPassword />} />
           <Route path = '/reset-password' element = {<ResetPassword />} />
+
+          <Route path = "/verify-email" element = {<EmailVerification />} />
+          <Route path = "/login-verify" element = {<LoginMfaVerification />} />
 
 
           <Route path = '/create-nft' element = {<CreateNft />} />
