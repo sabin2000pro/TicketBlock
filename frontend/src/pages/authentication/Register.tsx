@@ -42,12 +42,11 @@ const Register: React.FC = () => {
        catch(error: any) {
          
          if(error) {
-
-            setIsError(true);
-            setError(error);
-            console.log(error);
-
-         }
+            setIsError(!isError);
+            setError(error.response.data.errors.message)
+          }
+    
+          clearError();
 
        }
 
