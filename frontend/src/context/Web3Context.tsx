@@ -69,7 +69,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
                 checkMetaMaskStatus(ethereum);
             })
 
-
         } 
         
         catch(error: any) {
