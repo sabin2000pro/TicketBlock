@@ -5,6 +5,9 @@ interface ITwoFactorVerification {
     owner: mongoose.Schema.Types.ObjectId
     token: string;
     expiresAt: Date;
+
+    comapareMfaTokens: (enteredToken: string) => Promise<boolean>
+
 }
 
 interface ITwoFactorVerificationDocument extends mongoose.Model<ITwoFactorVerification> {
@@ -12,6 +15,8 @@ interface ITwoFactorVerificationDocument extends mongoose.Model<ITwoFactorVerifi
     token: string;
     createdAt: Date;
     expiresAt: Date;
+
+    comapareMfaTokens: (enteredToken: string) => Promise<boolean>
 }
 
 const TwoFactorVerificationSchema = new mongoose.Schema<ITwoFactorVerificationDocument>({
@@ -48,6 +53,10 @@ TwoFactorVerificationSchema.pre('save', async function(next) {
     this.token = await bcrypt.hash(this.token, HASH_ROUNDS);
     return next();
 })  
+
+TwoFactorVerificationSchema.methods.compareMfaTokens = async function(enteredToken: string) {
+    return await bcrypt.compare(enteredToken, this.token);
+}
 
 
 const TwoFactorVerification = mongoose.model<ITwoFactorVerification>("TwoFactorVerification", TwoFactorVerificationSchema);

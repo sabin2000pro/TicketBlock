@@ -39,6 +39,14 @@ const UserSchema = new mongoose_1.default.Schema({
         type: Number,
         default: 0
     },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    isActive: {
+        type: Boolean,
+        default: false
+    }
 }, { toJSON: { virtuals: true }, timestamps: true });
 // Hash User Password
 UserSchema.pre("save", function (next) {

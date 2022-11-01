@@ -145,6 +145,9 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
         return next(new BadRequestError("The token associated to the user is invalid", 400));
     }
 
+    // Verify to see if the tokens match
+    const mfaTokensMatch = factorToken.comp
+
 }
 
 // @desc      Logout User

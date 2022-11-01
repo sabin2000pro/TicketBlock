@@ -21,6 +21,7 @@ const user_model_1 = require("../models/user-model");
 const mongoose_1 = require("mongoose");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const password_reset_model_1 = require("../models/password-reset-model");
+const two_factor_verification_model_1 = require("../models/two-factor-verification-model");
 const registerUser = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = request.body;
     const existingUser = yield user_model_1.User.findOne({ email });
@@ -97,12 +98,18 @@ const sendPasswordResetEmail = (user, resetPasswordURL) => {
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 const verifyLoginMfa = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId, mfaToken } = request.body;
+    const { userId, multiFactorToken } = request.body;
+    const user = yield user_model_1.User.findById(userId);
     if ((0, mongoose_1.isValidObjectId)(userId)) {
         return next(new error_handler_1.NotFoundError("User ID not valid", 404));
     }
-    if (!mfaToken) {
-        return next(new error_handler_1.NotFoundError("MFA Token not found. Please provide token", 404));
+    if (!multiFactorToken) {
+        user.isActive = (!user.isActive);
+        return next(new error_handler_1.BadRequestError("Please provide your MFA token", http_status_codes_1.StatusCodes.BAD_REQUEST));
+    }
+    const factorToken = yield two_factor_verification_model_1.TwoFactorVerification.findOne({ owner: userId });
+    if (!factorToken) {
+        return next(new error_handler_1.BadRequestError("The token associated to the user is invalid", 400));
     }
 });
 exports.verifyLoginMfa = verifyLoginMfa;
