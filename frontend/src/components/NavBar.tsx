@@ -4,6 +4,8 @@ import { MetaMaskInpageProvider } from "@metamask/providers";
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import { useNavigate } from 'react-router-dom';
+import {useContext} from "react";
+import { Web3Context } from '../context/Web3Contex';
 
 declare global {
   interface Window{
@@ -16,28 +18,32 @@ declare global {
 const NavBar: React.FC = () => {
 
   const navigate = useNavigate();
+  const {connectWallet} = useContext(Web3Context);
+  
   const [isWalletConnected, setIsWalletConnected] = useState<boolean | undefined>(false);
   const [accounts, setAccounts] = useState<[]>([]); // Metamask state for storing the account
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
 
-  const handleWalletConnect = async (event: any) => {
+  const handleWalletConnect =  (event: any) => {
 
      try {
 
       event.preventDefault();
 
-      const accounts = await window.ethereum?.request({method: "eth_requestAccounts"}) as any
-      const web3 = new Web3(window.ethereum as any);
+      connectWallet();
 
-      const currentBalance = await web3.eth.getBalance(accounts[0]); // Get the account balance
+      // const accounts = await window.ethereum?.request({method: "eth_requestAccounts"}) as any
+      // const web3 = new Web3(window.ethereum as any);
+
+      // const currentBalance = await web3.eth.getBalance(accounts[0]); // Get the account balance
     
-      setIsWalletConnected(!isWalletConnected);
-      setAccounts(accounts);
+      // setIsWalletConnected(!isWalletConnected);
+      // setAccounts(accounts);
 
-      localStorage.setItem("address", JSON.stringify(accounts));
-      setTokenPresent(!tokenPresent);
+      // localStorage.setItem("address", JSON.stringify(accounts));
+      // setTokenPresent(!tokenPresent);
       
      } 
      

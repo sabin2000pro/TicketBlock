@@ -17,12 +17,10 @@ import { Web3Context } from './context/Web3Contex';
 
 const App: React.FC = () => {
 
-  const {web3Api} = useContext(Web3Context)
-
-  const isLoading = web3Api.ethereum
-
+  const {getAccount, connectWallet} = useContext(Web3Context)
+  
   useEffect(() => {
-    console.log(isLoading)
+    console.log(getAccount)
   }, [])
 
   return (
