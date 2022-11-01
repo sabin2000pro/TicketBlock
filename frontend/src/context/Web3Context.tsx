@@ -54,7 +54,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     }
 
     const processAccountChange = async (ethereum: MetaMaskInpageProvider) => {
+
         try {
+
             window.ethereum?.on("accountsChanged", () => {
                 checkMetaMaskStatus(ethereum);
             })
@@ -62,12 +64,16 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         
         catch(error: any) {
 
+            if(error) {
+                return console.error(error);
+            }
+
+
         }
 
 
+
     }
-
-
 
     return <Web3Context.Provider value = {{connectWallet, accounts, balance, processAccountChange}}>
             {children}
