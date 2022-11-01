@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import {Alert, AlertIcon, Button} from '@chakra-ui/react';
 import { register } from '../../api/auth-api';
+import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
+   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string | undefined>("");
   const [username, setUsername] = useState<string | undefined>("");
@@ -30,7 +32,11 @@ const Register: React.FC = () => {
           setPassword("");
 
        
-         return register(email as string, username as string, password as string);
+          register(email as string, username as string, password as string);
+
+          setTimeout(() => {
+            return navigate("/verify-email");
+          }, 2000)   
        } 
        
        catch(error: any) {
@@ -40,7 +46,7 @@ const Register: React.FC = () => {
             setIsError(true);
             setError(error);
             console.log(error);
-            
+
          }
 
        }

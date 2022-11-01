@@ -1,22 +1,24 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { Button } from "@chakra-ui/react";
 import VerifyInput from '../../components/VerifyInput';
 
 const EmailVerification: React.FC = () => {
 
-  const [otp, setOtp] = useState<string | undefined>("");
-  const [otpSubmitted, setOtpSubmitted] = useState<boolean | undefined>(false)
-
-  const handleOtpSubmission = async () => {
+  const handleOtpSubmission = async (event: any) => {
 
       try {
-        setOtp(otp);
+          event.preventDefault();
+          console.log("Handling OTP")
       } 
       
       catch(err: any) {
+
         if(err) {
+
           return console.error(err);
         }
+
+
       }
 
   }
@@ -26,22 +28,23 @@ const EmailVerification: React.FC = () => {
     <>
   <div className = "forgot-container">
 
-<div className = "forgot-form">
+    <div className = "forgot-form">
 
- <form onSubmit = {handleOtpSubmission} method = "POST">
+    <form onSubmit = {handleOtpSubmission} method = "POST">
 
- <h1 className = "heading-primary">Verify E-mail Address</h1>
+    <h1 className = "heading-primary">Verify E-mail Address</h1>
 
-      <div className = "pin-container">
-          <VerifyInput otp = {otp} />
-      </div>
+          <div className = "pin-container">
+              <VerifyInput />
+          </div>
 
-     <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
+        <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
 
- </form>
+    </form>
 
 
   </div>
+
   </div>
     </>
 

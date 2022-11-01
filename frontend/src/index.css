@@ -250,12 +250,5 @@ html {
 }
 
 .pin-container {
-  padding: 24px;
-  font-size: 28px;
   color: white;
-  font-weight: bold;
-  
-  margin: 20px;
-  align-items: center;
-  margin-left: 30px;
 }

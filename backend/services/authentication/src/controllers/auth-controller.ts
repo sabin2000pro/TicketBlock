@@ -84,11 +84,14 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     if(!email || !password) {
         return next(new NotFoundError("E-mail or password not found. Please check again", StatusCodes.NOT_FOUND));
     }
-
     const user = await User.findOne({email});
 
     if(!user) {
         return next(new NotFoundError("Could not find that user", StatusCodes.NOT_FOUND));
+    }
+    
+    if(!user.isVerified) {
+        return next(new BadRequestError("Account not verified. Please verify your account before logging in", 400 ));
     }
 
     const passwordsMatch = await user.compareLoginPasswords(password)
