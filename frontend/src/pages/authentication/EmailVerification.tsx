@@ -14,12 +14,10 @@ const EmailVerification: React.FC = () => {
 
   const moveNextOtpField = (currOTPIndex: any) => {
     setActiveOtpIndex(currOTPIndex + 1);
-}
+  }
 
   const handleOtpSubmission = (event: any) => {
      event.preventDefault();
-
-     const newOTPVals = [...otp];     
 
   }
 

@@ -13,8 +13,13 @@ const VerifyInput: React.FC<IVerifyInput> = ({otp, activeOtpIndex, setActiveOtpI
 
   const handleNextOTP = (event: any) => {
      event.preventDefault();
+     const value = event.target;
+     
      console.log("Handle OTP change")
 
+     console.log(otp[activeOtpIndex]);
+
+     moveNextOtpField(activeOtpIndex + 1);
 
   }
 
