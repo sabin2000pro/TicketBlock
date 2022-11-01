@@ -66,6 +66,8 @@ const NavBar: React.FC = () => {
     }
 
     fetchAccountAddress();
+
+    
   }, [])
 
   const logoutHandler = async (event: any) => {
@@ -73,11 +75,13 @@ const NavBar: React.FC = () => {
     try {
 
        event.preventDefault()
+
        localStorage.removeItem("token");
        localStorage.removeItem('account')
 
        setIsLoggedIn(false);
        setTokenPresent(false);
+
        setIsWalletConnected(false)
        setAccountAddressPresent(false)
 
