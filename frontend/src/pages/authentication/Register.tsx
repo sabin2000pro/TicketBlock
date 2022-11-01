@@ -22,8 +22,8 @@ const Register: React.FC = () => {
            
           setEmail(email);
           setUsername(username);
-           setPassword(password);
-           
+          setPassword(password);
+
           setFormSubmitted(true);
           setIsError(false);
 

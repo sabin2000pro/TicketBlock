@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = void 0;
+const generate_otp_token_1 = require("./../utils/generate-otp-token");
 const send_email_1 = require("./../utils/send-email");
 const generate_reset_token_1 = require("./../utils/generate-reset-token");
 const error_handler_1 = require("../middleware/error-handler");
@@ -23,6 +24,18 @@ const express_async_handler_1 = __importDefault(require("express-async-handler")
 const password_reset_model_1 = require("../models/password-reset-model");
 const two_factor_verification_model_1 = require("../models/two-factor-verification-model");
 const email_verification_model_1 = require("../models/email-verification-model");
+const sendConfirmationEmail = (transporter, newUser, userOTP) => {
+    return transporter.sendMail({
+        from: 'verification@ethertix.com',
+        to: newUser.email,
+        subject: 'E-mail Verification',
+        html: `
+        
+        <p>Your verification OTP</p>
+        <h1> ${userOTP}</h1>
+        `
+    });
+};
 const registerUser = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = request.body;
     const existingUser = yield user_model_1.User.findOne({ email });
@@ -31,6 +44,16 @@ const registerUser = (request, response, next) => __awaiter(void 0, void 0, void
     }
     const user = yield user_model_1.User.create({ username, email, password });
     yield user.save();
+    const currentUser = user._id; // Get the current user's ID
+    const userOTP = (0, generate_otp_token_1.generateOTPToken)();
+    console.log(`Your OTP token : ${userOTP}`);
+    const verificationToken = new email_verification_model_1.EmailVerification({ owner: currentUser, token: userOTP });
+    yield verificationToken.save();
+    // Send e-mail verification to user
+    const transporter = (0, send_email_1.emailTransporter)();
+    sendConfirmationEmail(transporter, user, userOTP);
+    const userOTPVerification = new email_verification_model_1.EmailVerification({ owner: user._id, token: userOTP });
+    yield userOTPVerification.save();
     return sendTokenResponse(request, user, http_status_codes_1.StatusCodes.CREATED, response);
 });
 exports.registerUser = registerUser;
@@ -72,6 +95,9 @@ exports.login = (0, express_async_handler_1.default)((request, response, next) =
     const user = yield user_model_1.User.findOne({ email });
     if (!user) {
         return next(new error_handler_1.NotFoundError("Could not find that user", http_status_codes_1.StatusCodes.NOT_FOUND));
+    }
+    if (!user.isVerified) {
+        return next(new error_handler_1.BadRequestError("Account not verified. Please verify your account before logging in", 400));
     }
     const passwordsMatch = yield user.compareLoginPasswords(password);
     if (!passwordsMatch) {

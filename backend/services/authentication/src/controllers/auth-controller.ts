@@ -48,6 +48,8 @@ export const registerUser = async(request: Request, response: Response, next: Ne
         await user.save();
         const currentUser = user._id; // Get the current user's ID
         const userOTP = generateOTPToken();
+
+        console.log(`Your OTP token : ${userOTP}`)
     
         const verificationToken = new EmailVerification({owner: currentUser, token: userOTP});
         await verificationToken.save();
@@ -81,10 +83,6 @@ export const verifyEmailAddress = asyncHandler(async (request: Request, response
     }
 
     const otpToken = await EmailVerification.findOne({owner: userId});
-
-    if(!otpToken) {
-        return next(new BadRequestError(`OTP Verification token is not found. Please try again`, StatusCodes.BAD_REQUEST));
-    }
 
     // Check to see if tokens match
     const otpTokensMatch = otpToken.compareOtpTokens(OTP);
