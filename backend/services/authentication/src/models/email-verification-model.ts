@@ -14,6 +14,9 @@ interface IEmailVerificationDocument extends mongoose.Model<IEmailVerification> 
     token: string;
     createdAt: Date;
     expiresAt: Date;
+
+    compareOtpTokens: (enteredToken: string) => Promise<boolean>
+
 }
 
 const EmailVerificationSchema = new mongoose.Schema<IEmailVerificationDocument>({

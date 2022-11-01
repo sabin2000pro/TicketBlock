@@ -57,8 +57,20 @@ export const verifyEmailAddress = asyncHandler(async (request: Request, response
     }
 
     // Check to see if tokens match
+    const otpTokensMatch = otpToken.compareOtpTokens(OTP);
 
+    if(!otpTokensMatch) {
+        return next(new BadRequestError("OTP Tokens do not match. Please try again later", StatusCodes.BAD_REQUEST));
+    }
 
+    user.isVerified = true;
+
+    await user.save();
+    await EmailVerification.findByIdAndDelete(otpToken._id);
+
+    // Send token
+
+    return sendTokenResponse(request, user, 200, response);
 
 });
 
