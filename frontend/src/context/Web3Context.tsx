@@ -6,7 +6,6 @@ type Web3ContextProps = {
 }
 
 type IWeb3Context = {
-    initialiseWeb3Provider: () => void,
     accounts: any,
     balance: any,
     tokenPresent: boolean,
@@ -23,33 +22,26 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const [isWalletConnected, setIsWalletConnected] = useState(false);
     const [tokenPresent, setTokenPresent] = useState(false);
 
-    const initialiseWeb3Provider = () => {
-       const globalEth = window.ethereum;
-       const web3 = new Web3(globalEth as any);
-    }
-
     const connectWallet = async () => {
+        console.log("Connecting wallet..")
         const provider = window.ethereum;
 
         const accounts = await window.ethereum?.request({method: "eth_requestAccounts"}) as any
         const web3 = new Web3(provider as any);
 
-        setAccounts(accounts[0] as any)
-        const currentBalance = await web3.eth.getBalance(accounts[0]); // Get the account balance
-      
-        setIsWalletConnected(!isWalletConnected);
-        setAccounts(accounts);
-  
-        localStorage.setItem("address", JSON.stringify(accounts));
-        setTokenPresent(!tokenPresent);
-       
+        setAccounts(accounts)
+        const currentBalance = await web3.eth.getBalance(accounts); // Get the account balance
+
+        console.log(`Accounts : ${accounts}`)
+        console.log(currentBalance);
+
     }
 
     const getAccountBalance = () => {
         return 0;
     }
 
-    return <Web3Context.Provider value = {{initialiseWeb3Provider, connectWallet, getAccountBalance, tokenPresent, accounts, balance}}>
+    return <Web3Context.Provider value = {{connectWallet, getAccountBalance, tokenPresent, accounts, balance}}>
             {children}
     </Web3Context.Provider>
 }

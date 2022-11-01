@@ -2,7 +2,6 @@
 import { Button } from '@chakra-ui/react';
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
 import { useNavigate } from 'react-router-dom';
 import {useContext} from "react";
 import { Web3Context } from '../context/Web3Context';
@@ -18,10 +17,10 @@ declare global {
 const NavBar: React.FC = () => {
 
   const navigate = useNavigate();
-  const {connectWallet, tokenPresent} = useContext(Web3Context);
+  const {connectWallet} = useContext(Web3Context);
   
   const [isWalletConnected, setIsWalletConnected] = useState<boolean | undefined>(false);
-  const [accounts, setAccounts] = useState<[]>([]); // Metamask state for storing the account
+  const [accounts, setAccounts] = useState<string | undefined>("")
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
@@ -31,10 +30,7 @@ const NavBar: React.FC = () => {
      try {
 
       event.preventDefault();
-
-      connectWallet();
-
-     
+      return connectWallet();
       
      } 
      
@@ -49,6 +45,7 @@ const NavBar: React.FC = () => {
   } 
 
   const logoutHandler = async (event: any) => {
+
     try {
 
        event.preventDefault()

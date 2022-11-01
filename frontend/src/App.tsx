@@ -12,8 +12,6 @@ import NftList from './pages/nfts/NftList';
 import UserProfile from './pages/UserProfile';
 import EmailVerification from './pages/authentication/EmailVerification';
 import LoginMfaVerification from './pages/authentication/LoginMfaVerification';
-import { useContext } from 'react';
-import { Web3Context } from './context/Web3Context';
 
 const App: React.FC = () => {
 
