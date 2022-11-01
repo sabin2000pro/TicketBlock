@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Button } from "@chakra-ui/react";
 import VerifyInput from '../../components/VerifyInput';
 
+let OTP_LENGTH = 6
+
 const EmailVerification: React.FC = () => {
 
   const handleOtpSubmission = async (event: any) => {
