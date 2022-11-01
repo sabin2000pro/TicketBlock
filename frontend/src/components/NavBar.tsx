@@ -23,7 +23,6 @@ const NavBar: React.FC = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
-  const [accountAddress, setAccountAddress] = useState<string | undefined>("")
 
   const handleWalletConnect = (event: any) => {
 
@@ -32,8 +31,13 @@ const NavBar: React.FC = () => {
       event.preventDefault();
 
       connectWallet();
+
+      const accountAddress = localStorage.getItem("account");
+      accounts = accountAddress;
+
       setIsWalletConnected(!isWalletConnected)
 
+      console.log(`your acc :`)
 
      } 
      
@@ -47,33 +51,15 @@ const NavBar: React.FC = () => {
 
   } 
 
-  useEffect(() => {
-    const fetchConnectedAccount = () => {
-
-      const accountAddress = localStorage.getItem("account");
-      accounts = accountAddress;
-
-      setAccountAddress(accountAddress as any);
-
-    }
-
-    fetchConnectedAccount();
-
-  }, [])
-
-
   const logoutHandler = async (event: any) => {
 
     try {
 
-       event.preventDefault();
-
+       event.preventDefault()
        localStorage.removeItem("token");
-       localStorage.removeItem("account");
 
        setIsLoggedIn(false);
        setTokenPresent(false);
-       setIsWalletConnected(false);
 
        return navigate("/login");
        
@@ -95,18 +81,15 @@ const NavBar: React.FC = () => {
     const fetchAuthToken = () => {
 
        const token = localStorage.getItem("token");
-       const account = localStorage.getItem("account")
 
-       if(token === null && account == null) {
+       if(token === null) {
           setTokenPresent(false);
           setIsLoggedIn(false);
-          setIsWalletConnected(false);
        }
 
-       if(token !== null && account !== null) {
+       if(token !== null) {
           setTokenPresent(!tokenPresent) as unknown as boolean;
           setIsLoggedIn(!isLoggedIn) as unknown as boolean;
-          setIsWalletConnected(!isWalletConnected)
        }
        
     }
@@ -151,7 +134,7 @@ const NavBar: React.FC = () => {
 
        </ul>
 
-       {!isWalletConnected && isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}>Account: {accountAddress}</h2> }
+       {!isWalletConnected && isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}>Account: {accounts}</h2> }
       
 
 </nav> 
