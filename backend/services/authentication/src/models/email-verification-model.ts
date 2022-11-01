@@ -14,7 +14,7 @@ interface IEmailVerificationDocument extends mongoose.Model<IEmailVerification> 
     expiresAt: Date;
 }
 
-const PasswordResetSchema = new mongoose.Schema<IEmailVerificationDocument>({
+const EmailVerificationSchema = new mongoose.Schema<IEmailVerificationDocument>({
 
     owner: { // Owner of the token
         type: mongoose.Schema.Types.ObjectId,
@@ -38,7 +38,7 @@ const PasswordResetSchema = new mongoose.Schema<IEmailVerificationDocument>({
 
 }, {timestamps: true})
 
-PasswordResetSchema.pre('save', async function(next) {
+EmailVerificationSchema.pre('save', async function(next) {
     let HASH_ROUNDS = 10;
 
     if(!this.isModified("token")) {
@@ -50,5 +50,5 @@ PasswordResetSchema.pre('save', async function(next) {
 })  
 
 
-const EmailVerification = mongoose.model<IPasswordResetDocument>("PasswordReset", PasswordResetSchema);
+const EmailVerification = mongoose.model<IEmailVerificationDocument>("EmailVerification", EmailVerificationSchema);
 export {EmailVerification};
