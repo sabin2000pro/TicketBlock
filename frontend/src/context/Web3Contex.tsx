@@ -13,32 +13,19 @@ export const defaultState = {
     isLoading: false
 }
 
-type Web3State = {
-    web3Api: any
-    getAccount: () => void
-    getAccountBalance: () => void
-
-
-}
-
-type EthProvider = {
-    ethereum: MetaMaskInpageProvider | null
-    provider: providers.Web3Provider | null
-}
-
 export const createDefaultState = () => {
-    return {ethereum: null, provider: null}
+    return {ethereum: null, provider: null, isLoading: false}
 }
 
 export const initialiseWeb3State = ({ethereum, provider}: any) => {
-    return {ethereum, provider}
+    return {ethereum, provider, isLoading: false}
 }
 
-export const Web3Context = createContext<Web3State>(createDefaultState() as any)
+export const Web3Context = createContext(createDefaultState() as any)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
 
-    const [web3Api, setWeb3Api] = useState(defaultState)
+    const [web3Api, setWeb3Api] = useState(createDefaultState())
     const [accounts, setAccounts] = useState("")
     const [balance, setBalance] = useState(0);
 
@@ -55,20 +42,24 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
            
           }
 
+
           initialiseWeb3();
     
       } 
       
       
       catch(error: any) {
-       
+        
+        if(error) {
+            setWeb3Api((prevState) => initialiseWeb3State({...prevState as any, isLoading: true}))
+        }
       }
     
      
    }, [])
 
    const getAccountBalance = () => {
-    
+
    }   
 
    const getAccount = () => {
