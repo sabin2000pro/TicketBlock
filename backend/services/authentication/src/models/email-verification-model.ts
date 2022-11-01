@@ -5,6 +5,8 @@ interface IEmailVerification {
     owner: mongoose.Schema.Types.ObjectId
     token: string;
     expiresAt: Date;
+
+    compareOtpTokens: (enteredToken: string) => Promise<boolean>
 }
 
 interface IEmailVerificationDocument extends mongoose.Model<IEmailVerification> {
@@ -48,6 +50,10 @@ EmailVerificationSchema.pre('save', async function(next) {
     this.token = await bcrypt.hash(this.token, HASH_ROUNDS);
     return next();
 })  
+
+EmailVerificationSchema.methods.compareOtpTokens = async function(enteredToken: string) {
+    return await bcrypt.compare(enteredToken, this.token);
+}
 
 
 const EmailVerification = mongoose.model<IEmailVerificationDocument>("EmailVerification", EmailVerificationSchema);

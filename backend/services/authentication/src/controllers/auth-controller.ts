@@ -8,6 +8,7 @@ import { isValidObjectId } from 'mongoose';
 import asyncHandler from 'express-async-handler';
 import { PasswordReset } from "../models/password-reset-model";
 import { TwoFactorVerification } from '../models/two-factor-verification-model';
+import { EmailVerification } from '../models/email-verification-model';
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
@@ -48,6 +49,14 @@ export const verifyEmailAddress = asyncHandler(async (request: Request, response
     if(!OTP) {
         return next(new NotFoundError("No OTP found. Please check entry again", StatusCodes.NOT_FOUND));
     }
+
+    const otpToken = await EmailVerification.findOne({owner: userId});
+
+    if(!otpToken) {
+        return next(new BadRequestError(`OTP Verification token is not found. Please try again`, StatusCodes.BAD_REQUEST));
+    }
+
+    // Check to see if tokens match
 
 
 
