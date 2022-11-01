@@ -1,7 +1,5 @@
 import {useContext, useState, createContext, ReactNode} from 'react';
-import { providers } from 'ethersv5';
 import Web3 from 'web3';
-import { MetaMaskInpageProvider } from '@metamask/providers';
 
 type Web3ContextProps = {
     children: ReactNode
@@ -10,39 +8,35 @@ type Web3ContextProps = {
 type IWeb3Context = {
     initialiseWeb3Provider: () => void,
     connectWallet: () => void
-    getAccount : () => void
-    getAccountBalance: () => Number
+    getAccountBalance: () => number
 }
 
 export const Web3Context = createContext({} as IWeb3Context)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
-    const [account, setAccount] = useState<string>("")
-    const [balance, setBalance] = useState(0);
+    const [account, setAccount] = useState<string | undefined>("")
+    const [balance, setBalance] = useState<number | undefined>(0);
 
     const initialiseWeb3Provider = () => {
        const globalEth = window.ethereum;
+       const web3 = new Web3(globalEth as any);
     }
 
-    const connectWallet = () => {
+    const connectWallet = async () => {
         const provider = window.ethereum;
 
-        provider?.request({method: "eth_requestAccounts"}).then(acc => {
-             console.log(acc);
-        })
+        const accounts = await provider?.request({method: "eth_requestAccounts"});
+        setAccount(accounts as any)
 
+        console.log(`Accounts : ${accounts}`)
        
-    }
-
-    const getAccount = () => {
-
     }
 
     const getAccountBalance = () => {
         return 0;
     }
 
-    return <Web3Context.Provider value = {{initialiseWeb3Provider, connectWallet, getAccount, getAccountBalance}}>
+    return <Web3Context.Provider value = {{initialiseWeb3Provider, connectWallet, getAccountBalance}}>
             {children}
     </Web3Context.Provider>
 }

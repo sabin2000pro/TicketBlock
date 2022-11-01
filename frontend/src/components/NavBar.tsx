@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import { useNavigate } from 'react-router-dom';
 import {useContext} from "react";
-import { Web3Context } from '../context/Web3Contex';
+import { Web3Context } from '../context/Web3Context';
 
 declare global {
   interface Window{
