@@ -11,18 +11,18 @@ type IWeb3Context = {
     accounts: any,
     balance: any,
     connectWallet: () => void
-
-    processAccountChange: (ethereum: MetaMaskInpageProvider, accounts: any) => void
 }
 
 type ISwitchAccount = {
     ethereum: MetaMaskInpageProvider
 }
 
+const web3provider = new ethers.providers.JsonRpcProvider("http://localhost:7545")  
+
 export const Web3Context = createContext({} as IWeb3Context)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
-    const [accounts, setAccounts] = useState<string | undefined>("")
+    let [accounts, setAccounts] = useState<string>("")
     const [balance, setBalance] = useState<number | undefined>(0);
 
     const connectWallet = async () => {
@@ -32,58 +32,23 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         if(provider) {
 
-            const web3provider = new ethers.providers.JsonRpcProvider("http://localhost:7545")    
-            const currAccount = await window.ethereum?.request({method: "eth_requestAccounts"}) as any
-    
-            console.log(web3provider);
-            setAccounts(currAccount as any)
+            const currAccount = await window.ethereum!.request({method: "eth_requestAccounts"}) as any
+
+            setAccounts(currAccount[0])
+            accounts = currAccount[0];
 
             const currBalance = await web3.eth.getBalance(currAccount.toString());
             const formattedBalance = Web3.utils.fromWei(currBalance)
 
             setBalance(formattedBalance as any);
 
-            console.log(`Your balance : ${formattedBalance} ETH`)
+            localStorage.setItem("account", accounts)
 
         }
 
     }
 
-    const pageReload = () => {
-        return window.location.reload();
-    }
-
-    const handleAccountChange = (ethereum: MetaMaskInpageProvider, accounts: any) => async ()  => {
-        
-        const isUnlocked = (!await ethereum._metamask.isUnlocked()) as unknown as ISwitchAccount;
-        const isLocked = !isUnlocked;
-
-        if(accounts.length !== 0) {
-            alert("Please connect to metamask")
-        }
-
-    }
-
-    const processAccountChange = (ethereum: MetaMaskInpageProvider) => {
-
-        try {
-
-            console.log("Changing accounts")
-            window.ethereum!.on("accountsChanged", handleAccountChange as any);
-        } 
-        
-        catch(error: any) {
-
-            if(error) {
-                return console.error(error);
-            }
-
-
-        }
-
-    }
-
-    return <Web3Context.Provider value = {{connectWallet, accounts, balance, processAccountChange}}>
+    return <Web3Context.Provider value = {{connectWallet, accounts, balance}}>
             {children}
     </Web3Context.Provider>
 }

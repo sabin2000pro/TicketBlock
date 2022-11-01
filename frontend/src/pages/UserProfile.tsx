@@ -11,9 +11,9 @@ const UserProfile: React.FC = () => {
  
     const navigate = useNavigate();
     const [user, setUser] = useState([])
+    
     const [accountBalance, setAccountBalance] = useState(0);
-
-    const {accounts, balance, processAccountChange} = useContext(Web3Context)
+    const {accounts, balance} = useContext(Web3Context)
 
   useEffect(() => {
 
@@ -35,7 +35,7 @@ const UserProfile: React.FC = () => {
 
         fetchAccountBalance();
 
-    }, [])
+    }, [balance])
 
   return (
 
@@ -47,9 +47,11 @@ const UserProfile: React.FC = () => {
 
      <h1 className = "heading-primary">You are logged in as : {user}</h1>
 
+     {accounts}
+
    <div className = "account-container">
-    
-   <Button onClick = {processAccountChange as any} type = "submit" colorScheme='teal' size='md'>Change Account</Button>
+
+   <Button type = "submit" colorScheme='teal' size='md'>Change Account</Button>
 
    </div>
 
@@ -104,7 +106,7 @@ const UserProfile: React.FC = () => {
 
             <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
 
-                <span className = "fs-2 card-text">Balance: {balance} ETH</span>
+                <span className = "fs-2 card-text">Balance: {accountBalance} ETH</span>
                 
             </Card.Title>
 

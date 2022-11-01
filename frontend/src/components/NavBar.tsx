@@ -24,16 +24,15 @@ const NavBar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
 
-  const handleWalletConnect =  (event: any) => {
+  const handleWalletConnect = (event: any, accounts?: any) => {
 
      try {
 
       event.preventDefault();
 
       connectWallet();
-
       setIsWalletConnected(!isWalletConnected)
-      
+
      } 
      
      catch(err : any) {
@@ -129,8 +128,7 @@ const NavBar: React.FC = () => {
 
        </ul>
 
-       {!isWalletConnected && isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : undefined }
-       {isWalletConnected && <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}>Account: {accounts}</h2>}
+       {!isWalletConnected && isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}>Account: {accounts}</h2> }
       
 
 </nav> 
