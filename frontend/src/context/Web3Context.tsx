@@ -1,3 +1,4 @@
+import { MetaMaskInpageProvider } from '@metamask/providers';
 import { ethers } from 'ethers';
 import {useContext, useState, createContext, ReactNode} from 'react';
 import Web3 from 'web3';
@@ -11,7 +12,11 @@ type IWeb3Context = {
     balance: any,
     connectWallet: () => void
 
-    processAccountChange: () => void
+    processAccountChange: (ethereum: MetaMaskInpageProvider) => void
+}
+
+type ISwitchAccount = {
+    ethereum: MetaMaskInpageProvider
 }
 
 export const Web3Context = createContext({} as IWeb3Context)
@@ -43,9 +48,16 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-    const processAccountChange = async () => {
-        try {
+    const checkMetaMaskStatus = async (ethereum: MetaMaskInpageProvider) => {
+        
+        const isUnlocked = (!await ethereum._metamask.isUnlocked()) as unknown as ISwitchAccount;
+    }
 
+    const processAccountChange = async (ethereum: MetaMaskInpageProvider) => {
+        try {
+            window.ethereum?.on("accountsChanged", () => {
+                checkMetaMaskStatus(ethereum);
+            })
         } 
         
         catch(error: any) {
@@ -54,6 +66,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
 
     }
+
+
 
     return <Web3Context.Provider value = {{connectWallet, accounts, balance, processAccountChange}}>
             {children}
