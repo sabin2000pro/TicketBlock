@@ -17,8 +17,8 @@ declare global {
 const NavBar: React.FC = () => {
 
   const navigate = useNavigate();
-  const {connectWallet, accounts} = useContext(Web3Context);
   
+  const {connectWallet, accounts} = useContext(Web3Context);
   const [isWalletConnected, setIsWalletConnected] = useState<boolean | undefined>(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
@@ -29,9 +29,10 @@ const NavBar: React.FC = () => {
      try {
 
       event.preventDefault();
+
       connectWallet();
 
-      setIsWalletConnected(true)
+      setIsWalletConnected(!isWalletConnected)
       
      } 
      
