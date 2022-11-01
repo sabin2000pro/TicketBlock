@@ -56,8 +56,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const checkMetaMaskStatus = async (ethereum: MetaMaskInpageProvider) => {
         
         const isUnlocked = (!await ethereum._metamask.isUnlocked()) as unknown as ISwitchAccount;
+        const isLocked = !isUnlocked;
 
-        if(isUnlocked) {
+        if(isLocked) {
             return pageReload();
         }
 
@@ -67,9 +68,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         try {
 
-            window.ethereum?.on("accountsChanged", () => {
+            return window.ethereum?.on("accountsChanged", () => {
                 checkMetaMaskStatus(ethereum);
             })
+
+
         } 
         
         catch(error: any) {
@@ -80,8 +83,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
 
         }
-
-
 
     }
 
