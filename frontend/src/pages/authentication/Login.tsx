@@ -105,9 +105,9 @@ const Login: React.FC = () => {
 
         <div className = "login-form">
 
-           <form onSubmit={handleLogin} method = "POST">
+           <form onSubmit ={handleLogin} method = "POST">
 
-           <h1 className = "heading-primary">Login</h1>
+            <h1 className = "heading-primary">Login</h1>
 
             <div className = "email-container">
 

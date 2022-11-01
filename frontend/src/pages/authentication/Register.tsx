@@ -20,10 +20,10 @@ const Register: React.FC = () => {
       
            event.preventDefault();
            
-           setEmail(email);
-           setUsername(username);
+          setEmail(email);
+          setUsername(username);
            setPassword(password);
-
+           
           setFormSubmitted(true);
           setIsError(false);
 
@@ -31,7 +31,6 @@ const Register: React.FC = () => {
           setUsername("");
           setPassword("");
 
-       
           register(email as string, username as string, password as string);
 
           setTimeout(() => {

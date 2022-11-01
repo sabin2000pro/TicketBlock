@@ -250,5 +250,16 @@ html {
 }
 
 .pin-container {
-  color: white;
+  color: black;
+}
+
+.pin-container input {
+  height: 25px;
+  padding: 22px;
+  margin-right: 20px;
+}
+
+.verify-btn {
+  margin-right: 100px;
+  margin-top: 69px;
 }

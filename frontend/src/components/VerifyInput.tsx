@@ -1,43 +1,41 @@
-import React, {useState, useRef, useEffect} from 'react'
-import { Button, PinInput, PinInputField } from '@chakra-ui/react'
+import React, {useState} from 'react';
+import {Button} from "@chakra-ui/react";
+import axios from 'axios';
 
-let currOTPIndex = 0;
+type IVerifyInput = {
+  userId: string | undefined
+}
 
-const VerifyInput: React.FC = (props: any) => {
-  const inputRef = useRef<any>();
+const VerifyInput: React.FC<IVerifyInput> = ({userId}) => {
+  const [OTP, setOTP] = useState<string | undefined>();
 
-  const [otp, setOtp] = useState(new Array(6).fill(""));
-  const [activeOtpIndex, setActiveOtpIndex] = useState(0);
+  const handleOtpSubmission = async (event: any) => {
 
-  const moveNextOTP = (currOTPIndex: any) => {
-     setActiveOtpIndex(currOTPIndex + 1);
-  }
+     try {
 
-  const handleNextOTP = (event: any) => {
-    
-    event.preventDefault()    
-    const newOtpVals = [...otp];
-    newOtpVals[currOTPIndex] = event.target.value.substring(event.target.value.length - 1, event.target.value.length);
+        event.preventDefault();
 
+        setOTP(OTP);
+        console.log(`My user ID : ${userId}`);
 
-    moveNextOTP(currOTPIndex)
-    setOtp([...newOtpVals]);
+        const response = await axios.post(`http://localhost:5299/api/v1/auth/verify-email`, {userId, OTP});
+        const data = response.data;
+
+        return data;
+        
+     } 
      
-  
+     catch(error: any) {
+
+
+        if(error) {
+          return console.log(error.response);
+        }
+     }
+
   }
 
-  const handleOtpSubmission = () => {
-
-  }
-
-  useEffect(() => {
-    inputRef.current?.focus()
-  }, [activeOtpIndex]);
-
-
-  return (
-
-    <>
+  return <>
 
 <div className = "forgot-container">
 
@@ -49,20 +47,11 @@ const VerifyInput: React.FC = (props: any) => {
 
       <div className = "pin-container">
 
-      {otp.map((_, index) => {
+      <input value = {OTP} onChange = {(event) => setOTP(event.target.value)} type = "text" placeholder='Enter OTP'/>
 
-  return ( <PinInput otp key = {index} type = "number" size = "lg">
-
-  <PinInputField type = "number" onChange = {handleNextOTP} value = {otp[index] || ""} ref = {activeOtpIndex === index ? inputRef : null as any}  padding = "2" marginRight={8}/>
-
-  </PinInput>
-
-  )
-
-})}
       </div>
 
-    <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
+    <Button type = "submit" className = "submit-btn verify-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
 
 </form>
 
@@ -74,10 +63,7 @@ const VerifyInput: React.FC = (props: any) => {
 
 
 
-    </>
-
-
-  )
+  </>
 }
 
 export default VerifyInput

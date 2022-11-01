@@ -1,15 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@chakra-ui/react";
 import VerifyInput from '../../components/VerifyInput';
 
 const EmailVerification: React.FC = () => {
+  const [userId, setUserId] = useState<string | undefined>("");
+  
+  useEffect(() => {
 
+    const fetchUserId = () => {
 
+       const userId = localStorage.getItem("userId");
+       setUserId(userId as any);
+
+    }
+
+    fetchUserId();
+
+  }, [])
 
   return (
 
     <>
-      <VerifyInput />
+    
+      <VerifyInput userId = {userId} />
 
     </>
 
