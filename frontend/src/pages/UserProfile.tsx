@@ -12,8 +12,8 @@ const UserProfile: React.FC = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState([])
     
-    const [accountBalance, setAccountBalance] = useState(0);
-    const {accounts, balance} = useContext(Web3Context)
+    const [accountBalance, setAccountBalance] = useState<string | undefined>("");
+    let {accounts, balance} = useContext(Web3Context)
 
   useEffect(() => {
 
@@ -30,7 +30,10 @@ const UserProfile: React.FC = () => {
     useEffect(() => {
 
         const fetchAccountBalance = async () => {
-            setAccountBalance(balance as any);
+
+            const currBalance = localStorage.getItem("balance")            
+            setAccountBalance(currBalance as any);
+
         }
 
         fetchAccountBalance();

@@ -23,7 +23,7 @@ export const Web3Context = createContext({} as IWeb3Context)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
     let [accounts, setAccounts] = useState<string>("")
-    const [balance, setBalance] = useState<number | undefined>(0);
+    let [balance, setBalance] = useState<string | undefined>("");
 
     const connectWallet = async () => {
 
@@ -42,13 +42,16 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             setAccounts(currAccount[0])
 
             localStorage.setItem("account", accounts)
+            localStorage.setItem("balance", formattedBalance);
+
+            balance = formattedBalance
 
         }
 
     }
 
     const fetchOwnedNfts = async () => {
-        
+
     }
 
     return <Web3Context.Provider value = {{connectWallet, accounts, balance}}>

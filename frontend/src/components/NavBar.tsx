@@ -42,7 +42,9 @@ const NavBar: React.FC = () => {
       setAccountAddress(accounts);
       setIsWalletConnected(!isWalletConnected)
 
-      console.log(`your acc :`)
+      setTimeout(() => {
+         window.location.reload()
+      }, 1500)
 
      } 
      

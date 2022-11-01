@@ -53,6 +53,7 @@ const Login: React.FC = () => {
            return navigate('/nfts')
         }, 2500)
 
+
         return response;
     }  
     
