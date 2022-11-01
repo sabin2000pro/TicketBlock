@@ -1,72 +1,41 @@
+import {useContext, useState, useEffect, createContext, ReactNode} from 'react';
+import { providers } from 'ethersv5';
+import Web3 from 'web3';
 import { MetaMaskInpageProvider } from '@metamask/providers';
-import React, {useContext, useState, useEffect, createContext, ReactNode} from 'react';
-import Web3, { providers } from "ethers";
-import { ethers } from 'ethersv5';
 
 type Web3ContextProps = {
     children: ReactNode
 }
 
-export const defaultState = {
-    ethereum: null,
-    provider: null,
-    isLoading: false
+type Web3Provider = {
+    ethereum: MetaMaskInpageProvider
+    provider: providers.Web3Provider
 }
 
-export const createDefaultState = () => {
-    return {ethereum: null, provider: null, isLoading: false}
+type Web3Functions = {
+    connectWallet: () => void
+    getAccount : () => void
 }
 
-export const initialiseWeb3State = ({ethereum, provider}: any) => {
-    return {ethereum, provider, isLoading: false}
-}
-
-export const Web3Context = createContext(createDefaultState() as any)
+export const Web3Context = createContext({} as Web3Functions)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
-
-    const [web3Api, setWeb3Api] = useState(createDefaultState())
-    const [accounts, setAccounts] = useState("")
+    const [account, setAccount] = useState<string | undefined>("")
     const [balance, setBalance] = useState(0);
 
-   useEffect(() => {
+    const initialiseWeb3Provider = () => {
+        const provider = window.ethereum
+    }
 
-      try {
-
-        const initialiseWeb3 = async () => {
-          
-            const globalEth = window.ethereum;
-            const ethProvider = new ethers.providers.Web3Provider(globalEth as any)
-            
-            setWeb3Api(initialiseWeb3State({ethereum: globalEth, provider: ethProvider, isLoading: true}) as any)
-           
-          }
-
-
-          initialiseWeb3();
-    
-      } 
-      
-      
-      catch(error: any) {
+    const connectWallet = () => {
         
-        if(error) {
-            setWeb3Api((prevState) => initialiseWeb3State({...prevState as any, isLoading: true}))
-        }
-      }
-    
-     
-   }, [])
+    }
 
-   const getAccountBalance = () => {
+    const getAccount = () => {
 
-   }   
+    }
 
-   const getAccount = () => {
-
-   }
- 
-    return <Web3Context.Provider value = {{web3Api, getAccount, getAccountBalance}}>
+    return <Web3Context.Provider value = {{connectWallet, getAccount}}>
             {children}
     </Web3Context.Provider>
 }
