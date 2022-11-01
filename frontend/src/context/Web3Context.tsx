@@ -26,6 +26,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const [balance, setBalance] = useState<number | undefined>(0);
 
     const connectWallet = async () => {
+
         const provider = window.ethereum;
         const web3 = new Web3(provider as any)
 
@@ -48,9 +49,18 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
+    const pageReload = () => {
+        return window.location.reload();
+    }
+
     const checkMetaMaskStatus = async (ethereum: MetaMaskInpageProvider) => {
         
         const isUnlocked = (!await ethereum._metamask.isUnlocked()) as unknown as ISwitchAccount;
+
+        if(isUnlocked) {
+            return pageReload();
+        }
+
     }
 
     const processAccountChange = async (ethereum: MetaMaskInpageProvider) => {
