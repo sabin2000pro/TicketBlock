@@ -38,11 +38,17 @@ export const registerUser = async(request: Request, response: Response, next: Ne
 // @access    Public (No Authorization Token Required)
 
 export const verifyEmailAddress = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
-    const {ownerId, OTP} = request.body;
+    const {userId, OTP} = request.body;
+    const user = await User.findById(userId);
+
+    if(!user) {
+        return next(new NotFoundError("Could not find that user", 404));
+    }
 
     if(!OTP) {
         return next(new NotFoundError("No OTP found. Please check entry again", StatusCodes.NOT_FOUND));
     }
+
 
 });
 

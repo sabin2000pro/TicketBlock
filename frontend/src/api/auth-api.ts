@@ -1,5 +1,13 @@
 import axios from 'axios';
 
+type IVerifyEmail = {
+    OTP: string
+}
+
+type IVerifyLoginMfa = {
+    mfaToken: string
+}
+
 // Default config options
 const defaultOptions = {
     headers: {
@@ -45,7 +53,7 @@ export const register = async (email: string, username: string, password: string
 }
 
 export const login = async (email: string, password: string) => {
-    
+
     try {
 
         const response = await axios.post(`http://localhost:5299/api/v1/auth/login`, {email, password}); 
@@ -107,6 +115,27 @@ export const getLoggedInUser = async () => {
         if(error) {
             return console.error(error);
         }
+
+    }
+}
+
+export const verifyEmailAddress = async (OTP: IVerifyEmail) => {
+    try {
+
+        
+    }
+    
+    catch(err: any) {
+
+    }
+}
+
+export const verifyLoginMFA = async (mfaToken: IVerifyLoginMfa) => {
+    try {
+
+    } 
+    
+    catch(err: any) {
 
     }
 }
