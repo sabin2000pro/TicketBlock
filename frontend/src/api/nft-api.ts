@@ -7,6 +7,8 @@ export const fetchAllNfts = async () => {
     catch(error: any) {
 
     }
+
+    
 } 
 
 export const fetchNftByID = async (id: number) => {
@@ -74,5 +76,5 @@ export const uploadNftImage = async () => {
     catch(error: any) {
 
     }
-    
+
 }

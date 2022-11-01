@@ -10,7 +10,8 @@ type IWeb3Context = {
     accounts: any,
     balance: any,
     connectWallet: () => void
-    fetchAccountBalance: () => void
+
+    processAccountChange: () => void
 }
 
 export const Web3Context = createContext({} as IWeb3Context)
@@ -42,11 +43,19 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-    const fetchAccountBalance = async () => {
+    const processAccountChange = async () => {
+        try {
+
+        } 
+        
+        catch(error: any) {
+
+        }
+
 
     }
 
-    return <Web3Context.Provider value = {{connectWallet, fetchAccountBalance, accounts, balance}}>
+    return <Web3Context.Provider value = {{connectWallet, accounts, balance, processAccountChange}}>
             {children}
     </Web3Context.Provider>
 }
