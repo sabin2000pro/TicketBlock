@@ -13,7 +13,7 @@ const Login: React.FC = () => {
   const [authTokenPresent, setAuthTokenPresent] = useState<boolean | undefined>(false);
 
   const [isError, setIsError] = useState<boolean | undefined>(false);
-  const [error, setError] = useState<string | undefined>("")
+  const [error, setError] = useState<string | undefined>("");
 
   const validateEntries = (email: string, password: string) => {
       return email.trim().length !== 0 || password.trim().length !== 0
@@ -74,7 +74,6 @@ const Login: React.FC = () => {
       return navigate('/nfts')
 
      }
-
 
   }, [])
 
