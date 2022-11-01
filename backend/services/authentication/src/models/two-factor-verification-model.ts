@@ -50,5 +50,5 @@ TwoFactorVerificationSchema.pre('save', async function(next) {
 })  
 
 
-const PasswordReset = mongoose.model<ITwoFactorVerification>("TwoFactorVerification", TwoFactorVerificationSchema);
-export {PasswordReset};
+const TwoFactorVerification = mongoose.model<ITwoFactorVerification>("TwoFactorVerification", TwoFactorVerificationSchema);
+export {TwoFactorVerification};

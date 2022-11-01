@@ -74,7 +74,7 @@ export const login = asyncHandler(async (request: Request, response: Response, n
 
 export const forgotPassword = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
     const {email} = request.body;
-    
+
     const user = await User.findOne({email});
 
     if(!user) {
@@ -126,6 +126,16 @@ const sendPasswordResetEmail = (user: any, resetPasswordURL: string) => {
 // @access    Public (No Authorization Token Required)
 
 export const verifyLoginMfa = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
+    const {userId, mfaToken} = request.body;
+
+    if(isValidObjectId(userId)) {
+        return next(new NotFoundError("User ID not valid", 404));
+    }
+
+    if(!mfaToken) {
+        return next(new NotFoundError("MFA Token not found. Please provide token", 404));
+    }
+
 
 }
 
