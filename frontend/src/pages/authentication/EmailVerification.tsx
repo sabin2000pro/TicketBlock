@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { Button } from "@chakra-ui/react";
 import VerifyInput from '../../components/VerifyInput';
 
+let LENGTH_OF_OTP = 6 ;
+let currOTPIndex: any;
 
 const EmailVerification: React.FC = () => {
-  let LENGTH_OF_OTP = 6 ;
-  let currOTPIndex;
+
 
   const filledOtp = new Array(LENGTH_OF_OTP).fill("");
 
@@ -35,7 +36,7 @@ const EmailVerification: React.FC = () => {
     <h1 className = "heading-primary">Verify E-mail Address</h1>
 
           <div className = "pin-container">
-              <VerifyInput otp = {otp} activeOtpIndex = {activeOtpIndex} moveNextOtpField = {moveNextOtpField} setActiveOtpIndex = {setActiveOtpIndex as any} />
+              <VerifyInput currOTPIndex = {currOTPIndex} otp = {otp} activeOtpIndex = {activeOtpIndex} moveNextOtpField = {moveNextOtpField} setActiveOtpIndex = {setActiveOtpIndex as any} />
           </div>
 
         <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
