@@ -1,45 +1,29 @@
 import React, {useState, useRef, useEffect} from 'react'
 import { Button, PinInput, PinInputField } from '@chakra-ui/react'
 
-let LENGTH_OF_OTP = 6 ;
-let currOTPIndex: any;
+let currOTPIndex = 0;
 
 const VerifyInput: React.FC = (props: any) => {
   const inputRef = useRef<any>();
 
-  const [otp, setOtp] = useState(new Array(LENGTH_OF_OTP).fill(""));
+  const [otp, setOtp] = useState(new Array(6).fill(""));
   const [activeOtpIndex, setActiveOtpIndex] = useState(0);
 
-  const focusNextOtp = (currOTPIndex: any) => {
-    setActiveOtpIndex(currOTPIndex + 1);
+  const moveNextOTP = (currOTPIndex: any) => {
+     setActiveOtpIndex(currOTPIndex + 1);
   }
 
-  const focusPrevInputField = (index: any) => {
-    let nextIndex;
-    const diff = index - 1;
+  const handleNextOTP = (event: any) => {
+    
+    event.preventDefault()    
+    const newOtpVals = [...otp];
+    newOtpVals[currOTPIndex] = event.target.value.substring(event.target.value.length - 1, event.target.value.length);
 
-    nextIndex = diff !== 0 ? diff : 0;
-    setActiveOtpIndex(nextIndex);
-  };
 
-  const handleNextOTP = ({target} :any) => {
-    const { value } = target;
-    const newOtp = [...otp];
-
-    newOtp[currOTPIndex] = value.substring(value.length - 1, value.length);
-
-    if (!value) focusPrevInputField(currOTPIndex);
-
-    else {
-      
-      focusNextOtp(currOTPIndex)
-      setOtp([...newOtp]);
- 
-     console.log(newOtp);
-    }
+    moveNextOTP(currOTPIndex)
+    setOtp([...newOtpVals]);
+     
   
-
-
   }
 
   const handleOtpSubmission = () => {
@@ -67,11 +51,14 @@ const VerifyInput: React.FC = (props: any) => {
 
       {otp.map((_, index) => {
 
-  return <PinInput otp key = {index} type = "number" size = "lg">
+  return ( <PinInput otp key = {index} type = "number" size = "lg">
 
-  <PinInputField value = {otp[index] || ""} ref = {activeOtpIndex === index ? inputRef : null as any} onChange = {handleNextOTP}  padding = "2" marginRight={8}/>
+  <PinInputField type = "number" onChange = {handleNextOTP} value = {otp[index] || ""} ref = {activeOtpIndex === index ? inputRef : null as any}  padding = "2" marginRight={8}/>
 
   </PinInput>
+
+  )
+
 })}
       </div>
 
