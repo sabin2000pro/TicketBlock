@@ -2,15 +2,21 @@ import React, { useState } from 'react'
 import { Button } from "@chakra-ui/react";
 import VerifyInput from '../../components/VerifyInput';
 
-let OTP_LENGTH = 6
+let LENGTH_OF_OTP = 6
 
 const EmailVerification: React.FC = () => {
+  const filledOtp = new Array(LENGTH_OF_OTP).fill("");
+
+  const [otp, setOtp] = useState(filledOtp)
+  const [activeOtpIndex, setActiveOtpIndex] = useState(0);
 
   const handleOtpSubmission = async (event: any) => {
 
       try {
           event.preventDefault();
-          console.log("Handling OTP")
+          setOtp(otp)
+          
+          console.log(`OTP ENTERED : ${otp}`)
       } 
       
       catch(err: any) {
@@ -28,6 +34,7 @@ const EmailVerification: React.FC = () => {
   return (
 
     <>
+
   <div className = "forgot-container">
 
     <div className = "forgot-form">
@@ -37,7 +44,7 @@ const EmailVerification: React.FC = () => {
     <h1 className = "heading-primary">Verify E-mail Address</h1>
 
           <div className = "pin-container">
-              <VerifyInput />
+              <VerifyInput otp = {otp as any} otpIndex = {activeOtpIndex} />
           </div>
 
         <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
