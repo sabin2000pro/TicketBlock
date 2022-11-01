@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {AlertIcon, Button} from "@chakra-ui/react";
 import axios from 'axios';
 import { Alert } from "@chakra-ui/react"
+import { useNavigate } from 'react-router-dom';
 
 type IVerifyInput = {
   userId: string | undefined
@@ -10,6 +11,7 @@ const VerifyInput: React.FC<IVerifyInput> = ({userId}) => {
 
   const [OTP, setOTP] = useState<string | undefined>("");
   const [isVerified, setIsVerified] = useState<boolean | undefined>(false);
+  const navigate = useNavigate();
 
   const handleOtpSubmission = async (event: any) => {
 
@@ -22,6 +24,12 @@ const VerifyInput: React.FC<IVerifyInput> = ({userId}) => {
         const data = response.data;
 
         setIsVerified(!isVerified);
+
+        setOTP("");
+
+        setTimeout(() => {
+            return navigate('/login')
+        }, 1500)
 
         return data;
         
