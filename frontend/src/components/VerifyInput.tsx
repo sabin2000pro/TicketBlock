@@ -1,28 +1,48 @@
 import React, {useState, useRef, useEffect} from 'react'
-import { PinInput, PinInputField } from '@chakra-ui/react'
+import { Button, PinInput, PinInputField } from '@chakra-ui/react'
 
-type IVerifyInput = {
-  otp: any[]
-  setOtp: (nextVals: any) => void
-  currOTPIndex: any
-}
+let LENGTH_OF_OTP = 6 ;
+let currOTPIndex: any;
 
-const VerifyInput: React.FC<IVerifyInput> = ({otp, currOTPIndex, setOtp}) => {
+const VerifyInput: React.FC = (props: any) => {
   const inputRef = useRef<any>();
+
+  const [otp, setOtp] = useState(new Array(LENGTH_OF_OTP).fill(""));
   const [activeOtpIndex, setActiveOtpIndex] = useState(0);
 
-  const handleNextOTP = (event: any) => {
-     const nextOtpVals = [...otp];
+  const focusNextOtp = (currOTPIndex: any) => {
+    setActiveOtpIndex(currOTPIndex + 1);
+  }
 
-     nextOtpVals[currOTPIndex] = event.target.value.substring(event.target.value.length - 1, event.target.value.length);
-     console.log(nextOtpVals[currOTPIndex])
+  const focusPrevInputField = (index: any) => {
+    let nextIndex;
+    const diff = index - 1;
 
-     console.log(`Next OTP VAls `, nextOtpVals[currOTPIndex])
+    nextIndex = diff !== 0 ? diff : 0;
+    setActiveOtpIndex(nextIndex);
+  };
 
-     setActiveOtpIndex(currOTPIndex + 1);
+  const handleNextOTP = ({target} :any) => {
+    const { value } = target;
+    const newOtp = [...otp];
 
-     setOtp([...nextOtpVals]);
+    newOtp[currOTPIndex] = value.substring(value.length - 1, value.length);
 
+    if (!value) focusPrevInputField(currOTPIndex);
+
+    else {
+      
+      focusNextOtp(currOTPIndex)
+      setOtp([...newOtp]);
+ 
+     console.log(newOtp);
+    }
+  
+
+
+  }
+
+  const handleOtpSubmission = () => {
 
   }
 
@@ -30,18 +50,41 @@ const VerifyInput: React.FC<IVerifyInput> = ({otp, currOTPIndex, setOtp}) => {
     inputRef.current?.focus()
   }, [activeOtpIndex]);
 
+
   return (
 
     <>
 
-     {otp.map((_, indexVal) => {
+<div className = "forgot-container">
 
-        return <PinInput key = {indexVal} type = "number" size = "lg">
-      
-        <PinInputField value = {otp[indexVal] || ""} ref = {activeOtpIndex === indexVal ? inputRef : null as any} onChange = {handleNextOTP} padding = "3" marginRight={8}/>
+<div className = "forgot-form">
+
+<form onSubmit = {handleOtpSubmission} method = "POST">
+
+<h1 className = "heading-primary">Verify E-mail Address</h1>
+
+      <div className = "pin-container">
+
+      {otp.map((_, index) => {
+
+  return <PinInput otp key = {index} type = "number" size = "lg">
+
+  <PinInputField value = {otp[index] || ""} ref = {activeOtpIndex === index ? inputRef : null as any} onChange = {handleNextOTP}  padding = "2" marginRight={8}/>
 
   </PinInput>
-     })}
+})}
+      </div>
+
+    <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
+
+</form>
+
+
+</div>
+
+</div>
+
+
 
 
     </>
