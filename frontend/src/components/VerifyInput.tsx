@@ -1,12 +1,22 @@
-import React from 'react'
+import React, {useState, useRef} from 'react'
 import { PinInput, PinInputField } from '@chakra-ui/react'
 
 type IVerifyInput = {
   otp: any[]
-  otpIndex: number | undefined
+  moveNextOtpField: (currentOtpIndex: any) => void
+  activeOtpIndex: any,
+  setActiveOtpIndex: () => void
 }
 
-const VerifyInput: React.FC<IVerifyInput> = ({otp, otpIndex}) => {
+const VerifyInput: React.FC<IVerifyInput> = ({otp, activeOtpIndex, setActiveOtpIndex, moveNextOtpField}) => {
+  const inputRef = useRef();
+
+  const handleNextOTP = (event: any) => {
+     event.preventDefault();
+     console.log("Handle OTP change")
+
+
+  }
 
   return (
 
@@ -14,10 +24,10 @@ const VerifyInput: React.FC<IVerifyInput> = ({otp, otpIndex}) => {
 
      {otp.map((_, indexVal) => {
 
-        return  <PinInput key = {indexVal} defaultValue = {otp[indexVal] || ""} size = "lg">
+        return <PinInput type = "number" key = {indexVal} size = "lg">
       
-        <PinInputField padding = "3" marginRight={8}/>
-        
+        <PinInputField value = {otp[indexVal] || ""} ref = {activeOtpIndex === indexVal ? inputRef : null as any} onChange = {handleNextOTP} padding = "3" marginRight={8}/>
+
   </PinInput>
      })}
 
