@@ -24,6 +24,9 @@ const NavBar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
 
+  const [accountAddress, setAccountAddress] = useState("");
+  const [accountAddressPresent, setAccountAddressPresent] = useState(false);
+
   const handleWalletConnect = (event: any) => {
 
      try {
@@ -36,6 +39,7 @@ const NavBar: React.FC = () => {
       accounts = accountAddress;
 
       setIsWalletConnected(!isWalletConnected)
+      setAccountAddress(accounts);
 
       console.log(`your acc :`)
 
@@ -51,15 +55,31 @@ const NavBar: React.FC = () => {
 
   } 
 
+  useEffect(() => {
+    const fetchAccountAddress = () => {
+
+       const accountAddress = localStorage.getItem("account");
+       setAccountAddress(accountAddress as any)
+
+       setAccountAddressPresent(!accountAddressPresent);
+       setIsWalletConnected(true)
+    }
+
+    fetchAccountAddress();
+  }, [])
+
   const logoutHandler = async (event: any) => {
 
     try {
 
        event.preventDefault()
        localStorage.removeItem("token");
+       localStorage.removeItem('account')
 
        setIsLoggedIn(false);
        setTokenPresent(false);
+       setIsWalletConnected(false)
+       setAccountAddressPresent(false)
 
        return navigate("/login");
        
@@ -81,6 +101,7 @@ const NavBar: React.FC = () => {
     const fetchAuthToken = () => {
 
        const token = localStorage.getItem("token");
+       
 
        if(token === null) {
           setTokenPresent(false);
@@ -121,6 +142,7 @@ const NavBar: React.FC = () => {
     
                {tokenPresent && isLoggedIn && <a href = "/create-nft"> <li className = "link">Create NFT</li></a>}
                {tokenPresent && isLoggedIn && <a href = "/profile"> <li className = "link">My Profile</li></a>}
+
                <a href = "/cart"> <li className = "link">Cart</li></a>
 
 
@@ -134,7 +156,8 @@ const NavBar: React.FC = () => {
 
        </ul>
 
-       {!isWalletConnected && isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}>Account: {accounts}</h2> }
+       {isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : undefined}
+       {isWalletConnected && accountAddressPresent ? undefined :  <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}> Account: {accountAddress}</h2> }
       
 
 </nav> 

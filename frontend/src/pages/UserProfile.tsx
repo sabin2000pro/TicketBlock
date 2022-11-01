@@ -47,8 +47,6 @@ const UserProfile: React.FC = () => {
 
      <h1 className = "heading-primary">You are logged in as : {user}</h1>
 
-     {accounts}
-
    <div className = "account-container">
 
    <Button type = "submit" colorScheme='teal' size='md'>Change Account</Button>
