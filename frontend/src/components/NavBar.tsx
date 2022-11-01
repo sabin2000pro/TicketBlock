@@ -38,8 +38,9 @@ const NavBar: React.FC = () => {
       const accountAddress = localStorage.getItem("account");
       accounts = accountAddress;
 
-      setIsWalletConnected(!isWalletConnected)
+      
       setAccountAddress(accounts);
+      setIsWalletConnected(!isWalletConnected)
 
       console.log(`your acc :`)
 
@@ -56,18 +57,23 @@ const NavBar: React.FC = () => {
   } 
 
   useEffect(() => {
+
     const fetchAccountAddress = () => {
 
        const accountAddress = localStorage.getItem("account");
-       setAccountAddress(accountAddress as any)
 
-       setAccountAddressPresent(!accountAddressPresent);
-       setIsWalletConnected(true)
+       if(accountAddress !== null) {
+         setAccountAddress(accountAddress as any)
+         setAccountAddressPresent(true);
+         setIsWalletConnected(true)
+       }
+
+
     }
 
     fetchAccountAddress();
 
-    
+
   }, [])
 
   const logoutHandler = async (event: any) => {
@@ -77,7 +83,7 @@ const NavBar: React.FC = () => {
        event.preventDefault()
 
        localStorage.removeItem("token");
-       localStorage.removeItem('account')
+       localStorage.removeItem("account")
 
        setIsLoggedIn(false);
        setTokenPresent(false);
@@ -105,7 +111,7 @@ const NavBar: React.FC = () => {
     const fetchAuthToken = () => {
 
        const token = localStorage.getItem("token");
-       
+       const account = localStorage.getItem("account")
 
        if(token === null) {
           setTokenPresent(false);
@@ -160,8 +166,7 @@ const NavBar: React.FC = () => {
 
        </ul>
 
-       {isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : undefined}
-       {isWalletConnected && accountAddressPresent ? undefined :  <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}> Account: {accountAddress}</h2> }
+       {!isWalletConnected && isLoggedIn && tokenPresent ? <Button onClick = {handleWalletConnect} className = "wallet-btn" colorScheme='teal' size='md'> Connect Wallet </Button> : accountAddressPresent && <h2 style = {{color: 'white', textAlign: 'center', marginTop: '25px', marginRight: '25px'}}> Account: {accountAddress}</h2>}
       
 
 </nav> 
