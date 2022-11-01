@@ -58,12 +58,19 @@ const Login: React.FC = () => {
     catch(error: any) {
 
       if(error) {
-        console.log(error.response);
+        setIsError(!isError);
         setError(error.response.data.errors.message)
       }
 
+      clearError();
 
     }
+  }
+
+  function clearError() {
+    setTimeout(() => {
+      setIsError(false);
+    }, 2000)
   }
 
   useEffect(() => {
