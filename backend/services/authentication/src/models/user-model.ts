@@ -7,6 +7,9 @@ interface IUserAttributes {
     email: string;
     password: string;
 
+    isVerified: boolean;
+    isActive: boolean;
+
     nftsOwned: number; // Number of NFTs the user owns
     compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
     returnAuthToken: () => any;
@@ -26,6 +29,9 @@ interface IUserDocument extends mongoose.Model<IUserAttributes> {
 
     accountAddress: string;
     nftsOwned: number;
+
+    isVerified: boolean;
+    isActive: boolean;
 
     compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
     returnAuthToken: () => JwtPayloadInterface
@@ -58,6 +64,17 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
         type: Number,
         default: 0
     },
+
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+
+    isActive: {
+        type: Boolean,
+        default: false
+    }
+
 
     
 }, {toJSON: {virtuals: true}, timestamps: true});

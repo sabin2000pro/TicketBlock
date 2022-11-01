@@ -18,6 +18,7 @@ const generate_reset_token_1 = require("./../utils/generate-reset-token");
 const error_handler_1 = require("../middleware/error-handler");
 const http_status_codes_1 = require("http-status-codes");
 const user_model_1 = require("../models/user-model");
+const mongoose_1 = require("mongoose");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const password_reset_model_1 = require("../models/password-reset-model");
 const registerUser = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -96,6 +97,13 @@ const sendPasswordResetEmail = (user, resetPasswordURL) => {
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 const verifyLoginMfa = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId, mfaToken } = request.body;
+    if ((0, mongoose_1.isValidObjectId)(userId)) {
+        return next(new error_handler_1.NotFoundError("User ID not valid", 404));
+    }
+    if (!mfaToken) {
+        return next(new error_handler_1.NotFoundError("MFA Token not found. Please provide token", 404));
+    }
 });
 exports.verifyLoginMfa = verifyLoginMfa;
 // @desc      Logout User
