@@ -4,6 +4,8 @@ import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
 import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
+import { Web3Context } from '../context/Web3Context';
+import { useContext } from 'react';
 
 const UserProfile: React.FC = () => {
  

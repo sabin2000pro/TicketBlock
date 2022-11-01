@@ -70,9 +70,6 @@ exports.verifyEmailAddress = (0, express_async_handler_1.default)((request, resp
         return next(new error_handler_1.NotFoundError("No OTP found. Please check entry again", http_status_codes_1.StatusCodes.NOT_FOUND));
     }
     const otpToken = yield email_verification_model_1.EmailVerification.findOne({ owner: userId });
-    if (!otpToken) {
-        return next(new error_handler_1.BadRequestError(`OTP Verification token is not found. Please try again`, http_status_codes_1.StatusCodes.BAD_REQUEST));
-    }
     // Check to see if tokens match
     const otpTokensMatch = otpToken.compareOtpTokens(OTP);
     if (!otpTokensMatch) {

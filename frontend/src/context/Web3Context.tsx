@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import {useContext, useState, createContext, ReactNode} from 'react';
 import Web3 from 'web3';
 
@@ -8,9 +9,8 @@ type Web3ContextProps = {
 type IWeb3Context = {
     accounts: any,
     balance: any,
-    tokenPresent: boolean,
     connectWallet: () => void
-    getAccountBalance: () => number
+    fetchAccountBalance: () => void
 }
 
 export const Web3Context = createContext({} as IWeb3Context)
@@ -19,29 +19,34 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const [accounts, setAccounts] = useState<string | undefined>("")
     const [balance, setBalance] = useState<number | undefined>(0);
 
-    const [isWalletConnected, setIsWalletConnected] = useState(false);
-    const [tokenPresent, setTokenPresent] = useState(false);
-
     const connectWallet = async () => {
-        console.log("Connecting wallet..")
         const provider = window.ethereum;
+        const web3 = new Web3(provider as any)
 
-        const accounts = await window.ethereum?.request({method: "eth_requestAccounts"}) as any
-        const web3 = new Web3(provider as any);
+        if(provider) {
 
-        setAccounts(accounts)
-        const currentBalance = await web3.eth.getBalance(accounts); // Get the account balance
+            const web3provider = new ethers.providers.JsonRpcProvider("http://localhost:7545")    
+            const currAccount = await window.ethereum?.request({method: "eth_requestAccounts"}) as any
+    
+            console.log(web3provider);
+            setAccounts(currAccount as any)
 
-        console.log(`Accounts : ${accounts}`)
-        console.log(currentBalance);
+            const currBalance = await web3.eth.getBalance("0xce7868dd6be1a4f0ba40267509f55fded1f14bea");
+            const formattedBalance = Web3.utils.fromWei(currBalance)
+
+            setBalance(formattedBalance as any);
+
+            console.log(`Your balance : ${formattedBalance} ETH`)
+
+        }
 
     }
 
-    const getAccountBalance = () => {
-        return 0;
+    const fetchAccountBalance = async () => {
+
     }
 
-    return <Web3Context.Provider value = {{connectWallet, getAccountBalance, tokenPresent, accounts, balance}}>
+    return <Web3Context.Provider value = {{connectWallet, fetchAccountBalance, accounts, balance}}>
             {children}
     </Web3Context.Provider>
 }
