@@ -1,3 +1,4 @@
+import { generateOTPToken } from './../utils/generate-otp-token';
 import { emailTransporter } from './../utils/send-email';
 import { generateRandomResetPasswordToken } from './../utils/generate-reset-token';
 import { BadRequestError, NotFoundError } from '../middleware/error-handler';
@@ -18,6 +19,21 @@ export interface IGetUserData extends Request {
     user: any | undefined;
 }
 
+
+const sendConfirmationEmail = (transporter: any, newUser: any, userOTP: number) => {
+
+    return transporter.sendMail({
+        from: 'verification@ethertix.com',
+        to: newUser.email,
+        subject: 'E-mail Verification',
+        html: `
+        
+        <p>Your verification OTP</p>
+        <h1> ${userOTP}</h1>
+        `
+    })
+}
+
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
        const {username, email, password} = request.body;
@@ -28,7 +44,21 @@ export const registerUser = async(request: Request, response: Response, next: Ne
         }
     
         const user = await User.create({username, email, password});
+        
         await user.save();
+        const currentUser = user._id; // Get the current user's ID
+        const userOTP = generateOTPToken();
+    
+        const verificationToken = new EmailVerification({owner: currentUser, token: userOTP});
+        await verificationToken.save();
+    
+        // Send e-mail verification to user
+    
+        const transporter = emailTransporter();
+        sendConfirmationEmail(transporter, user, userOTP as unknown as any);
+    
+        const userOTPVerification = new EmailVerification({owner: user._id, token: userOTP});
+        await userOTPVerification.save();
 
         return sendTokenResponse(request, user as any, StatusCodes.CREATED, response);
     }
