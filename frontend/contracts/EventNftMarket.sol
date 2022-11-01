@@ -54,8 +54,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         bool newIsTokenListed
     );
 
-    constructor(uint256 _ticketListingPrice) ERC721("Event Tickets NFT", "ETNFT") {
-        ticketListingPrice = _ticketListingPrice;
+    constructor() ERC721("Event Tickets NFT", "ETNFT") {
     }
 
     // @description: Set the listing price for a token

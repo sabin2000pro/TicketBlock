@@ -38,10 +38,13 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             console.log(web3provider);
             setAccounts(currAccount as any)
 
-            const currBalance = await web3.eth.getBalance(currAccount);
+            const currBalance = await web3.eth.getBalance(currAccount.toString());
             const formattedBalance = Web3.utils.fromWei(currBalance)
 
             setBalance(formattedBalance as any);
+
+            console.log(`Your balance : ${formattedBalance} ETH`)
+
         }
 
     }
@@ -68,6 +71,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             return window.ethereum?.on("accountsChanged", () => {
                 checkMetaMaskStatus(ethereum);
             })
+
 
         } 
         

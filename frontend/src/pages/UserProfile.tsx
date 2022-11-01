@@ -47,6 +47,11 @@ const UserProfile: React.FC = () => {
 
      <h1 className = "heading-primary">You are logged in as : {user}</h1>
 
+   <div className = "account-container">
+   <Button type = "submit" colorScheme='teal' size='md'>Change Account</Button>
+
+   </div>
+
      <Row md = {2} xs = {1} lg = {3} className = "g-3">
 
         <Card className = "h-25 w-25 p-4 mx-5 mt-5">

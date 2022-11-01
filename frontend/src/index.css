@@ -263,3 +263,8 @@ html {
   margin-right: 100px;
   margin-top: 69px;
 }
+
+.account-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
