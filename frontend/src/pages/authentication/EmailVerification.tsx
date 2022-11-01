@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Button } from "@chakra-ui/react";
+import VerifyInput from '../../components/VerifyInput';
 
 const EmailVerification: React.FC = () => {
 
@@ -9,12 +10,15 @@ const EmailVerification: React.FC = () => {
   const handleOtpSubmission = async () => {
 
       try {
-
+        setOtp(otp);
       } 
       
       catch(err: any) {
-
+        if(err) {
+          return console.error(err);
+        }
       }
+
   }
 
   return (
@@ -26,13 +30,13 @@ const EmailVerification: React.FC = () => {
 
  <form onSubmit = {handleOtpSubmission} method = "POST">
 
- <h1 className = "heading-primary">Forgot Password</h1>
+ <h1 className = "heading-primary">Verify E-mail Address</h1>
 
-     <div className = "email-container">
+      <div className = "pin-container">
+          <VerifyInput otp = {otp} />
+      </div>
 
-     </div>
-
-     <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='md'>Submit</Button>
+     <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
 
  </form>
 
