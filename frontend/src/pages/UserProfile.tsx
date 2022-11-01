@@ -13,7 +13,7 @@ const UserProfile: React.FC = () => {
     const [user, setUser] = useState([])
     const [accountBalance, setAccountBalance] = useState(0);
 
-    const {accounts, balance} = useContext(Web3Context)
+    const {accounts, balance, processAccountChange} = useContext(Web3Context)
 
   useEffect(() => {
 
@@ -48,7 +48,8 @@ const UserProfile: React.FC = () => {
      <h1 className = "heading-primary">You are logged in as : {user}</h1>
 
    <div className = "account-container">
-   <Button type = "submit" colorScheme='teal' size='md'>Change Account</Button>
+    
+   <Button onClick = {processAccountChange as any} type = "submit" colorScheme='teal' size='md'>Change Account</Button>
 
    </div>
 

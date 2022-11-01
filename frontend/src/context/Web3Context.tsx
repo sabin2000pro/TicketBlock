@@ -12,7 +12,7 @@ type IWeb3Context = {
     balance: any,
     connectWallet: () => void
 
-    processAccountChange: (ethereum: MetaMaskInpageProvider) => void
+    processAccountChange: (ethereum: MetaMaskInpageProvider, accounts: any) => void
 }
 
 type ISwitchAccount = {
@@ -53,26 +53,23 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         return window.location.reload();
     }
 
-    const checkMetaMaskStatus = async (ethereum: MetaMaskInpageProvider) => {
+    const handleAccountChange = (ethereum: MetaMaskInpageProvider, accounts: any) => async ()  => {
         
         const isUnlocked = (!await ethereum._metamask.isUnlocked()) as unknown as ISwitchAccount;
         const isLocked = !isUnlocked;
 
-        if(isLocked) {
-            return pageReload();
+        if(accounts.length !== 0) {
+            alert("Please connect to metamask")
         }
 
     }
 
-    const processAccountChange = async (ethereum: MetaMaskInpageProvider) => {
+    const processAccountChange = (ethereum: MetaMaskInpageProvider) => {
 
         try {
 
-            return window.ethereum?.on("accountsChanged", () => {
-                checkMetaMaskStatus(ethereum);
-            })
-
-
+            console.log("Changing accounts")
+            window.ethereum!.on("accountsChanged", handleAccountChange as any);
         } 
         
         catch(error: any) {
