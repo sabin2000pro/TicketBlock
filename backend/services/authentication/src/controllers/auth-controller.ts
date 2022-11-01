@@ -122,10 +122,6 @@ const sendPasswordResetEmail = (user: any, resetPasswordURL: string) => {
 
 }
 
-// @desc      Register New User
-// @route     POST /api/v1/auth/register
-// @access    Public (No Authorization Token Required)
-
 export const verifyLoginMfa = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     const {userId, multiFactorToken} = request.body;
     const user = await User.findById(userId);
@@ -151,11 +147,19 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
     if(!mfaTokensMatch) {
         user.isActive = (!user.isActive) as boolean;
         user.isVerified = (!user.isVerified) as boolean;
-        
+
         return next(new BadRequestError("The MFA token you entered is invalid. Try again", StatusCodes.BAD_REQUEST));
     }
 
+    // Otherwise
 
+    user.isActive = true;
+    user.isVerified = true;
+
+    factorToken.token = undefined;
+    await user.save();
+
+    return sendTokenResponse(request, user, 200, response);
 
 }
 
