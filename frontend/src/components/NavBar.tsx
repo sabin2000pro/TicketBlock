@@ -18,13 +18,13 @@ const NavBar: React.FC = () => {
 
   const navigate = useNavigate();
   
-  const {connectWallet, accounts} = useContext(Web3Context);
+  let {connectWallet, accounts} = useContext(Web3Context);
   const [isWalletConnected, setIsWalletConnected] = useState<boolean | undefined>(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [tokenPresent, setTokenPresent] = useState<boolean | undefined>(false);
 
-  const handleWalletConnect = (event: any, accounts?: any) => {
+  const handleWalletConnect = (event: any) => {
 
      try {
 
@@ -32,6 +32,10 @@ const NavBar: React.FC = () => {
 
       connectWallet();
       setIsWalletConnected(!isWalletConnected)
+
+      const accountAddress = localStorage.getItem("account");
+      accounts = accountAddress;
+
 
      } 
      

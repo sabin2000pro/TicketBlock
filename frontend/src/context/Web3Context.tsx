@@ -33,14 +33,13 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         if(provider) {
 
             const currAccount = await window.ethereum!.request({method: "eth_requestAccounts"}) as any
-
-            setAccounts(currAccount[0])
             accounts = currAccount[0];
 
             const currBalance = await web3.eth.getBalance(currAccount.toString());
             const formattedBalance = Web3.utils.fromWei(currBalance)
 
             setBalance(formattedBalance as any);
+            setAccounts(currAccount[0])
 
             localStorage.setItem("account", accounts)
 
