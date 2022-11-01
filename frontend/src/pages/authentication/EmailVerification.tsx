@@ -7,15 +7,10 @@ let currOTPIndex: any;
 
 const EmailVerification: React.FC = () => {
 
-
   const filledOtp = new Array(LENGTH_OF_OTP).fill("");
 
   const [otp, setOtp] = useState(filledOtp);
-  const [activeOtpIndex, setActiveOtpIndex] = useState(0);
 
-  const moveNextOtpField = (currOTPIndex: any) => {
-    setActiveOtpIndex(currOTPIndex + 1);
-  }
 
   const handleOtpSubmission = (event: any) => {
      event.preventDefault();
@@ -36,7 +31,7 @@ const EmailVerification: React.FC = () => {
     <h1 className = "heading-primary">Verify E-mail Address</h1>
 
           <div className = "pin-container">
-              <VerifyInput currOTPIndex = {currOTPIndex} otp = {otp} activeOtpIndex = {activeOtpIndex} moveNextOtpField = {moveNextOtpField} setActiveOtpIndex = {setActiveOtpIndex as any} />
+              <VerifyInput setOtp = {setOtp as any} currOTPIndex = {currOTPIndex} otp = {otp} />
           </div>
 
         <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
