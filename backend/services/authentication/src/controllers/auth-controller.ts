@@ -7,6 +7,7 @@ import {Request, Response, NextFunction} from 'express';
 import { isValidObjectId } from 'mongoose';
 import asyncHandler from 'express-async-handler';
 import { PasswordReset } from "../models/password-reset-model";
+import { TwoFactorVerification } from '../models/two-factor-verification-model';
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
@@ -126,16 +127,23 @@ const sendPasswordResetEmail = (user: any, resetPasswordURL: string) => {
 // @access    Public (No Authorization Token Required)
 
 export const verifyLoginMfa = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-    const {userId, mfaToken} = request.body;
+    const {userId, multiFactorToken} = request.body;
+    const user = await User.findById(userId);
 
     if(isValidObjectId(userId)) {
         return next(new NotFoundError("User ID not valid", 404));
     }
 
-    if(!mfaToken) {
-        return next(new NotFoundError("MFA Token not found. Please provide token", 404));
+    if(!multiFactorToken) {
+        user.isActive = (!user.isActive);
+        return next(new BadRequestError("Please provide your MFA token", StatusCodes.BAD_REQUEST));
     }
 
+    const factorToken = await TwoFactorVerification.findOne({owner: userId})
+
+    if(!factorToken) {
+        return next(new BadRequestError("The token associated to the user is invalid", 400));
+    }
 
 }
 

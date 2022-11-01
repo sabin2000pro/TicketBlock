@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 const UserProfile: React.FC = () => {
  
-const navigate = useNavigate();
- const [user, setUser] = useState([])
+    const navigate = useNavigate();
+    const [user, setUser] = useState([])
 
   useEffect(() => {
 
