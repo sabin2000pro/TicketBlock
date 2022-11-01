@@ -50,6 +50,13 @@ const Register: React.FC = () => {
 
        }
 
+       function clearError() {
+         setTimeout(() => {
+           setIsError(false);
+         }, 2000)
+       }
+     
+
   }
 
   return (
