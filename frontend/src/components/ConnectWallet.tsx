@@ -8,22 +8,8 @@ type ConnectWalletProps = {
   walletConnected: Boolean
 }
 
-// Component used to connect the meta mask wallet.
-// @props: Conenct Wallet Function. Rendered from Navigation Bar && Wallet Connected determines if the meta mask wallet is connected or not
-
-
 const ConnectWallet: React.FC<ConnectWalletProps> = ({connectWallet, walletConnected}) => {
-  const [account, setAccount] = useState("");
-  const [accountBalance, setAccountBalance] = useState("");
-  const {authContext} = useAuth();
 
-  useEffect(() => {
-    
-    if(!walletConnected) {
-       connectWallet();
-    }
-
-  }, [])
 
   return (
 

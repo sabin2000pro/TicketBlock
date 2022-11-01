@@ -38,13 +38,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             console.log(web3provider);
             setAccounts(currAccount as any)
 
-            const currBalance = await web3.eth.getBalance("0xce7868dd6be1a4f0ba40267509f55fded1f14bea");
+            const currBalance = await web3.eth.getBalance(currAccount);
             const formattedBalance = Web3.utils.fromWei(currBalance)
 
             setBalance(formattedBalance as any);
-
-            console.log(`Your balance : ${formattedBalance} ETH`)
-
         }
 
     }
