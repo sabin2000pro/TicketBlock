@@ -12,6 +12,8 @@ const UserProfile: React.FC = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState([])
 
+    const {accounts, balance} = useContext(Web3Context)
+
   useEffect(() => {
 
     const fetchUserData = async () => { // Fetch the logged in user data
