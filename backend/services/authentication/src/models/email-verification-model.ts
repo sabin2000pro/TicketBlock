@@ -1,20 +1,20 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
-interface IPasswordReset {
+interface IEmailVerification {
     owner: mongoose.Schema.Types.ObjectId
     token: string;
     expiresAt: Date;
 }
 
-interface IPasswordResetDocument extends mongoose.Model<IPasswordReset> {
+interface IEmailVerificationDocument extends mongoose.Model<IEmailVerification> {
     owner: mongoose.Schema.Types.ObjectId
     token: string;
     createdAt: Date;
     expiresAt: Date;
 }
 
-const PasswordResetSchema = new mongoose.Schema<IPasswordResetDocument>({
+const PasswordResetSchema = new mongoose.Schema<IEmailVerificationDocument>({
 
     owner: { // Owner of the token
         type: mongoose.Schema.Types.ObjectId,
@@ -50,5 +50,5 @@ PasswordResetSchema.pre('save', async function(next) {
 })  
 
 
-const PasswordReset = mongoose.model<IPasswordResetDocument>("PasswordReset", PasswordResetSchema);
-export {PasswordReset};
+const EmailVerification = mongoose.model<IPasswordResetDocument>("PasswordReset", PasswordResetSchema);
+export {EmailVerification};
