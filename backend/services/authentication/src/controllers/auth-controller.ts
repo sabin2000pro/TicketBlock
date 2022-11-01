@@ -148,6 +148,15 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
     // Verify to see if the tokens match
     const mfaTokensMatch = factorToken.comapareMfaTokens(multiFactorToken);
 
+    if(!mfaTokensMatch) {
+        user.isActive = (!user.isActive) as boolean;
+        user.isVerified = (!user.isVerified) as boolean;
+        
+        return next(new BadRequestError("The MFA token you entered is invalid. Try again", StatusCodes.BAD_REQUEST));
+    }
+
+
+
 }
 
 // @desc      Logout User
