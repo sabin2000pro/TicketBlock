@@ -1,6 +1,6 @@
 import {useContext, useState, createContext, ReactNode} from 'react';
 import Web3 from 'web3';
-import EventNftContract from '../build/contracts/EventNftMarket.json';
+import EventNftContract from '../contracts/EventNftMarket.json';
 
 type Web3ContextProps = {
     children: ReactNode
@@ -8,14 +8,11 @@ type Web3ContextProps = {
 
 type IWeb3Context = {
     accounts: any,
-    tokenMinted: boolean,
     balance: any,
     connectWallet: () => void
     handleAccountChange: () => void
 
-    fetchOwnedNfts: () => void,
-    mintNft: (name: string, price: number) => void,
-    fetchAllNftsOnSale: () => void,
+    mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
 }
 
@@ -35,6 +32,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const connectWallet = async () => {
 
         if(provider) {
+
             const currAccount = await window.ethereum!.request({method: "eth_requestAccounts"}) as any
 
             accounts = currAccount[0];
@@ -50,6 +48,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             localStorage.setItem("account", accounts)
             localStorage.setItem("balance", formattedBalance);
             balance = formattedBalance
+
+            console.log(`Chosen account`, chosenAccount)
 
         }
 
@@ -71,10 +71,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     }
 
     const mintNft = async (name: string, price: number) => {
+
         connectWallet();
         const contractAbi = EventNftContract.abi;
 
-        const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
+        const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as unknown as any)
         const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
 
         setTokenMinted(!tokenMinted)
@@ -95,13 +96,14 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
 
         fetchAllNftsOnSale();
-        return {nftOnSale};
+        buyNft(id);
+
+        return nftOnSale;
     }
 
     const buyNft = async (id: number) => {
 
         try {
-            
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
             const boughtNft = await nftContract.methods.buyNft(id).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
@@ -113,6 +115,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         }
 
+
     }
 
     // 3. Function 3: Now Fetch All Nfts on sale
@@ -120,7 +123,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
        
     }
 
-    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, mintNft, fetchAllNftsOnSale, fetchOwnedNfts, tokenMinted, buyNft}}>
+    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, mintNft, buyNft}}>
             {children}
     </Web3Context.Provider>
 }

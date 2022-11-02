@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 import { Alert, AlertIcon, Button } from "@chakra-ui/react"
-import { useNavigate } from 'react-router-dom'
-import { forgotPassword } from '../../api/auth-api'
 import { Spinner } from "@chakra-ui/react";
 import axios from 'axios';
 

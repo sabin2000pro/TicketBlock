@@ -31,6 +31,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
     struct EventNft { // Struct for holding Event NFT data
         uint256 id;
+        string name;
         uint256 price;
         address tokenCreator;
         bool isTokenListed; // Determines if the token is listed for sale or not
@@ -40,6 +41,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     event EventNftCreated (
         uint id,
         uint price,
+        string name,
         address creator,
         bool isTokenListed
     );
@@ -102,18 +104,18 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         _safeMint(messageSender, newTokenId);
         _setTokenURI(newTokenId, name); 
 
-        createNewNftItem(newTokenId, price);
+        createNewNftItem(newTokenId, price, name);
         usedTokenURIs[name] = true;
 
         return newTokenId;
      
     }
 
-    function createNewNftItem(uint id, uint price) private {
+    function createNewNftItem(uint id, uint price, string memory name) private {
        address currentOwner = msg.sender;
-       mappedNftData[id] = EventNft(id, price, currentOwner, true);
+       mappedNftData[id] = EventNft(id, name, price, currentOwner, true);
 
-       emit EventNftCreated(id, price, msg.sender, true); // Emit new created event
+       emit EventNftCreated(id, price, name, msg.sender, true); // Emit new created event
     }
 
     function getPriceOfNftToken(uint256 tokenId) public view returns (uint256) {
@@ -124,9 +126,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     function buyNft(uint id) public payable {
 
         address currentOwner = ERC721.ownerOf(id);
-        require(msg.sender == currentOwner, "Please ensure that you are the owner of the token");
-        require(msg.value == getPriceOfNftToken(id), "Please submit a value price for the token");
-
         mappedNftData[id].isTokenListed = false;         // Now we need to delist it from the struct
 
         listedTokenItems.decrement(); // Decrement the listed items by 1.

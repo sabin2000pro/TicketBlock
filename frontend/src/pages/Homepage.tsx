@@ -4,13 +4,17 @@ import { Web3Context } from '../context/Web3Context'
 
 const Homepage = () => {
 
-    const {mintNft, fetchAllNftsOnSale} = useContext(Web3Context)
+    const {mintNft} = useContext(Web3Context);
+
+    useEffect(() => {
+
+    }, [])
 
     const mintNewToken = async () => {
 
       try {
 
-        return await mintNft("New", 500)
+        return await mintNft("Special New NFT", 650)
         
       } 
       
@@ -22,10 +26,6 @@ const Homepage = () => {
       } 
 
 
-    }
-
-    const fetchNftsOnSale = async () => {
-         return await fetchAllNftsOnSale();
     }
 
 
@@ -50,8 +50,6 @@ const Homepage = () => {
              </select>
 
              <button onClick = {() => mintNewToken()} >Test Mint NFT</button>
-             <button onClick = {() => fetchNftsOnSale()} >Fetch All Nfts </button>
-
 
 
 
