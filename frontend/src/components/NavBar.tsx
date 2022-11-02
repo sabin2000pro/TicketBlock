@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useContext} from "react";
 import { Web3Context } from '../context/Web3Context';
+import logo from '../images/ticket.png'
 
 declare global {
   interface Window{
@@ -113,7 +114,6 @@ const NavBar: React.FC = () => {
     const fetchAuthToken = () => {
 
        const token = localStorage.getItem("token");
-       const account = localStorage.getItem("account")
 
        if(token === null) {
           setTokenPresent(false);
@@ -141,7 +141,7 @@ const NavBar: React.FC = () => {
 
              <ul className = "links-container">
 
-               <a href = "/nfts"> <li className = "link">Ticket Block</li></a>
+             <img src = {logo} className = "img-logo" />
 
                <a href = "/register"> <li className = "link">Register</li></a>
 

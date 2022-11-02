@@ -1,4 +1,4 @@
-import {useEffec, useState} from 'react'
+import {useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap';
 import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';

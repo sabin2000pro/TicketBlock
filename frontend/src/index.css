@@ -102,7 +102,7 @@ html {
 
 .login-container, .register-container, .forgot-container {
   text-align: center;
-  margin-top: 400px;
+  margin-top: 300px;
   padding: 16px;
 }
 
@@ -271,4 +271,20 @@ html {
 
 .nft-btn {
   margin-top: 30px;
+}
+
+.img-logo {
+  height: 65px;
+  margin-top: -2px;
+  font-size: 30px;
+  margin-left: 45px;
+  margin-right: 20px;
+}
+
+.footer-container {
+  text-align: center;
+  margin-top: 200px;
+  background-color: #30323D;
+  height: 150px;
+  padding: 24px 30px;
 }
