@@ -8,8 +8,18 @@ import { Web3Context } from '../context/Web3Context';
 import { useContext } from 'react';
 import { Avatar } from '@chakra-ui/react';
 
+const toastPositions = [
+    'top',
+    'top-right',
+    'top-left',
+    'bottom',
+    'bottom-right',
+    'bottom-left',
+  ]
+
+
 const UserProfile: React.FC = (props: any) => {
- 
+
     const navigate = useNavigate();
     const toast = useToast(); // Displayed after updating profiel details
 

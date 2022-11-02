@@ -8,8 +8,6 @@ import { UploadedFile } from 'express-fileupload';
 export const fetchAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
     const nfts = await Nft.find();
     const page = parseInt(request.query.page as any) || 1;
-    const nftsCount = await Nft.countDocuments({})
-    let query;
 
     return response.status(StatusCodes.OK).json({success: true, data: nfts});
 }
