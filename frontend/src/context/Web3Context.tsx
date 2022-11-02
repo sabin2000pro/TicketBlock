@@ -52,8 +52,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             localStorage.setItem("balance", formattedBalance);
             balance = formattedBalance
 
-            console.log(`Chosen account : ${chosenAccount}`)
-
         }
 
     }
@@ -83,6 +81,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         setTokenMinted(!tokenMinted)
 
         const nftValues = mintedNft.events.EventNftCreated.returnValues;
+        console.log(nftValues);
 
         setNftOnSale(nftValues.id, nftValues.price); // Place the token now on sale
 
