@@ -253,16 +253,27 @@ export const resetPassword = asyncHandler(async(request: Request, response: Resp
 // @access    Public (No Authorization Token Required)
 
 export const updatePassword = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
-    const currentPassword = request.body.currentPassword;
+    const oldPassword = request.body.oldPassword;
     const newPassword = request.body.newPassword;
 
     const userId = request.user!._id;
     let user = await User.findById(userId);
 
-
     if(!user) {
         return next(new NotFoundError("User with that ID not found on the server ", StatusCodes.NOT_FOUND))
     }
+
+    // Check if passwords match
+    const oldPasswordMatch = await user.compareLoginPasswords(oldPassword);
+
+    if(!oldPasswordMatch) {
+       return next(new BadRequestError("Old password does not match", 400));
+    }
+
+
+    // Update Password fields
+    user.password = newPassword;
+    await user.save();
 
 }  
 
