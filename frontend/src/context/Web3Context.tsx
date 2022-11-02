@@ -15,7 +15,7 @@ type IWeb3Context = {
 
     fetchOwnedNfts: () => void
     mintNft: (name: string, price: number) => void
-    fetchAllNftsOnSale?: () => void
+    fetchAllNftsOnSale: () => void
 }
 
 const provider = window.ethereum;
