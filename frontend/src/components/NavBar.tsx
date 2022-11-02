@@ -160,8 +160,7 @@ const NavBar: React.FC = () => {
 
 
                <div className='search-container'>
-                   <img src = {search} alt = "search-logo" className = 'search-logo' />
-                  <input placeholder='Search NFT' type = "text" />
+                   <input className = "search-icon" placeholder='Search NFT' type = "text" />
                </div>
 
        </ul>

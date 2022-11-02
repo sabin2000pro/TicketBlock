@@ -116,15 +116,17 @@ html {
 }
 
 .search-container {
-  margin-left: 50px;
-  margin-top: 10px;
+  margin-left: 45px;
+  margin-top: -5px;
   text-align: center;
+  border-color: white;
 }
 
 .search-container input {
   border-radius: 10px;
   padding: 2px;
   text-align: center;
+  margin-top: 20px;
 }
 
 .register-form, .login-form, .forgot-form {
@@ -296,7 +298,16 @@ html {
   font-weight: 500;
 }
 
-.search-logo {
-  height: 20px;
-  position: relative;
+.search-icon {
+  padding-left: 80px;
+  background: url("../src/images/search.png") no-repeat left;
+  background-size: 20px;
+  background-color: white;
+  margin-left: 30px;
+}
+
+.search-icon:focus {
+  outline: none;
+  transition: all 0.2s;
+  text-align: center;
 }
