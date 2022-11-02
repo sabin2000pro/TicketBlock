@@ -53,6 +53,10 @@ describe("Verify E-mail Address Test Suite", () => {
 
     })
 
+})
+
+
+describe("Login - Test Suite", () => {
 
 })
 
@@ -74,11 +78,20 @@ describe("Verify Login MFA Test Suite", () => {
 })
 
 
-describe("Login - Test Suite", () => {
-
-})
-
 describe("Forgot Password - Test Suite", () => {
+
+    it("Forgot Password - Valid E-mail Address", async () => {
+
+    })
+
+    it("Forgot Password - Invalid E-mail Address", async () => {
+
+    })
+
+    it("Forgot Password - Missing E-mail Address", async () => {
+
+    })
+
 
 })
 
