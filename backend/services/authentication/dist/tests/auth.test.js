@@ -41,14 +41,14 @@ describe("Verify E-mail Address Test Suite", () => {
         const invalidOtpFields = [{ userId: "", OTP: "09" }];
         for (const data of invalidOtpFields) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/verify-email").send(data);
-            return expect(response.statusCode).toBe(400);
+            return expect(response.statusCode).toBe(404);
         }
     }));
     it("Verify E-mail Address With Malformed User ID", () => __awaiter(void 0, void 0, void 0, function* () {
         const malformedInputs = [{ userId: "5dfa", OTP: "909890" }];
         for (const data of malformedInputs) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/verify-email").send(data);
-            return expect(response.statusCode).toBe(400);
+            return expect(response.statusCode).toBe(404);
         }
     }));
     it("Verify E-mail Address With Missing User ID", () => __awaiter(void 0, void 0, void 0, function* () {
@@ -61,8 +61,18 @@ describe("Verify E-mail Address Test Suite", () => {
 });
 describe("Login - Test Suite", () => {
     it("Login Test - Invalid E-mail Address", () => __awaiter(void 0, void 0, void 0, function* () {
+        const malformedInputs = [{ email: "jfjehwfhew@gmail.com", password: "123mini123" }];
+        for (const data of malformedInputs) {
+            const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/login").send(data);
+            return expect(response.statusCode).toBe(404);
+        }
     }));
     it("Login Test - Invalid Password", () => __awaiter(void 0, void 0, void 0, function* () {
+        const malformedInputs = [{ email: "harun0@gmail.com", password: "bbobu" }];
+        for (const data of malformedInputs) {
+            const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/login").send(data);
+            return expect(response.statusCode).toBe(400);
+        }
     }));
 });
 describe("Verify Login MFA Test Suite", () => {

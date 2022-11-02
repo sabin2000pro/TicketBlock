@@ -62,6 +62,9 @@ exports.registerUser = registerUser;
 exports.verifyEmailAddress = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId, OTP } = request.body;
     const user = yield user_model_1.User.findById(userId);
+    if (!(0, mongoose_1.isValidObjectId)(userId)) {
+        return next(new error_handler_1.BadRequestError("Invalid User ID", 400));
+    }
     if (!user) {
         return next(new error_handler_1.NotFoundError("Could not find that user", 404));
     }

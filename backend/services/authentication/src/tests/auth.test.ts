@@ -86,9 +86,15 @@ describe("Login - Test Suite", () => {
         }
     })
 
-    it("Login Test - Invalid Password", async () => {
+    it("Login Test - Valid Data", async () => {
+        const malformedInputs = [{email: "harun0@gmail.com", password: "123mini123"}]
 
-    })
+        for(const data of malformedInputs) {
+            const response = await request(app).post("/api/v1/auth/login").send(data);
+
+            return expect(response.statusCode).toBe(200)
+        }
+    })  
 
 
 })
