@@ -10,7 +10,7 @@ import processErrors from './middleware/error-handler';
 import mongoSanitize from 'express-mongo-sanitize';
 import authRouter from './routes/auth-routes';
 import connectAuthSchema from './database/auth-schema';
-import rateLimiter from 'express-rate-limit';
+import rateLimit from 'express-rate-limit';
 import fileUpload from 'express-fileupload';
 
 connectAuthSchema();
@@ -24,6 +24,15 @@ if(process.env.NODE_ENV === 'development') {
 if(process.env.NODE_ENV === 'production') {
     app.use(mongoSanitize()); // Prevent against NoSQL Injection attacks in production environment
 }
+
+// Used for slowing down requests
+
+const rateLimiter = ({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
  
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -31,6 +40,7 @@ app.set('trust proxy', true);
 app.use(fileUpload());
 app.use(hpp());
 app.use(mongoSanitize()); // Used to prevent NoSQLI injections
+app.use(rateLimit());
 
 app.use(cors({
     origin: "*",
@@ -42,7 +52,6 @@ app.use(cookieSession({
     keys: ['session'],
     secure: process.env.NODE_ENV !== 'development'
 }));
-
 
 
 
