@@ -66,6 +66,7 @@ const NavBar: React.FC = () => {
        const accountAddress = localStorage.getItem("account");
 
        if(accountAddress !== null) {
+        
          setAccountAddress(accountAddress as any)
          setAccountAddressPresent(true);
          setIsWalletConnected(true)
