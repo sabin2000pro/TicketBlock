@@ -80,6 +80,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
 
         console.log( mintedNft)
+
+        return mintedNft
     }
 
     const fetchAllNftsOnSale = async (nfts: any[]) => {
