@@ -45,6 +45,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         accounts = currAccount[0];
 
         localStorage.setItem("account", accounts)
+        localStorage.setItem("balance", formattedBalance);
+
+        
         setAccounts(currAccount[0])
 
         balance = formattedBalance
