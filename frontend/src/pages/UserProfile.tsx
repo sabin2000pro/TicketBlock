@@ -70,10 +70,8 @@ const UserProfile: React.FC = (props: any) => {
             setUsername(username);
             setEmail(email);
 
-            console.log("Updating profile data...");
+            updateProfileSettings(username as any, email as any);
 
-            updateProfileSettings(username, email);
-            
             setProfileUpdated(!profileUpdated);
         } 
         
@@ -138,12 +136,12 @@ const UserProfile: React.FC = (props: any) => {
 
             <h2 className = "heading-secondary">Username</h2>
 
-            <input className = "update-username" type = "text" />
+            <input value = {username} onChange = {(event) => setUsername(event.target.value)} className = "update-username" type = "text" />
 
         
             <h2 className = "heading-secondary">E-mail</h2>
 
-            <input className = "update-username" type = "text" />
+            <input value = {email} onChange = {(event) => setEmail(event.target.value)} className = "update-username" type = "text" />
 
             <Button onClick = {handleUpdateProfileSettings} type = "submit" colorScheme='teal' size='md'>Update Details</Button>
 
