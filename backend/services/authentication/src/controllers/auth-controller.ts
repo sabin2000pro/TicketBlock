@@ -127,7 +127,7 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     const passwordsMatch = await user.compareLoginPasswords(password)
 
     if(!passwordsMatch) {
-        return next(new BadRequestError("Passwords do not match. Please try again", StatusCodes.BAD_REQUEST))
+        return next(new BadRequestError("Passwords do not match. Please try again", 400))
     }
    
     return sendTokenResponse(request, user as any, StatusCodes.OK, response);

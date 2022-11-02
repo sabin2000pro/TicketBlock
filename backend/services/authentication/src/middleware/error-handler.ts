@@ -31,7 +31,7 @@ export abstract class CustomError extends Error {
 export const processErrors = (err: Error, _request: Request, response: Response, next: NextFunction) => {
 
     if(err instanceof CustomError) {
-        return response.status(StatusCodes.NOT_FOUND).json({message: err.message, errors: err.serializeErrors() })
+        return response.status(StatusCodes.BAD_REQUEST).json({message: err.message, errors: err.serializeErrors() })
     }
 
     return next();
