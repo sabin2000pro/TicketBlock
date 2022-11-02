@@ -76,8 +76,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
        return listOfNfts[index];
     }
 
-
-
     function mintNftToken(string memory name, uint price) public payable override returns (uint) {        
         address messageSender = msg.sender;
 
@@ -126,12 +124,10 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return msg.sender == ERC721.ownerOf(tokenId); // The owner of the token ID is equal to the ERC721 invoked routine of the token ID
     }
 
-    function setNftOnSale(uint256 tokenId, uint256 newTokenPrice) external payable override {
-        require(checkTokenCreatorIsOwner(tokenId), "Please make sure that the creator of the token is the current owner before placing the nft on sale");
-        require(isTokenAlreadyOnSale(tokenId), "Please make sure that the token is not already on sale...");
+    function setNftOnSale(uint id, uint price) external payable override {
 
-        mappedNftData[tokenId].isTokenListed = true;
-        mappedNftData[tokenId].price = newTokenPrice; // Update the new token price
+        mappedNftData[id].isTokenListed = true;
+        mappedNftData[id].price = price; // Update the new token price
 
         if(listedTokenItems.current() == 0) { // If the current items on sale is by default 0
             listedTokenItems.increment();    // Increment Listed Items
@@ -142,7 +138,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     // @description: Retrieves all of the event ticket NFT's on sale.
     // @returns: An array of Event NFT Tokens stored in memory
 
-    function fetchAllNftsOnSale() public view returns (EventNft[] memory) {
+    function fetchAllNftsOnSale() public returns (EventNft[] memory) {
         uint totalNftSupply = getNftTotalSupply();
         uint currentTokenIndex = 0; // Current index of the token
         
