@@ -236,8 +236,6 @@ export const logout = asyncHandler(async (request: Request, response: Response, 
 
 export const getCurrentUser = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
     const user = request.user
-    console.log(`User data ; ${user}`);
-
     return response.status(StatusCodes.OK).json({success: true, data: user});
 };
 
