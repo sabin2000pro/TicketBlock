@@ -23,6 +23,21 @@
         "stock": 1,
         "category": "ticket",
         "isRare": true
+    },
+
+    {
+        "_id": "5d725a4a7b292f5f8ceff752",
+        "owner": "5d7a514b5d2c12c7449ac9052",
+        "name": "Edinburgh Dungeon Halloween Event",
+        "image": "no-photo.jpg",
+        "price": "0.030 ETH",
+        "convertedPrice": "50 GBP",
+        "inStock": true,
+        "stock": 3,
+        "category": "ticket",
+        "isRare": false
     }
+
+
 
 ]
