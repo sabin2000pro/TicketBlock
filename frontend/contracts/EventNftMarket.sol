@@ -139,7 +139,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         }
 
         emit SetNftOnSale(mappedNftData[id].id, mappedNftData[id].price);
-
         return mappedNftData[id].price;
 
     }
