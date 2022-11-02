@@ -1,29 +1,33 @@
 import React, {useState} from 'react'
-import { Button } from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import axios from 'axios';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
 
 const LoginMfaVerification = (props: any) => {
 
-  const [mfaCode, setMfaCode] = useState("");
+  const [mfaCode, setMfaCode] = useState<string | undefined>("");
+  const [showErrorModal, setShowErrorModal] = useState<boolean | undefined>(false);
+  const {isOpen, onOpen, onClose} = useDisclosure();
 
   const handleMfaVerification = async (event: any) => {
      try {
 
-
       event.preventDefault();
 
+      if(!mfaCode) {
+        setShowErrorModal(!showErrorModal);
+  
+        console.log(`Mfa missing`)
+     }
 
-      const response = await axios.post(`http://localhost:5299/api/v1/auth/verify-mfa`, {mfaCode});
-      const data = response.data;
-
-      if(mfaCode.trim() === "") {
-         alert("Please provide a valid MFA Token")
-      }
-
-      console.log(response);
-
-
-      return data;
      } 
      
      catch(error: any) {
@@ -31,9 +35,39 @@ const LoginMfaVerification = (props: any) => {
      }
   }
 
+  const handleCloseModal = () => {
+     setShowErrorModal(false);
+  }
+
 
   return (
     <>
+
+
+    {showErrorModal && <Modal isOpen = {showErrorModal} onClose = {onClose}>
+
+    <ModalOverlay />
+
+    <ModalContent>
+
+
+      <ModalHeader>Multi Factor Code Missing</ModalHeader>
+      <ModalCloseButton />
+
+      <ModalBody>
+        
+      </ModalBody>
+
+      <ModalFooter>
+
+        <Button colorScheme='blue' mr={3} onClick={handleCloseModal}>
+          Close
+        </Button>
+
+
+      </ModalFooter>
+    </ModalContent>
+  </Modal>}
     
 
     <div className = "forgot-container">
