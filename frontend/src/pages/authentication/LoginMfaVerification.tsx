@@ -6,10 +6,18 @@ const LoginMfaVerification = (props: any) => {
 
   const [mfaCode, setMfaCode] = useState("");
 
-  const handleMfaVerification = async () => {
+  const handleMfaVerification = async (event: any) => {
      try {
+      event.preventDefault();
+      
+
+
       const response = await axios.post(`http://localhost:5299/api/v1/auth/verify-mfa`, {mfaCode});
       const data = response.data;
+
+      if(!mfaCode.trim()) {
+         alert("Please provide a valid MFA Token")
+      }
 
       console.log(response);
 
