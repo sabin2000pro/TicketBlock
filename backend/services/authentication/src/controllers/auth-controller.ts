@@ -1,3 +1,4 @@
+import { generateMfaToken } from './../utils/generate-mfa-token';
 import { generateOTPToken } from './../utils/generate-otp-token';
 import { emailTransporter } from './../utils/send-email';
 import { generateRandomResetPasswordToken } from './../utils/generate-reset-token';
@@ -150,6 +151,8 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     }
 
     // Code to send MFA Code
+    const mfaToken = generateMfaToken();
+    console.log(`Your MFA TOKEN : ${mfaToken}`);
    
     return sendTokenResponse(request, user as any, StatusCodes.OK, response);
 
