@@ -21,6 +21,7 @@ type IWeb3Context = {
 const provider = window.ethereum;
 const web3 = new Web3(provider as any)
 
+
 export const Web3Context = createContext({} as IWeb3Context)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
@@ -34,8 +35,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const connectWallet = async () => {
 
         if(provider) {
-
             const currAccount = await window.ethereum!.request({method: "eth_requestAccounts"}) as any
+
             accounts = currAccount[0];
 
             const currBalance = await web3.eth.getBalance(currAccount.toString());
@@ -73,7 +74,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const contractAbi = EventNftContract.abi;
 
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
-        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: accounts});
+        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
 
         console.log( mintedNft)
         return mintedNft
