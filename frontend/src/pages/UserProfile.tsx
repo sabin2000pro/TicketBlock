@@ -11,6 +11,7 @@ import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react';
 const UserProfile: React.FC = () => {
  
     const navigate = useNavigate();
+    const toast = useToast(); // Displayed after updating profiel details
     const [user, setUser] = useState([])
     
     let [accountBalance, setAccountBalance] = useState<string | undefined>("");
@@ -35,13 +36,11 @@ const UserProfile: React.FC = () => {
             const currBalance = localStorage.getItem("balance")            
             setAccountBalance(currBalance as any);
 
-            balance = accountBalance
-
         }
 
         fetchAccountBalance();
 
-    }, [balance, accountBalance])
+    }, [balance])
 
     const handleNftRedirect = () => {
         return navigate("/nfts");
