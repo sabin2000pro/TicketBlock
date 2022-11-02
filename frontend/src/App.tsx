@@ -4,7 +4,6 @@ import { Register } from './pages/auth-index';
 import ForgotPassword from './pages/authentication/ForgotPassword';
 import Login from './pages/authentication/Login';
 import ResetPassword from './pages/authentication/ResetPassword';
-import Home from './pages/Home';
 import NavBar from './components/NavBar';
 import './index.css'
 import CreateNft from './pages/nfts/CreateNft';
@@ -14,6 +13,7 @@ import EmailVerification from './pages/authentication/EmailVerification';
 import LoginMfaVerification from './pages/authentication/LoginMfaVerification';
 import SingleNft from './pages/nfts/SingleNft';
 import EditNft from './pages/nfts/EditNft';
+import Homepage from './pages/Homepage';
 
 const App: React.FC = () => {
   
@@ -27,8 +27,9 @@ const App: React.FC = () => {
 
         <Routes>
 
+          <Route path = '/' element = {<Homepage />} />
+
           <Route path = '/register' element = {<Register />} />
-          <Route path = '/' element = {<Home />} />
           <Route path = "/profile" element = {<UserProfile />} />
 
           <Route path = '/login' element = {<Login />} />

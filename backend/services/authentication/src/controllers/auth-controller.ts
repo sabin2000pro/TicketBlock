@@ -236,6 +236,7 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
     const mfaTokensMatch = factorToken.comapareMfaTokens(multiFactorToken);
 
     if(!mfaTokensMatch) {
+        
         user.isActive = (!user.isActive) as boolean;
         user.isVerified = (!user.isVerified) as boolean;
 

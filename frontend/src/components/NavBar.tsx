@@ -130,6 +130,10 @@ const NavBar: React.FC = () => {
     fetchAuthToken();
  }, [])
 
+ const handleLogoClick = () => {
+   return navigate('/')
+ }
+
 
   return (
 
@@ -141,7 +145,7 @@ const NavBar: React.FC = () => {
 
              <ul className = "links-container">
 
-             <img src = {logo} className = "img-logo" alt = "logo" />
+             <img onClick ={handleLogoClick} src = {logo} className = "img-logo" alt = "logo" />
 
                <a href = "/register"> <li className = "link">Register</li></a>
 

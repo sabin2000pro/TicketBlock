@@ -5,10 +5,40 @@
   margin: 0;
   box-sizing: border-box;
 }
-
-html {
-  overflow: hidden;
+.heading-secondary {
+  color: white;
 }
+
+.cta-text {
+  color: white;
+  font-weight: 500;
+  margin-top: 50px;
+}
+
+.home-container {
+  background-color: #30323def;
+  
+  height: 750px;
+  padding: 50px;
+}
+
+.home-container .h-2 {
+  color: white;
+  font-weight: bold;
+  margin-left: 40px;
+}
+
+.rectangle-box {
+  background-color: white;
+  height: 150px;
+  width: 25%;
+  margin-top: -30px;
+  transform: translate(250%, 100%);
+  text-align: center;
+  border-radius: 20px;
+}
+
+
 
 .spinner {
   display: flex;
@@ -281,6 +311,7 @@ html {
   font-size: 30px;
   margin-left: 45px;
   margin-right: 20px;
+  cursor: pointer;
 }
 
 .footer-container {
@@ -322,4 +353,14 @@ html {
   width: 80px;
   margin-top: -15px;
   margin-bottom: 20px;
+}
+
+.info-h {
+  color: black;
+  text-align: center;
+}
+
+.info-section {
+  padding: 120px;
+  margin-top: -40px;
 }
