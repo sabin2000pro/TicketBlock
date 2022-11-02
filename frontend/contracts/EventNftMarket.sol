@@ -161,7 +161,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
               currentTokenIndex += 1; // Increment number of token indexes
            }
 
-
         }
 
         return nftItems; // Return all of the NFT items

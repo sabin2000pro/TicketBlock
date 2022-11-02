@@ -1,22 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useContext } from 'react'
 import { Web3Context } from '../context/Web3Context'
 
 const Homepage = () => {
 
-    const {mintNft} = useContext(Web3Context)
+    const {mintNft, fetchAllNftsOnSale} = useContext(Web3Context)
 
     const mintNewToken = async () => {
+
       try {
+
         return await mintNft("New", 500)
         
-      } catch(error: any) {
+      } 
+      
+      catch(error: any) {
+
         if(error) {
             return console.log(error)
         }
       } 
 
 
+    }
+
+    const fetchNftsOnSale = async () => {
+         return await fetchAllNftsOnSale();
     }
 
 
@@ -41,6 +50,7 @@ const Homepage = () => {
              </select>
 
              <button onClick = {() => mintNewToken()} >Test Mint NFT</button>
+
 
 
           </div>
