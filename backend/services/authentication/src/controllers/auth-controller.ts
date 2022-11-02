@@ -153,6 +153,12 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     // Code to send MFA Code
     const mfaToken = generateMfaToken();
     console.log(`Your MFA TOKEN : ${mfaToken}`);
+
+    const transporter = emailTransporter();
+    sendConfirmationEmail(transporter, user, mfaToken as unknown as any);
+
+    const mfaCodeVerification = new TwoFactorVerification({owner: user._id, token: mfaToken});
+    await mfaCodeVerification.save();
    
     return sendTokenResponse(request, user as any, StatusCodes.OK, response);
 
