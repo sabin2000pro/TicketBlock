@@ -147,12 +147,18 @@ export const verifyEmailAddress = async (OTP: IVerifyEmail) => {
 }
 
 export const verifyLoginMFA = async (mfaToken: IVerifyLoginMfa) => {
+    
     try {
-
+        const response = await axios.post("http://localhost:5299/api/v1/auth/verify-mfa", {mfaToken})
+        const data = response.data
     } 
     
     catch(err: any) {
 
+
+        if(err) {
+            return console.error(err);
+        }
     }
 
 
@@ -164,20 +170,23 @@ export const uploadUserAvatar = async () => {
     } 
     
     catch(err: any) {
-
+        if(err) {
+            return console.error(err);
+        }
     }
 
     
 }
 
 export const updateProfileSettings = async (data: any) => {
+
     try {
 
     } 
     
     catch(err: any) {
 
-        
+
         if(err) {
             return console.error(err);
         }
