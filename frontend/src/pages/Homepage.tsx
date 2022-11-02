@@ -1,6 +1,24 @@
 import React from 'react'
+import { useContext } from 'react'
+import { Web3Context } from '../context/Web3Context'
 
 const Homepage = () => {
+
+    const {mintNft} = useContext(Web3Context)
+
+    const mintNewToken = async () => {
+      try {
+        return await mintNft("New", 500)
+        
+      } catch(error: any) {
+        if(error) {
+            return console.log(error)
+        }
+      } 
+
+
+    }
+
 
 
   return (
@@ -21,6 +39,8 @@ const Homepage = () => {
              <select>
                 <option>1</option>
              </select>
+
+             <button onClick = {() => mintNewToken()} >Test Mint NFT</button>
 
 
           </div>

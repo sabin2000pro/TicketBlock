@@ -7,8 +7,7 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 // Interface for the NFT routines to be invoked
 interface NftRoutines {
-    function initialiseListingPrice(uint256 newListingPrice) external;
-    function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable returns (uint256);
+    function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable;
     function setNftOnSale(uint256 tokenIndex, uint256 newTokenPrice) external payable; // 3. Routine to set the nft on sale
     function buyNft(uint256 tokenInde) external payable; // Routing to buy the NFT given a token Index and price
     function checkTokenCreatorIsOwner(uint256 tokenId) external returns (bool);
@@ -20,7 +19,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     Counters.Counter private listedTokenItems; // Listed Token Items
     Counters.Counter private tokenIds; // Number that stores how many token's we have
 
-    uint256 ticketListingPrice = 0.030 ether; // Listing price for the event NFT. Initially sell one for 0.030 ETHER
     uint256[] private listOfNfts; // Store the list of NFTs in an array
     bool private tokenMinted;
 
@@ -57,12 +55,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     constructor() ERC721("Event Tickets NFT", "ETNFT") {
     }
 
-    // @description: Set the listing price for a token
-    function initialiseListingPrice(uint256 newListingPrice) public override onlyOwner {
-        uint256 defaultPrice = 0;
-        require(newListingPrice > defaultPrice, "Make sure that the listing is > 0 GWEI");
-        ticketListingPrice = newListingPrice;
-    }
 
     function isTokenNotOnSale(uint256 tokenId) public payable returns (bool) {
         return mappedNftData[tokenId].isTokenListed == false;
@@ -87,14 +79,12 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
 
 
-    function mintNftToken(string memory name, uint256 price) public payable override returns (uint256) {
-        require(!checkTokenExists(name), "Please ensure that the token URI exists");
-        require(msg.value == ticketListingPrice, "Please ensure the price of the new token is set to the listing price");
-        
+    function mintNftToken(string memory name, uint256 price) public payable override {        
         address messageSender = msg.sender;
 
         tokenIds.increment();
         listedTokenItems.increment();
+
         uint newTokenId = tokenIds.current();
 
         _safeMint(messageSender, newTokenId);
@@ -103,7 +93,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         createNewNftItem(newTokenId, price);
         usedTokenURIs[name] = true;
 
-        return newTokenId;
+     
     }
 
     function createNewNftItem(uint256 tokenId, uint256 price) private {
@@ -134,11 +124,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
     function checkTokenCreatorIsOwner(uint256 tokenId) public view override returns (bool) {
         return msg.sender == ERC721.ownerOf(tokenId); // The owner of the token ID is equal to the ERC721 invoked routine of the token ID
-    }
-
-    // Check if the listing price is valid or not
-    function isValidListingPrice() public payable returns (bool) {
-        return msg.value == ticketListingPrice;
     }
 
     function setNftOnSale(uint256 tokenId, uint256 newTokenPrice) external payable override {
@@ -207,7 +192,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
     // @description: Return the total supply of event ticket nft's by returning the array length.
     function fetchTokenSupply() public view returns (uint256) {
-        return listOfNfts.length;
+        return listOfNfts.length + 1;
     }
 
     function checkTokenExists(string memory tokenURI) public view returns (bool) {

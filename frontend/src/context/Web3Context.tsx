@@ -1,7 +1,6 @@
-import { MetaMaskInpageProvider } from '@metamask/providers';
-import { ethers, providers } from 'ethers';
 import {useContext, useState, createContext, ReactNode} from 'react';
 import Web3 from 'web3';
+import EventNftContract from '../build/contracts/EventNftMarket.json';
 
 type Web3ContextProps = {
     children: ReactNode
@@ -9,6 +8,7 @@ type Web3ContextProps = {
 
 type IWeb3Context = {
     accounts: any,
+    tokenMinted: boolean,
     balance: any,
     connectWallet: () => void
     handleAccountChange: () => void
@@ -27,7 +27,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     let [accounts, setAccounts] = useState<string>("")
     let [balance, setBalance] = useState<string | undefined>("");
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
-    const [nfts, setNfts] = useState([])
+
+    let [nfts, setNfts] = useState([])
+    const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
 
     const connectWallet = async () => {
 
@@ -46,6 +48,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             localStorage.setItem("balance", formattedBalance);
             balance = formattedBalance
 
+            console.log(`Current account : ${currAccount}`)
+
         }
 
     }
@@ -53,11 +57,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const handleAccountChange = () => {
 
         window.ethereum?.on("accountsChanged", (accounts) => {
-            
              console.log(accounts);
-
              setAccountChanged(!accountChanged);
         })
+
 
     }
 
@@ -66,15 +69,21 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     }
 
     const mintNft = async (name: string, price: number) => {
-        const networkId = await web3.eth.net.getId(); // Get the network ID
+        connectWallet();
+        const contractAbi = EventNftContract.abi;
 
+        const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
+        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: accounts});
+
+        console.log( mintedNft)
+        return mintedNft
     }
 
     const fetchAllNftsOnSale = async (nfts: any[]) => {
         return nfts;
     }
 
-    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, mintNft, fetchAllNftsOnSale, fetchOwnedNfts}}>
+    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, mintNft, fetchAllNftsOnSale, fetchOwnedNfts, tokenMinted}}>
             {children}
     </Web3Context.Provider>
 }
