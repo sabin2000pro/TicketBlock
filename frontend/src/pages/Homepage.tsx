@@ -50,6 +50,8 @@ const Homepage = () => {
              </select>
 
              <button onClick = {() => mintNewToken()} >Test Mint NFT</button>
+             <button onClick = {() => fetchNftsOnSale()} >Fetch All Nfts </button>
+
 
 
 
