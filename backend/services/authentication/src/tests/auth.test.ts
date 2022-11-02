@@ -12,6 +12,14 @@ describe("Register Account - Test Suite", () => {
 
     // Suite of tests
     it("Regiser Account - Invalid Details", async () => {
+        const bodyData = [{username: "kk", email: "kk", password: "kn"}]
+
+        for (const data of bodyData) {
+            const response = await request(app).post("/api/v1/auth/register").send(data);
+
+            return expect(response.statusCode).toBe(201);
+        }
+
 
     })
 
