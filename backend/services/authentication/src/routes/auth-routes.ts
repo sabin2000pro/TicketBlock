@@ -1,3 +1,4 @@
+import { updateProfileDetails } from './../controllers/auth-controller';
 import { verifyUserAuth } from './../middleware/verify-auth';
 import express, {Router} from 'express';
 import { registerUser, verifyEmailAddress, login, verifyLoginMfa, forgotPassword, resetPassword, logout, getCurrentUser } from '../controllers/auth-controller'
@@ -13,5 +14,7 @@ authRouter.route('/forgot-password').post(forgotPassword as any);
 authRouter.route('/reset-password').post(resetPassword as any);
 authRouter.route('/me').get(verifyUserAuth as any, getCurrentUser as any);
 authRouter.route('/verify-mfa').post(verifyLoginMfa as any)
+
+authRouter.route('/update-profile').post(updateProfileDetails as any);
 
 export default authRouter
