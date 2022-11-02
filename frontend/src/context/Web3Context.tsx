@@ -19,6 +19,7 @@ type IWeb3Context = {
 
 const provider = window.ethereum;
 const web3 = new Web3(provider as any)
+let chosenAccount;
 
 export const Web3Context = createContext({} as IWeb3Context)
 
