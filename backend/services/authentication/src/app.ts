@@ -10,6 +10,8 @@ import processErrors from './middleware/error-handler';
 import mongoSanitize from 'express-mongo-sanitize';
 import authRouter from './routes/auth-routes';
 import connectAuthSchema from './database/auth-schema';
+import rateLimiter from 'express-rate-limit';
+import fileUpload from 'express-fileupload';
 
 connectAuthSchema();
 
@@ -26,6 +28,7 @@ if(process.env.NODE_ENV === 'production') {
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.set('trust proxy', true);
+app.use(fileUpload());
 app.use(hpp());
 app.use(mongoSanitize()); // Used to prevent NoSQLI injections
 
