@@ -14,7 +14,7 @@ const Homepage = () => {
 
       try {
 
-        return await mintNft("Special New NFT", 650)
+        return await mintNft("Another New NFT", 800)
         
       } 
       

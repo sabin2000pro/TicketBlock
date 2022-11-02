@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import {useContext, useState, createContext, ReactNode} from 'react';
 import Web3 from 'web3';
 import EventNftContract from '../contracts/EventNftMarket.json';
@@ -18,6 +19,8 @@ type IWeb3Context = {
 
 const provider = window.ethereum;
 const web3 = new Web3(provider as any)
+const etherProvider = new ethers.providers.JsonRpcProvider("http://localhost:7545")
+
 let chosenAccount;
 
 export const Web3Context = createContext({} as IWeb3Context)
@@ -31,36 +34,52 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const connectWallet = async () => {
 
-        if(provider) {
+    try {
 
-            const currAccount = await window.ethereum!.request({method: "eth_requestAccounts"}) as any
+        const currAccount = await window.ethereum!.request({method: "eth_requestAccounts"}) as any
+        console.log(etherProvider);
 
-            accounts = currAccount[0];
+        const currBalance = await web3.eth.getBalance(currAccount.toString());
+        const formattedBalance = Web3.utils.fromWei(currBalance)
 
-            const currBalance = await web3.eth.getBalance(currAccount.toString());
-            const formattedBalance = Web3.utils.fromWei(currBalance)
+        setBalance(formattedBalance as any);
+        setAccounts(currAccount[0])
 
-            setBalance(formattedBalance as any);
-            setAccounts(currAccount[0])
+        chosenAccount = currAccount[0];
+        accounts = currAccount[0];
 
-            chosenAccount = currAccount[0];
+        localStorage.setItem("account", chosenAccount)
 
-            localStorage.setItem("account", accounts)
-            localStorage.setItem("balance", formattedBalance);
-            balance = formattedBalance
+        balance = formattedBalance
 
-            console.log(`Chosen account`, chosenAccount)
-
-        }
-
+        console.log(`Current account : `, chosenAccount)
     }
+         
+        
+        catch(error: any) {
+
+            if (error.code === 4001) {
+                console.log('Please connect to MetaMask.');
+
+            }
+
+            else {
+                return console.log(`Error : `, error);
+            }
+        }
+    }
+
+
 
 
     const handleAccountChange = () => {
 
-        window.ethereum?.on("accountsChanged", (accounts) => {
-             console.log(accounts);
+        window.ethereum!.on("accountsChanged", (accounts) => {
+
+             console.log(`Changed acc`, accounts);
              setAccountChanged(!accountChanged);
+
+             chosenAccount = accounts as any;
         })
 
 
@@ -72,11 +91,15 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const mintNft = async (name: string, price: number) => {
 
-        connectWallet();
-        const contractAbi = EventNftContract.abi;
 
-        const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as unknown as any)
-        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
+        await connectWallet();
+        const contractAbi = EventNftContract.abi;
+        const networks = EventNftContract.networks
+
+        let networkId = Object.keys(networks)[0] as keyof typeof networks; // 5777
+
+        const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
+        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: accounts as any});
 
         setTokenMinted(!tokenMinted)
 
