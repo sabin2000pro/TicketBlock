@@ -256,9 +256,12 @@ export const resetPassword = asyncHandler(async(request: Request, response: Resp
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 
-export const updatePassword = async(request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
+export const updatePassword = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
     const currentPassword = request.body.currentPassword;
     const newPassword = request.body.newPassword;
+
+    const userId = request.user!._id;
+
 }  
 
 // @desc      Update Profile Settings
