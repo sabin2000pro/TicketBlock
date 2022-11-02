@@ -77,20 +77,15 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
         const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
 
-        console.log( mintedNft)
         setTokenMinted(!tokenMinted)
 
         const nftValues = mintedNft.events.EventNftCreated.returnValues;
 
         const tokenCreator = nftValues.creator;
         const tokenId = nftValues.id;
-        const tokenPrice = nftValues.price;
+        const tokenPrice = nftValues.price;       
 
-        console.log(tokenId);
-        console.log(tokenPrice)
-        console.log(tokenCreator)
-
-        setNftOnSale(nftValues.id, nftValues.price); // Place the token now on sale
+        setNftOnSale(tokenId, tokenPrice); // Place the token now on sale
 
         return mintedNft;
     }
