@@ -270,7 +270,6 @@ export const updatePassword = async(request: IGetUserData, response: Response, n
        return next(new BadRequestError("Old password does not match", 400));
     }
 
-
     // Update Password fields
     user.password = newPassword;
     await user.save();
