@@ -12,6 +12,8 @@ import NftList from './pages/nfts/NftList';
 import UserProfile from './pages/UserProfile';
 import EmailVerification from './pages/authentication/EmailVerification';
 import LoginMfaVerification from './pages/authentication/LoginMfaVerification';
+import SingleNft from './pages/nfts/SingleNft';
+import EditNft from './pages/nfts/EditNft';
 
 const App: React.FC = () => {
 
@@ -32,11 +34,13 @@ const App: React.FC = () => {
           <Route path = '/reset-password' element = {<ResetPassword />} />
 
           <Route path = "/verify-email" element = {<EmailVerification />} />
-          <Route path = "/login-verify" element = {<LoginMfaVerification />} />
+          <Route path = "/verify-login" element = {<LoginMfaVerification />} />
 
 
           <Route path = '/create-nft' element = {<CreateNft />} />
           <Route path = '/nfts' element = {<NftList />} />
+          <Route path = '/nfts/:id' element = {<SingleNft />} />
+          <Route path = '/nfts/edit/:id' element = {<EditNft />}
 
 
         </Routes>
