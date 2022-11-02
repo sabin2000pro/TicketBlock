@@ -95,9 +95,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
 
         fetchAllNftsOnSale();
-
         return {nftOnSale};
-
     }
 
     // 3. Function 3: Now Fetch All Nfts on sale

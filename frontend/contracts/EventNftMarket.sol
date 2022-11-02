@@ -57,6 +57,10 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         uint newPrice
     );
 
+    event FetchNfts (
+        EventNft[] nfts
+    );
+
     constructor() ERC721("Event Tickets NFT", "ETNFT") {}
 
 
@@ -139,6 +143,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         }
 
         emit SetNftOnSale(mappedNftData[id].id, mappedNftData[id].price);
+
         return mappedNftData[id].price;
 
     }
@@ -165,7 +170,9 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
               currentTokenIndex += 1; // Increment number of token indexes
            }
 
-        }
+          
+
+        }   
 
         return nftItems; // Return all of the NFT items
     }
