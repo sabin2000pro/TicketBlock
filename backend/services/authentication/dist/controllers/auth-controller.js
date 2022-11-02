@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadUserAvatar = exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = void 0;
+exports.uploadUserAvatar = exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.unlockAccount = exports.lockAccount = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = void 0;
 const generate_otp_token_1 = require("./../utils/generate-otp-token");
 const send_email_1 = require("./../utils/send-email");
 const generate_reset_token_1 = require("./../utils/generate-reset-token");
@@ -170,6 +170,12 @@ exports.verifyLoginMfa = verifyLoginMfa;
 exports.logout = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     request.session = null;
     return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "You have logged out", data: {} });
+}));
+exports.lockAccount = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "Locked User Account" });
+}));
+exports.unlockAccount = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "Unlocked User Account" });
 }));
 // @desc      Get Currently Logged In User
 // @route     GET /api/v1/auth/me

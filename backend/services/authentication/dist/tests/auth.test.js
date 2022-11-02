@@ -41,6 +41,12 @@ describe("Verify E-mail Address Test Suite", () => {
     it("Verify E-mail Test - Invalid User ID", () => __awaiter(void 0, void 0, void 0, function* () {
     }));
 });
+describe("Login - Test Suite", () => {
+    it("Login Test - Invalid E-mail Address", () => __awaiter(void 0, void 0, void 0, function* () {
+    }));
+    it("Login Test - Invalid Password", () => __awaiter(void 0, void 0, void 0, function* () {
+    }));
+});
 describe("Verify Login MFA Test Suite", () => {
     it("Verify Login MFA - Valid Code", () => __awaiter(void 0, void 0, void 0, function* () {
     }));
@@ -49,9 +55,13 @@ describe("Verify Login MFA Test Suite", () => {
     it("Verify Login MFA - Invalid Code", () => __awaiter(void 0, void 0, void 0, function* () {
     }));
 });
-describe("Login - Test Suite", () => {
-});
 describe("Forgot Password - Test Suite", () => {
+    it("Forgot Password - Valid E-mail Address", () => __awaiter(void 0, void 0, void 0, function* () {
+    }));
+    it("Forgot Password - Invalid E-mail Address", () => __awaiter(void 0, void 0, void 0, function* () {
+    }));
+    it("Forgot Password - Missing E-mail Address", () => __awaiter(void 0, void 0, void 0, function* () {
+    }));
 });
 describe("Update Profile Details Test Suite", () => {
 });

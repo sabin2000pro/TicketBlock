@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
 import request from "supertest";
 require('dotenv').config("../.env")
-
 import {app} from '../app';
 
 beforeAll(async() => {
