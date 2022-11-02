@@ -269,8 +269,6 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
     const fieldsToUpdate = {email: request.body.email, username: request.body.username, password: request.body.password}
     let user = await User.findById(request.user!._id);
 
-    console.log(user);
-
     if(!fieldsToUpdate.email || !fieldsToUpdate.username) {
         return next(new BadRequestError("Missing fields, please check again", 400));
     }
