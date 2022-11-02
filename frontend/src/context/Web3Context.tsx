@@ -66,11 +66,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     }
 
     const mintNft = async (name: string, price: number) => {
-        const networkId = await web3.eth.net.getId();
+        const networkId = await web3.eth.net.getId(); // Get the network ID
 
     }
 
-    const fetchAllNftsOnSale = async (nfts: any) => {
+    const fetchAllNftsOnSale = async (nfts: any[]) => {
         return nfts;
     }
 
