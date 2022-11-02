@@ -270,7 +270,7 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
     let user = await User.findById(request.user!._id);
 
     if(!fieldsToUpdate.email || !fieldsToUpdate.username) {
-        return next(new BadRequestError("Missing fields, please check again", 400));
+        return next(new BadRequestError("Missing fields, please check again", StatusCodes.BAD_REQUEST));
     }
 
     // Update the fields & save the data
@@ -281,7 +281,7 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
 
     await user.save();
 
-    return response.status(200).json({success: true, data: user, message: "User Profile Updated"});
+    return response.status(StatusCodes.OK).json({success: true, data: user, message: "User Profile Updated"});
 
     
 }
