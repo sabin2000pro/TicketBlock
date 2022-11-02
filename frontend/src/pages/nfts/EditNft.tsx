@@ -1,13 +1,19 @@
 import React from 'react'
 
-const EditNft = () => {
+type IEditProps = {
+
+}
+
+const EditNft: React.FC = (props: any) => {
   return (
+
+    
     <>
 
 
     </>
 
-    
+
   )
 }
 
