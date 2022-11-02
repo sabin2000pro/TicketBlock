@@ -12,6 +12,10 @@ type IWeb3Context = {
     balance: any,
     connectWallet: () => void
     handleAccountChange: () => void
+
+    fetchOwnedNfts: () => void
+    mintNft: (name: string, price: number) => void
+    fetchAllNftsOnSale: (nfts: any) => void
 }
 
 type IProviders = {
@@ -29,8 +33,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     let [balance, setBalance] = useState<string | undefined>("");
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
 
+    const [nfts, setNfts] = useState([])
+
     const connectWallet = async () => {
-        
 
         if(provider) {
 
@@ -66,15 +71,16 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-    const mintNft = async () => {
+    const mintNft = async (name: string, price: number) => {
+        const networkId = await web3.eth.net.getId();
 
     }
 
-    const fetchAllNftsOnSale = async () => {
-
+    const fetchAllNftsOnSale = async (nfts: any) => {
+        return nfts;
     }
 
-    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance}}>
+    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, mintNft, fetchAllNftsOnSale, fetchOwnedNfts}}>
             {children}
     </Web3Context.Provider>
 }
