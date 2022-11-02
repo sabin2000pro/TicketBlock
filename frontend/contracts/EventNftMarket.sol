@@ -135,6 +135,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
          payable(currentOwner).transfer(msg.value);
 
          emit NftPurchased(id, mappedNftData[id].isTokenListed, currentOwner);
+         
     }
 
     function checkTokenCreatorIsOwner(uint256 tokenId) public view override returns (bool) {
