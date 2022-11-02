@@ -1,3 +1,4 @@
+import { UploadedFile } from 'express-fileupload';
 import { generateOTPToken } from './../utils/generate-otp-token';
 import { emailTransporter } from './../utils/send-email';
 import { generateRandomResetPasswordToken } from './../utils/generate-reset-token';
@@ -304,7 +305,7 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
     return response.status(StatusCodes.OK).json({success: true, data: user, message: "User Profile Updated"});
 }
 
-export const uploadUserAvatar = async (request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
+export const uploadUserAvatar = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
     return response.status(200).json({success: true, message: "User Avatar Uploaded"});
 }
 
