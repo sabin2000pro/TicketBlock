@@ -1,5 +1,5 @@
 import { MetaMaskInpageProvider } from '@metamask/providers';
-import { ethers } from 'ethers';
+import { ethers, providers } from 'ethers';
 import {useContext, useState, createContext, ReactNode} from 'react';
 import Web3 from 'web3';
 
@@ -13,8 +13,9 @@ type IWeb3Context = {
     connectWallet: () => void
 }
 
-type ISwitchAccount = {
+type IProviders = {
     ethereum: MetaMaskInpageProvider
+    provider: providers.Web3Provider
 }
 
 const web3provider = new ethers.providers.JsonRpcProvider("http://localhost:7545")  
@@ -52,6 +53,14 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const fetchOwnedNfts = async () => {
 
+    }
+
+    const mintNft = async () => {
+
+    }
+
+    const fetchAllNftsOnSale = async = () => {
+        
     }
 
     return <Web3Context.Provider value = {{connectWallet, accounts, balance}}>
