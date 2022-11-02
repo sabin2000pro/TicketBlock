@@ -37,7 +37,7 @@ describe("Register Account - Test Suite", () => {
 describe("Verify E-mail Address Test Suite", () => {
 
     it("Verify E-mail Test - VALID OTP", async () => {
-        const otpData = [{userId: "5d7a514b5d2c12c7449ac090", OTP: "909199"}]
+        const otpData = [{userId: "636122c0f7abfe706cde7124", OTP: "909199"}]
 
         for (const data of otpData) {
             const response = await request(app).post("/api/v1/auth/verify-email").send(data);
