@@ -6,12 +6,13 @@ import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 import { Web3Context } from '../context/Web3Context';
 import { useContext } from 'react';
-import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react';
+import { Avatar } from '@chakra-ui/react';
 
-const UserProfile: React.FC = () => {
+const UserProfile: React.FC = (props: any) => {
  
     const navigate = useNavigate();
     const toast = useToast(); // Displayed after updating profiel details
+
     const [user, setUser] = useState([])
     
     let [accountBalance, setAccountBalance] = useState<string | undefined>("");
