@@ -18,11 +18,6 @@ type IWeb3Context = {
     fetchAllNftsOnSale: (nfts: any) => void
 }
 
-type IProviders = {
-    ethereum: MetaMaskInpageProvider
-    provider: providers.Web3Provider
-}
-
 const provider = window.ethereum;
 const web3 = new Web3(provider as any)
 
@@ -32,7 +27,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     let [accounts, setAccounts] = useState<string>("")
     let [balance, setBalance] = useState<string | undefined>("");
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
-
     const [nfts, setNfts] = useState([])
 
     const connectWallet = async () => {
