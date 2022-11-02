@@ -20,8 +20,6 @@ type IWeb3Context = {
 
 const provider = window.ethereum;
 const web3 = new Web3(provider as any)
-
-
 let chosenAccount;
 
 export const Web3Context = createContext({} as IWeb3Context)
@@ -55,6 +53,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         }
 
     }
+
 
     const handleAccountChange = () => {
 
@@ -96,6 +95,21 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         fetchAllNftsOnSale();
         return {nftOnSale};
+    }
+
+    const buyNft = async (id: number) => {
+
+        try {
+            const contractAbi = EventNftContract.abi;
+            const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
+            const boughtNft = await nftContract.methods.buyNft(id).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
+
+            console.log(`Nft you bought`, boughtNft)
+        } 
+        
+        catch(error: any) {
+
+        }
     }
 
     // 3. Function 3: Now Fetch All Nfts on sale
