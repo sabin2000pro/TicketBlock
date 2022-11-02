@@ -21,15 +21,15 @@
     "absolutePath": "project:/contracts/Voting.sol",
     "exportedSymbols": {
       "Voting": [
-        674
+        700
       ]
     },
-    "id": 675,
+    "id": 701,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 669,
+        "id": 695,
         "literals": [
           "solidity",
           "^",
@@ -46,9 +46,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 674,
+        "id": 700,
         "linearizedBaseContracts": [
-          674
+          700
         ],
         "name": "Voting",
         "nameLocation": "66:6:4",
@@ -56,12 +56,12 @@
         "nodes": [
           {
             "body": {
-              "id": 672,
+              "id": 698,
               "nodeType": "Block",
               "src": "94:8:4",
               "statements": []
             },
-            "id": 673,
+            "id": 699,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
@@ -69,25 +69,25 @@
             "nameLocation": "-1:-1:-1",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 670,
+              "id": 696,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "91:2:4"
             },
             "returnParameters": {
-              "id": 671,
+              "id": 697,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "94:0:4"
             },
-            "scope": 674,
+            "scope": 700,
             "src": "80:22:4",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 675,
+        "scope": 701,
         "src": "57:49:4",
         "usedErrors": []
       }
@@ -102,12 +102,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x2068C8E95D9F6092728e2e0499A984bbaA76085F",
-      "transactionHash": "0xdb3c3b7de23df43a185534f7cd329256241456056fde6fbe7b330f3e5d4d8935"
+      "address": "0xf22359aed023d97592F0Ed0C9BF8694db81fD995",
+      "transactionHash": "0x02b50a6dbd53e392da2a22865b8bedc7f74fbd0412dab29d7e7096b5b1d8ac54"
     }
   },
   "schemaVersion": "3.4.9",
-  "updatedAt": "2022-11-02T19:52:46.929Z",
+  "updatedAt": "2022-11-02T20:11:52.072Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

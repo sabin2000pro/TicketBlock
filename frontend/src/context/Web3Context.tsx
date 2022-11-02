@@ -90,13 +90,13 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     }
 
     const setNftOnSale = async (id: number, price: number) => {
-        connectWallet();
+      
         const contractAbi = EventNftContract.abi;
-
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
         const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
 
-        console.log(`NFT on sale ${nftOnSale}`);
+        console.log(nftOnSale);
+
     }
 
     const fetchAllNftsOnSale = async () => {

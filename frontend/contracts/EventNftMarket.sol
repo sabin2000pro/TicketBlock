@@ -8,7 +8,7 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 // Interface for the NFT routines to be invoked
 interface NftRoutines {
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable returns (uint);
-    function setNftOnSale(uint256 tokenIndex, uint256 newTokenPrice) external payable; // 3. Routine to set the nft on sale
+    function setNftOnSale(uint id, uint price) external payable returns (uint); // 3. Routine to set the nft on sale
     function buyNft(uint256 tokenInde) external payable; // Routing to buy the NFT given a token Index and price
     function checkTokenCreatorIsOwner(uint256 tokenId) external returns (bool);
 }
@@ -50,6 +50,11 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         uint newPrice,
         address newCreator,
         bool newIsTokenListed
+    );
+
+    event SetNftOnSale (
+        uint newId,
+        uint newPrice
     );
 
     constructor() ERC721("Event Tickets NFT", "ETNFT") {}
@@ -124,7 +129,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return msg.sender == ERC721.ownerOf(tokenId); // The owner of the token ID is equal to the ERC721 invoked routine of the token ID
     }
 
-    function setNftOnSale(uint id, uint price) external payable override {
+    function setNftOnSale(uint id, uint price) external payable override returns (uint) {
 
         mappedNftData[id].isTokenListed = true;
         mappedNftData[id].price = price; // Update the new token price
@@ -132,6 +137,10 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         if(listedTokenItems.current() == 0) { // If the current items on sale is by default 0
             listedTokenItems.increment();    // Increment Listed Items
         }
+
+        emit SetNftOnSale(mappedNftData[id].id, mappedNftData[id].price);
+
+        return mappedNftData[id].price;
 
     }
 
