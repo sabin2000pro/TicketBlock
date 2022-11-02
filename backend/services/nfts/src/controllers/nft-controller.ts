@@ -53,8 +53,12 @@ export const deleteAllNfts = async (request: Request, response: Response, next: 
 }
 
 export const deleteNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
+    
     const id = request.params.id;
-    return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
+    await Nft.findByIdAndDelete(id);
+
+    
+    return response.status(StatusCodes.OK).json({success: true, message: "NFT Deleted"})
 }
 
 export const uploadNftImage = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
