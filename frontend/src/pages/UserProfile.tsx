@@ -76,11 +76,16 @@ const UserProfile: React.FC = (props: any) => {
 
             setUsername("");
             setEmail("")
-            
+
         } 
         
         catch(error: any) {
 
+            
+            if(error) {
+                return console.error(error);
+
+            }
         }
 
 
