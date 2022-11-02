@@ -1,0 +1,29 @@
+name: Deploy NFT Service
+
+on:
+
+  push:
+    branches: [main]
+
+jobs:
+
+  test: # 1. Testing Phase
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+
+        with:
+          node-version: 18
+          
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Unit Tests
+        run: npm test
