@@ -267,7 +267,13 @@ export const updatePassword = async(request: Request, response: Response, next: 
 
 export const updateProfileDetails = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
     const fieldsToUpdate = {email: request.body.email, username: request.body.username, password: request.body.password}
-    let user = await User.findById(request.user!._id);
+    const userId = request.user!._id;
+
+    let user = await User.findById(userId);
+
+    if(!user) {
+        return next(new NotFoundError("User with that ID not found on the server ", StatusCodes.NOT_FOUND))
+    }
 
     if(!fieldsToUpdate.email || !fieldsToUpdate.username) {
         return next(new BadRequestError("Missing fields, please check again", StatusCodes.BAD_REQUEST));
@@ -280,9 +286,7 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
     user.email = fieldsToUpdate.email;
 
     await user.save();
-
     return response.status(StatusCodes.OK).json({success: true, data: user, message: "User Profile Updated"});
-
     
 }
 
