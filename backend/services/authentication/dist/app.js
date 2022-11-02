@@ -27,9 +27,9 @@ if (process.env.NODE_ENV === 'production') {
     app.use((0, express_mongo_sanitize_1.default)()); // Prevent against NoSQL Injection attacks in production environment
 }
 // Used for slowing down requests
-const rateLimiter = ({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
+const rateLimiter = (0, express_rate_limit_1.default)({
+    windowMs: 10 * 60 * 1000,
+    max: 8,
     standardHeaders: true,
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
@@ -39,7 +39,6 @@ app.set('trust proxy', true);
 app.use((0, express_fileupload_1.default)());
 app.use((0, hpp_1.default)());
 app.use((0, express_mongo_sanitize_1.default)()); // Used to prevent NoSQLI injections
-app.use((0, express_rate_limit_1.default)());
 app.use((0, cors_1.default)({
     origin: "*",
     methods: ['POST', "GET", "PUT", "DELETE"]
@@ -49,5 +48,6 @@ app.use((0, cookie_session_1.default)({
     keys: ['session'],
     secure: process.env.NODE_ENV !== 'development'
 }));
+app.use(rateLimiter);
 app.use('/api/v1/auth', auth_routes_1.default);
 app.use(error_handler_1.default);

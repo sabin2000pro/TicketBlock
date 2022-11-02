@@ -16,6 +16,8 @@ import SingleNft from './pages/nfts/SingleNft';
 import EditNft from './pages/nfts/EditNft';
 
 const App: React.FC = () => {
+  
+  // Code to detect if metamask is installed // connected
 
   return (
 
