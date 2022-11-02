@@ -10,7 +10,9 @@ const NftList: React.FC<INftVals> = (props: any) => {
     return (
 
       <>
-        <h1 className = "heading-primary heading-2">All NFTs here</h1>
+        <div className = "nft-container">
+          <h1 className = "heading-primary heading-2">All NFTs here</h1>
+        </div>
       </>
 
       
