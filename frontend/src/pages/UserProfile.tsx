@@ -6,7 +6,7 @@ import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 import { Web3Context } from '../context/Web3Context';
 import { useContext } from 'react';
-import { Avatar, AvatarBadge } from '@chakra-ui/react';
+import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react';
 
 const UserProfile: React.FC = () => {
  
@@ -88,8 +88,15 @@ const UserProfile: React.FC = () => {
             <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
 
                 <span className = "fs-2 card-text">Profile Settings </span>
+
+                
                
             </Card.Title>
+
+            
+            <div className = "avatar-container">
+            <Avatar src='https://bit.ly/broken-link' className = "avatar" />
+            </div>
 
 
             <h2 className = "heading-secondary">Username</h2>

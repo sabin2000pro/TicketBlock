@@ -311,3 +311,15 @@ html {
   transition: all 0.2s;
   text-align: center;
 }
+
+.avatar-container {
+  text-align: center;
+}
+
+.avatar-container .avatar {
+  background-color: #30323D;
+  height: 80px;
+  width: 80px;
+  margin-top: -15px;
+  margin-bottom: 20px;
+}
