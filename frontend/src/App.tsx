@@ -48,6 +48,12 @@ const App: React.FC = () => {
 
         </Routes>
 
+        <div className = "footer-container">
+            <footer>
+               <h2>Copyright - All Rights Reserved 2022</h2>
+            </footer>
+        </div>
+
 
 
     </>

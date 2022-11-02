@@ -236,7 +236,7 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
     const mfaTokensMatch = factorToken.comapareMfaTokens(multiFactorToken);
 
     if(!mfaTokensMatch) {
-        
+
         user.isActive = (!user.isActive) as boolean;
         user.isVerified = (!user.isVerified) as boolean;
 
@@ -349,7 +349,7 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
 }
 
 export const uploadUserAvatar = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
-    return response.status(200).json({success: true, message: "User Avatar Uploaded"});
+    return response.status(StatusCodes.OK).json({success: true, message: "User Avatar Uploaded"});
 }
 
 const sendTokenResponse = (request: Express.Request, user: any, statusCode: number, response: Response)=> {
