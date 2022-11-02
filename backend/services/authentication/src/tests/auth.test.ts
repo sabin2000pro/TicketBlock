@@ -58,8 +58,20 @@ describe("Verify E-mail Address Test Suite", () => {
 
 describe("Verify Login MFA Test Suite", () => {
 
-})
+    it("Verify Login MFA - Valid Code", async () => {
 
+    })
+
+    it("Verify Login MFA - Missing Code", async () => {
+
+    })
+
+    it("Verify Login MFA - Invalid Code", async () => {
+
+    })
+
+
+})
 
 
 describe("Login - Test Suite", () => {
