@@ -40,7 +40,7 @@ const App: React.FC = () => {
           <Route path = '/create-nft' element = {<CreateNft />} />
           <Route path = '/nfts' element = {<NftList />} />
           <Route path = '/nfts/:id' element = {<SingleNft />} />
-          <Route path = '/nfts/edit/:id' element = {<EditNft />}
+          <Route path = '/nfts/edit/:id' element = {<EditNft />} />
 
 
         </Routes>
