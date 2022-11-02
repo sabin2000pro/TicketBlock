@@ -15,6 +15,8 @@ const error_handler_1 = __importDefault(require("./middleware/error-handler"));
 const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
 const auth_routes_1 = __importDefault(require("./routes/auth-routes"));
 const auth_schema_1 = __importDefault(require("./database/auth-schema"));
+const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
 (0, auth_schema_1.default)();
 const app = (0, express_1.default)();
 exports.app = app;
@@ -24,11 +26,20 @@ if (process.env.NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'production') {
     app.use((0, express_mongo_sanitize_1.default)()); // Prevent against NoSQL Injection attacks in production environment
 }
+// Used for slowing down requests
+const rateLimiter = ({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 app.set('trust proxy', true);
+app.use((0, express_fileupload_1.default)());
 app.use((0, hpp_1.default)());
 app.use((0, express_mongo_sanitize_1.default)()); // Used to prevent NoSQLI injections
+app.use((0, express_rate_limit_1.default)());
 app.use((0, cors_1.default)({
     origin: "*",
     methods: ['POST', "GET", "PUT", "DELETE"]

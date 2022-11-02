@@ -8,7 +8,6 @@ const verify_auth_1 = require("./../middleware/verify-auth");
 const express_1 = __importDefault(require("express"));
 const auth_controller_2 = require("../controllers/auth-controller");
 const authRouter = express_1.default.Router();
-// Authentication Routes
 authRouter.route('/register').post(auth_controller_2.registerUser);
 authRouter.route('/verify-email').post(auth_controller_2.verifyEmailAddress);
 authRouter.route('/login').post(auth_controller_2.login);

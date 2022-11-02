@@ -27,7 +27,7 @@ if(process.env.NODE_ENV === 'production') {
 
 // Used for slowing down requests
 
-const rateLimiter = ({
+const rateLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
 	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
@@ -40,7 +40,6 @@ app.set('trust proxy', true);
 app.use(fileUpload());
 app.use(hpp());
 app.use(mongoSanitize()); // Used to prevent NoSQLI injections
-app.use(rateLimit());
 
 app.use(cors({
     origin: "*",
@@ -52,6 +51,8 @@ app.use(cookieSession({
     keys: ['session'],
     secure: process.env.NODE_ENV !== 'development'
 }));
+
+app.use(rateLimiter);
 
 
 
