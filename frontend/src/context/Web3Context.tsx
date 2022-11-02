@@ -19,18 +19,18 @@ type IProviders = {
     provider: providers.Web3Provider
 }
 
-const web3provider = new ethers.providers.JsonRpcProvider("http://localhost:7545")  
+const provider = window.ethereum;
+const web3 = new Web3(provider as any)
 
 export const Web3Context = createContext({} as IWeb3Context)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
     let [accounts, setAccounts] = useState<string>("")
     let [balance, setBalance] = useState<string | undefined>("");
+    let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
 
     const connectWallet = async () => {
-
-        const provider = window.ethereum;
-        const web3 = new Web3(provider as any)
+        
 
         if(provider) {
 
@@ -45,7 +45,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
             localStorage.setItem("account", accounts)
             localStorage.setItem("balance", formattedBalance);
-
             balance = formattedBalance
 
         }
@@ -55,9 +54,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const handleAccountChange = () => {
 
         window.ethereum?.on("accountsChanged", (accounts) => {
+            
              console.log(accounts);
-        })
 
+             setAccountChanged(!accountChanged);
+        })
 
     }
 

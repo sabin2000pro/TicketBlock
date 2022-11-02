@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
 // Used for slowing down requests
 const rateLimiter = (0, express_rate_limit_1.default)({
     windowMs: 10 * 60 * 1000,
-    max: 8,
+    max: 30,
     standardHeaders: true,
     legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });

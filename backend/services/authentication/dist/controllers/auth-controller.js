@@ -162,21 +162,21 @@ const sendPasswordResetEmail = (user, resetPasswordURL) => {
     });
 };
 const verifyLoginMfa = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId, multiFactorToken } = request.body;
+    const { userId, token } = request.body;
     const user = yield user_model_1.User.findById(userId);
-    if ((0, mongoose_1.isValidObjectId)(userId)) {
+    if (!(0, mongoose_1.isValidObjectId)(userId)) {
         return next(new error_handler_1.NotFoundError("User ID not valid", 404));
     }
-    if (!multiFactorToken) {
+    if (!token) {
         user.isActive = (!user.isActive);
         return next(new error_handler_1.BadRequestError("Please provide your MFA token", http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
     const factorToken = yield two_factor_verification_model_1.TwoFactorVerification.findOne({ owner: userId });
+    const mfaTokensMatch = factorToken.compareMfaTokens(token);
     if (!factorToken) {
         return next(new error_handler_1.BadRequestError("The token associated to the user is invalid", 400));
     }
     // Verify to see if the tokens match
-    const mfaTokensMatch = factorToken.comapareMfaTokens(multiFactorToken);
     if (!mfaTokensMatch) {
         user.isActive = (!user.isActive);
         user.isVerified = (!user.isVerified);
@@ -261,7 +261,7 @@ const updateProfileDetails = (request, response, next) => __awaiter(void 0, void
 });
 exports.updateProfileDetails = updateProfileDetails;
 const uploadUserAvatar = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    return response.status(200).json({ success: true, message: "User Avatar Uploaded" });
+    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "User Avatar Uploaded" });
 });
 exports.uploadUserAvatar = uploadUserAvatar;
 const sendTokenResponse = (request, user, statusCode, response) => {
