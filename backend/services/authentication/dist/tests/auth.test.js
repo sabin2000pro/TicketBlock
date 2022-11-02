@@ -42,6 +42,12 @@ describe("Verify E-mail Address Test Suite", () => {
     }));
 });
 describe("Verify Login MFA Test Suite", () => {
+    it("Verify Login MFA - Valid Code", () => __awaiter(void 0, void 0, void 0, function* () {
+    }));
+    it("Verify Login MFA - Missing Code", () => __awaiter(void 0, void 0, void 0, function* () {
+    }));
+    it("Verify Login MFA - Invalid Code", () => __awaiter(void 0, void 0, void 0, function* () {
+    }));
 });
 describe("Login - Test Suite", () => {
 });

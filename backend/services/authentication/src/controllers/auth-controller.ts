@@ -230,6 +230,15 @@ export const logout = asyncHandler(async (request: Request, response: Response, 
 
 });
 
+export const lockAccount = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
+    return response.status(StatusCodes.OK).json({success: true, message: "Locked User Account" })
+
+});
+
+export const unlockAccount = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
+    return response.status(StatusCodes.OK).json({success: true, message: "Unlocked User Account" })
+});
+
 // @desc      Get Currently Logged In User
 // @route     GET /api/v1/auth/me
 // @access    Private (Authorization Token Required)
