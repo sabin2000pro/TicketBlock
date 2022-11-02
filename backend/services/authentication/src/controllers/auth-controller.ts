@@ -72,6 +72,10 @@ export const verifyEmailAddress = asyncHandler(async (request: Request, response
     const {userId, OTP} = request.body;
     const user = await User.findById(userId);
 
+    if(!isValidObjectId(userId)) {
+        return next(new BadRequestError("Invalid User ID", 400));
+    }
+
     if(!user) {
         return next(new NotFoundError("Could not find that user", 404));
     }

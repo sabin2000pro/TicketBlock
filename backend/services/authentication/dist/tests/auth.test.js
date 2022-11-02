@@ -37,20 +37,26 @@ describe("Register Account - Test Suite", () => {
     }));
 });
 describe("Verify E-mail Address Test Suite", () => {
-    it("Verify E-mail Test - VALID OTP", () => __awaiter(void 0, void 0, void 0, function* () {
-        const otpData = [{ userId: "63625b02ba97c44912cd910f", OTP: "566617" }];
-        for (const data of otpData) {
+    it("Verify E-mail Address With Invalid Entries", () => __awaiter(void 0, void 0, void 0, function* () {
+        const invalidOtpFields = [{ userId: "", OTP: "09" }];
+        for (const data of invalidOtpFields) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/verify-email").send(data);
-            return expect(response.statusCode).toBe(200);
+            return expect(response.statusCode).toBe(400);
         }
     }));
-    it("Verify E-mail Test - Invalid OTP", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("Verify E-mail Address With Malformed User ID", () => __awaiter(void 0, void 0, void 0, function* () {
+        const malformedInputs = [{ userId: "5dfa", OTP: "909890" }];
+        for (const data of malformedInputs) {
+            const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/verify-email").send(data);
+            return expect(response.statusCode).toBe(400);
+        }
     }));
-    it("Verify E-mail Test - Missing OTP OTP", () => __awaiter(void 0, void 0, void 0, function* () {
-    }));
-    it("Verify E-mail Test - Missing User ID", () => __awaiter(void 0, void 0, void 0, function* () {
-    }));
-    it("Verify E-mail Test - Invalid User ID", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("Verify E-mail Address With Missing User ID", () => __awaiter(void 0, void 0, void 0, function* () {
+        const malformedInputs = [{ OTP: "909890" }];
+        for (const data of malformedInputs) {
+            const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/verify-email").send(data);
+            return expect(response.statusCode).toBe(404);
+        }
     }));
 });
 describe("Login - Test Suite", () => {

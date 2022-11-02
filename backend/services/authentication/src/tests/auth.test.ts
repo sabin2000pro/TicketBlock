@@ -37,42 +37,39 @@ describe("Register Account - Test Suite", () => {
 describe("Verify E-mail Address Test Suite", () => {
 
 
-    it("Verify E-mail Test - Invalid OTP", async () => {
-        const otpData = [{userId: "63625b02ba97c44912cd910f", OTP: "0"}]
+    it("Verify E-mail Address With Invalid Entries", async () => {
+        const invalidOtpFields = [{userId: "", OTP: "09"}]
 
-        for (const data of otpData) {
+        for(const data of invalidOtpFields) {
             const response = await request(app).post("/api/v1/auth/verify-email").send(data);
 
-            return expect(response.statusCode).toBe(400);
+            return expect(response.statusCode).toBe(404)
         }
 
     })
 
-    it("Verify E-mail Test - Empty OTP", async () => {
-        const otpData = [{userId: "63625b02ba97c44912cd910f", OTP: ""}]
+    it("Verify E-mail Address With Malformed User ID", async () => {
+        const malformedInputs = [{userId: "5dfa", OTP: "909890"}]
 
-        for (const data of otpData) {
+        for(const data of malformedInputs) {
             const response = await request(app).post("/api/v1/auth/verify-email").send(data);
 
-            return expect(response.statusCode).toBe(400);
+            return expect(response.statusCode).toBe(404)
         }
 
     })
 
+    it("Verify E-mail Address With Missing User ID", async () => {
+        const malformedInputs = [{OTP: "909890"}]
 
+        for(const data of malformedInputs) {
+            const response = await request(app).post("/api/v1/auth/verify-email").send(data);
 
-
-    it("Verify E-mail Test - Missing OTP OTP", async () => {
-
+            return expect(response.statusCode).toBe(404)
+        }
     })
 
-    it("Verify E-mail Test - Missing User ID", async () => {
 
-    })
-
-    it("Verify E-mail Test - Invalid User ID", async () => {
-
-    })
 
 })
 
@@ -80,7 +77,13 @@ describe("Verify E-mail Address Test Suite", () => {
 describe("Login - Test Suite", () => {
 
     it("Login Test - Invalid E-mail Address", async () => {
+        const malformedInputs = [{email: "jfjehwfhew@gmail.com", password: "123mini123"}]
 
+        for(const data of malformedInputs) {
+            const response = await request(app).post("/api/v1/auth/login").send(data);
+
+            return expect(response.statusCode).toBe(400)
+        }
     })
 
     it("Login Test - Invalid Password", async () => {
