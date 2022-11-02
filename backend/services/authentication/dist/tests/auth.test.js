@@ -13,20 +13,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
+const supertest_1 = __importDefault(require("supertest"));
 require('dotenv').config("../.env");
+const app_1 = require("../app");
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     // Connect to MongoDB database
     return yield mongoose_1.default.connect("mongodb+srv://sabin2000:123mini123@ticketblock.erhl8xc.mongodb.net/?retryWrites=true&w=majority");
 }));
 describe("Register Account - Test Suite", () => {
-    // Suite of tests
-    it("Regiser Account - Invalid Details", () => __awaiter(void 0, void 0, void 0, function* () {
-    }));
-    it("Register Account - Missing E-mail Address", () => __awaiter(void 0, void 0, void 0, function* () {
-    }));
     it("Register Account - Missing Username", () => __awaiter(void 0, void 0, void 0, function* () {
+        const bodyData = [{ email: "sifojfs", password: "123mini123" }];
+        for (const data of bodyData) {
+            const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/register").send(data);
+            return expect(response.statusCode).toBe(404);
+        }
     }));
     it("Register Account - Missing Password", () => __awaiter(void 0, void 0, void 0, function* () {
+        const bodyData = [{ email: "sifojfs" }];
+        for (const data of bodyData) {
+            const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/register").send(data);
+            return expect(response.statusCode).toBe(404);
+        }
     }));
 });
 describe("Verify E-mail Address Test Suite", () => {

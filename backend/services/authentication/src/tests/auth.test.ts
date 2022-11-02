@@ -10,28 +10,26 @@ beforeAll(async() => {
 
 describe("Register Account - Test Suite", () => {
 
-    // Suite of tests
-    it("Regiser Account - Invalid Details", async () => {
-        const bodyData = [{username: "kk", email: "kk", password: "kn"}]
+
+    it("Register Account - Missing Username", async () => {
+        const bodyData = [{email: "sifojfs", password: "123mini123"}]
 
         for (const data of bodyData) {
             const response = await request(app).post("/api/v1/auth/register").send(data);
 
-            return expect(response.statusCode).toBe(201);
+            return expect(response.statusCode).toBe(404);
         }
-
-
-    })
-
-    it("Register Account - Missing E-mail Address", async () => {
-
-    })
-
-    it("Register Account - Missing Username", async () => {
 
     })
 
     it("Register Account - Missing Password", async () => {
+        const bodyData = [{email: "sifojfs"}]
+
+        for (const data of bodyData) {
+            const response = await request(app).post("/api/v1/auth/register").send(data);
+
+            return expect(response.statusCode).toBe(404);
+        }
 
     })
 
