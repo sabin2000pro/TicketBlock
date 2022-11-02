@@ -292,7 +292,6 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
 
     await user.save();
     return response.status(StatusCodes.OK).json({success: true, data: user, message: "User Profile Updated"});
-    
 }
 
 export const uploadUserAvatar = async (request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
