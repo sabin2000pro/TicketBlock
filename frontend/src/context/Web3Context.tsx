@@ -59,8 +59,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-    const fetchAllNftsOnSale = async = () => {
-        
+    const fetchAllNftsOnSale = async () => {
+
     }
 
     return <Web3Context.Provider value = {{connectWallet, accounts, balance}}>

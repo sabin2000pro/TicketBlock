@@ -2,7 +2,7 @@ import { verifyUserAuth } from './../middleware/verify-auth';
 import express, {Router} from 'express';
 import { registerUser, verifyEmailAddress, login, verifyLoginMfa, forgotPassword, resetPassword, logout, getCurrentUser } from '../controllers/auth-controller'
 
-const authRouter: Router = express.Router()
+const authRouter: Router = express.Router();
 // Authentication Routes
 
 authRouter.route('/register').post(registerUser as any)
