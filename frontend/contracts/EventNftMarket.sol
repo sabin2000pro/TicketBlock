@@ -7,7 +7,7 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 // Interface for the NFT routines to be invoked
 interface NftRoutines {
-    function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable;
+    function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable returns (uint);
     function setNftOnSale(uint256 tokenIndex, uint256 newTokenPrice) external payable; // 3. Routine to set the nft on sale
     function buyNft(uint256 tokenInde) external payable; // Routing to buy the NFT given a token Index and price
     function checkTokenCreatorIsOwner(uint256 tokenId) external returns (bool);
@@ -52,8 +52,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         bool newIsTokenListed
     );
 
-    constructor() ERC721("Event Tickets NFT", "ETNFT") {
-    }
+    constructor() ERC721("Event Tickets NFT", "ETNFT") {}
 
 
     function isTokenNotOnSale(uint256 tokenId) public payable returns (bool) {
@@ -79,7 +78,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
 
 
 
-    function mintNftToken(string memory name, uint256 price) public payable override {        
+    function mintNftToken(string memory name, uint price) public payable override returns (uint) {        
         address messageSender = msg.sender;
 
         tokenIds.increment();
@@ -93,14 +92,15 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         createNewNftItem(newTokenId, price);
         usedTokenURIs[name] = true;
 
+        return newTokenId;
      
     }
 
-    function createNewNftItem(uint256 tokenId, uint256 price) private {
+    function createNewNftItem(uint id, uint price) private {
        address currentOwner = msg.sender;
-       mappedNftData[tokenId] = EventNft(tokenId, price, currentOwner, true);
+       mappedNftData[id] = EventNft(id, price, currentOwner, true);
 
-       emit EventNftCreated(tokenId, price, msg.sender, true); // Emit new created event
+       emit EventNftCreated(id, price, msg.sender, true); // Emit new created event
     }
 
     function getPriceOfNftToken(uint256 tokenId) public view returns (uint256) {

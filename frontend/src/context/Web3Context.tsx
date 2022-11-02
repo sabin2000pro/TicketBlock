@@ -22,6 +22,8 @@ const provider = window.ethereum;
 const web3 = new Web3(provider as any)
 
 
+let chosenAccount;
+
 export const Web3Context = createContext({} as IWeb3Context)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
@@ -29,7 +31,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     let [balance, setBalance] = useState<string | undefined>("");
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
 
-    let [nfts, setNfts] = useState([])
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
 
     const connectWallet = async () => {
@@ -45,11 +46,13 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             setBalance(formattedBalance as any);
             setAccounts(currAccount[0])
 
+            chosenAccount = currAccount[0];
+
             localStorage.setItem("account", accounts)
             localStorage.setItem("balance", formattedBalance);
             balance = formattedBalance
 
-            console.log(`Current account : ${currAccount}`)
+            console.log(`Chosen account : ${chosenAccount}`)
 
         }
 
@@ -77,7 +80,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
 
         console.log( mintedNft)
-        return mintedNft
     }
 
     const fetchAllNftsOnSale = async (nfts: any[]) => {
