@@ -111,17 +111,17 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return currentPrice; // Return the token price of the nFT
     }
 
-    function buyNft(uint256 tokenId) public payable {
+    function buyNft(uint id) public payable {
 
-        address currentOwner = ERC721.ownerOf(tokenId);
+        address currentOwner = ERC721.ownerOf(id);
         require(msg.sender == currentOwner, "Please ensure that you are the owner of the token");
-        require(msg.value == getPriceOfNftToken(tokenId), "Please submit a value price for the token");
+        require(msg.value == getPriceOfNftToken(id), "Please submit a value price for the token");
 
-        mappedNftData[tokenId].isTokenListed = false;         // Now we need to delist it from the struct
+        mappedNftData[id].isTokenListed = false;         // Now we need to delist it from the struct
 
         listedTokenItems.decrement(); // Decrement the listed items by 1.
 
-         _transfer(currentOwner, msg.sender, tokenId); // Transfer Ownership of the NFT from the current owner to ms.sender
+         _transfer(currentOwner, msg.sender, id); // Transfer Ownership of the NFT from the current owner to ms.sender
          payable(currentOwner).transfer(msg.value);
     }
 
