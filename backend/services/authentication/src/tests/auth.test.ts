@@ -36,21 +36,31 @@ describe("Register Account - Test Suite", () => {
 
 describe("Verify E-mail Address Test Suite", () => {
 
-    it("Verify E-mail Test - VALID OTP", async () => {
-        const otpData = [{userId: "63625b02ba97c44912cd910f", OTP: "566617"}]
+
+    it("Verify E-mail Test - Invalid OTP", async () => {
+        const otpData = [{userId: "63625b02ba97c44912cd910f", OTP: "0"}]
 
         for (const data of otpData) {
             const response = await request(app).post("/api/v1/auth/verify-email").send(data);
 
-            return expect(response.statusCode).toBe(200);
+            return expect(response.statusCode).toBe(400);
         }
 
+    })
+
+    it("Verify E-mail Test - Empty OTP", async () => {
+        const otpData = [{userId: "63625b02ba97c44912cd910f", OTP: ""}]
+
+        for (const data of otpData) {
+            const response = await request(app).post("/api/v1/auth/verify-email").send(data);
+
+            return expect(response.statusCode).toBe(400);
+        }
 
     })
 
-    it("Verify E-mail Test - Invalid OTP", async () => {
 
-    })
+
 
     it("Verify E-mail Test - Missing OTP OTP", async () => {
 
