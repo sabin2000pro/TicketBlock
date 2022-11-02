@@ -84,19 +84,16 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const nftValues = mintedNft.events.EventNftCreated.returnValues;
 
+        setNftOnSale(nftValues.id, nftValues.price); // Place the token now on sale
 
         return mintedNft
     }
 
+    const setNftOnSale = async (id: number, price: number) => {
+        console.log(`Placing the token : ${id} on sale`)
+    }
+
     const fetchAllNftsOnSale = async () => {
-        // Interact iwth smart contract to get all nfts on sale
-        const contractAbi = EventNftContract.abi;
-
-        const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
-        const allNftsForSale = await nftContract.methods.getNftTotalSupply().send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
-
-        console.log(allNftsForSale)
-
 
     }
 
