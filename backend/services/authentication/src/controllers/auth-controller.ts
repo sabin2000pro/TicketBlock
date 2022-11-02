@@ -283,7 +283,7 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
 
     await user.save();
 
-    return response.status(200).json({success: true, data: user, message: "User Profile Updated", data: user});
+    return response.status(200).json({success: true, data: user, message: "User Profile Updated"});
 
     
 }
