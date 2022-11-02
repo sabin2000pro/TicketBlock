@@ -267,7 +267,7 @@ export const updatePassword = async(request: Request, response: Response, next: 
 
 export const updateProfileDetails = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
     const fieldsToUpdate = {email: request.body.email, username: request.body.username, password: request.body.password}
-    const user = await User.findById(request.user!._id);
+    let user = await User.findById(request.user!._id);
 
     console.log(user);
 
@@ -276,9 +276,14 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
     }
 
     // Update the fields & save the data
+    user = await User.findByIdAndUpdate(request.user!._id, fieldsToUpdate, {new: true, runValidators: false});
 
+    user.username = fieldsToUpdate.username;
+    user.email = fieldsToUpdate.email;
 
-    return response.status(200).json({success: true, data: user, message: "User PRofile Updated"})
+    await user.save();
+
+    return response.status(200).json({success: true, data: user, message: "User Profile Updated", data: user});
 
     
 }
