@@ -71,6 +71,11 @@ const NftSchema = new mongoose.Schema({
         default: false,
     },
 
+    isPremium: {
+        type: Boolean,
+        default: false
+    },
+
     createdAt: {
         type: Date,
         default: Date.now
