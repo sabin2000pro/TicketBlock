@@ -19,8 +19,6 @@ type IWeb3Context = {
 
 const provider = window.ethereum;
 const web3 = new Web3(provider as any)
-const etherProvider = new ethers.providers.JsonRpcProvider("http://localhost:7545")
-let chosenAccount;
 
 export const Web3Context = createContext({} as IWeb3Context)
 
