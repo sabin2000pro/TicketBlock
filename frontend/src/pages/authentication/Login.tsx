@@ -49,10 +49,16 @@ const Login: React.FC = () => {
         const accountActive = response.data.data.isActive;
         console.log(accountActive);
 
+        if(!accountActive) {
+          setIsActive(!isActive);
+        }
+
         setIsLoggedIn(!isLoggedIn);
         setAuthTokenPresent(!authTokenPresent);
 
         setFormSubmitted(!formSubmitted);
+
+        // Send MFA code
 
         setTimeout(() => {
            return navigate('/verify-login')
@@ -93,6 +99,14 @@ const Login: React.FC = () => {
 
   return (
     <>
+
+    {!isActive && <Alert status = "error">
+
+        <AlertIcon />
+
+        Your account is not active
+      
+      </Alert>}
               
     {formSubmitted && isLoggedIn && <Alert status='success'>
 

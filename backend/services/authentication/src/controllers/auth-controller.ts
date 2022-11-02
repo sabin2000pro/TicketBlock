@@ -23,7 +23,7 @@ export interface IGetUserData extends Request {
 const sendConfirmationEmail = (transporter: any, newUser: any, userOTP: number) => {
 
     return transporter.sendMail({
-        from: 'verification@ethertix.com',
+        from: 'verification@ticketblock.com',
         to: newUser.email,
         subject: 'E-mail Verification',
         html: `
@@ -33,6 +33,21 @@ const sendConfirmationEmail = (transporter: any, newUser: any, userOTP: number) 
         `
     })
 }
+
+const sendLoginMFA = (transporter: any, newUser: any, mfaCode: number) => {
+
+    return transporter.sendMail({
+        from: 'loginverification@ticketblock.com',
+        to: newUser.email,
+        subject: 'Login Verification',
+        html: `
+        
+        <p>Your MFA Code</p>
+        <h1> ${mfaCode}</h1>
+        `
+    })
+}
+
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
@@ -133,6 +148,8 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     if(!passwordsMatch) {
         return next(new BadRequestError("Passwords do not match. Please try again", 400))
     }
+
+    // Code to send MFA Code
    
     return sendTokenResponse(request, user as any, StatusCodes.OK, response);
 
