@@ -33,6 +33,27 @@ describe("Register Account - Test Suite", () => {
 
 describe("Verify E-mail Address Test Suite", () => {
 
+    it("Verify E-mail Test - VALID OTP", async () => {
+
+    })
+
+    it("Verify E-mail Test - Invalid OTP", async () => {
+
+    })
+
+    it("Verify E-mail Test - Missing OTP OTP", async () => {
+
+    })
+
+    it("Verify E-mail Test - Missing User ID", async () => {
+
+    })
+
+    it("Verify E-mail Test - Invalid User ID", async () => {
+
+    })
+
+
 })
 
 describe("Verify Login MFA Test Suite", () => {
@@ -51,6 +72,7 @@ describe("Forgot Password - Test Suite", () => {
 
 describe("Update Profile Details Test Suite", () => {
 
+    
 })
 
 afterAll((done) => { // After all the tests run successfully, close the connection to the server
