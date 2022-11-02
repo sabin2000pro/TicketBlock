@@ -80,7 +80,6 @@ const VerifyInput: React.FC<IVerifyInput> = ({userId}) => {
 
 
 
-
   </>
 }
 
