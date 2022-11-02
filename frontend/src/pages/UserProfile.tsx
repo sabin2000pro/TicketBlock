@@ -73,6 +73,10 @@ const UserProfile: React.FC = (props: any) => {
             updateProfileSettings(username as any, email as any);
 
             setProfileUpdated(!profileUpdated);
+
+            setUsername("");
+            setEmail("")
+            
         } 
         
         catch(error: any) {
