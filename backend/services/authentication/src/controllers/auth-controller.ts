@@ -49,8 +49,6 @@ export const registerUser = async(request: Request, response: Response, next: Ne
         const currentUser = user._id; // Get the current user's ID
         const userOTP = generateOTPToken();
 
-        console.log(`Your OTP token : ${userOTP}`)
-    
         const verificationToken = new EmailVerification({owner: currentUser, token: userOTP});
         await verificationToken.save();
     
@@ -261,6 +259,14 @@ export const updatePassword = async(request: IGetUserData, response: Response, n
     const newPassword = request.body.newPassword;
 
     const userId = request.user!._id;
+    let user = await User.findById(userId);
+
+
+    if(!user) {
+        return next(new NotFoundError("User with that ID not found on the server ", StatusCodes.NOT_FOUND))
+    }
+
+    
 
 }  
 
