@@ -11,6 +11,7 @@ type IWeb3Context = {
     accounts: any,
     balance: any,
     connectWallet: () => void
+    handleAccountChange: () => void
 }
 
 type IProviders = {
@@ -51,6 +52,15 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
+    const handleAccountChange = () => {
+
+        window.ethereum?.on("accountsChanged", (accounts) => {
+             console.log(accounts);
+        })
+
+
+    }
+
     const fetchOwnedNfts = async () => {
 
     }
@@ -63,7 +73,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-    return <Web3Context.Provider value = {{connectWallet, accounts, balance}}>
+    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance}}>
             {children}
     </Web3Context.Provider>
 }

@@ -29,7 +29,7 @@ if(process.env.NODE_ENV === 'production') {
 
 const rateLimiter = rateLimit({
     windowMs: 10 * 60 * 1000, // 10
-	max: 8, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+	max: 30, // Limit each IP to 30 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })

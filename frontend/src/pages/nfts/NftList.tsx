@@ -18,6 +18,8 @@ const NftList: React.FC<INftVals> = (props: any) => {
         <div className = "nft-container">
           <h1 className = "heading-primary heading-2">All NFTs here</h1>
         </div>
+
+        
       </>
 
       

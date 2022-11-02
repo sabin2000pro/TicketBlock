@@ -1,15 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { Button, useDisclosure } from "@chakra-ui/react";
-import axios from 'axios';
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody,ModalCloseButton} from '@chakra-ui/react'
 import { verifyLoginMFA } from '../../api/auth-api';
 
 const LoginMfaVerification = (props: any) => {
