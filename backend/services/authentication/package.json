@@ -9,7 +9,7 @@
     "prestart": "npm run build ",
     "dev": "nodemon dist/index.js",
     "start:server": "npm run dev",
-    "auth:test": "jest tests/auth.test.ts --bail"
+    "auth:test": "jest --bail"
   },
   "keywords": [],
   "author": "",

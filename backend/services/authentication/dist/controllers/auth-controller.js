@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = void 0;
+exports.uploadUserAvatar = exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = void 0;
 const generate_otp_token_1 = require("./../utils/generate-otp-token");
 const send_email_1 = require("./../utils/send-email");
 const generate_reset_token_1 = require("./../utils/generate-reset-token");
@@ -46,7 +46,6 @@ const registerUser = (request, response, next) => __awaiter(void 0, void 0, void
     yield user.save();
     const currentUser = user._id; // Get the current user's ID
     const userOTP = (0, generate_otp_token_1.generateOTPToken)();
-    console.log(`Your OTP token : ${userOTP}`);
     const verificationToken = new email_verification_model_1.EmailVerification({ owner: currentUser, token: userOTP });
     yield verificationToken.save();
     // Send e-mail verification to user
@@ -177,7 +176,6 @@ exports.logout = (0, express_async_handler_1.default)((request, response, next) 
 // @access    Private (Authorization Token Required)
 const getCurrentUser = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const user = request.user;
-    console.log(`User data ; ${user}`);
     return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, data: user });
 });
 exports.getCurrentUser = getCurrentUser;
@@ -185,22 +183,55 @@ exports.getCurrentUser = getCurrentUser;
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 exports.resetPassword = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const currentPassword = request.body.currentPassword;
+    const newPassword = request.body.newPassword;
 }));
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 const updatePassword = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const currentPassword = request.body.currentPassword;
+    const oldPassword = request.body.oldPassword;
     const newPassword = request.body.newPassword;
+    const userId = request.user._id;
+    let user = yield user_model_1.User.findById(userId);
+    if (!user) {
+        return next(new error_handler_1.NotFoundError("User with that ID not found on the server ", http_status_codes_1.StatusCodes.NOT_FOUND));
+    }
+    // Check if passwords match
+    const oldPasswordMatch = yield user.compareLoginPasswords(oldPassword);
+    if (!oldPasswordMatch) {
+        return next(new error_handler_1.BadRequestError("Old password does not match", 400));
+    }
+    // Update Password fields
+    user.password = newPassword;
+    yield user.save();
 });
 exports.updatePassword = updatePassword;
-// @desc      Register New User
-// @route     POST /api/v1/auth/register
+// @desc      Update Profile Settings
+// @route     POST /api/v1/auth/update-details
 // @access    Public (No Authorization Token Required)
 const updateProfileDetails = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const fieldsToUpdate = { email: request.body.email, username: request.body.username };
+    const fieldsToUpdate = { email: request.body.email, username: request.body.username, password: request.body.password };
+    const userId = request.user._id;
+    let user = yield user_model_1.User.findById(userId);
+    if (!user) {
+        return next(new error_handler_1.NotFoundError("User with that ID not found on the server ", http_status_codes_1.StatusCodes.NOT_FOUND));
+    }
+    if (!fieldsToUpdate.email || !fieldsToUpdate.username) {
+        return next(new error_handler_1.BadRequestError("Missing fields, please check again", http_status_codes_1.StatusCodes.BAD_REQUEST));
+    }
+    // Update the fields & save the data
+    user = yield user_model_1.User.findByIdAndUpdate(request.user._id, fieldsToUpdate, { new: true, runValidators: false });
+    user.username = fieldsToUpdate.username;
+    user.email = fieldsToUpdate.email;
+    yield user.save();
+    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, data: user, message: "User Profile Updated" });
 });
 exports.updateProfileDetails = updateProfileDetails;
+const uploadUserAvatar = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    return response.status(200).json({ success: true, message: "User Avatar Uploaded" });
+});
+exports.uploadUserAvatar = uploadUserAvatar;
 const sendTokenResponse = (request, user, statusCode, response) => {
     const token = user.returnAuthToken();
     request.session = { token };
