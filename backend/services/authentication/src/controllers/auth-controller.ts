@@ -1,4 +1,3 @@
-import { UploadedFile } from 'express-fileupload';
 import { generateOTPToken } from './../utils/generate-otp-token';
 import { emailTransporter } from './../utils/send-email';
 import { generateRandomResetPasswordToken } from './../utils/generate-reset-token';
