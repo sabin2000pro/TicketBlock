@@ -42,6 +42,10 @@ const UserProfile: React.FC = () => {
 
     }, [balance, accountBalance])
 
+    const handleNftRedirect = () => {
+        return navigate("/nfts");
+    }
+
   return (
 
     <>
@@ -70,7 +74,7 @@ const UserProfile: React.FC = () => {
 
             </Card.Title>
 
-            <Button className = "nft-btn" type = "submit" colorScheme='teal' size='md'>View NFTs</Button>
+            <Button onClick = {handleNftRedirect} className = "nft-btn" type = "submit" colorScheme='teal' size='md'>View Available NFTs</Button>
 
                 </Card.Body>
             </Card>

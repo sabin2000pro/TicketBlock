@@ -295,3 +295,8 @@ html {
   font-family: sans-serif;
   font-weight: 500;
 }
+
+.search-logo {
+  height: 20px;
+  position: relative;
+}
