@@ -6,6 +6,7 @@ import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 import { Web3Context } from '../context/Web3Context';
 import { useContext } from 'react';
+import { Avatar, AvatarBadge } from '@chakra-ui/react';
 
 const UserProfile: React.FC = () => {
  
