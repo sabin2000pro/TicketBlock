@@ -57,6 +57,18 @@ const UserProfile: React.FC = (props: any) => {
         return navigate("/nfts");
     }
 
+    const handleUpdateProfileSettings = async (): Promise<void> => {
+        try {
+            console.log("Updating profile data...");
+        } 
+        
+        catch(error: any) {
+
+        }
+
+
+    }
+
   return (
 
     <>
@@ -121,7 +133,7 @@ const UserProfile: React.FC = (props: any) => {
 
             <input className = "update-username" type = "text" />
 
-            <Button type = "submit" colorScheme='teal' size='md'>Update Details</Button>
+            <Button onClick = {handleUpdateProfileSettings} type = "submit" colorScheme='teal' size='md'>Update Details</Button>
 
                 </Card.Body>
             </Card>

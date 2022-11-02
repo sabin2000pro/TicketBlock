@@ -154,4 +154,34 @@ export const verifyLoginMFA = async (mfaToken: IVerifyLoginMfa) => {
     catch(err: any) {
 
     }
+
+
+}
+
+export const uploadUserAvatar = async () => {
+    try {
+
+    } 
+    
+    catch(err: any) {
+
+    }
+
+    
+}
+
+export const updateProfileSettings = async (data: any) => {
+    try {
+
+    } 
+    
+    catch(err: any) {
+
+        
+        if(err) {
+            return console.error(err);
+        }
+    }
+
+    
 }
