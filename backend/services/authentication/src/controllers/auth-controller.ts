@@ -141,13 +141,13 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     }
     
     if(!user.isVerified) {
-        return next(new BadRequestError("Account not verified. Please verify your account before logging in", 400));
+        return next(new BadRequestError("Account not verified. Please verify your account before logging in", StatusCodes.BAD_REQUEST));
     }
 
     const passwordsMatch = await user.compareLoginPasswords(password)
 
     if(!passwordsMatch) {
-        return next(new BadRequestError("Passwords do not match. Please try again", 400))
+        return next(new BadRequestError("Passwords do not match. Please try again", StatusCodes.BAD_REQUEST))
     }
 
     // Code to send MFA Code
@@ -155,7 +155,7 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     console.log(`Your MFA TOKEN : ${mfaToken}`);
 
     const transporter = emailTransporter();
-    sendConfirmationEmail(transporter, user, mfaToken as unknown as any);
+    sendLoginMFA(transporter, user, mfaToken as unknown as any);
 
     const mfaCodeVerification = new TwoFactorVerification({owner: user._id, token: mfaToken});
     await mfaCodeVerification.save();

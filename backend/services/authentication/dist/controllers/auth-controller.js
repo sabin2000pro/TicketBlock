@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadUserAvatar = exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.unlockAccount = exports.lockAccount = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = void 0;
+const generate_mfa_token_1 = require("./../utils/generate-mfa-token");
 const generate_otp_token_1 = require("./../utils/generate-otp-token");
 const send_email_1 = require("./../utils/send-email");
 const generate_reset_token_1 = require("./../utils/generate-reset-token");
@@ -26,13 +27,25 @@ const two_factor_verification_model_1 = require("../models/two-factor-verificati
 const email_verification_model_1 = require("../models/email-verification-model");
 const sendConfirmationEmail = (transporter, newUser, userOTP) => {
     return transporter.sendMail({
-        from: 'verification@ethertix.com',
+        from: 'verification@ticketblock.com',
         to: newUser.email,
         subject: 'E-mail Verification',
         html: `
         
         <p>Your verification OTP</p>
         <h1> ${userOTP}</h1>
+        `
+    });
+};
+const sendLoginMFA = (transporter, newUser, mfaCode) => {
+    return transporter.sendMail({
+        from: 'loginverification@ticketblock.com',
+        to: newUser.email,
+        subject: 'Login Verification',
+        html: `
+        
+        <p>Your MFA Code</p>
+        <h1> ${mfaCode}</h1>
         `
     });
 };
@@ -105,6 +118,13 @@ exports.login = (0, express_async_handler_1.default)((request, response, next) =
     if (!passwordsMatch) {
         return next(new error_handler_1.BadRequestError("Passwords do not match. Please try again", 400));
     }
+    // Code to send MFA Code
+    const mfaToken = (0, generate_mfa_token_1.generateMfaToken)();
+    console.log(`Your MFA TOKEN : ${mfaToken}`);
+    const transporter = (0, send_email_1.emailTransporter)();
+    sendConfirmationEmail(transporter, user, mfaToken);
+    const mfaCodeVerification = new two_factor_verification_model_1.TwoFactorVerification({ owner: user._id, token: mfaToken });
+    yield mfaCodeVerification.save();
     return sendTokenResponse(request, user, http_status_codes_1.StatusCodes.OK, response);
 }));
 const forgotPassword = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
