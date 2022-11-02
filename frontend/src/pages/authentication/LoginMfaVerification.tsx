@@ -9,7 +9,6 @@ const LoginMfaVerification = () => {
   }
 
 
-
   return (
     <>
     
@@ -24,11 +23,11 @@ const LoginMfaVerification = () => {
 
       <div className = "pin-container">
 
-      <input value = {mfaCode} onChange = {(event) => setMfaCode(event.target.value)} type = "text" placeholder='Enter OTP'/>
+      <input value = {mfaCode} onChange = {(event) => setMfaCode(event.target.value)} type = "text" placeholder='Enter MFA Code'/>
 
       </div>
 
-    <Button type = "submit" className = "submit-btn verify-btn" colorScheme='teal' size ='lg'>Verify Account</Button>
+    <Button type = "submit" className = "submit-btn verify-btn" colorScheme='teal' size ='lg'>Verify Code</Button>
 
 </form>
 

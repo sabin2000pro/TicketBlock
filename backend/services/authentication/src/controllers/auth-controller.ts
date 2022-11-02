@@ -125,7 +125,7 @@ export const login = asyncHandler(async (request: Request, response: Response, n
     }
     
     if(!user.isVerified) {
-        return next(new BadRequestError("Account not verified. Please verify your account before logging in", 400 ));
+        return next(new BadRequestError("Account not verified. Please verify your account before logging in", 400));
     }
 
     const passwordsMatch = await user.compareLoginPasswords(password)

@@ -25,14 +25,14 @@ describe("Register Account - Test Suite", () => {
         const bodyData = [{ email: "sifojfs", password: "123mini123" }];
         for (const data of bodyData) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/register").send(data);
-            return expect(response.statusCode).toBe(404);
+            return expect(response.statusCode).toBe(400);
         }
     }));
     it("Register Account - Missing Password", () => __awaiter(void 0, void 0, void 0, function* () {
         const bodyData = [{ email: "sifojfs" }];
         for (const data of bodyData) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/register").send(data);
-            return expect(response.statusCode).toBe(404);
+            return expect(response.statusCode).toBe(400);
         }
     }));
 });
@@ -48,7 +48,7 @@ describe("Verify E-mail Address Test Suite", () => {
         const malformedInputs = [{ userId: "5dfa", OTP: "909890" }];
         for (const data of malformedInputs) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/verify-email").send(data);
-            return expect(response.statusCode).toBe(400);
+            return expect(response.statusCode).toBe(404);
         }
     }));
     it("Verify E-mail Address With Missing User ID", () => __awaiter(void 0, void 0, void 0, function* () {

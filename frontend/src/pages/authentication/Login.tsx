@@ -50,7 +50,7 @@ const Login: React.FC = () => {
         setFormSubmitted(!formSubmitted);
 
         setTimeout(() => {
-           return navigate('/nfts')
+           return navigate('/verify-login')
         }, 2500)
 
 

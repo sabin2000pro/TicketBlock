@@ -42,6 +42,9 @@ const registerUser = (request, response, next) => __awaiter(void 0, void 0, void
     if (existingUser) {
         return next(new error_handler_1.BadRequestError("User already exists", http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
+    if (!password) {
+        return next(new error_handler_1.NotFoundError("Password not found", 404));
+    }
     const user = yield user_model_1.User.create({ username, email, password });
     yield user.save();
     const currentUser = user._id; // Get the current user's ID

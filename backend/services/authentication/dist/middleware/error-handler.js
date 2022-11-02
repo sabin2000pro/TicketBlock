@@ -30,7 +30,7 @@ exports.BadRequestError = BadRequestError;
 class NotFoundError extends CustomError {
     constructor(message, statusCode) {
         super(message);
-        this.statusCode = http_status_codes_1.StatusCodes.BAD_REQUEST;
+        this.statusCode = http_status_codes_1.StatusCodes.NOT_FOUND;
         this.status = "Resource not found on the server. Check resource again";
         this.statusCode = statusCode;
     }
