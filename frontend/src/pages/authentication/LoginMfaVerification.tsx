@@ -1,11 +1,25 @@
 import React, {useState} from 'react'
 import { Button } from "@chakra-ui/react";
+import axios from 'axios';
 
-const LoginMfaVerification = () => {
+const LoginMfaVerification = (props: any) => {
+
   const [mfaCode, setMfaCode] = useState("");
 
   const handleMfaVerification = async () => {
+     try {
+      const response = await axios.post(`http://localhost:5299/api/v1/auth/verify-mfa`, {mfaCode});
+      const data = response.data;
 
+      console.log(response);
+
+
+      return data;
+     } 
+     
+     catch(error: any) {
+
+     }
   }
 
 

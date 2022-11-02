@@ -104,7 +104,7 @@ const Login: React.FC = () => {
 
         <AlertIcon />
 
-        Your account is not active
+        Your account is not yet active.
       
       </Alert>}
               
