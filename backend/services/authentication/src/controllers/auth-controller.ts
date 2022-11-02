@@ -248,7 +248,8 @@ export const getCurrentUser = async(request: IGetUserData, response: Response, n
 // @access    Public (No Authorization Token Required)
 
 export const resetPassword = asyncHandler(async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-
+    const currentPassword = request.body.currentPassword;
+    const newPassword = request.body.newPassword;
 });
 
 // @desc      Register New User
@@ -260,12 +261,23 @@ export const updatePassword = async(request: Request, response: Response, next: 
     const newPassword = request.body.newPassword;
 }  
 
-// @desc      Register New User
-// @route     POST /api/v1/auth/register
+// @desc      Update Profile Settings
+// @route     POST /api/v1/auth/update-details
 // @access    Public (No Authorization Token Required)
 
-export const updateProfileDetails = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-    const fieldsToUpdate = {email: request.body.email, username: request.body.username}
+export const updateProfileDetails = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
+    const fieldsToUpdate = {email: request.body.email, username: request.body.username, password: request.body.password}
+    const user = await User.findById(request.user!._id);
+
+    console.log(user);
+
+    if(fieldsToUpdate.email || fieldsToUpdate.username || fieldsToUpdate.password) {
+        return next(new BadRequestError("Missing fields, please check again", 400));
+    }
+
+    // Update the fields & save the data
+
+    
 }
 
 const sendTokenResponse = (request: Express.Request, user: any, statusCode: number, response: Response)=> {
