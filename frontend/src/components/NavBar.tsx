@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import {useContext} from "react";
 import { Web3Context } from '../context/Web3Context';
 import logo from '../images/ticket.png';
-import search from '../images/search.png';
 
 declare global {
   interface Window{

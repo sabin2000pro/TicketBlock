@@ -59,7 +59,7 @@ const UserProfile: React.FC = () => {
 
    <div className = "account-container">
 
-   <Button type = "submit" colorScheme='teal' size='md'>Upload Image</Button>
+   <Button type = "submit" colorScheme='teal' size='md'>Upload Avatar</Button>
 
    </div>
 
