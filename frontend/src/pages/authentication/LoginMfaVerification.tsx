@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Button, useDisclosure } from "@chakra-ui/react";
 import axios from 'axios';
 import {
@@ -10,23 +10,38 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
+import { verifyLoginMFA } from '../../api/auth-api';
 
 const LoginMfaVerification = (props: any) => {
 
-  const [mfaCode, setMfaCode] = useState<string | undefined>("");
+  const [token, setToken] = useState<string | undefined>("");
   const [showErrorModal, setShowErrorModal] = useState<boolean | undefined>(false);
   const {isOpen, onOpen, onClose} = useDisclosure();
+  const [userId, setUserId] = useState([]);
+
+  useEffect(() => {
+
+    const fetchUserId = () => {
+
+       const userId = localStorage.getItem("userId");
+       setUserId(userId as any);
+
+    }
+
+    fetchUserId();
+
+  }, [])
 
   const handleMfaVerification = async (event: any) => {
      try {
 
       event.preventDefault();
 
-      if(!mfaCode) {
+      if(!token) {
         setShowErrorModal(!showErrorModal);
-  
-        console.log(`Mfa missing`)
      }
+
+     verifyLoginMFA(userId as any, token as any);
 
      } 
      
@@ -80,7 +95,7 @@ const LoginMfaVerification = (props: any) => {
 
       <div className = "pin-container">
 
-      <input value = {mfaCode} onChange = {(event) => setMfaCode(event.target.value)} type = "text" placeholder='Enter MFA Code'/>
+      <input value = {token} onChange = {(event) => setToken(event.target.value)} type = "text" placeholder='Enter MFA Token'/>
 
       </div>
 

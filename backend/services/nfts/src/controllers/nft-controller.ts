@@ -11,6 +11,8 @@ export const fetchAllNfts = async (request: Request, response: Response, next: N
 
     const nfts = await Nft.find();
     const page = parseInt(request.query.page as any) || 1;
+    const numberOfNfts = await Nft.countDocuments({});
+    
 
     return response.status(StatusCodes.OK).json({success: true, data: nfts});
 }

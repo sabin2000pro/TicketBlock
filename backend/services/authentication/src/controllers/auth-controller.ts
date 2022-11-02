@@ -214,26 +214,27 @@ const sendPasswordResetEmail = (user: any, resetPasswordURL: string) => {
 }
 
 export const verifyLoginMfa = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
-    const {userId, multiFactorToken} = request.body;
+    const {userId, token} = request.body;
     const user = await User.findById(userId);
 
-    if(isValidObjectId(userId)) {
+    if(!isValidObjectId(userId)) {
         return next(new NotFoundError("User ID not valid", 404));
     }
 
-    if(!multiFactorToken) {
+    if(!token) {
         user.isActive = (!user.isActive);
         return next(new BadRequestError("Please provide your MFA token", StatusCodes.BAD_REQUEST));
     }
 
     const factorToken = await TwoFactorVerification.findOne({owner: userId})
+    const mfaTokensMatch = factorToken.compareMfaTokens(token);
+
 
     if(!factorToken) {
         return next(new BadRequestError("The token associated to the user is invalid", 400));
     }
 
     // Verify to see if the tokens match
-    const mfaTokensMatch = factorToken.comapareMfaTokens(multiFactorToken);
 
     if(!mfaTokensMatch) {
 

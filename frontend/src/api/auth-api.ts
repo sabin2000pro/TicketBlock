@@ -6,7 +6,7 @@ type IVerifyEmail = {
 }
 
 type IVerifyLoginMfa = {
-    mfaToken: string
+    token: string
 }
 
 // Default config options
@@ -146,11 +146,16 @@ export const verifyEmailAddress = async (OTP: IVerifyEmail) => {
 
 }
 
-export const verifyLoginMFA = async (mfaToken: IVerifyLoginMfa) => {
+export const verifyLoginMFA = async (userId: any, token: IVerifyLoginMfa) => {
 
     try {
-        const response = await axios.post("http://localhost:5299/api/v1/auth/verify-mfa", {mfaToken})
+        const response = await axios.post("http://localhost:5299/api/v1/auth/verify-mfa", {userId, token})
         const data = response.data
+
+        console.log(data);
+
+
+        return data;
     } 
     
     catch(err: any) {
@@ -181,9 +186,7 @@ export const uploadUserAvatar = async () => {
 export const updateProfileSettings = async (username: string, email: string) => {
 
     try {
-        console.log("Updating your profile...")
-        console.log(username);
-        console.log(email)
+
     } 
     
     catch(err: any) {
