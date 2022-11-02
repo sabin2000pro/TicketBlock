@@ -42,6 +42,10 @@ export const registerUser = async(request: Request, response: Response, next: Ne
         if(existingUser) {
             return next(new BadRequestError("User already exists", StatusCodes.BAD_REQUEST));
         }
+
+        if(!password) {
+            return next(new NotFoundError("Password not found", 404));
+        }
     
         const user = await User.create({username, email, password});
         

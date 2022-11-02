@@ -50,7 +50,7 @@ export class BadRequestError extends CustomError {
 }
 
 export class NotFoundError extends CustomError {
-    statusCode = StatusCodes.BAD_REQUEST;
+    statusCode = StatusCodes.NOT_FOUND;
     status = "Resource not found on the server. Check resource again"
 
     constructor(message: string, statusCode: number) {

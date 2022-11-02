@@ -17,7 +17,7 @@ describe("Register Account - Test Suite", () => {
         for (const data of bodyData) {
             const response = await request(app).post("/api/v1/auth/register").send(data);
 
-            return expect(response.statusCode).toBe(404);
+            return expect(response.statusCode).toBe(400);
         }
 
     })
@@ -28,7 +28,7 @@ describe("Register Account - Test Suite", () => {
         for (const data of bodyData) {
             const response = await request(app).post("/api/v1/auth/register").send(data);
 
-            return expect(response.statusCode).toBe(404);
+            return expect(response.statusCode).toBe(400);
         }
     })
 
@@ -65,7 +65,7 @@ describe("Verify E-mail Address Test Suite", () => {
         for(const data of malformedInputs) {
             const response = await request(app).post("/api/v1/auth/verify-email").send(data);
 
-            return expect(response.statusCode).toBe(404)
+            return expect(response.statusCode).toBe(400)
         }
     })
 
@@ -82,7 +82,7 @@ describe("Login - Test Suite", () => {
         for(const data of malformedInputs) {
             const response = await request(app).post("/api/v1/auth/login").send(data);
 
-            return expect(response.statusCode).toBe(404)
+            return expect(response.statusCode).toBe(400)
         }
     })
 

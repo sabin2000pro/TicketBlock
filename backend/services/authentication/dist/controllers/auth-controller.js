@@ -100,7 +100,7 @@ exports.login = (0, express_async_handler_1.default)((request, response, next) =
     }
     const passwordsMatch = yield user.compareLoginPasswords(password);
     if (!passwordsMatch) {
-        return next(new error_handler_1.BadRequestError("Passwords do not match. Please try again", http_status_codes_1.StatusCodes.BAD_REQUEST));
+        return next(new error_handler_1.BadRequestError("Passwords do not match. Please try again", 400));
     }
     return sendTokenResponse(request, user, http_status_codes_1.StatusCodes.OK, response);
 }));

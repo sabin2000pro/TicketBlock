@@ -48,14 +48,14 @@ describe("Verify E-mail Address Test Suite", () => {
         const malformedInputs = [{ userId: "5dfa", OTP: "909890" }];
         for (const data of malformedInputs) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/verify-email").send(data);
-            return expect(response.statusCode).toBe(404);
+            return expect(response.statusCode).toBe(400);
         }
     }));
     it("Verify E-mail Address With Missing User ID", () => __awaiter(void 0, void 0, void 0, function* () {
         const malformedInputs = [{ OTP: "909890" }];
         for (const data of malformedInputs) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/verify-email").send(data);
-            return expect(response.statusCode).toBe(404);
+            return expect(response.statusCode).toBe(400);
         }
     }));
 });
@@ -64,14 +64,14 @@ describe("Login - Test Suite", () => {
         const malformedInputs = [{ email: "jfjehwfhew@gmail.com", password: "123mini123" }];
         for (const data of malformedInputs) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/login").send(data);
-            return expect(response.statusCode).toBe(404);
+            return expect(response.statusCode).toBe(400);
         }
     }));
-    it("Login Test - Invalid Password", () => __awaiter(void 0, void 0, void 0, function* () {
-        const malformedInputs = [{ email: "harun0@gmail.com", password: "bbobu" }];
+    it("Login Test - Valid Data", () => __awaiter(void 0, void 0, void 0, function* () {
+        const malformedInputs = [{ email: "harun0@gmail.com", password: "123mini123" }];
         for (const data of malformedInputs) {
             const response = yield (0, supertest_1.default)(app_1.app).post("/api/v1/auth/login").send(data);
-            return expect(response.statusCode).toBe(400);
+            return expect(response.statusCode).toBe(200);
         }
     }));
 });
