@@ -271,7 +271,7 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
 
     console.log(user);
 
-    if(fieldsToUpdate.email || fieldsToUpdate.username || fieldsToUpdate.password) {
+    if(fieldsToUpdate.email || fieldsToUpdate.username) {
         return next(new BadRequestError("Missing fields, please check again", 400));
     }
 
