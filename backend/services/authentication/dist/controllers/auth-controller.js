@@ -112,17 +112,17 @@ exports.login = (0, express_async_handler_1.default)((request, response, next) =
         return next(new error_handler_1.NotFoundError("Could not find that user", http_status_codes_1.StatusCodes.NOT_FOUND));
     }
     if (!user.isVerified) {
-        return next(new error_handler_1.BadRequestError("Account not verified. Please verify your account before logging in", 400));
+        return next(new error_handler_1.BadRequestError("Account not verified. Please verify your account before logging in", http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
     const passwordsMatch = yield user.compareLoginPasswords(password);
     if (!passwordsMatch) {
-        return next(new error_handler_1.BadRequestError("Passwords do not match. Please try again", 400));
+        return next(new error_handler_1.BadRequestError("Passwords do not match. Please try again", http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
     // Code to send MFA Code
     const mfaToken = (0, generate_mfa_token_1.generateMfaToken)();
     console.log(`Your MFA TOKEN : ${mfaToken}`);
     const transporter = (0, send_email_1.emailTransporter)();
-    sendConfirmationEmail(transporter, user, mfaToken);
+    sendLoginMFA(transporter, user, mfaToken);
     const mfaCodeVerification = new two_factor_verification_model_1.TwoFactorVerification({ owner: user._id, token: mfaToken });
     yield mfaCodeVerification.save();
     return sendTokenResponse(request, user, http_status_codes_1.StatusCodes.OK, response);

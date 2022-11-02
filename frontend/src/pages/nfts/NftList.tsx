@@ -7,6 +7,11 @@ type INftVals = {
 
 const NftList: React.FC<INftVals> = (props: any) => {
 
+
+  useEffect(() => {
+    // Check to see if the user is logged in
+  }, [])
+
     return (
 
       <>

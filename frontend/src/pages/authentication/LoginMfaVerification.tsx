@@ -8,8 +8,9 @@ const LoginMfaVerification = (props: any) => {
 
   const handleMfaVerification = async (event: any) => {
      try {
-      event.preventDefault();
 
+
+      event.preventDefault();
 
 
       const response = await axios.post(`http://localhost:5299/api/v1/auth/verify-mfa`, {mfaCode});
