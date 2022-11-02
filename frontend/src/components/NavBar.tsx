@@ -141,7 +141,7 @@ const NavBar: React.FC = () => {
 
              <ul className = "links-container">
 
-             <img src = {logo} className = "img-logo" />
+             <img src = {logo} className = "img-logo" alt = "logo" />
 
                <a href = "/register"> <li className = "link">Register</li></a>
 
@@ -157,10 +157,6 @@ const NavBar: React.FC = () => {
 
                <a href = "/cart"> <li className = "link">Cart</li></a>
 
-
-               <div className = "cart-container">
-                  <span className='cart-qty'>0</span>
-               </div>
 
                <div className='search-container'>
                   <input placeholder='Search NFT' type = "text" />

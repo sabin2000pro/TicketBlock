@@ -41,11 +41,6 @@ const App: React.FC = () => {
 
         </Routes>
 
-        <div className = "footer-container">
-          <footer>
-            hi
-          </footer>
-        </div>
 
 
     </>
