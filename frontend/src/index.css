@@ -288,3 +288,10 @@ html {
   height: 150px;
   padding: 24px 30px;
 }
+
+.heading-2 {
+  color: black;
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 500;
+}
