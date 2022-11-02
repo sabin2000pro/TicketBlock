@@ -66,7 +66,9 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     event NftPurchased (
         uint id,
         bool isTokenListed,
-        address currentOwner
+        address currentOwner,
+        string name,
+        uint price
     );
 
     constructor() ERC721("Event Tickets NFT", "ETNFT") {}
@@ -133,7 +135,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
          _transfer(currentOwner, msg.sender, id); // Transfer Ownership of the NFT from the current owner to ms.sender
          payable(currentOwner).transfer(msg.value);
 
-         emit NftPurchased(id, mappedNftData[id].isTokenListed, currentOwner);
+         emit NftPurchased(id, mappedNftData[id].isTokenListed, currentOwner, mappedNftData[id].name, mappedNftData[id].price);
          
     }
 
