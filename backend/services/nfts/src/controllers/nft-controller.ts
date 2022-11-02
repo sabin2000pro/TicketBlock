@@ -6,6 +6,9 @@ import { Request, Response, NextFunction } from 'express';
 import { UploadedFile } from 'express-fileupload';
 
 export const fetchAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
+    let query;
+    const queryStr = request.query;
+
     const nfts = await Nft.find();
     const page = parseInt(request.query.page as any) || 1;
 
@@ -53,7 +56,7 @@ export const deleteAllNfts = async (request: Request, response: Response, next: 
 }
 
 export const deleteNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-    
+
     const id = request.params.id;
     await Nft.findByIdAndDelete(id);
 
