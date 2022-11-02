@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffec, useState} from 'react'
 import { Card, Row } from 'react-bootstrap';
 import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
@@ -12,8 +12,8 @@ const UserProfile: React.FC = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState([])
     
-    const [accountBalance, setAccountBalance] = useState<string | undefined>("");
-    let {accounts, balance} = useContext(Web3Context)
+    let [accountBalance, setAccountBalance] = useState<string | undefined>("");
+    let {balance} = useContext(Web3Context)
 
   useEffect(() => {
 
@@ -34,11 +34,13 @@ const UserProfile: React.FC = () => {
             const currBalance = localStorage.getItem("balance")            
             setAccountBalance(currBalance as any);
 
+            balance = accountBalance
+
         }
 
         fetchAccountBalance();
 
-    }, [balance])
+    }, [balance, accountBalance])
 
   return (
 
@@ -52,7 +54,7 @@ const UserProfile: React.FC = () => {
 
    <div className = "account-container">
 
-   <Button type = "submit" colorScheme='teal' size='md'>Change Account</Button>
+   <Button type = "submit" colorScheme='teal' size='md'>Upload Image</Button>
 
    </div>
 
@@ -64,9 +66,11 @@ const UserProfile: React.FC = () => {
 
             <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
 
-                <span className = "fs-2 card-text">Owned NFTs: </span>
-                   
+                <span className = "fs-2 card-text">Owned NFTs: 0</span>
+
             </Card.Title>
+
+            <Button className = "nft-btn" type = "submit" colorScheme='teal' size='md'>View NFTs</Button>
 
                 </Card.Body>
             </Card>
@@ -107,7 +111,7 @@ const UserProfile: React.FC = () => {
 
             <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
 
-                <span className = "fs-2 card-text">Balance: {accountBalance} ETH</span>
+                <span className = "fs-2 card-text p-2">Balance: {accountBalance} ETH</span>
                 
             </Card.Title>
 
