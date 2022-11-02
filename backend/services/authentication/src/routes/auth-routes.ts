@@ -15,6 +15,6 @@ authRouter.route('/reset-password').post(resetPassword as any);
 authRouter.route('/me').get(verifyUserAuth as any, getCurrentUser as any);
 authRouter.route('/verify-mfa').post(verifyLoginMfa as any)
 
-authRouter.route('/update-profile').post(updateProfileDetails as any);
+authRouter.route('/update-profile').post(verifyUserAuth as any, updateProfileDetails as any);
 
 export default authRouter

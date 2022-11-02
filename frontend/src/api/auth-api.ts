@@ -147,7 +147,7 @@ export const verifyEmailAddress = async (OTP: IVerifyEmail) => {
 }
 
 export const verifyLoginMFA = async (mfaToken: IVerifyLoginMfa) => {
-    
+
     try {
         const response = await axios.post("http://localhost:5299/api/v1/auth/verify-mfa", {mfaToken})
         const data = response.data
@@ -178,10 +178,12 @@ export const uploadUserAvatar = async () => {
     
 }
 
-export const updateProfileSettings = async (data: any) => {
+export const updateProfileSettings = async (username: string, email: string) => {
 
     try {
-
+        console.log("Updating your profile...")
+        console.log(username);
+        console.log(email)
     } 
     
     catch(err: any) {

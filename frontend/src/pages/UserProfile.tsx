@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Web3Context } from '../context/Web3Context';
 import { useContext } from 'react';
 import { Avatar } from '@chakra-ui/react';
+import { updateProfileSettings } from '../api/auth-api';
 
 const toastPositions = [
     'top',
@@ -24,7 +25,12 @@ const UserProfile: React.FC = (props: any) => {
     const toast = useToast(); // Displayed after updating profiel details
 
     const [user, setUser] = useState([])
-    
+
+    const [username, setUsername] = useState<string | undefined>("");
+    const [email, setEmail] = useState<string | undefined>("");
+
+
+    const [profileUpdated, setProfileUpdated] = useState<boolean | undefined>(false);
     let [accountBalance, setAccountBalance] = useState<string | undefined>("");
     let {balance} = useContext(Web3Context)
 
@@ -57,9 +63,18 @@ const UserProfile: React.FC = (props: any) => {
         return navigate("/nfts");
     }
 
-    const handleUpdateProfileSettings = async (): Promise<void> => {
+    const handleUpdateProfileSettings = async (): Promise<void> => 
+    {
         try {
+
+            setUsername(username);
+            setEmail(email);
+
             console.log("Updating profile data...");
+
+            updateProfileSettings(username, email);
+            
+            setProfileUpdated(!profileUpdated);
         } 
         
         catch(error: any) {
@@ -125,10 +140,7 @@ const UserProfile: React.FC = (props: any) => {
 
             <input className = "update-username" type = "text" />
 
-            <h2 className = "heading-secondary">Password</h2>
-
-            <input className = "update-username" type = "text" />
-
+        
             <h2 className = "heading-secondary">E-mail</h2>
 
             <input className = "update-username" type = "text" />
