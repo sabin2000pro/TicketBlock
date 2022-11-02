@@ -81,7 +81,14 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         setTokenMinted(!tokenMinted)
 
         const nftValues = mintedNft.events.EventNftCreated.returnValues;
-        console.log(nftValues);
+
+        const tokenCreator = nftValues.creator;
+        const tokenId = nftValues.id;
+        const tokenPrice = nftValues.price;
+
+        console.log(tokenId);
+        console.log(tokenPrice)
+        console.log(tokenCreator)
 
         setNftOnSale(nftValues.id, nftValues.price); // Place the token now on sale
 
