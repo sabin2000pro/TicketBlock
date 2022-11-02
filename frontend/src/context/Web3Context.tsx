@@ -15,7 +15,7 @@ type IWeb3Context = {
 
     fetchOwnedNfts: () => void
     mintNft: (name: string, price: number) => void
-    fetchAllNftsOnSale: () => void
+    fetchAllNftsOnSale: (nftContract: any) => void
 }
 
 const provider = window.ethereum;
@@ -86,7 +86,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         setNftOnSale(nftValues.id, nftValues.price); // Place the token now on sale
 
-        return mintedNft
+        return mintedNft;
     }
 
     const setNftOnSale = async (id: number, price: number) => {
@@ -95,11 +95,14 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
         const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: "0xce7868dd6be1a4f0ba40267509f55fded1f14bea"});
 
-        console.log(nftOnSale);
+        fetchAllNftsOnSale(nftContract);
+
+        return nftOnSale;
 
     }
 
-    const fetchAllNftsOnSale = async () => {
+    // 3. Function 3: Now Fetch All Nfts on sale
+    const fetchAllNftsOnSale = async (nftContract: any) => {
 
     }
 
