@@ -266,8 +266,6 @@ export const updatePassword = async(request: IGetUserData, response: Response, n
         return next(new NotFoundError("User with that ID not found on the server ", StatusCodes.NOT_FOUND))
     }
 
-    
-
 }  
 
 // @desc      Update Profile Settings
@@ -297,6 +295,10 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
     await user.save();
     return response.status(StatusCodes.OK).json({success: true, data: user, message: "User Profile Updated"});
     
+}
+
+export const uploadUserAvatar = async (request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
+    return response.status(200).json({success: true, message: "User Avatar Uploaded"});
 }
 
 const sendTokenResponse = (request: Express.Request, user: any, statusCode: number, response: Response)=> {
