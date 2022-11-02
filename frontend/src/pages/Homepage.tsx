@@ -17,9 +17,12 @@ const Homepage = () => {
           </div>
 
           <div className = "rectangle-box">
-               <select>
+
+             <select>
                 <option>1</option>
-               </select>
+             </select>
+
+
           </div>
 
           

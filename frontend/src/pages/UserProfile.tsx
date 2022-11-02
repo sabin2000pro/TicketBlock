@@ -81,7 +81,7 @@ const UserProfile: React.FC = (props: any) => {
         
         catch(error: any) {
 
-            
+
             if(error) {
                 return console.error(error);
 
@@ -139,16 +139,16 @@ const UserProfile: React.FC = (props: any) => {
 
             
             <div className = "avatar-container">
-            <Avatar src='https://bit.ly/broken-link' className = "avatar" />
+               <Avatar src='https://bit.ly/broken-link' className = "avatar" />
             </div>
 
 
-            <h2 className = "heading-secondary">Username</h2>
+            <h2 className = "heading-secondary profile-heading">Username</h2>
 
             <input value = {username} onChange = {(event) => setUsername(event.target.value)} className = "update-username" type = "text" />
 
         
-            <h2 className = "heading-secondary">E-mail</h2>
+            <h2 className = "heading-secondary profile-heading">E-mail</h2>
 
             <input value = {email} onChange = {(event) => setEmail(event.target.value)} className = "update-username" type = "text" />
 
