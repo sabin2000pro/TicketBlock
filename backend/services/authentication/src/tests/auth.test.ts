@@ -31,11 +31,11 @@ describe("Register Account - Test Suite", () => {
 
 })
 
-describe("Verify E-mail Address Test Suite", async () => {
+describe("Verify E-mail Address Test Suite", () => {
 
 })
 
-describe("Verify Login MFA Test Suite", async () => {
+describe("Verify Login MFA Test Suite", () => {
 
 })
 
@@ -50,7 +50,7 @@ describe("Forgot Password - Test Suite", () => {
 })
 
 describe("Update Profile Details Test Suite", () => {
-    
+
 })
 
 afterAll((done) => { // After all the tests run successfully, close the connection to the server
