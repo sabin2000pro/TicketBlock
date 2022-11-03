@@ -1,0 +1,122 @@
+{
+  "contractName": "Voting",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Voting.sol\":\"Voting\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Voting.sol\":{\"keccak256\":\"0x25f8347f248e9ccbf3cf038a66ab00afdb4cdcdd2424d00e56b53393e1dd8e20\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e8c2086f3d9cc1fd69ffc8fc61a286564a09948530c0d709f4f84d102bf70503\",\"dweb:/ipfs/QmVxD5CRfrdteZ5LVv5Hp7rpmHRdvucxyDUa5QfUGH7GJn\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220c2a602fec453bf798117b7a97d9c328c6fbe551b725d9d201a9cb955bdbe0e9664736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220c2a602fec453bf798117b7a97d9c328c6fbe551b725d9d201a9cb955bdbe0e9664736f6c63430008110033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "57:49:4:-:0;;;80:22;;;;;;;;;;57:49;;;;;;",
+  "deployedSourceMap": "57:49:4:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.7;\n\ncontract Voting {\n\n    constructor() {\n\n    }\n\n\n}",
+  "sourcePath": "/Users/sabin2000/Documents/ticketblock/frontend/contracts/Voting.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/Voting.sol",
+    "exportedSymbols": {
+      "Voting": [
+        726
+      ]
+    },
+    "id": 727,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 721,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".7"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:4"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "Voting",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 726,
+        "linearizedBaseContracts": [
+          726
+        ],
+        "name": "Voting",
+        "nameLocation": "66:6:4",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 724,
+              "nodeType": "Block",
+              "src": "94:8:4",
+              "statements": []
+            },
+            "id": 725,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 722,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "91:2:4"
+            },
+            "returnParameters": {
+              "id": 723,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "94:0:4"
+            },
+            "scope": 726,
+            "src": "80:22:4",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 727,
+        "src": "57:49:4",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:74:4"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x3a600F528f0f2846d9318e1C9aE8a29710a0207b",
+      "transactionHash": "0xe403eebf3d9bd24ea02e8875614b72770344025625e5092091c7052cc637c8b6"
+    }
+  },
+  "schemaVersion": "3.4.9",
+  "updatedAt": "2022-11-03T12:25:29.123Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

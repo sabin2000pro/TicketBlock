@@ -35,6 +35,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     let [accounts, setAccounts] = useState<string>("")
     let [balance, setBalance] = useState<string | undefined>("");
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
+
+    const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
 
     const networks = EventNftContract.networks
@@ -54,10 +56,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         chosenAccount = currAccount[0];
         accounts = currAccount[0];
 
+        setAccountChosen(!accountChosen);
+        setAccounts(currAccount[0])
+
         localStorage.setItem("account", accounts)
         localStorage.setItem("balance", formattedBalance);
-
-        setAccounts(currAccount[0])
 
         balance = formattedBalance
 
@@ -84,7 +87,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             await connectWallet();
         }
 
+        
         connectToWallet();
+        
+
     }, [])
 
     const fetchNftData = async () => {
@@ -98,9 +104,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         } 
         
         catch(error: any) {
+
             if(error) {
                 return console.error(error);
             }
+
         }
 
 
@@ -179,6 +187,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         }
     }
 
+    // Smart Contract Function: Get all of the nfts on sale
+    
     const fetchAllNftsOnSale = async () => {
 
         try {
@@ -191,6 +201,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         } 
         
         catch(error: any) {
+
             if(error) {
                 return console.error(error);
             }

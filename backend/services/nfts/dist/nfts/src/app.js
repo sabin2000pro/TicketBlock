@@ -11,6 +11,7 @@ const hpp_1 = __importDefault(require("hpp"));
 const helmet_1 = __importDefault(require("helmet"));
 const cors_1 = __importDefault(require("cors"));
 const nft_schema_1 = __importDefault(require("./database/nft-schema"));
+const nft_routes_1 = require("./routes/nft-routes");
 const app = (0, express_1.default)();
 exports.app = app;
 (0, nft_schema_1.default)();
@@ -22,3 +23,7 @@ app.set('trust proxy', true);
 app.use((0, hpp_1.default)());
 app.use((0, cors_1.default)());
 app.use((0, helmet_1.default)());
+app.use('/api/v1/nfts', nft_routes_1.nftRoutes);
+app.get('/', (request, response, next) => {
+    return response.status(200).json({ success: true, message: "NFT Root Route" });
+});

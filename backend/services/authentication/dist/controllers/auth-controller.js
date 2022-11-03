@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadUserAvatar = exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.unlockAccount = exports.lockAccount = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = void 0;
+exports.uploadUserAvatar = exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.unlockAccount = exports.lockAccount = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = exports.getUserOwnedNfts = void 0;
 const generate_mfa_token_1 = require("./../utils/generate-mfa-token");
 const generate_otp_token_1 = require("./../utils/generate-otp-token");
 const send_email_1 = require("./../utils/send-email");
@@ -49,6 +49,10 @@ const sendLoginMFA = (transporter, newUser, mfaCode) => {
         `
     });
 };
+const getUserOwnedNfts = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    return response.status(200).json({ success: true, message: "User owned NFTs here" });
+});
+exports.getUserOwnedNfts = getUserOwnedNfts;
 const registerUser = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = request.body;
     const existingUser = yield user_model_1.User.findOne({ email });

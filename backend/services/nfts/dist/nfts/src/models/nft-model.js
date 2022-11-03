@@ -10,6 +10,10 @@ const NftSchema = new mongoose_1.default.Schema({
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "User"
     },
+    tokenId: {
+        type: Number,
+        default: 0
+    },
     name: {
         type: String,
         required: [true, "Please provide a valid NFT name"]
@@ -19,26 +23,9 @@ const NftSchema = new mongoose_1.default.Schema({
         default: 'no-photo.jpg'
     },
     price: {
-        type: String,
-        required: [true, "Please specify the price of the NFT in ETHER"]
-    },
-    tokenConvertedPrice: {
-        type: String
-    },
-    inStock: {
-        type: Boolean,
-        default: false,
-        required: [true, "Please specify if the NFT is in stock or not"]
-    },
-    category: {
-        type: String,
-        required: [true, "Please specify the category that the NFT is in"],
-        default: "ticket",
-        enum: ["ticket"]
-    },
-    isRare: {
-        type: Boolean,
-        default: false,
+        type: Number,
+        required: true,
+        default: 0
     },
     createdAt: {
         type: Date,

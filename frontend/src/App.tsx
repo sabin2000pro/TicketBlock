@@ -27,6 +27,7 @@ const App: React.FC = () => {
   useEffect(() => {
 
     const getAllNftData = async () => {
+      
        const nftVals = await fetchNftData();
        setNftData(nftVals);
 
@@ -35,13 +36,6 @@ const App: React.FC = () => {
     }
 
     getAllNftData();
-
-  }, [])
-
-  useEffect(() => {
-    const accountAddress = localStorage.getItem("account");
-
-
 
   }, [])
 
