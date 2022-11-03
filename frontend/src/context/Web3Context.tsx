@@ -152,9 +152,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const nftPrice = nftValues.price
         const nftCreator = nftValues.creator
+        const nftTokenListed = nftValues.isTokenListed
     
         const parsedPrice = ethers.utils.parseUnits(nftPrice, 1);
-        const mintedNftData = {nftId, nftName, parsedPrice, nftCreator}
+        const mintedNftData = {nftId, nftName, parsedPrice, nftCreator, nftTokenListed}
 
         console.log(nftValues);
 
