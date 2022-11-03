@@ -30,7 +30,8 @@ const provider = window.ethereum;
 const web3 = new Web3(provider as any)
 let chosenAccount = "" as any
 
-let URL = `http://localhost:5201/api/v1/nfts` as string;
+let PORT = 5201 as number;
+let URL = `http://localhost:${PORT}/api/v1/nfts` as string;
 
 export const Web3Context = createContext({} as IWeb3Context)
 
