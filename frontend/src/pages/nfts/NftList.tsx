@@ -1,17 +1,21 @@
 import { Grid, GridItem, Box, Badge } from '@chakra-ui/react'
 import React, {useState, useEffect} from 'react'
+import { Card, Row } from 'react-bootstrap'
 import {useNavigate} from "react-router-dom"
 
 type INftVals = {
-
+  nfts: any[]
 }
 
-const NftList: React.FC<INftVals> = (props: any) => {
+type INft = {
+  nft: any
+}
+
+const NftList: React.FC<INftVals> = ({nfts}) => {
   const navigate = useNavigate();
-  const [nfts, setNfts] = useState<any[]>([]);
-  const [nftsRendered, setNftsRendered] = useState<boolean | undefined>();
 
   useEffect(() => {
+
 
    if(localStorage.getItem("token") === null) {
        alert("You must be logged in before viewing all NFTs");
@@ -24,12 +28,28 @@ const NftList: React.FC<INftVals> = (props: any) => {
     return (
 
       <>
+      <h1>NFTs for Sale</h1>
       
+        {nfts.map((nft, key) => {
 
-        <div className = "nft-container">
-          <h1 className = "heading-primary heading-2">NFTs On Sale</h1>
-        </div>
+           return <Row key = {key} md = {2} xs = {1} lg = {3} className = "g-3">
 
+           <Card className = "h-25 w-25 p-4 mx-5 mt-5">
+           
+               <Card.Body className = "d-flex flex-column custom">
+           
+               <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
+           
+                {nft.name}
+                 </Card.Title>
+           
+           
+                 </Card.Body>
+           
+                 </Card>
+           
+                </Row>
+        })}
 
         
       </>

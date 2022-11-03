@@ -22,22 +22,25 @@ const App: React.FC = () => {
   // Code to detect if metamask is installed // connected
 
   const {fetchNftData} = useContext(Web3Context)
-  let [nftData, setNftData] = useState<any[] | null>([]);
+  let [nftData, setNftData] = useState<any[]>([]);
 
   useEffect(() => {
 
     const getAllNftData = async () => {
        const nftVals = await fetchNftData();
-
        setNftData(nftVals);
-       nftData = nftVals
 
-       console.log(`NFt values `, nftData);
+       return nftVals
+       
     }
 
     getAllNftData();
 
   }, [])
+
+  useEffect(() => {
+     console.log(nftData)
+  })
 
   return (
 
@@ -61,7 +64,7 @@ const App: React.FC = () => {
 
 
           <Route path = '/create-nft' element = {<CreateNft />} />
-          <Route path = '/nfts' element = {<NftList />} />
+          <Route path = '/nfts' element = {<NftList nfts = {nftData as any} />} />
           <Route path = '/nfts/:id' element = {<SingleNft />} />
           <Route path = '/nfts/edit/:id' element = {<EditNft />} />
 

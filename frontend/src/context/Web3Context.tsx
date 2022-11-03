@@ -30,6 +30,7 @@ let chosenAccount;
 export const Web3Context = createContext({} as IWeb3Context)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
+
     let [accounts, setAccounts] = useState<string>("")
     let [balance, setBalance] = useState<string | undefined>("");
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
@@ -129,13 +130,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const setNftOnSale = async (id: number, price: number) => {
 
         try {
+            
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
             const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any});
-    
-            console.log(`Nft on sale `, nftOnSale);
-    
-            // Check to see if the ID is 0
     
             return nftOnSale;
         } 
