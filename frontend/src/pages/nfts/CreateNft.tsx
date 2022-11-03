@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react'
-import { Button } from "@chakra-ui/react";
+import { Alert, AlertIcon, Button } from "@chakra-ui/react";
 import { Web3Context } from '../../context/Web3Context';
 
 const CreateNft: React.FC = (props: any) => {
@@ -52,6 +52,21 @@ const CreateNft: React.FC = (props: any) => {
   return (
 
     <>
+
+    {mintError && <Alert status='error'>
+
+<AlertIcon />
+      There was a problem minting your NFT
+</Alert>}
+
+
+    {tokenMinted && <Alert status='success'>
+
+<AlertIcon />
+     Token Minted Successfully
+</Alert>}
+
+
   <div className = "forgot-container">
 
 <div className = "forgot-form">

@@ -152,11 +152,13 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftPrice = nftValues.price
     
         const parsedPrice = ethers.utils.parseUnits(nftPrice, 1);
-
         const mintedNftData = {nftId, nftName, parsedPrice}
         
-
         console.log(`Your minted NFT : `, mintedNft);
+
+        // After minting the NFT, extract the values from the smart contract and store them in an array
+
+        
 
         return mintedNftData;
     }
@@ -168,6 +170,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
             const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any});
+
+            // Code below to delist the NFT from available NFTs (send DELETE request)
 
             return nftOnSale;
         } 
