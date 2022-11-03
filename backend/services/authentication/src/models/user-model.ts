@@ -11,6 +11,7 @@ interface IUserAttributes {
     isActive: boolean;
 
     nftsOwned: number; // Number of NFTs the user owns
+    nftsMinted: number
     compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
     returnAuthToken: () => any;
 }
@@ -61,6 +62,11 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
     },
 
     nftsOwned: { // The number of NFTs that this user owns. Once a user buys an NFT (invoke smart contract routine ) -> nftsOwned += 1; otherwise nftsOwned--;
+        type: Number,
+        default: 0
+    },
+
+    nftsMinted: {
         type: Number,
         default: 0
     },
