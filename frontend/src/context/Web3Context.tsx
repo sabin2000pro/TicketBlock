@@ -2,6 +2,7 @@ import { ethers } from 'ethers';
 import {useContext, useState, createContext, ReactNode, useEffect} from 'react';
 import Web3 from 'web3';
 import EventNftContract from '../contracts/EventNftMarket.json';
+import axios from 'axios';
 
 type Web3ContextProps = {
     children: ReactNode
@@ -107,6 +108,27 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         return mintedNftData;
     }
 
+    const fetchNftsOnSale = async () => {
+        try {
+
+
+            const response = await axios.get(`http://localhost:5201/api/v1/nfts`);
+            const data = response.data
+
+            console.log(data);
+
+            return data;
+        } 
+        
+        catch(error: any) {
+            if(error) {
+                return console.error(error);
+            }
+        }
+
+
+    }
+
     const setNftOnSale = async (id: number, price: number) => {
 
         try {
@@ -129,8 +151,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
 
         }
-      
-       
     }
 
     const buyNft = async (id: number) => {
