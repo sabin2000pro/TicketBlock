@@ -165,7 +165,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftPrice = nftValues.price
 
             const nftData = {nftOwner, nftId, nftTokenListed, nftPrice};
-            console.log(nftData);
 
             return nftData
             

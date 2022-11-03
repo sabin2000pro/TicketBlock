@@ -28,7 +28,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
       <>
 
-      <h1 className = "heading-primary nft-h">Your Account Address: </h1>
+      <h1 className = "heading-primary nft-h"> NFTs For Sale </h1>
       
         {nfts.map((nft, key) => {
 
@@ -40,7 +40,8 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
            
                <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
            
-                {nft.name}
+               <h3 style = {{fontSize: "28px"}}>{nft.name}</h3>
+
                  </Card.Title>
            
            
@@ -55,7 +56,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
        
            <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
        
-            {nft.name}
+              <h3 style = {{fontSize: "28px"}}>{nft.name}</h3>
              </Card.Title>
        
              <Button className = "nft-btn" type = "submit" colorScheme='teal' size='md'>Add To Cart</Button>
@@ -71,9 +72,14 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
        
            <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
        
-            {nft.name}
+           <h3 style = {{fontSize: "20px"}}>{nft.name}</h3>
+            
+
              </Card.Title>
        
+             <div className = "nft-price">
+               <p style = {{padding: "10px", display: 'block', fontWeight: 'bold'}}>Price: {nft.price}</p>
+             </div>
 
              <Button className = "nft-btn" type = "submit" colorScheme='teal' size='md'>Add To Cart</Button>
 
