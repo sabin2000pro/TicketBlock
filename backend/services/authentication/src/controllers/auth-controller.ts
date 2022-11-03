@@ -298,11 +298,11 @@ export const resetPassword = asyncHandler(async(request: IGetUserData, response:
 
     // Validate entries
     if(!currentPassword) {
-
+        return next(new NotFoundError("Please provide your current password", StatusCodes.NOT_FOUND));
     }
 
     if(!newPassword) {
-        
+        return next(new NotFoundError("Please provide your new password", StatusCodes.NOT_FOUND))
     }
 
     const user = await User.findOne({owner: request.user._id, token: request.params.token});
