@@ -53,17 +53,17 @@
     {
         "tokenId": 6,
         "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Edinburgh Dungeon Halloween Event",
+        "name": "Europa League Final Ticket",
         "image": "no-photo.jpg",
-        "price": 0.0030
+        "price": 0.0095
     },
 
     {
         "tokenId": 7,
         "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Edinburgh Dungeon Halloween Event",
+        "name": "Escape Room Event",
         "image": "no-photo.jpg",
-        "price": 0.0030
+        "price": 0.0012
     },
 
     {
