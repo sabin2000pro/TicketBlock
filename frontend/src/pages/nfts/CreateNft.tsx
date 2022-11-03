@@ -3,9 +3,9 @@ import { Button } from "@chakra-ui/react";
 import { Web3Context } from '../../context/Web3Context';
 
 const CreateNft: React.FC = (props: any) => {
-  const [tokenId, setTokenId] = useState<string | undefined>("")
-  const [name, setName] = useState<string | undefined>("")
-  const [price, setPrice] = useState<string | undefined>("");
+  let [tokenId, setTokenId] = useState<string | undefined>("")
+  let [name, setName] = useState<string | undefined>("")
+  let [price, setPrice] = useState<string | undefined>("");
 
   const [tokenMinted, setTokenMinted] = useState<boolean | undefined>(false)
   const [mintError, setMintError] = useState<string | undefined>("");
@@ -21,6 +21,10 @@ const CreateNft: React.FC = (props: any) => {
       setTokenId(tokenId);
       setName(name);
       setPrice(price);
+
+      console.log(tokenId);
+      console.log(name);
+      console.log(price);
 
       // Invoke routine to mint the token that will automatically send the data to the DB by sending POST request
 
@@ -60,19 +64,19 @@ const CreateNft: React.FC = (props: any) => {
 
        <label htmlFor= "tokenId">ID</label>
 
-         <input value = {tokenId} onChange = {(event) => setTokenId(parseInt(event.target.value))} type = "number" placeholder ='Token ID'/>
+         <input value = {tokenId} onChange = {(event) => setTokenId(event.target.value)} type = "text" placeholder ='Token ID'/>
 
      </div>
 
      <div className = "password-container">
                 <label className = "password-lbl" htmlFor= "password">Name</label>
-                <input  type = "text" placeholder = 'Token Name'/>
+                <input value = {name} onChange = {(event) => setName(event.target.value)} type = "text" placeholder = 'Token Name'/>
        </div>
      
 
        <div className = "password-container">
               <label className = "password-lbl" htmlFor= "password">Price</label>
-              <input  type = "text" placeholder = 'Token Price'/>
+              <input value = {price} onChange = {(event) => setPrice(event.target.value)} type = "text" placeholder = 'Token Price'/>
        </div>
 
      <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='md'>Mint NFT</Button>

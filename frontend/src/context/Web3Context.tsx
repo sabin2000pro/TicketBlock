@@ -150,15 +150,13 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftId = nftValues.id
         const nftName = nftValues.name;
         const nftPrice = nftValues.price
-
+    
         const parsedPrice = ethers.utils.parseUnits(nftPrice, 1);
 
-        const mintedNftData = {nftId, nftName, nftPrice}
+        const mintedNftData = {nftId, nftName, parsedPrice}
+        
 
-        const tokenResponse = await axios.post(URL, {nftName, parsedPrice});
-        const responseData = tokenResponse.data;
-
-        console.log(responseData);
+        console.log(`Your minted NFT : `, mintedNft);
 
         return mintedNftData;
     }
