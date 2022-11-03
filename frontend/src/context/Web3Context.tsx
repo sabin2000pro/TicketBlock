@@ -192,6 +192,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const fetchAllNftsOnSale = async () => {
 
         try {
+
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
 
@@ -200,8 +201,12 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         } 
         
         catch(error: any) {
-
+            if(error) {
+                return console.error(error);
+            }
         }
+
+
     }
 
     return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale, fetchAllNftsOnSale}}>
