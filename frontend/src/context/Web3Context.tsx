@@ -58,9 +58,17 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         setAccountChosen(!accountChosen);
         setAccounts(currAccount[0])
 
-        localStorage.setItem("account", accounts)
-        localStorage.setItem("balance", formattedBalance);
+        // If we are not authenticated, DO NOT store the account & formatted baalnce in local storage
+        if(!processAuthToken()) {
+            return null
+        }
 
+        else {
+            localStorage.setItem("account", accounts)
+            localStorage.setItem("balance", formattedBalance);
+        }
+
+    
         balance = formattedBalance
 
     }
@@ -68,6 +76,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         catch(error: any) {
             return console.log(`Error : `, error);
         }
+    }
+
+    const processAuthToken = () => {
+        return localStorage.getItem("token") !== null
     }
 
     const handleAccountChange = () => {
@@ -119,10 +131,12 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const mintNft = async (name: string, price: number) => {
 
+         // Send POST request to the server with the newly created NFT data
+
         const contractAbi = EventNftContract.abi;
 
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
-        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: localStorage.getItem("account") as any});
+        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: localStorage.getItem("account") as any})
 
         setTokenMinted(!tokenMinted)
 
@@ -133,6 +147,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftPrice = nftValues.price
 
         const mintedNftData = {nftId, nftName, nftPrice}
+
+       
 
         return mintedNftData;
     }
