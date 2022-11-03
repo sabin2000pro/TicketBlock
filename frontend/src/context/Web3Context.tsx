@@ -14,6 +14,8 @@ type IWeb3Context = {
     connectWallet: () => void
     handleAccountChange: () => void
 
+    fetchNftsOnSale: () => any
+
     mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
     setNftOnSale: (id: number, price: number) => any
@@ -109,15 +111,18 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     }
 
     const fetchNftsOnSale = async () => {
-        try {
 
+        try {
 
             const response = await axios.get(`http://localhost:5201/api/v1/nfts`);
             const data = response.data
+            const tokenData = response.data.data;
 
-            console.log(data);
+            for(const data of tokenData) {
+                console.log(data);
+            }
 
-            return data;
+            return tokenData;
         } 
         
         catch(error: any) {
@@ -128,14 +133,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
 
     }
-
-    useEffect(() => {
-        const returnAllNftsOnSale = async () => {
-            await fetchNftsOnSale()
-        }
-
-        returnAllNftsOnSale();
-    }, [])
 
     const setNftOnSale = async (id: number, price: number) => {
 
@@ -207,7 +204,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         }
     }
 
-    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, mintNft, buyNft, setNftOnSale, fetchAllNftsOnSale}}>
+    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, fetchNftsOnSale, mintNft, buyNft, setNftOnSale, fetchAllNftsOnSale}}>
             {children}
     </Web3Context.Provider>
 }
