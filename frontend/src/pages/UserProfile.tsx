@@ -112,7 +112,9 @@ const UserProfile: React.FC = (props: any) => {
     {isValidationError && <Alert status='error'>
 
 <AlertIcon />
-  
+
+    Missing Profile Entries
+    
 </Alert>}
 
        

@@ -5,7 +5,7 @@ const ResetPassword = () => {
   return (
     <>
 
-
+       <h1>Reset Password Here</h1>
     </>
 
 
