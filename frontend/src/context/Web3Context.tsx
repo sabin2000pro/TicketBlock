@@ -90,12 +90,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         try {
 
             const response = await axios.get(`http://localhost:5201/api/v1/nfts`);
-            const data = response.data
             const tokenData = response.data.data;
-
-            for(const data of tokenData) {
-                console.log(data);
-            }
 
             return tokenData;
         } 
