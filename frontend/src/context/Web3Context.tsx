@@ -137,7 +137,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
          // Code Below : Send POST request to the server with the newly created NFT data
 
-         const tokenResponse = await axios.post(``)
+         const tokenResponse = await axios.post(URL);
+         const responseData = tokenResponse.data;
+
+         console.log(responseData);
 
         const contractAbi = EventNftContract.abi;
 
