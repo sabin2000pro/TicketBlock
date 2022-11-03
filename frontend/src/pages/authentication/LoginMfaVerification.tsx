@@ -38,7 +38,7 @@ const LoginMfaVerification = (props: any) => {
      setUserVerified(!userVerified);
 
      setTimeout(() => {
-
+        return navigate("/profile")
      }, 1000)
 
      } 
