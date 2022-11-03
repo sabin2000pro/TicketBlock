@@ -14,7 +14,7 @@ type IWeb3Context = {
     connectWallet: () => void
     handleAccountChange: () => void
 
-    fetchNftsOnSale: () => any
+    fetchNftData: () => any
 
     mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
@@ -79,7 +79,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-
     useEffect(() => {
 
         const connectToWallet = async () => {
@@ -89,28 +88,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         connectToWallet();
     }, [])
 
-    const mintNft = async (name: string, price: number) => {
-
-        const contractAbi = EventNftContract.abi;
-
-        const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
-        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: localStorage.getItem("account") as any});
-
-        setTokenMinted(!tokenMinted)
-
-        const nftValues = mintedNft.events.EventNftCreated.returnValues;
-
-        const nftId = nftValues.id
-        const nftName = nftValues.name;
-        const nftPrice = nftValues.price
-
-        const mintedNftData = {nftId, nftName, nftPrice}
-        console.log(mintedNftData);
-
-        return mintedNftData;
-    }
-
-    const fetchNftsOnSale = async () => {
+    const fetchNftData = async () => {
 
         try {
 
@@ -132,6 +110,28 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         }
 
 
+    }
+
+
+    const mintNft = async (name: string, price: number) => {
+
+        const contractAbi = EventNftContract.abi;
+
+        const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
+        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: localStorage.getItem("account") as any});
+
+        setTokenMinted(!tokenMinted)
+
+        const nftValues = mintedNft.events.EventNftCreated.returnValues;
+
+        const nftId = nftValues.id
+        const nftName = nftValues.name;
+        const nftPrice = nftValues.price
+
+        const mintedNftData = {nftId, nftName, nftPrice}
+        console.log(mintedNftData);
+
+        return mintedNftData;
     }
 
     const setNftOnSale = async (id: number, price: number) => {
@@ -204,7 +204,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         }
     }
 
-    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, fetchNftsOnSale, mintNft, buyNft, setNftOnSale, fetchAllNftsOnSale}}>
+    return <Web3Context.Provider value = {{connectWallet, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale, fetchAllNftsOnSale}}>
             {children}
     </Web3Context.Provider>
 }
