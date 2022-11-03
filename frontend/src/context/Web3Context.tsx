@@ -1,4 +1,3 @@
-import { ethers } from 'ethers';
 import {useContext, useState, createContext, ReactNode, useEffect} from 'react';
 import Web3 from 'web3';
 import EventNftContract from '../contracts/EventNftMarket.json';
@@ -74,6 +73,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const handleAccountChange = () => {
 
         window.ethereum?.on("accountsChanged", (accounts) => {
+
              setAccountChanged(!accountChanged);
              chosenAccount = accounts as any;
         })
@@ -114,6 +114,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
+    // This sub-routine is going to be invoked when creating a new NFT on the server-side (POST data to the database)
+    // After data is POSTED, invoke the mintNft routine with the name and price being sent to activate the smart contract which calls the mintNft function
 
     const mintNft = async (name: string, price: number) => {
 
@@ -131,7 +133,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftPrice = nftValues.price
 
         const mintedNftData = {nftId, nftName, nftPrice}
-        console.log(mintedNftData);
 
         return mintedNftData;
     }
@@ -187,7 +188,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         }
     }
 
-    // Smart Contract Function: Get all of the nfts on sale
+    // Smart Contract Function: Get all of the nfts on sale (in the background fetch the nfts that are on sale and store them in an array)
+    // @Returns: Array of NFTs on sale
     
     const fetchAllNftsOnSale = async () => {
 
@@ -196,7 +198,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
 
-            let listedNftsOnSale = await nftContract.methods.getNftTotalSupply().call()
+            let listedNftsOnSale = await nftContract.methods.fetchAllNftsOnSale().call();
             return listedNftsOnSale
         } 
         

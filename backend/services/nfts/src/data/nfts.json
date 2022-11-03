@@ -23,57 +23,7 @@
         "name": "Agile Project Management Ticket",
         "image": "no-photo.jpg",
         "price": 0.0045
-    },
-
-    {
-        "tokenId": 3,
-        "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Crypto And Stocks Event Ticket",
-        "image": "no-photo.jpg",
-        "price": 0.0050
-    },
-
-
-    {
-        "tokenId": 4,
-        "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Start Your Business VIP Event Ticket",
-        "image": "no-photo.jpg",
-        "price": 0.0075
-    },
-
-    {
-        "tokenId": 5,
-        "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Champions League Final Ticket",
-        "image": "no-photo.jpg",
-        "price": 0.0090
-    },
-
-    {
-        "tokenId": 6,
-        "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Europa League Final Ticket",
-        "image": "no-photo.jpg",
-        "price": 0.0095
-    },
-
-    {
-        "tokenId": 7,
-        "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Escape Room Event",
-        "image": "no-photo.jpg",
-        "price": 0.0012
-    },
-
-    {
-        "tokenId": 8,
-        "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Cryptocurrency Investment Event",
-        "image": "no-photo.jpg",
-        "price": 0.0022
     }
-
 
 
 ]

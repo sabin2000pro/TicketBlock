@@ -18,7 +18,7 @@ const Register: React.FC = () => {
 
        try {
       
-           event.preventDefault();
+          event.preventDefault();
            
           setEmail(email);
           setUsername(username);
@@ -50,9 +50,12 @@ const Register: React.FC = () => {
        }
 
        function clearError() {
+
          setTimeout(() => {
            setIsError(false);
          }, 2000)
+
+         
        }
      
 

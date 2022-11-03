@@ -3,6 +3,10 @@ clean:
 	- docker stop
 	- docker system prune
 
+process-data:
+	- cd backend/services/shared/src/scripts && ts-node global-data-seeder.ts --remove
+	- cd backend/services/shared/src/scripts && ts-node global-data-seeder.ts --load
+
 process-application:
 	- cd backend/services/auth* && npm run build
 	- cd backend/services/nft* && npm run build

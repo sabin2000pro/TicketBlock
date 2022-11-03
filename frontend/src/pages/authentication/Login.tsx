@@ -15,7 +15,6 @@ const Login: React.FC = () => {
   const [isError, setIsError] = useState<boolean | undefined>(false);
   const [error, setError] = useState<string | undefined>("");
 
-  const [isVerified, setIsVerified] = useState<boolean | undefined>(false);
   const [isActive, setIsActive] = useState<boolean | undefined>(false);
 
   const validateEntries = (email: string, password: string) => {
