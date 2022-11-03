@@ -4,17 +4,15 @@ import { Web3Context } from '../context/Web3Context'
 
 const Homepage = () => {
 
-    const {mintNft} = useContext(Web3Context);
-
-    useEffect(() => {
-
-    }, [])
+    const {mintNft, buyNft, setNftOnSale} = useContext(Web3Context);
 
     const mintNewToken = async () => {
 
       try {
 
-        return await mintNft("Highland Show Event NFT", 300)
+        const mintedNft = await mintNft("Test NFT", 900)
+
+        return mintedNft
         
       } 
       
@@ -28,6 +26,13 @@ const Homepage = () => {
 
     }
 
+    const placeNftOnSale = async () => {
+       return await setNftOnSale(18, 430);
+    }
+
+    const purchaseNft = async () => {
+       return buyNft(1);
+    }
 
 
   return (
@@ -50,6 +55,10 @@ const Homepage = () => {
              </select>
 
              <button onClick = {() => mintNewToken()} >Test Mint NFT</button>
+
+             <button onClick = {() => purchaseNft()} >Purchase NFT</button>
+
+             <button onClick = {() => placeNftOnSale()} >Sell NFT</button>
 
 
 

@@ -161,7 +161,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     // @description: Retrieves all of the event ticket NFT's on sale.
     // @returns: An array of Event NFT Tokens stored in memory
 
-    function fetchAllNftsOnSale() public returns (EventNft[] memory) {
+    function fetchAllNftsOnSale() public view returns (EventNft[] memory) {
         uint totalNftSupply = getNftTotalSupply();
         uint currentTokenIndex = 0; // Current index of the token
         
@@ -180,11 +180,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
               currentTokenIndex += 1; // Increment number of token indexes
            }
 
-          
-
         }   
-
-        emit FetchNfts(nftItems);
 
         return nftItems; // Return all of the NFT items
     }
