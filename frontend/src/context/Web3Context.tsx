@@ -27,6 +27,8 @@ const provider = window.ethereum;
 const web3 = new Web3(provider as any)
 let chosenAccount = "" as any
 
+let URL = `http://localhost:5299/api/v1/nfts` as string;
+
 export const Web3Context = createContext({} as IWeb3Context)
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
@@ -133,7 +135,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const mintNft = async (name: string, price: number) => {
 
-         // Send POST request to the server with the newly created NFT data
+         // Code Below : Send POST request to the server with the newly created NFT data
+
+         const tokenResponse = await axios.post(``)
 
         const contractAbi = EventNftContract.abi;
 
