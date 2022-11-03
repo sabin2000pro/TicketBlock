@@ -42,6 +42,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
+    const [tokensOwned, setTokensOwned] = useState([]);
 
     const networks = EventNftContract.networks
     let networkId = Object.keys(networks)[0] as keyof typeof networks; // Network ID 5777
@@ -137,9 +138,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     // After data is POSTED, invoke the mintNft routine with the name and price being sent to activate the smart contract which calls the mintNft function
 
     const mintNft = async (name: string, price: number) => {
-
-        console.log(`Staritng minting proces...`);
-
         const contractAbi = EventNftContract.abi;
 
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
@@ -156,13 +154,12 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftCreator = nftValues.creator
     
         const parsedPrice = ethers.utils.parseUnits(nftPrice, 1);
-        const mintedNftData = {nftId, nftName, parsedPrice}
+        const mintedNftData = {nftId, nftName, parsedPrice, nftCreator}
+
+        console.log(nftValues);
+
+        console.log(mintedNftData);
         
-        console.log(`Your minted NFT : `, mintedNft);
-
-        // After minting the NFT, extract the values from the smart contract and store them in an array
-        console.log(nftCreator);
-
         return mintedNftData;
     }
 
