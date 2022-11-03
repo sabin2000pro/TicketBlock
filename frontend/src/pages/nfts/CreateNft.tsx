@@ -9,6 +9,8 @@ const CreateNft: React.FC = (props: any) => {
 
   const [tokenMinted, setTokenMinted] = useState<boolean | undefined>(false)
   const [mintError, setMintError] = useState<string | undefined>("");
+  let [tokensMinted, setTokensMinted] = useState<number | undefined>(0)
+
 
   const {mintNft} = useContext(Web3Context);
 
@@ -22,14 +24,16 @@ const CreateNft: React.FC = (props: any) => {
       setName(name);
       setPrice(price);
 
-      console.log(tokenId);
-      console.log(name);
-      console.log(price);
-
       // Invoke routine to mint the token that will automatically send the data to the DB by sending POST request
 
       await mintNft(name as any, price as any);
       setTokenMinted(!tokenMinted);
+
+      tokensMinted = tokensMinted! + 1;
+
+      setTokenId("")
+      setName("");
+      setPrice("");
 
      } 
      

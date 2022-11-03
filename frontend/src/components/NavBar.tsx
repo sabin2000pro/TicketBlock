@@ -157,7 +157,7 @@ const NavBar: React.FC = () => {
 
     <a href = "/login"> <li className = "link"> Login </li> </a>  }
     
-               {tokenPresent && isLoggedIn && <a href = "/create-nft"> <li className = "link">Create NFT</li></a>}
+               {tokenPresent && isLoggedIn && <a href = "/create-nft"> <li className = "link">Mint NFT</li></a>}
                {tokenPresent && isLoggedIn && <a href = "/profile"> <li className = "link">My Profile</li></a>}
 
                <a href = "/cart"> <li className = "link">Cart</li></a>
