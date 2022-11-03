@@ -41,7 +41,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
 
     const networks = EventNftContract.networks
-    let networkId = Object.keys(networks)[0] as keyof typeof networks; // 5777
+    let networkId = Object.keys(networks)[0] as keyof typeof networks; // Network ID 5777
 
     const connectWallet = async () => {
 
@@ -134,6 +134,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     // After data is POSTED, invoke the mintNft routine with the name and price being sent to activate the smart contract which calls the mintNft function
 
     const mintNft = async (name: string, price: number) => {
+
 
          // Code Below : Send POST request to the server with the newly created NFT data
 
