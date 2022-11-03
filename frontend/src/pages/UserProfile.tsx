@@ -2,11 +2,10 @@ import {useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap';
 import { Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
-import { useToast } from '@chakra-ui/react'
+import { useToast, Avatar } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 import { Web3Context } from '../context/Web3Context';
 import { useContext } from 'react';
-import { Avatar } from '@chakra-ui/react';
 import { updateProfileSettings } from '../api/auth-api';
 
 const toastPositions = [
@@ -28,9 +27,9 @@ const UserProfile: React.FC = (props: any) => {
     const [username, setUsername] = useState<string | undefined>("");
     const [email, setEmail] = useState<string | undefined>("");
 
-
     const [profileUpdated, setProfileUpdated] = useState<boolean | undefined>(false);
     let [accountBalance, setAccountBalance] = useState<string | undefined>("");
+
     let {balance} = useContext(Web3Context)
 
   useEffect(() => {
@@ -62,10 +61,19 @@ const UserProfile: React.FC = (props: any) => {
         return navigate("/nfts");
     }
 
+    const validateUserProfile = () => {
+        return username!.toString() !== "" && email!.toString() !== "";
+    }
+
     const handleUpdateProfileSettings = async (): Promise<void> => 
     {
         try {
 
+           if(!validateUserProfile()) {
+
+           }
+
+           else {
             setUsername(username);
             setEmail(email);
 
@@ -76,6 +84,9 @@ const UserProfile: React.FC = (props: any) => {
             setUsername("");
             setEmail("")
 
+           }
+
+         
         } 
         
         catch(error: any) {
