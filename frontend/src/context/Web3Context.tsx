@@ -27,8 +27,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     let [accounts, setAccounts] = useState<string>("")
     let [balance, setBalance] = useState<string | undefined>("");
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
+    let [ownedNfts, setOwnedNfts] = useState<any[] | undefined>([]);
 
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
+    const [nftsOnSale, setNftsOnSale] = useState<any[] | undefined>([])
 
     const connectWallet = async () => {
 
@@ -47,7 +49,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         localStorage.setItem("account", accounts)
         localStorage.setItem("balance", formattedBalance);
 
-        
+
         setAccounts(currAccount[0])
 
         balance = formattedBalance
@@ -108,7 +110,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
         const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any});
 
-
         buyNft(id);
 
         return nftOnSale;
@@ -121,10 +122,18 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks["5777"].address as any)
             const boughtNft = await nftContract.methods.buyNft(id).send({from: localStorage.getItem("account") as any});
 
-            console.log(`Nft you bought`, boughtNft)
+            setOwnedNfts(boughtNft);
+            ownedNfts!.push(boughtNft) as any
+    
+            console.log(`Your Owned NFTs : `, ownedNfts);
+            console.log(`Nft you bought`, ownedNfts)
         } 
         
         catch(error: any) {
+
+            if(error) {
+                return console.error(error);
+            }
 
         }
 

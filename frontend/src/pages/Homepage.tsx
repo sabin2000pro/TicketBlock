@@ -14,7 +14,7 @@ const Homepage = () => {
 
       try {
 
-        return await mintNft("Another New NFT", 800)
+        return await mintNft("Highland Show Event NFT", 300)
         
       } 
       
