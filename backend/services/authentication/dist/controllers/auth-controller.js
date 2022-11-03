@@ -221,6 +221,24 @@ exports.getCurrentUser = getCurrentUser;
 exports.resetPassword = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const currentPassword = request.body.currentPassword;
     const newPassword = request.body.newPassword;
+    // Validate entries
+    if (!currentPassword) {
+        return next(new error_handler_1.NotFoundError("Please provide your current password", http_status_codes_1.StatusCodes.NOT_FOUND));
+    }
+    if (!newPassword) {
+        return next(new error_handler_1.NotFoundError("Please provide your new password", http_status_codes_1.StatusCodes.NOT_FOUND));
+    }
+    const user = yield user_model_1.User.findOne({ owner: request.user._id, token: request.params.token });
+    if (!user) {
+        return next(new error_handler_1.NotFoundError("User with that ID not found", http_status_codes_1.StatusCodes.NOT_FOUND));
+    }
+    // Check if current password matches
+    const currentPasswordMatch = user.compareLoginPasswords(currentPassword);
+    if (!currentPasswordMatch) {
+        return next(new error_handler_1.BadRequestError("Your current password is invalid", http_status_codes_1.StatusCodes.BAD_REQUEST));
+    }
+    user.password = newPassword;
+    yield user.save();
 }));
 // @desc      Register New User
 // @route     POST /api/v1/auth/register

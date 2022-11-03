@@ -31,8 +31,7 @@ const NftSchema = new mongoose.Schema({
     },
 
     name: {
-        type: String,
-        required: [true, "Please provide a valid NFT name"]
+        type: String
     },
 
     image: {
@@ -42,7 +41,6 @@ const NftSchema = new mongoose.Schema({
 
     price: {
         type: Number,
-        required: true,
         default: 0
     },
 

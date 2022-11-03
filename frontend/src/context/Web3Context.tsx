@@ -138,7 +138,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     // This sub-routine is going to be invoked when creating a new NFT on the server-side (POST data to the database)
     // After data is POSTED, invoke the mintNft routine with the name and price being sent to activate the smart contract which calls the mintNft function
 
-    const mintNft = async (name: string, price: number) => {
+    const mintNft = async (name: string, price: number): Promise<any> => {
         const contractAbi = EventNftContract.abi;
 
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
@@ -148,19 +148,20 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const nftValues = mintedNft.events.EventNftCreated.returnValues;
 
-        const nftId = nftValues.id
+        const tokenId = parseInt(nftValues.id)
         const nftName = nftValues.name;
 
-        const nftPrice = nftValues.price
-        const nftCreator = nftValues.creator
-        const nftTokenListed = nftValues.isTokenListed
+        const creator = nftValues.creator
+        const isTokenListed = nftValues.isTokenListed
     
-        const mintedNftData = {nftId, nftName, nftPrice, nftCreator, nftTokenListed}
-        console.log(mintedNftData);
+        const mintedNftData = {tokenId, name, price, creator, isTokenListed}
 
-        const tokenResponse = await axios.post(URL, {nftName, nftPrice});
+        const tokenResponse = await axios.post(URL, {tokenId, name, price});
         const tokenData = tokenResponse.data;
 
+        const creatorId = tokenResponse.data.data.id
+
+        console.log(`Token Creator : `, creatorId);
         console.log(tokenData);
         
         return mintedNftData;
@@ -175,6 +176,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any});
 
             // Code below to delist the NFT from available NFTs (send DELETE request)
+            
 
             return nftOnSale;
         } 
@@ -205,6 +207,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftPrice = nftValues.price
 
             const nftData = {nftOwner, nftId, nftTokenListed, nftPrice};
+
+            console.log(nftValues);
 
             // After buying an NFT, remove that NFT with its ID from the database by filtering it out
 

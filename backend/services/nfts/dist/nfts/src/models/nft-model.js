@@ -15,8 +15,7 @@ const NftSchema = new mongoose_1.default.Schema({
         default: 0
     },
     name: {
-        type: String,
-        required: [true, "Please provide a valid NFT name"]
+        type: String
     },
     image: {
         type: String,
@@ -24,7 +23,6 @@ const NftSchema = new mongoose_1.default.Schema({
     },
     price: {
         type: Number,
-        required: true,
         default: 0
     },
     createdAt: {

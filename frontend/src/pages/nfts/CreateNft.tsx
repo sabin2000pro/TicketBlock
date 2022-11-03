@@ -26,6 +26,7 @@ const CreateNft: React.FC = (props: any) => {
       // Invoke routine to mint the token that will automatically send the data to the DB by sending POST request
 
       await mintNft(name as any, price as any);
+      
       setTokenMinted(!tokenMinted);
 
       setTokensMinted(tokensMinted! + 1);

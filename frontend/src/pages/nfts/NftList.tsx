@@ -3,7 +3,6 @@ import { Card, Row } from 'react-bootstrap'
 import { Button } from "@chakra-ui/react"
 import {useNavigate} from "react-router-dom"
 import { Web3Context } from '../../context/Web3Context'
-import { Grid } from "@chakra-ui/react"
 
 type INftVals = {
   nfts: any[]
@@ -27,11 +26,15 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
   useEffect(() => {
 
     const getAllNfts = async () => {
+
+
     return await fetchNftData();
-    
+
     }
 
    getAllNfts();
+
+
   }, [])
 
     return (
@@ -59,7 +62,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
             </Card.Title>
 
             <div className = "price-container">
-                <p>Price: </p>
+                <p>Price:  <strong>  {nft.price}  ETH</strong>  </p>
             </div>
 
 

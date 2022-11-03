@@ -39,6 +39,10 @@ const UserSchema = new mongoose_1.default.Schema({
         type: Number,
         default: 0
     },
+    nftsMinted: {
+        type: Number,
+        default: 0
+    },
     isVerified: {
         type: Boolean,
         default: false

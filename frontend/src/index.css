@@ -7,10 +7,26 @@
 }
 .heading-secondary {
   color: white;
+  
 }
 
 .profile-heading {
   color: black;
+}
+
+.cta-action {
+  width: 50%;
+  height: 50%;
+  text-align: center;
+}
+
+.heading-other {
+  font-weight: bold;
+  color: white;
+}
+
+.cta-action, .h2 {
+  font-size: 18px;
 }
 
 .cta-text {
