@@ -1,5 +1,6 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState, useRef, useContext} from 'react'
 import { Button } from "@chakra-ui/react";
+import { Web3Context } from '../../context/Web3Context';
 
 type CreateNftProps = {
   
@@ -13,16 +14,28 @@ const CreateNft: React.FC = (props: any) => {
   const [price, setPrice] = useState<string | undefined>("");
 
   const [tokenMinted, setTokenMinted] = useState<boolean | undefined>(false)
+  
+  const {mintNft} = useContext(Web3Context);
 
-  const handleMintNft = async () => {
+  const handleMintNft = async (): Promise<any | undefined> => {
      try {
+
+      setTokenId(tokenId);
+      setName(name);
+      setPrice(price);
+
+
 
      } 
      
      catch(error: any) {
+
+
       if(error) {
 
       }
+
+
      }
 
 
