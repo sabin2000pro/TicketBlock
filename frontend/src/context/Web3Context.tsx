@@ -129,6 +129,14 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
+    useEffect(() => {
+        const returnAllNftsOnSale = async () => {
+            await fetchNftsOnSale()
+        }
+
+        returnAllNftsOnSale();
+    }, [])
+
     const setNftOnSale = async (id: number, price: number) => {
 
         try {
