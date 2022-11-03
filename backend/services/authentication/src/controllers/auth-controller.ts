@@ -49,6 +49,10 @@ const sendLoginMFA = (transporter: any, newUser: any, mfaCode: number) => {
     })
 }
 
+export const getUserOwnedNfts = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
+    return response.status(200).json({success: true, message: "User owned NFTs here"});
+}
+
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     

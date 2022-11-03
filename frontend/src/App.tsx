@@ -14,10 +14,26 @@ import LoginMfaVerification from './pages/authentication/LoginMfaVerification';
 import SingleNft from './pages/nfts/SingleNft';
 import EditNft from './pages/nfts/EditNft';
 import Homepage from './pages/Homepage';
+import { useContext } from 'react';
+import { Web3Context } from './context/Web3Context';
 
 const App: React.FC = () => {
   
   // Code to detect if metamask is installed // connected
+
+  const {fetchNftData} = useContext(Web3Context)
+  const [nftData, setNftData] = useState<any[] | null>([]);
+
+  useEffect(() => {
+
+    const getAllNftData = async () => {
+       await fetchNftData();
+    }
+
+    getAllNftData();
+
+
+  }, [])
 
   return (
 

@@ -62,10 +62,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     }
          
         catch(error: any) {
-
-
             return console.log(`Error : `, error);
-            
         }
     }
 
