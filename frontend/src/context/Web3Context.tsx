@@ -155,9 +155,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftTokenListed = nftValues.isTokenListed
     
         const mintedNftData = {nftId, nftName, nftPrice, nftCreator, nftTokenListed}
-
-        console.log(nftValues);
-
         console.log(mintedNftData);
         
         return mintedNftData;
