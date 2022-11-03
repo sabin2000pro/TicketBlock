@@ -5,8 +5,10 @@ type CreateNftProps = {
   
 }
 
+let DEFAULT_TOKEN_ID = 0 as number;
+
 const CreateNft: React.FC = (props: any) => {
-  const [tokenId, setTokenId] = useState<number | undefined>(0)
+  const [tokenId, setTokenId] = useState<number | undefined>(DEFAULT_TOKEN_ID)
   const [name, setName] = useState<string | undefined>("")
   const [price, setPrice] = useState<string | undefined>("");
 
@@ -19,7 +21,7 @@ const CreateNft: React.FC = (props: any) => {
      
      catch(error: any) {
       if(error) {
-        
+
       }
      }
 
