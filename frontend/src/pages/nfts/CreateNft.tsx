@@ -12,6 +12,20 @@ const CreateNft: React.FC = (props: any) => {
 
   const [tokenMinted, setTokenMinted] = useState<boolean | undefined>(false)
 
+  const handleMintNft = async () => {
+     try {
+
+     } 
+     
+     catch(error: any) {
+      if(error) {
+        
+      }
+     }
+
+
+  }
+
   return (
 
     <>
@@ -19,14 +33,14 @@ const CreateNft: React.FC = (props: any) => {
 
 <div className = "forgot-form">
 
- <form method = "POST">
+ <form onSubmit = {handleMintNft} method = "POST">
 
  <h1 className = "heading-primary">Mint New NFT</h1>
 
      <div className = "email-container">
 
-       <label htmlFor= "username">E-mail</label>
-         <input type = "text" placeholder='E-mail Address'/>
+       <label htmlFor= "username">Token ID</label>
+         <input value = {tokenId} onChange = {(event) => setTokenId(parseInt(event.target.value))} type = "text" placeholder ='Token ID'/>
 
      </div>
 
