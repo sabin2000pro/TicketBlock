@@ -135,14 +135,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const mintNft = async (name: string, price: number) => {
 
-
-         // Code Below : Send POST request to the server with the newly created NFT data
-
-         const tokenResponse = await axios.post(URL);
-         const responseData = tokenResponse.data;
-
-         console.log(responseData);
-
         const contractAbi = EventNftContract.abi;
 
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
@@ -158,7 +150,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const mintedNftData = {nftId, nftName, nftPrice}
 
-       
+        const tokenResponse = await axios.post(URL, {nftName, nftPrice});
+        const responseData = tokenResponse.data;
+
+        console.log(responseData);
 
         return mintedNftData;
     }

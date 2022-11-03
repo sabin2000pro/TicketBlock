@@ -19,6 +19,8 @@ const CreateNft: React.FC = (props: any) => {
   const {mintNft} = useContext(Web3Context);
 
   const handleMintNft = async (): Promise<any | undefined> => {
+
+    
      try {
 
       setTokenId(tokenId);
