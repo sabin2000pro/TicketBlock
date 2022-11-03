@@ -11,7 +11,6 @@ const CreateNft: React.FC = (props: any) => {
   const [mintError, setMintError] = useState<string | undefined>("");
   let [tokensMinted, setTokensMinted] = useState<number | undefined>(0)
 
-
   const {mintNft} = useContext(Web3Context);
 
   const handleMintNft = async (event: any): Promise<any | undefined> => {
@@ -29,7 +28,8 @@ const CreateNft: React.FC = (props: any) => {
       await mintNft(name as any, price as any);
       setTokenMinted(!tokenMinted);
 
-      tokensMinted = tokensMinted! + 1;
+      setTokensMinted(tokensMinted! + 1);
+      alert(tokensMinted);
 
       setTokenId("")
       setName("");

@@ -11,6 +11,7 @@ type Web3ContextProps = {
 type IWeb3Context = {
     accounts: any,
     balance: any,
+
     connectWallet: () => void
     handleAccountChange: () => void
 
@@ -18,6 +19,7 @@ type IWeb3Context = {
 
     mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
+
     setNftOnSale: (id: number, price: number) => any
     fetchAllNftsOnSale: () => any
     chosenAccount: any
@@ -149,7 +151,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const nftId = nftValues.id
         const nftName = nftValues.name;
+
         const nftPrice = nftValues.price
+        const nftCreator = nftValues.creator
     
         const parsedPrice = ethers.utils.parseUnits(nftPrice, 1);
         const mintedNftData = {nftId, nftName, parsedPrice}
@@ -157,8 +161,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         console.log(`Your minted NFT : `, mintedNft);
 
         // After minting the NFT, extract the values from the smart contract and store them in an array
-
-        
+        console.log(nftCreator);
 
         return mintedNftData;
     }
