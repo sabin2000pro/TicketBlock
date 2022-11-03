@@ -4,35 +4,7 @@ import { Web3Context } from '../context/Web3Context'
 
 const Homepage = () => {
 
-    const {mintNft, buyNft, setNftOnSale} = useContext(Web3Context);
-
-    const mintNewToken = async () => {
-
-      try {
-
-        const mintedNft = await mintNft("Test NFT", 900)
-
-        return mintedNft
-        
-      } 
-      
-      catch(error: any) {
-
-        if(error) {
-            return console.log(error)
-        }
-      } 
-
-
-    }
-
-    const placeNftOnSale = async () => {
-       return await setNftOnSale(18, 430);
-    }
-
-    const purchaseNft = async () => {
-       return buyNft(1);
-    }
+   
 
 
   return (
@@ -50,15 +22,7 @@ const Homepage = () => {
 
           <div className = "rectangle-box">
 
-             <select>
-                <option>1</option>
-             </select>
 
-             <button onClick = {() => mintNewToken()} >Test Mint NFT</button>
-
-             <button onClick = {() => purchaseNft()} >Purchase NFT</button>
-
-             <button onClick = {() => placeNftOnSale()} >Sell NFT</button>
 
 
 

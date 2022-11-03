@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 interface NftAttributes {
     tokenCreator: mongoose.Schema.Types.ObjectId;
-    id: number
+    tokenId: number
     name: string | undefined;
     image: string | undefined
     price: string | undefined;
@@ -10,7 +10,7 @@ interface NftAttributes {
 
 interface NftDocument extends mongoose.Model<NftAttributes> {
     tokenCreator: mongoose.Schema.Types.ObjectId;
-    id: number
+    tokenId: number
     name: string | undefined;
     image: string | undefined
     price: string | undefined;
@@ -25,7 +25,7 @@ const NftSchema = new mongoose.Schema({
         ref: "User"
     },
 
-    id: {
+    tokenId: {
         type: Number,
         default: 0
     },
@@ -41,8 +41,9 @@ const NftSchema = new mongoose.Schema({
     },
 
     price: {
-        type: String,
-        required: [true, "Please specify the price of the NFT in ETHER"]
+        type: Number,
+        required: true,
+        default: 0
     },
 
     createdAt: {

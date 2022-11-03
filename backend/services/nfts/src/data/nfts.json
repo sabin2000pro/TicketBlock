@@ -1,7 +1,6 @@
 [
     {
-        "id": 0,
-        "_id": "5d725a4a7b292f5f8ceff750",
+        "tokenId": 0,
         "owner": "5d7a514b5d2c12c7449ac9050",
         "name": "Premium Highland Show Event NFT",
         "image": "no-photo.jpg",
@@ -10,8 +9,8 @@
     },
 
     {
-        "id": 1,
-        "_id": "5d725a4a7b292f5f8ceff751",
+        "tokenId": 1,
+       
         "owner": "5d7a514b5d2c12c7449ac9051",
         "name": "Three Sisters VIP Event NFT",
         "image": "no-photo.jpg",
@@ -20,8 +19,7 @@
     },
 
     {
-        "id": 2,
-        "_id": "5d725a4a7b292f5f8ceff752",
+        "tokenId": 2,
         "owner": "5d7a514b5d2c12c7449ac9052",
         "name": "Edinburgh Dungeon Halloween Event",
         "image": "no-photo.jpg",
