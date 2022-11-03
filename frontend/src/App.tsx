@@ -39,8 +39,13 @@ const App: React.FC = () => {
   }, [])
 
   useEffect(() => {
-     console.log(nftData)
-  })
+    const accountAddress = localStorage.getItem("account");
+
+
+
+  }, [])
+
+
 
   return (
 
