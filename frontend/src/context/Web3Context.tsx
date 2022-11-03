@@ -30,7 +30,7 @@ const provider = window.ethereum;
 const web3 = new Web3(provider as any)
 let chosenAccount = "" as any
 
-let URL = `http://localhost:5299/api/v1/nfts` as string;
+let URL = `http://localhost:5201/api/v1/nfts` as string;
 
 export const Web3Context = createContext({} as IWeb3Context)
 
@@ -156,6 +156,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     
         const mintedNftData = {nftId, nftName, nftPrice, nftCreator, nftTokenListed}
         console.log(mintedNftData);
+
+        const tokenResponse = await axios.post(URL, {nftName, nftPrice});
+        const tokenData = tokenResponse.data;
+
+        console.log(tokenData);
         
         return mintedNftData;
     }
