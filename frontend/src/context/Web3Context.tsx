@@ -125,12 +125,12 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftValues = boughtNft.events.NftPurchased.returnValues
             console.log(nftValues);
 
-            setOwnedNfts(boughtNft);
-            ownedNfts!.push(boughtNft) as any
+            setOwnedNfts(nftValues as any);
+            ownedNfts!.push(nftValues) as any
 
-            for(const vals of ownedNfts as any) {
-                console.log(`Your Owned NFTs : `, vals);
-            }
+           for(let i = 0; i < nftValues.length - 1; i ++) {
+               console.log(`Your nfts : `, i);
+           }
 
     
         } 
