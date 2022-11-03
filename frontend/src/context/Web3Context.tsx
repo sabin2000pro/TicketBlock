@@ -2,6 +2,7 @@ import {useContext, useState, createContext, ReactNode, useEffect} from 'react';
 import Web3 from 'web3';
 import EventNftContract from '../contracts/EventNftMarket.json';
 import axios from 'axios';
+import { ethers } from 'ethers';
 
 type Web3ContextProps = {
     children: ReactNode
@@ -135,6 +136,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const mintNft = async (name: string, price: number) => {
 
+        console.log(`Staritng minting proces...`);
+
         const contractAbi = EventNftContract.abi;
 
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
@@ -148,9 +151,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftName = nftValues.name;
         const nftPrice = nftValues.price
 
+        const parsedPrice = ethers.utils.parseUnits(nftPrice, 1);
+
         const mintedNftData = {nftId, nftName, nftPrice}
 
-        const tokenResponse = await axios.post(URL, {nftName, nftPrice});
+        const tokenResponse = await axios.post(URL, {nftName, parsedPrice});
         const responseData = tokenResponse.data;
 
         console.log(responseData);

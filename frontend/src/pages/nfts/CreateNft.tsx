@@ -2,10 +2,6 @@ import React, {useEffect, useState, useRef, useContext} from 'react'
 import { Button } from "@chakra-ui/react";
 import { Web3Context } from '../../context/Web3Context';
 
-type CreateNftProps = {
-  
-}
-
 let DEFAULT_TOKEN_ID = 0 as number;
 
 const CreateNft: React.FC = (props: any) => {
@@ -18,10 +14,11 @@ const CreateNft: React.FC = (props: any) => {
 
   const {mintNft} = useContext(Web3Context);
 
-  const handleMintNft = async (): Promise<any | undefined> => {
-
+  const handleMintNft = async (event: any): Promise<any | undefined> => {
 
      try {
+
+      event.preventDefault();
 
       setTokenId(tokenId);
       setName(name);
@@ -63,10 +60,22 @@ const CreateNft: React.FC = (props: any) => {
 
      <div className = "email-container">
 
-       <label htmlFor= "username">Token ID</label>
-         <input value = {tokenId} onChange = {(event) => setTokenId(parseInt(event.target.value))} type = "text" placeholder ='Token ID'/>
+       <label htmlFor= "tokenId">ID</label>
+
+         <input value = {tokenId} onChange = {(event) => setTokenId(parseInt(event.target.value))} type = "number" placeholder ='Token ID'/>
 
      </div>
+
+     <div className = "password-container">
+                <label className = "password-lbl" htmlFor= "password">Name</label>
+                <input  type = "text" placeholder = 'Token Name'/>
+       </div>
+     
+
+       <div className = "password-container">
+              <label className = "password-lbl" htmlFor= "password">Price</label>
+              <input  type = "text" placeholder = 'Token Price'/>
+       </div>
 
      <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='md'>Mint NFT</Button>
 
