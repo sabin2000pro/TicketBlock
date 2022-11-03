@@ -11,9 +11,7 @@ type INftVals = {
 const NftList: React.FC<INftVals> = ({nfts}) => {
   const navigate = useNavigate();
 
-
   useEffect(() => {
-
 
    if(localStorage.getItem("token") === null) {
 
@@ -40,7 +38,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
            
                <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
            
-               <h3 style = {{fontSize: "28px"}}>{nft.name}</h3>
+               <h3 style = {{fontSize: "23px"}}>{nft.name}</h3>
 
                  </Card.Title>
            
@@ -56,7 +54,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
        
            <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
        
-              <h3 style = {{fontSize: "28px"}}>{nft.name}</h3>
+              <h3 style = {{fontSize: "23px"}}>{nft.name}</h3>
              </Card.Title>
        
              <Button className = "nft-btn" type = "submit" colorScheme='teal' size='md'>Add To Cart</Button>
@@ -72,13 +70,13 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
        
            <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
        
-           <h3 style = {{fontSize: "20px"}}>{nft.name}</h3>
+           <h3 style = {{fontSize: "23px"}}>{nft.name}</h3>
             
 
              </Card.Title>
        
              <div className = "nft-price">
-               <p style = {{padding: "10px", display: 'block', fontWeight: 'bold'}}>Price: {nft.price}</p>
+               <p style = {{padding: "10px", display: 'block', fontWeight: 'bold', fontSize: "21px"}}>Price: {nft.price} ETH</p>
              </div>
 
              <Button className = "nft-btn" type = "submit" colorScheme='teal' size='md'>Add To Cart</Button>
