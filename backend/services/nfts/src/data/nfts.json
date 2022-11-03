@@ -4,8 +4,7 @@
         "owner": "5d7a514b5d2c12c7449ac9050",
         "name": "Premium Highland Show Event NFT",
         "image": "no-photo.jpg",
-        "price": 10
-
+        "price": 0.005
     },
 
     {
@@ -14,16 +13,73 @@
         "owner": "5d7a514b5d2c12c7449ac9051",
         "name": "Three Sisters VIP Event NFT",
         "image": "no-photo.jpg",
-        "price": 5
+        "price": 0.020
 
     },
 
     {
         "tokenId": 2,
         "owner": "5d7a514b5d2c12c7449ac9052",
+        "name": "Agile Project Management Ticket NFT",
+        "image": "no-photo.jpg",
+        "price": 0.0045
+    },
+
+    {
+        "tokenId": 3,
+        "owner": "5d7a514b5d2c12c7449ac9052",
+        "name": "Crypto And Stocks Daily Event NFT",
+        "image": "no-photo.jpg",
+        "price": 0.0050
+    },
+
+
+    {
+        "tokenId": 4,
+        "owner": "5d7a514b5d2c12c7449ac9052",
         "name": "Edinburgh Dungeon Halloween Event",
         "image": "no-photo.jpg",
-        "price": 10
+        "price": 0.0030
+    },
+
+    {
+        "tokenId": 5,
+        "owner": "5d7a514b5d2c12c7449ac9052",
+        "name": "Edinburgh Dungeon Halloween Event",
+        "image": "no-photo.jpg",
+        "price": 0.0030
+    },
+
+    {
+        "tokenId": 6,
+        "owner": "5d7a514b5d2c12c7449ac9052",
+        "name": "Edinburgh Dungeon Halloween Event",
+        "image": "no-photo.jpg",
+        "price": 0.0030
+    },
+
+    {
+        "tokenId": 7,
+        "owner": "5d7a514b5d2c12c7449ac9052",
+        "name": "Edinburgh Dungeon Halloween Event",
+        "image": "no-photo.jpg",
+        "price": 0.0030
+    },
+
+    {
+        "tokenId": 8,
+        "owner": "5d7a514b5d2c12c7449ac9052",
+        "name": "Edinburgh Dungeon Halloween Event",
+        "image": "no-photo.jpg",
+        "price": 0.0030
+    },
+
+    {
+        "tokenId": 9,
+        "owner": "5d7a514b5d2c12c7449ac9052",
+        "name": "Edinburgh Dungeon Halloween Event",
+        "image": "no-photo.jpg",
+        "price": 0.0030
     }
 
 
