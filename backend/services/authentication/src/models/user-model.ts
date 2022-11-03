@@ -33,6 +33,7 @@ interface IUserDocument extends mongoose.Model<IUserAttributes> {
 
     isVerified: boolean;
     isActive: boolean;
+    nftsMinted: number
 
     compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
     returnAuthToken: () => JwtPayloadInterface
@@ -80,7 +81,6 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
         type: Boolean,
         default: false
     }
-
 
     
 }, {toJSON: {virtuals: true}, timestamps: true});
