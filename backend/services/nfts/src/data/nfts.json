@@ -20,7 +20,7 @@
     {
         "tokenId": 2,
         "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Agile Project Management Ticket NFT",
+        "name": "Agile Project Management Ticket",
         "image": "no-photo.jpg",
         "price": 0.0045
     },
@@ -28,7 +28,7 @@
     {
         "tokenId": 3,
         "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Crypto And Stocks Daily Event NFT",
+        "name": "Crypto And Stocks Event Ticket",
         "image": "no-photo.jpg",
         "price": 0.0050
     },
@@ -37,17 +37,17 @@
     {
         "tokenId": 4,
         "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Edinburgh Dungeon Halloween Event",
+        "name": "Start Your Business VIP Event Ticket",
         "image": "no-photo.jpg",
-        "price": 0.0030
+        "price": 0.0075
     },
 
     {
         "tokenId": 5,
         "owner": "5d7a514b5d2c12c7449ac9052",
-        "name": "Edinburgh Dungeon Halloween Event",
+        "name": "Champions League Final Ticket",
         "image": "no-photo.jpg",
-        "price": 0.0030
+        "price": 0.0090
     },
 
     {
