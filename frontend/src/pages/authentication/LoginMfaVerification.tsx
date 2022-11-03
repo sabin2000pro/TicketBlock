@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react'
-import { Button, useDisclosure } from "@chakra-ui/react";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody,ModalCloseButton} from '@chakra-ui/react'
+import { Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody,ModalCloseButton, AlertIcon, Alert } from "@chakra-ui/react";
 import { verifyLoginMFA } from '../../api/auth-api';
+import { useNavigate } from 'react-router-dom';
 
 const LoginMfaVerification = (props: any) => {
-
+  const navigate = useNavigate();
   const [token, setToken] = useState<string | undefined>("");
   const [showErrorModal, setShowErrorModal] = useState<boolean | undefined>(false);
   const {isOpen, onOpen, onClose} = useDisclosure();
+
   const [userId, setUserId] = useState([]);
+  const [userVerified, setUserVerified] = useState<boolean | undefined>(false);
 
   useEffect(() => {
 
@@ -33,12 +35,25 @@ const LoginMfaVerification = (props: any) => {
      }
 
      verifyLoginMFA(userId as any, token as any);
+     setUserVerified(!userVerified);
+
+     setTimeout(() => {
+
+     }, 1000)
 
      } 
      
      catch(error: any) {
 
+
+      if(error) {
+        return console.error(error);
+      }
+
+
      }
+
+
   }
 
   const handleCloseModal = () => {
@@ -48,6 +63,12 @@ const LoginMfaVerification = (props: any) => {
 
   return (
     <>
+
+{userVerified && <Alert status='success'>
+
+  <AlertIcon />
+  Your account is now active
+  </Alert>}
 
 
     {showErrorModal && <Modal isOpen = {showErrorModal} onClose = {onClose}>
@@ -73,6 +94,8 @@ const LoginMfaVerification = (props: any) => {
 
       </ModalFooter>
     </ModalContent>
+
+
   </Modal>}
     
 

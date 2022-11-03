@@ -18,7 +18,6 @@ const toastPositions = [
     'bottom-left',
   ]
 
-
 const UserProfile: React.FC = (props: any) => {
 
     const navigate = useNavigate();

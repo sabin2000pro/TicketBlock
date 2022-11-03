@@ -373,3 +373,18 @@
   color: black;
   text-align: center;
 }
+
+.nft-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 24px;
+}
+
+.custom-btn {
+  width: 250px;
+  margin-left: 100px;
+}
+
+.price-container {
+  text-align: center
+}

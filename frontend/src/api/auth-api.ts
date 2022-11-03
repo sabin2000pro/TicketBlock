@@ -149,11 +149,11 @@ export const verifyEmailAddress = async (OTP: IVerifyEmail) => {
 export const verifyLoginMFA = async (userId: any, token: IVerifyLoginMfa) => {
 
     try {
+
         const response = await axios.post("http://localhost:5299/api/v1/auth/verify-mfa", {userId, token})
         const data = response.data
 
         console.log(data);
-
 
         return data;
     } 

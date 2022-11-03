@@ -112,6 +112,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const response = await axios.get(`http://localhost:5201/api/v1/nfts`);
             const tokenData = response.data.data;
 
+            console.log(tokenData);
+
             return tokenData;
         } 
         
@@ -160,7 +162,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
             const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any});
-    
+
             return nftOnSale;
         } 
         
@@ -190,6 +192,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftPrice = nftValues.price
 
             const nftData = {nftOwner, nftId, nftTokenListed, nftPrice};
+
+            // After buying an NFT, remove that NFT with its ID from the database by filtering it out
+
 
             return nftData
             
