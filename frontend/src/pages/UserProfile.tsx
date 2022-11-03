@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap';
-import { Button } from "@chakra-ui/react";
+import { Alert, AlertIcon, Button } from "@chakra-ui/react";
 import { getLoggedInUser } from '../api/auth-api';
 import { useToast, Avatar } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
@@ -23,12 +23,14 @@ const UserProfile: React.FC = (props: any) => {
     const toast = useToast(); // Displayed after updating profiel details
 
     const [user, setUser] = useState([])
-
     const [username, setUsername] = useState<string | undefined>("");
     const [email, setEmail] = useState<string | undefined>("");
 
     const [profileUpdated, setProfileUpdated] = useState<boolean | undefined>(false);
     let [accountBalance, setAccountBalance] = useState<string | undefined>("");
+
+    const [isValidationError, setIsValidationError] = useState<boolean | undefined>(false)
+    const [error, setError] = useState<string | undefined>("")
 
     let {balance} = useContext(Web3Context)
 
@@ -70,10 +72,12 @@ const UserProfile: React.FC = (props: any) => {
         try {
 
            if(!validateUserProfile()) {
-
-           }
+                setIsValidationError(!isValidationError);
+                setError(error);
+           }    
 
            else {
+
             setUsername(username);
             setEmail(email);
 
@@ -104,6 +108,12 @@ const UserProfile: React.FC = (props: any) => {
   return (
 
     <>
+
+    {isValidationError && <Alert status='error'>
+
+<AlertIcon />
+  
+</Alert>}
 
        
     <div className = "profile-container">
