@@ -292,9 +292,35 @@ export const getCurrentUser = async(request: IGetUserData, response: Response, n
 // @route     POST /api/v1/auth/register
 // @access    Public (No Authorization Token Required)
 
-export const resetPassword = asyncHandler(async(request: Request, response: Response, next: NextFunction): Promise<any> => {
+export const resetPassword = asyncHandler(async(request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
     const currentPassword = request.body.currentPassword;
     const newPassword = request.body.newPassword;
+
+    // Validate entries
+    if(!currentPassword) {
+
+    }
+
+    if(!newPassword) {
+        
+    }
+
+    const user = await User.findOne({owner: request.user._id, token: request.params.token});
+
+    if(!user) {
+        return next(new NotFoundError("User with that ID not found", StatusCodes.NOT_FOUND))
+    }
+
+    // Check if current password matches
+
+    const currentPasswordMatch = user.compareLoginPasswords(currentPassword);
+
+    if(!currentPasswordMatch) {
+        return next(new BadRequestError("Your current password is invalid", StatusCodes.BAD_REQUEST));
+    }
+
+    user.password = newPassword;
+    await user.save();
 });
 
 // @desc      Register New User
