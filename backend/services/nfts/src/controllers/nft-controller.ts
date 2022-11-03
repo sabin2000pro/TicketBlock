@@ -31,6 +31,9 @@ export const fetchNftByID = async (request: Request, response: Response, next: N
 export const createNewNft = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
     const body = request.body;
     const nft = await Nft.create(body);
+    let newNftId = nft.id++;
+
+    console.log(`New NFT ID : `, newNftId);
 
     if(nft) {
         return next(new BadRequestError("NFT Already created on the backend", StatusCodes.BAD_REQUEST));

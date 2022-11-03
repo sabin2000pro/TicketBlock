@@ -1,41 +1,31 @@
 [
     {
+        "id": 0,
         "_id": "5d725a4a7b292f5f8ceff750",
         "owner": "5d7a514b5d2c12c7449ac9050",
         "name": "Premium Highland Show Event NFT",
         "image": "no-photo.jpg",
-        "price": "0.022 ETH",
-        "convertedPrice": "25 GBP",
-        "inStock": true,
-        "stock": 2,
-        "category": "ticket",
-        "isRare": false
+        "price": 10
+
     },
 
     {
+        "id": 1,
         "_id": "5d725a4a7b292f5f8ceff751",
         "owner": "5d7a514b5d2c12c7449ac9051",
         "name": "Three Sisters VIP Event NFT",
         "image": "no-photo.jpg",
-        "price": "0.050 ETH",
-        "convertedPrice": "57 GBP",
-        "inStock": true,
-        "stock": 1,
-        "category": "ticket",
-        "isRare": true
+        "price": 5
+
     },
 
     {
+        "id": 2,
         "_id": "5d725a4a7b292f5f8ceff752",
         "owner": "5d7a514b5d2c12c7449ac9052",
         "name": "Edinburgh Dungeon Halloween Event",
         "image": "no-photo.jpg",
-        "price": "0.030 ETH",
-        "convertedPrice": "50 GBP",
-        "inStock": true,
-        "stock": 3,
-        "category": "ticket",
-        "isRare": false
+        "price": 10
     }
 
 
