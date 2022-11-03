@@ -20,17 +20,17 @@ const CreateNft: React.FC = (props: any) => {
 
   const handleMintNft = async (): Promise<any | undefined> => {
 
-    
+
      try {
 
       setTokenId(tokenId);
       setName(name);
       setPrice(price);
 
-
       // Invoke routine to mint the token that will automatically send the data to the DB by sending POST request
 
-      return await mintNft(name as any, price as any);
+      await mintNft(name as any, price as any);
+      setTokenMinted(!tokenMinted);
 
      } 
      
@@ -38,6 +38,7 @@ const CreateNft: React.FC = (props: any) => {
 
 
       if(error) {
+
         console.log(error);
         setMintError("");
         setTokenMinted(false);
