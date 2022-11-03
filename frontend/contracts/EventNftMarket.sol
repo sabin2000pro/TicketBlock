@@ -9,7 +9,7 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 interface NftRoutines {
     function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable returns (uint);
     function setNftOnSale(uint id, uint price) external payable returns (uint); // 3. Routine to set the nft on sale
-    function buyNft(uint256 tokenInde) external payable; // Routing to buy the NFT given a token Index and price
+    function buyNft(uint id) external payable; // Routing to buy the NFT given a token Index and price
     function checkTokenCreatorIsOwner(uint256 tokenId) external returns (bool);
 }
 
@@ -135,7 +135,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
          _transfer(currentOwner, msg.sender, id); // Transfer Ownership of the NFT from the current owner to ms.sender
          payable(currentOwner).transfer(msg.value);
 
-         emit NftPurchased(id, mappedNftData[id].isTokenListed, currentOwner, mappedNftData[id].name, mappedNftData[id].price);
+         emit NftPurchased(id, mappedNftData[id].isTokenListed, currentOwner, mappedNftData[id].price);
          
     }
 
