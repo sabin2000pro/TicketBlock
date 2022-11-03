@@ -1,11 +1,9 @@
-import React, {useEffect, useState, useRef, useContext} from 'react'
+import React, {useState, useContext} from 'react'
 import { Button } from "@chakra-ui/react";
 import { Web3Context } from '../../context/Web3Context';
 
-let DEFAULT_TOKEN_ID = 0 as number;
-
 const CreateNft: React.FC = (props: any) => {
-  const [tokenId, setTokenId] = useState<number | undefined>(DEFAULT_TOKEN_ID)
+  const [tokenId, setTokenId] = useState<string | undefined>("")
   const [name, setName] = useState<string | undefined>("")
   const [price, setPrice] = useState<string | undefined>("");
 
