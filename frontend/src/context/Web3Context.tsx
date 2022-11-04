@@ -12,8 +12,10 @@ type Web3ContextProps = {
 type IWeb3Context = {
     accounts: any,
     balance: any,
+
     connectWallet: () => void
     handleAccountChange: () => void
+
     fetchNftData: () => any
     mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
@@ -286,6 +288,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             if(error) {
                 return console.error(error);
             }
+
+            
         }
 
     }
