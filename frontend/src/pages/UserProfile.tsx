@@ -65,8 +65,7 @@ const UserProfile: React.FC = (props: any) => {
         return username!.toString() !== "" && email!.toString() !== "";
     }
 
-    const handleUpdateProfileSettings = async (event: any): Promise<void> => 
-    {
+    const handleUpdateProfileSettings = async (event: any): Promise<void> => {
         try {
 
             event.preventDefault();
@@ -106,6 +105,21 @@ const UserProfile: React.FC = (props: any) => {
 
     }
 
+    useEffect(() => {
+
+
+        const fetchUserOwnedNfts = async () => {
+            const userData = await getLoggedInUser();
+            const userOwnedNfts = userData.data;
+            
+            console.log(userOwnedNfts);
+
+            
+        }
+
+        fetchUserOwnedNfts();
+    }, [])
+
   return (
 
     <>
@@ -120,8 +134,6 @@ const UserProfile: React.FC = (props: any) => {
 
   <form onSubmit = {handleUpdateProfileSettings} method = "POST">
 
-  
-       
     <div className = "profile-container">
 
 
