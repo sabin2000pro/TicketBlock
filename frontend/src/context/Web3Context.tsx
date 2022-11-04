@@ -148,8 +148,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftValues = mintedNft.events.EventNftCreated.returnValues;
         const tokenId = parseInt(nftValues.id)
 
-        console.log(`Minted Token ID : `, tokenId);
-
         let creator = nftValues.creator
         let isTokenListed = nftValues.isTokenListed
 
@@ -159,8 +157,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const tokenResponse = await axios.post(URL, {tokenId, name, price, creator});
         const tokenData = tokenResponse.data.data;
-
-        console.log(`Token data DB : `, tokenData);
 
         let creatorId = tokenResponse.data.data.id
         creatorId = creator;
@@ -216,8 +212,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
             const nftOnSale = await nftContract.methods.setNftOnSale(id, name, price).send({from: localStorage.getItem("account") as any}); // Invoke smart contract routine to place the NFT we want to place on sale given the ID and price
 
-            console.log(`Your NFT on sale : `, nftOnSale);
-
             return nftOnSale;
         } 
         
@@ -256,10 +250,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const userTxHash = await fetchTransactionReceipt(txHash);
 
             nftOwner = chosenAccount;
-            tokensOwned!.push(nftOwner, boughtNft) as unknown as any;
+            tokensOwned!.push(nftOwner, boughtNft, userTxHash) as unknown as any;
 
             fetchAllNftsOnSale();
-            return nftData
+            return nftData;
             
         } 
         
