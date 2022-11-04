@@ -166,6 +166,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         return mintedNftData;
     }
 
+
+    // @params: id: ID of the NFT
+    // @params: price: Price of the NFT when setting it on sale
     const setNftOnSale = async (id: number, price: number) => {
 
         try {
@@ -189,6 +192,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         }
     }
 
+    // @params: id: ID of the NFT to buy
+    // @ Pre Condition: Before buying an NFT it must be present in the database (available NFTs for sale)
+    // @ Post Condition: Delisted NFT from the database (Deleted using DELETE request)
+    
     const buyNft = async (id: number) => {
 
         try {
