@@ -43,6 +43,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
     const [tokensOwned, setTokensOwned] = useState([]);
+    const [idValidated, setIdValidated] = useState<boolean | undefined>(false);
 
     const networks = EventNftContract.networks
     let networkId = Object.keys(networks)[0] as keyof typeof networks; // Network ID 5777
@@ -147,7 +148,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const tokenId = parseInt(nftValues.id)
 
         const creator = nftValues.creator
-        const isTokenListed = nftValues.isTokenListed
+        let isTokenListed = nftValues.isTokenListed
+        isTokenListed = !isTokenListed;
     
         const mintedNftData = {tokenId, name, price, creator, isTokenListed}
 
@@ -157,8 +159,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         // Once we have the creator ID, we now overwrite the creator field in the database with the creator account address
 
+        console.log(nftValues);
         console.log(`Token Creator : `, creatorId);
         console.log(tokenData);
+        console.log(`Token listed for sale after minting ? `, isTokenListed);
         
         return mintedNftData;
     }
@@ -206,7 +210,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             console.log(nftValues);
 
             // Buy NFT Logic: 
-
 
             return nftData
             
