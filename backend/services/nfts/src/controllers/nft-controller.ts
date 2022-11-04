@@ -6,15 +6,11 @@ import { Request, Response, NextFunction } from 'express';
 import { UploadedFile } from 'express-fileupload';
 
 export const fetchAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-    let query;
-    const queryStr = request.query;
-
     const nfts = await Nft.find();
-    const page = parseInt(request.query.page as any) || 1;
-    const numberOfNfts = await Nft.countDocuments({});
-    
 
-    return response.status(StatusCodes.OK).json({success: true, data: nfts});
+    if(nfts.length > 0) {
+        return response.status(StatusCodes.OK).json({success: true, data: nfts});
+    }
 }
 
 export const fetchNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
@@ -45,12 +41,12 @@ export const editNftByID = async (request: Request, response: Response, next: Ne
 
     nft = await Nft.findByIdAndUpdate(id, request.body, {new: true, runValidators: true});
 
-    return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
+    return response.status(StatusCodes.OK).json({success: true, data: nft})
 }
 
 export const deleteAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
     await Nft.remove();
-    return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
+    return response.status(StatusCodes.OK).json({success: true, data: null })
 }
 
 export const deleteNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
@@ -58,8 +54,7 @@ export const deleteNftByID = async (request: Request, response: Response, next: 
     const id = request.params.id;
     await Nft.findByIdAndDelete(id);
 
-    
-    return response.status(StatusCodes.OK).json({success: true, message: "NFT Deleted"})
+    return response.status(StatusCodes.OK).json({success: true, data: null})
 }
 
 export const uploadNftImage = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
