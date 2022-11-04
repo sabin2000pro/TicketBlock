@@ -63,7 +63,25 @@ export const deleteNftByID = async (request: Request, response: Response, next: 
 }
 
 export const uploadNftImage = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
+    const id = request.params.id;
     const file = request.files!.file as unknown as UploadedFile | undefined;
+    const nft = await Nft.findById(id);
+
+    if(!nft) {
+
+    }
+
+    if(!request.files) {
+        return next(new BadRequestError(`Please ensure that the file is an actual image`, 400));
+    }
+
+    // 1. Ensure that the file is an actual image
+
+    if(!file!.mimetype.startsWith("image")) {
+
+    }
+
+
    
     return response.status(StatusCodes.OK).json({success: true, message: "All Nfts Here"})
 }
