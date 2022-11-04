@@ -162,7 +162,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         console.log(nftValues);
         console.log(`Token Creator : `, creatorId);
         console.log(tokenData);
-        console.log(`Token listed for sale after minting ? `, isTokenListed);
         
         return mintedNftData;
     }
