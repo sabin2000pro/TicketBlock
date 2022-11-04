@@ -6,13 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Nft = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const NftSchema = new mongoose_1.default.Schema({
-    tokenCreator: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: "User"
-    },
     tokenId: {
         type: Number,
         default: 0
+    },
+    creator: {
+        type: String
     },
     name: {
         type: String

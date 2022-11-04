@@ -52,9 +52,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
       <Card className = "h-50 w-100 m-3 mx-5 mt-5 d-flex">
 
-
           <Card.Body className = "d-flex flex-column custom m-4 w-75">
-
 
           <div className = "nft-image-container">
                <h3>Image here</h3>
@@ -83,13 +81,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
             </Card>
 
-        
-
-
-
-          </Row>
-
-       
+       </Row>
 
       )
   

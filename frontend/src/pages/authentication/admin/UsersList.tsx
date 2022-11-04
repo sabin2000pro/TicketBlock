@@ -1,6 +1,11 @@
 import React from 'react'
 
-const UsersList: React.FC = (props: any) => {
+type IUsersList = {
+  users: any[]
+}
+
+const UsersList: React.FC<IUsersList> = ({users}) => {
+  
   return (
     <>
 

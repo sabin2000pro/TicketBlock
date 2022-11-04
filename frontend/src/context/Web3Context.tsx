@@ -112,11 +112,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }, [])
 
-    const fetchNftData = async () => {
+    const fetchNftData = async (...args: unknown[]): Promise<any> => {
 
         try {
 
-            const response = await axios.get(`http://localhost:5201/api/v1/nfts`);
+            const response = await axios.get(URL);
             const nftData = response.data.data;
 
             console.log(nftData);
