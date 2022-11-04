@@ -357,7 +357,7 @@ export const updatePassword = async(request: IGetUserData, response: Response, n
 
 export const updateProfileDetails = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
     const fieldsToUpdate = {email: request.body.email, username: request.body.username, password: request.body.password}
-    const userId = request.user!._id;
+    const userId = request.user._id;
 
     let user = await User.findById(userId);
 

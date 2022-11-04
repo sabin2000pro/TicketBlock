@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import {useEffect} from "react";
 
 type IVerifyEmail = {
@@ -170,6 +170,7 @@ export const verifyLoginMFA = async (userId: any, token: IVerifyLoginMfa) => {
 }
 
 export const uploadUserAvatar = async () => {
+
     try {
 
     } 
@@ -187,8 +188,14 @@ export const updateProfileSettings = async (username: string, email: string) => 
 
     try {
 
-    
-        const updateProfileResponse = await axios.post("http://localhost:5299/api/v1/auth/update-profile", {username, email});
+        
+        const token = localStorage.getItem("token");
+
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        }
+       
+        const updateProfileResponse = await axios.post("http://localhost:5299/api/v1/auth/update-profile", config, {username, email} as AxiosRequestConfig);
         const responseData = updateProfileResponse.data;
 
         console.log(responseData);

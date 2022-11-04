@@ -63,17 +63,17 @@ export const uploadNftImage = async (request: Request, response: Response, next:
     const nft = await Nft.findById(id);
 
     if(!nft) {
-
+        return next(new NotFoundError("NFT Not found with that ID", StatusCodes.NOT_FOUND));
     }
 
     if(!request.files) {
-        return next(new BadRequestError(`Please ensure that the file is an actual image`, 400));
+        return next(new BadRequestError(`Please ensure that the file is an actual image`, StatusCodes.BAD_REQUEST));
     }
 
     // 1. Ensure that the file is an actual image
 
     if(!file!.mimetype.startsWith("image")) {
-
+        return next(new BadRequestError("Please make sure the uploaded file is an image", StatusCodes.BAD_REQUEST));
     }
 
 
