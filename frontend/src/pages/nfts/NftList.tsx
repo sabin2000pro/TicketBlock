@@ -81,7 +81,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
           <Card.Body className = "d-flex flex-column custom m-4 w-100">
 
           <div className = "nft-image-container">
-               <h3>Image here</h3>
+              {tokenPurchased ? <Badge colorScheme='green'>NFT Purchased</Badge> : <span>Image HEre</span>}
             </div>
           
 

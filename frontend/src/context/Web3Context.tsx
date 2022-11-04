@@ -254,15 +254,21 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             console.log(`Bought NFT`, boughtNft);
 
             const nftValues = boughtNft.events.NftPurchased.returnValues
-            const nftOwner = nftValues.currentOwner;
+            let nftOwner = nftValues.currentOwner;
             const nftId = nftValues.id;
 
             const nftTokenListed = nftValues.isTokenListed
             const nftPrice = nftValues.price
 
             const nftData = {nftOwner, nftId, nftTokenListed, nftPrice};
-            
+
+            nftOwner = chosenAccount;
+
             console.log(`NFT DATA `, nftData);
+            console.log(`New NFT Owner : `, nftOwner);
+
+
+
 
             return nftData
             
