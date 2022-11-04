@@ -26,11 +26,9 @@ const CreateNft: React.FC = (props: any) => {
       // Invoke routine to mint the token that will automatically send the data to the DB by sending POST request
 
       await mintNft(name as any, price as any);
-      
-      setTokenMinted(!tokenMinted);
 
+      setTokenMinted(!tokenMinted);
       setTokensMinted(tokensMinted! + 1);
-      alert(tokensMinted);
 
       setTokenId("")
       setName("");
@@ -60,16 +58,16 @@ const CreateNft: React.FC = (props: any) => {
 
     {mintError && <Alert status='error'>
 
-<AlertIcon />
-      There was a problem minting your NFT
-</Alert>}
+      <AlertIcon />
+            There was a problem minting your NFT
+      </Alert>}
 
 
     {tokenMinted && <Alert status='success'>
 
-<AlertIcon />
-     Token Minted Successfully
-</Alert>}
+      <AlertIcon />
+          Token Minted Successfully
+      </Alert>}
 
 
   <div className = "forgot-container">
@@ -105,6 +103,9 @@ const CreateNft: React.FC = (props: any) => {
 
 
 </div>
+
+
+
 </div>
 
 
