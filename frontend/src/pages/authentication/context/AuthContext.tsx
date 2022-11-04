@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useContext, useState, createContext, useEffect, ReactNode } from "react";
+import { useContext, useState, createContext, ReactNode } from "react";
 
 type ChildrenProps = {
     children: ReactNode

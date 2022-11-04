@@ -167,10 +167,14 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         tokensOwned!.push(tokenData) as unknown as any;
 
         const userData = await getLoggedInUser();
-        const userAccountData = userData.data.data.accountAddress
 
-        console.log(userAccountData);
+        if(userData.length > 0) {
+            const userAccountData = userData.data.data.accountAddress
+            console.log(userAccountData);
 
+        }
+
+        
         return mintedNftData;
     }
 
