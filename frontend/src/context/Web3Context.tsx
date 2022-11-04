@@ -42,7 +42,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
 
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
-    const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
+    const [tokenMinted, setTokenMinted] = useState<boolean | false>(false) // True or false that determines if the token has been minted or not
 
     let [tokensOwned, setTokensOwned] = useState<any[] | undefined>([]);
     const [idValidated, setIdValidated] = useState<boolean | undefined>(false);
@@ -118,8 +118,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const response = await axios.get(URL);
             const nftData = response.data.data;
 
-            console.log(nftData);
-
             return nftData;
         } 
         
@@ -166,18 +164,18 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const txHash = mintedNft.events.EventNftCreated.transactionHash
         const userTxHash = await fetchTransactionReceipt(txHash);
-        tokensOwned!.push(tokenData) as unknown as any;
+
+        tokensOwned!.push(tokenData, {userTxHash}) as unknown as any;
 
         console.log(`User tx hash : `, userTxHash);
 
         const userData = await getLoggedInUser(); // Get logged in user and extract number of minted nfts field and increment by 1 every time an nft is minted
 
-        if(userData.length > 0) {
 
-            const userAccountData = userData.data.data.accountAddress
-            console.log(userAccountData);
+        const userAccountData = userData.data.data.accountAddress
+         console.log(userAccountData);
 
-        }
+        
 
         
         return mintedNftData;
