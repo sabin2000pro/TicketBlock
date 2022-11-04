@@ -30,7 +30,7 @@ const UserProfile: React.FC = (props: any) => {
     const [isValidationError, setIsValidationError] = useState<boolean | undefined>(false)
     const [error, setError] = useState<any[] | undefined>([])
 
-    let {balance} = useContext(Web3Context)
+    let {balance, chosenAccount} = useContext(Web3Context)
 
   useEffect(() => {
 
@@ -126,10 +126,14 @@ const UserProfile: React.FC = (props: any) => {
 
 
      <h1 className = "heading-primary">You are logged in as : {user}</h1>
+     
 
    <div className = "account-container">
+   
 
    <Button type = "submit" colorScheme='teal' size='md'>Upload Avatar</Button>
+
+   <span style = {{textAlign: 'center', display: 'block', marginTop: "40px"}}>Your account address: {chosenAccount} </span>
 
    </div>
 

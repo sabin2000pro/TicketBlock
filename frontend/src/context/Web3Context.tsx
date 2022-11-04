@@ -175,7 +175,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         if(tokenMinted) {
             userNftsMinted++;
         }
-       
     
         return mintedNftData;
     }
