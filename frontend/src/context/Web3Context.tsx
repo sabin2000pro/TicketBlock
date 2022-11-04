@@ -166,17 +166,16 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const userTxHash = await fetchTransactionReceipt(txHash);
 
         tokensOwned!.push(tokenData, {userTxHash}) as unknown as any;
-
-        console.log(tokensOwned);
-
         const userData = await getLoggedInUser(); // Get logged in user and extract number of minted nfts field and increment by 1 every time an nft is minted
 
         const userAccountData = userData.data
-        
+
         let userNftsMinted = userAccountData.nftsMinted;
 
-        userNftsMinted = userNftsMinted + 1;
-        console.log(userNftsMinted);
+        if(tokenMinted) {
+            userNftsMinted++;
+        }
+       
     
         return mintedNftData;
     }
