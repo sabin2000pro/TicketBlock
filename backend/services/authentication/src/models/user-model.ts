@@ -29,7 +29,6 @@ interface IUserDocument extends mongoose.Model<IUserAttributes> {
     passwordConfirm: string;
 
     accountAddress: string;
-    nftsMinted: number;
     ownedNfts: number;
 
     isVerified: boolean;
