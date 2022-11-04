@@ -8,9 +8,9 @@ import { UploadedFile } from 'express-fileupload';
 export const fetchAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
     const nfts = await Nft.find();
 
-    if(nfts.length > 0) {
-        return response.status(StatusCodes.OK).json({success: true, data: nfts});
-    }
+   
+     return response.status(StatusCodes.OK).json({success: true, data: nfts});
+    
 }
 
 export const fetchNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {

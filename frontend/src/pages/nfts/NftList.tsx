@@ -18,6 +18,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
   const [error, setError] = useState<string | undefined>("");
   let [nftData, setNftData] = useState<any[] | undefined>([]);
+
   const [tokenPurchased, setTokenPurchased] = useState<boolean | undefined>(false)
 
   useEffect(() => {
@@ -82,7 +83,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
           <Card.Body className = "d-flex flex-column custom m-4 w-100">
 
           <div className = "nft-image-container">
-              {tokenPurchased ? <Badge colorScheme='green'>NFT Purchased</Badge> : <span>Image HEre</span>}
+              {tokenPurchased ? <Badge colorScheme='green'>NFT Purchased</Badge> : <span>NFT Image</span>}
             </div>
           
 
@@ -94,7 +95,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
             </Card.Title>
 
           
-            <span>Creator: {nft.creator}  </span>
+             {tokenPurchased ? <span>New Owner: {nft.creator} </span> : <span>Creator: {nft.creator}  </span>}
             <span>Token ID : {nft.tokenId}</span>
            
 
@@ -102,12 +103,11 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
                 <p>Price:  <strong>  {nft.price}  ETH</strong>   </p>
             </div>
 
-
             <div className = "logo-container">
               <img style = {{height: '35px', marginLeft: '330px', marginRight: '-20px', marginTop: "-30px", marginBottom: "20px"}} src = {ethlogo} alt = "ethlogo" />
             </div>
 
-            <Button onClick = {() => addToCartHandler(nft.tokenId)} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Buy NFT</Button>
+            <Button disabled = {tokenPurchased} onClick = {() => addToCartHandler(nft.tokenId)} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Buy NFT</Button>
 
         </Card.Body>
 
