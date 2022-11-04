@@ -20,7 +20,7 @@ type IWeb3Context = {
     mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
 
-    setNftOnSale: (id: number, price: number) => any
+    setNftOnSale: (id: number, name: string, price: number) => any
     fetchAllNftsOnSale: (nfts: any[]) => Promise<any>
     chosenAccount: any
    
@@ -39,6 +39,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     let [accounts, setAccounts] = useState<string>("")
     let [balance, setBalance] = useState<string | undefined>("");
+
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
     let [tokensMinted, setTokensMinted] = useState<number | undefined>(0);
 
@@ -151,6 +152,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftValues = mintedNft.events.EventNftCreated.returnValues;
         const tokenId = parseInt(nftValues.id)
 
+        console.log(`Minted Token ID : `, tokenId);
+
         let creator = nftValues.creator
         let isTokenListed = nftValues.isTokenListed
 
@@ -160,6 +163,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const tokenResponse = await axios.post(URL, {tokenId, name, price, creator});
         const tokenData = tokenResponse.data.data;
+
+        console.log(`Token data DB : `, tokenData);
 
         let creatorId = tokenResponse.data.data.id
         creatorId = creator;
@@ -175,13 +180,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         userAccountData.nftsMinted++
         tokensMinted = userAccountData.nftsMinted;
 
-
         userNftsMinted.accountAddress = chosenAccount; // Overwrite the account
         tokensOwned!.push(tokenData, tokensMinted, {userTxHash}) as unknown as any;
 
-        console.log(`Transaction Hash Minted : `, userTxHash, "for user : ", userData);
-        console.log(`Your owned tokens : `, tokensOwned);
-
+        setNftOnSale(tokenId, name, price);
 
         return mintedNftData;
     }
@@ -214,14 +216,15 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     // @params: id: ID of the NFT
     // @params: price: Price of the NFT when setting it on sale
 
-    const setNftOnSale = async (id: number, price: number) => {
+    const setNftOnSale = async (id: number, name: string, price: number) => {
 
         try {
+
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
-            const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any}); // Invoke smart contract routine to place the NFT we want to place on sale given the ID and price
+            const nftOnSale = await nftContract.methods.setNftOnSale(id, name, price).send({from: localStorage.getItem("account") as any}); // Invoke smart contract routine to place the NFT we want to place on sale given the ID and price
 
-            // 1. First we need to 
+            console.log(`Your NFT on sale : `, nftOnSale);
 
             return nftOnSale;
         } 
@@ -248,6 +251,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
             const boughtNft = await nftContract.methods.buyNft(id).send({from: localStorage.getItem("account") as any})
 
+            console.log(`Bought NFT`, boughtNft);
+
             const nftValues = boughtNft.events.NftPurchased.returnValues
             const nftOwner = nftValues.currentOwner;
             const nftId = nftValues.id;
@@ -256,10 +261,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftPrice = nftValues.price
 
             const nftData = {nftOwner, nftId, nftTokenListed, nftPrice};
-
-            // Logic For Buying An NFT
-            // 1. First, when the function is invoked, 
             
+            console.log(`NFT DATA `, nftData);
+
             return nftData
             
         } 
@@ -283,7 +287,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
 
-            let listedNftsOnSale = await nftContract.methods.fetchAllNftsOnSale().call();
+            const listedNftsOnSale = await nftContract.methods.fetchAllNftsOnSale().send({from: localStorage.getItem("account") as any})
             return listedNftsOnSale // Return all of the nfts on sale
         } 
         

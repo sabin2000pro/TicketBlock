@@ -7,8 +7,8 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 // Interface for the NFT routines to be invoked
 interface NftRoutines {
-    function mintNftToken(string memory tokenUri, uint256 tokenPrice) external payable returns (uint);
-    function setNftOnSale(uint id, uint price) external payable returns (uint); // 3. Routine to set the nft on sale
+    function mintNftToken(string memory name, uint price) external payable returns (uint);
+    function setNftOnSale(uint id, string memory name, uint price) external payable returns (uint); // 3. Routine to set the nft on sale
     function buyNft(uint id) external payable; // Routing to buy the NFT given a token Index and price
     function checkTokenCreatorIsOwner(uint256 tokenId) external returns (bool);
 }
@@ -55,8 +55,9 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
     );
 
     event SetNftOnSale (
-        uint newId,
-        uint newPrice
+        uint id,
+        string name,
+        uint price
     );
 
     event FetchNfts (
@@ -143,16 +144,17 @@ contract EventNftMarket is ERC721URIStorage, Ownable, NftRoutines {
         return msg.sender == ERC721.ownerOf(tokenId); // The owner of the token ID is equal to the ERC721 invoked routine of the token ID
     }
 
-    function setNftOnSale(uint id, uint price) external payable override returns (uint) {
+    function setNftOnSale(uint id, string memory name, uint price) external payable override returns (uint) {
 
         mappedNftData[id].isTokenListed = true;
         mappedNftData[id].price = price; // Update the new token price
+        mappedNftData[id].name = name;
 
         if(listedTokenItems.current() == 0) { // If the current items on sale is by default 0
             listedTokenItems.increment();    // Increment Listed Items
         }
 
-        emit SetNftOnSale(mappedNftData[id].id, mappedNftData[id].price);
+        emit SetNftOnSale(mappedNftData[id].id, mappedNftData[id].name, mappedNftData[id].price);
 
         return mappedNftData[id].price;
 

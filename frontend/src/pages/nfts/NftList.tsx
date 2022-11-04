@@ -11,10 +11,12 @@ type INftVals = {
 
 const NftList: React.FC<INftVals> = ({nfts}) => {
   const navigate = useNavigate();
-  const {fetchNftData} = useContext(Web3Context)
-  
+  const {fetchNftData, buyNft} = useContext(Web3Context)
+
   const [isError, setIsError] = useState<boolean | false>(false);
+
   const [error, setError] = useState<string | undefined>("");
+  let [nftData, setNftData] = useState<any[] | undefined>([]);
 
   useEffect(() => {
 
@@ -30,8 +32,8 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
     const getAllNfts = async () => {
 
-
-    return await fetchNftData();
+     await fetchNftData();
+    
 
     }
 
@@ -39,11 +41,10 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
   }, [])
 
-  const addToCartHandler = (event: any) => {
+  const addToCartHandler = async (id: number) => {
 
      try {
-        // Make sure the connected metamask account is the creator of the token
-        console.log(`Starting process to buy an NFT...`);
+        return await buyNft(id)
      } 
      
      catch(error: any) {
@@ -91,6 +92,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
           
             <span>Creator: {nft.creator}  </span>
+            <span>Token ID : {nft.tokenId}</span>
            
 
             <div className = "price-container">
@@ -102,7 +104,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
               <img style = {{height: '35px', marginLeft: '330px', marginRight: '-20px', marginTop: "-30px", marginBottom: "20px"}} src = {ethlogo} alt = "ethlogo" />
             </div>
 
-            <Button onClick = {addToCartHandler} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Buy NFT</Button>
+            <Button onClick = {() => addToCartHandler(nft.tokenId)} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Buy NFT</Button>
 
         </Card.Body>
 
