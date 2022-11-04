@@ -171,13 +171,13 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         // Fetch logged in user
 
-        const userData = await axios.get(`http://localhost:5299/api/v1/auth/me`);
-        const userDataResponse = userData.data;
+        // const userData = await axios.get(`http://localhost:5299/api/v1/auth/me`);
+        // const userDataResponse = userData.data;
 
         const userAuthToken = localStorage.getItem("token");
         console.log(userAuthToken);
 
-        console.log(`User data : `, userDataResponse);
+        // console.log(`User data : `, userAuthToken);
 
 
         return mintedNftData;
