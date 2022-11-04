@@ -4,6 +4,7 @@
         "owner": "5d7a514b5d2c12c7449ac9050",
         "name": "Premium Highland Show Event NFT",
         "image": "no-photo.jpg",
+        "creator": "",
         "price": 0.005
     },
 
@@ -12,6 +13,7 @@
         "owner": "5d7a514b5d2c12c7449ac9051",
         "name": "Three Sisters VIP Event NFT",
         "image": "no-photo.jpg",
+        "creator": "",
         "price": 0.020
 
     },
@@ -21,6 +23,7 @@
         "owner": "5d7a514b5d2c12c7449ac9052",
         "name": "Agile Project Management Ticket",
         "image": "no-photo.jpg",
+        "creator": "",
         "price": 0.035
     }
 
