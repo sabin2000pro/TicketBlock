@@ -20,7 +20,6 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
    if(localStorage.getItem("token") === null) {
 
        alert("You must be logged in before viewing all NFTs");
-
        return navigate("/login")
    }
 
@@ -43,16 +42,15 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
      try {
         // Make sure the connected metamask account is the creator of the token
+        console.log(`Starting process to buy an NFT...`);
      } 
      
      catch(error: any) {
-
 
        if(error) {
 
          setIsError(!isError);
          return console.error(error);
-
 
        }
 
