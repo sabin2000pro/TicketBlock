@@ -42,7 +42,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
   const addToCartHandler = (event: any) => {
 
      try {
-       
+        // Make sure the connected metamask account is the creator of the token
      } 
      
      catch(error: any) {
@@ -53,7 +53,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
          return console.error(error);
        }
 
-       
+
      }
 
 

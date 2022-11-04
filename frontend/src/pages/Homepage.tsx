@@ -1,12 +1,8 @@
 import React from 'react'
-import { useContext } from 'react'
-import { Web3Context } from '../context/Web3Context'
 
 const Homepage = () => {
 
    
-
-
   return (
 
     <>
