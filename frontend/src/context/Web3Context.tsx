@@ -166,6 +166,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         fetchTransactionReceipt(txHash);
 
         tokensOwned!.push(tokenData) as unknown as any;
+
+        console.log(`Your owned tokens : `, tokensOwned);
         return mintedNftData;
     }
 
