@@ -140,9 +140,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const mintNft = async (name: string, price: number): Promise<any> => {
         const contractAbi = EventNftContract.abi;
+        const currentAccount = localStorage.getItem("account");
 
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
-        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: localStorage.getItem("account") as any})
+        const mintedNft = await nftContract.methods.mintNftToken(name, price).send({from: currentAccount as unknown as WindowLocalStorage})
 
         setTokenMinted(!tokenMinted)
 
