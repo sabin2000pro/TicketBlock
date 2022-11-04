@@ -5,7 +5,8 @@
         "email": "sabinlungu290@gmail.com",
         "address": "0xce7868dd6Be1a4F0ba40267509f55FDEd1F14beA",
         "password": "lol12345",
-        "passwordConfirm": "lol12345"
+        "passwordConfirm": "lol12345",
+        "ownedNfts": 0
     },
 
     {
@@ -14,7 +15,8 @@
         "email": "johnnyboy90@gmail.com",
         "password": "power12345",
         "address": "0x203B0F79893D2C71f14eF9c591f17a5e18A7f73D",
-        "passwordConfirm": "power12345"
+        "passwordConfirm": "power12345",
+        "ownedNfts": 0
     },
 
     {
@@ -23,7 +25,8 @@
         "email": "mikeandrews2000@gmail.com",
         "password": "123mini123",
         "address": "0x24Fb5b2427531125e85e80A80f678dB6C197c4E5",        
-        "passwordConfirm": "123mini123"
+        "passwordConfirm": "123mini123",
+        "ownedNfts": 0
     },
 
     {
@@ -32,7 +35,8 @@
         "email": "tommybrown@gmail.com",
         "password": "tommy123",
         "address": "0xF8343b6c69f52c6bCBB8818D482E24D4ddf9B6D6",        
-        "passwordConfirm": "tommy123"
+        "passwordConfirm": "tommy123",
+        "ownedNfts": 0
     }
 
 

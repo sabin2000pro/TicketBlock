@@ -49,8 +49,11 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
 
        if(error) {
-        setIsError(!isError);
+
+         setIsError(!isError);
          return console.error(error);
+
+         
        }
 
 
@@ -102,8 +105,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
             <Button onClick = {addToCartHandler} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Add To Cart</Button>
 
-
-            </Card.Body>
+        </Card.Body>
 
             </Card>
 
