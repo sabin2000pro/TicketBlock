@@ -161,9 +161,35 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         let creatorId = tokenResponse.data.data.id
 
         creatorId = creator;
-        console.log(`Token data : `, tokenData);
+
+        const txHash = mintedNft.events.EventNftCreated.transactionHash
+        fetchTransactionReceipt(txHash);         // Fetch transaction receipt
         
         return mintedNftData;
+    }
+
+    // VERY IMPORTANT - TO ENSURE THAT THE TRANSACTION IS AUTHENTIC AND WENT THROUGH
+
+    const fetchTransactionReceipt = async (txHash: any): Promise<any> => {
+        try {
+
+            let txReceipt = await web3.eth.getTransactionReceipt(txHash);
+
+            if (txReceipt.blockNumber === undefined) {
+                 throw new Error("Transaction is not valid")
+             }
+
+            return txReceipt.transactionHash
+    }
+         
+        
+        catch(error: any) {
+            if(error) {
+                return console.error(error);
+            }
+        }
+
+
     }
 
 
@@ -195,7 +221,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     // @params: id: ID of the NFT to buy
     // @ Pre Condition: Before buying an NFT it must be present in the database (available NFTs for sale)
     // @ Post Condition: Delisted NFT from the database (Deleted using DELETE request)
-    
+
     const buyNft = async (id: number) => {
 
         try {
@@ -243,7 +269,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
 
             let listedNftsOnSale = await nftContract.methods.fetchAllNftsOnSale().call();
-            return listedNftsOnSale
+            return listedNftsOnSale // Return all of the nfts on sale
         } 
         
         catch(error: any) {
@@ -252,7 +278,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
                 return console.error(error);
             }
         }
-
 
     }
 
