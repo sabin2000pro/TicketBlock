@@ -3,6 +3,7 @@ import { Card, Row } from 'react-bootstrap'
 import { Button } from "@chakra-ui/react"
 import {useNavigate} from "react-router-dom"
 import { Web3Context } from '../../context/Web3Context'
+import { Badge } from '@chakra-ui/react'
 import ethlogo from '../../images/ethlogo.png';
 
 type INftVals = {
@@ -17,11 +18,11 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
   const [error, setError] = useState<string | undefined>("");
   let [nftData, setNftData] = useState<any[] | undefined>([]);
+  const [tokenPurchased, setTokenPurchased] = useState<boolean | undefined>(false)
 
   useEffect(() => {
 
    if(localStorage.getItem("token") === null) {
-
        alert("You must be logged in before viewing all NFTs");
        return navigate("/login")
    }
@@ -44,7 +45,8 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
   const addToCartHandler = async (id: number) => {
 
      try {
-        return await buyNft(id)
+        await buyNft(id)
+        setTokenPurchased(!tokenPurchased);
      } 
      
      catch(error: any) {
