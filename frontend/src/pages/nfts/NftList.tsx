@@ -12,6 +12,7 @@ type INftVals = {
 const NftList: React.FC<INftVals> = ({nfts}) => {
   const navigate = useNavigate();
   const {fetchNftData} = useContext(Web3Context)
+  
   const [isError, setIsError] = useState<boolean | false>(false);
   const [error, setError] = useState<string | undefined>("");
 
