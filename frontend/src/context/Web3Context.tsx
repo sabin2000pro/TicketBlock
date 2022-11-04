@@ -159,8 +159,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const tokenData = tokenResponse.data;
         let creatorId = tokenResponse.data.data.id
 
-        // Once we have the creator ID, we now overwrite the creator field in the database with the creator account address
-
         creatorId = creator;
         console.log(`Token data : `, tokenData);
         
