@@ -65,10 +65,13 @@ const UserProfile: React.FC = (props: any) => {
         return username!.toString() !== "" && email!.toString() !== "";
     }
 
-    const handleUpdateProfileSettings = async (): Promise<void> => 
+    const handleUpdateProfileSettings = async (event: any): Promise<void> => 
     {
         try {
 
+            event.preventDefault();
+
+        
            if(!validateUserProfile()) {
                 setIsValidationError(!isValidationError);
                 setError(error);
@@ -115,6 +118,9 @@ const UserProfile: React.FC = (props: any) => {
     
 </Alert>}
 
+  <form onSubmit = {handleUpdateProfileSettings} method = "POST">
+
+  
        
     <div className = "profile-container">
 
@@ -172,7 +178,7 @@ const UserProfile: React.FC = (props: any) => {
 
             <input value = {email} onChange = {(event) => setEmail(event.target.value)} className = "update-username" type = "text" />
 
-            <Button onClick = {handleUpdateProfileSettings} type = "submit" colorScheme='teal' size='md'>Update Details</Button>
+            <Button type = "submit" colorScheme='teal' size='md'>Update Details</Button>
 
                 </Card.Body>
             </Card>
@@ -196,8 +202,10 @@ const UserProfile: React.FC = (props: any) => {
 
      </Row>
 
-
+    
         </div>
+
+ </form>
     </>
 
 

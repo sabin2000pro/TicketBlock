@@ -187,6 +187,13 @@ export const updateProfileSettings = async (username: string, email: string) => 
 
     try {
 
+    
+        const updateProfileResponse = await axios.post("http://localhost:5299/api/v1/auth/update-profile", {username, email});
+        const responseData = updateProfileResponse.data;
+
+        console.log(responseData);
+
+        return responseData;
     } 
     
     catch(err: any) {
