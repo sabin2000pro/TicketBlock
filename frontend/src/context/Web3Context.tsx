@@ -2,6 +2,7 @@ import {useContext, useState, createContext, ReactNode, useEffect} from 'react';
 import Web3 from 'web3';
 import EventNftContract from '../contracts/EventNftMarket.json';
 import axios from 'axios';
+import {getLoggedInUser} from '../api/auth-api';
 
 type Web3ContextProps = {
     children: ReactNode
@@ -160,8 +161,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         // Once we have the creator ID, we now overwrite the creator field in the database with the creator account address
 
         creatorId = creator;
-
-        console.log(`New Token Creator Address: `, creatorId);
         console.log(`Token data : `, tokenData);
         
         return mintedNftData;
@@ -209,7 +208,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
             console.log(nftValues);
 
-            // Buy NFT Logic: 
+            // Buy NFT Logic. First fetch the user data and extract the owned NFTs value. When the function is invoked
+            // Increment the ownedNfts++ by 1 every time and store that number in the Owned NFts on User Profile
+            
 
             return nftData
             
