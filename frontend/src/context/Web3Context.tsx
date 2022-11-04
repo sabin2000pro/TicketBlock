@@ -45,7 +45,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
 
-    const [tokensOwned, setTokensOwned] = useState([]);
+    const [tokensOwned, setTokensOwned] = useState<any[] | undefined>([]);
     const [idValidated, setIdValidated] = useState<boolean | undefined>(false);
 
     const networks = EventNftContract.networks
@@ -157,7 +157,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const mintedNftData = {tokenId, name, price, creator, isTokenListed}
 
         const tokenResponse = await axios.post(URL, {tokenId, name, price, creator});
-        const tokenData = tokenResponse.data;
+        const tokenData = tokenResponse.data.data;
         let creatorId = tokenResponse.data.data.id
 
         creatorId = creator;
@@ -165,8 +165,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const txHash = mintedNft.events.EventNftCreated.transactionHash
         fetchTransactionReceipt(txHash);
 
-        console.log(tokenData);
-        console.log(creatorId);
+        setTokensOwned(tokenData);
+        
+       for(const tokensData of tokensOwned) {
+         console.log(`Token data : `, tokensData);
+       }
         
         return mintedNftData;
     }
@@ -174,6 +177,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     // VERY IMPORTANT - TO ENSURE THAT THE TRANSACTION IS AUTHENTIC AND WENT THROUGH
 
     const fetchTransactionReceipt = async (txHash: any): Promise<any> => {
+
         try {
 
             let txReceipt = await web3.eth.getTransactionReceipt(txHash);
