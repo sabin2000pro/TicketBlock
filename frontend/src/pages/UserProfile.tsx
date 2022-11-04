@@ -1,12 +1,10 @@
 import {useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap';
-import { Alert, AlertIcon, Button } from "@chakra-ui/react";
-import { getLoggedInUser } from '../api/auth-api';
-import { useToast, Avatar } from '@chakra-ui/react'
+import { Alert, AlertIcon, Button, useToast, Avatar } from "@chakra-ui/react";
+import { getLoggedInUser, updateProfileSettings } from '../api/auth-api';
 import { useNavigate } from 'react-router-dom';
 import { Web3Context } from '../context/Web3Context';
 import { useContext } from 'react';
-import { updateProfileSettings } from '../api/auth-api';
 
 const toastPositions = [
     'top',
@@ -30,7 +28,7 @@ const UserProfile: React.FC = (props: any) => {
     let [accountBalance, setAccountBalance] = useState<string | undefined>("");
 
     const [isValidationError, setIsValidationError] = useState<boolean | undefined>(false)
-    const [error, setError] = useState<string | undefined>("")
+    const [error, setError] = useState<any[] | undefined>([])
 
     let {balance} = useContext(Web3Context)
 
