@@ -131,7 +131,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-    const validateNftId = () => {
+    const validateNftId = (id: number) => {
         // Code to make sure that the created NFT id is not equal to an existing one in the database
     }
 
@@ -172,11 +172,12 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         let userNftsMinted = userAccountData;
 
         userNftsMinted.accountAddress = chosenAccount; // Overwrite the account
-        console.log(`You have minted`, userNftsMinted.accountAddress);
-
+        console.log(`Your account adddress used to mint the token`, userNftsMinted.accountAddress);
 
         if(tokenMinted) {
             userNftsMinted++;
+            console.log(`You have minted`, userNftsMinted);
+
         }
     
         return mintedNftData;
