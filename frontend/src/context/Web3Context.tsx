@@ -174,12 +174,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         userNftsMinted.accountAddress = chosenAccount; // Overwrite the account
         console.log(`Your account adddress used to mint the token`, userNftsMinted.accountAddress);
 
-        if(tokenMinted) {
-            userNftsMinted++;
-            console.log(`You have minted`, userNftsMinted);
+        userNftsMinted++;
+         console.log(`You have minted`, userNftsMinted);
 
-        }
-    
         return mintedNftData;
     }
 
