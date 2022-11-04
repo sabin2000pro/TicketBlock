@@ -98,7 +98,11 @@ export const CartProvider: React.FC<CartContextProps> = ({children}) => {
     }
  
     return <CartContext.Provider value = {{increaseCartQuantity, decreaseCartQuantity, removeOneFromCart, cartItems, getCartQuantity, openCart, closeCart}}>
+
             {children}
+
+        <Cart isCartOpen = {isCartOpen} />
+
     </CartContext.Provider>
 }
 
