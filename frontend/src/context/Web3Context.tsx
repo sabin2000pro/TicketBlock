@@ -167,17 +167,15 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         tokensOwned!.push(tokenData, {userTxHash}) as unknown as any;
 
-        console.log(`User tx hash : `, userTxHash);
+        console.log(tokensOwned);
 
         const userData = await getLoggedInUser(); // Get logged in user and extract number of minted nfts field and increment by 1 every time an nft is minted
 
 
-        const userAccountData = userData.data.data.accountAddress
-         console.log(userAccountData);
+        const userAccountData = userData.data;
+        console.log(userAccountData);
 
-        
-
-        
+    
         return mintedNftData;
     }
 
