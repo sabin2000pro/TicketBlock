@@ -122,7 +122,6 @@ const UserProfile: React.FC = (props: any) => {
 
         fetchUserOwnedNfts();
 
-
     }, [])
 
   return (

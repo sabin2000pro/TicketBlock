@@ -47,7 +47,7 @@ const editNftByID = (request, response, next) => __awaiter(void 0, void 0, void 
 });
 exports.editNftByID = editNftByID;
 const deleteAllNfts = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    yield nft_model_1.Nft.remove();
+    yield nft_model_1.Nft.deleteMany();
     return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, data: null });
 });
 exports.deleteAllNfts = deleteAllNfts;

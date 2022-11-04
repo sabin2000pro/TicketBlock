@@ -133,10 +133,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-    const validateNftId = (id: number) => {
-        // Code to make sure that the created NFT id is not equal to an existing one in the database
-    }
-
     // This sub-routine is going to be invoked when creating a new NFT on the server-side (POST data to the database)
     // After data is POSTED, invoke the mintNft routine with the name and price being sent to activate the smart contract which calls the mintNft function
 
@@ -247,8 +243,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
             const boughtNft = await nftContract.methods.buyNft(id).send({from: localStorage.getItem("account") as any})
 
-            console.log(`Bought NFT`, boughtNft);
-
             const nftValues = boughtNft.events.NftPurchased.returnValues
             let nftOwner = nftValues.currentOwner;
             const nftId = nftValues.id;
@@ -258,14 +252,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
             const nftData = {nftOwner, nftId, nftTokenListed, nftPrice};
 
-            const txHash = boughtNft.events.EventNftCreated
-            // const userTxHash = await fetchTransactionReceipt(txHash);
-            console.log(txHash);
+            const txHash = boughtNft.transactionHash
+            const userTxHash = await fetchTransactionReceipt(txHash);
 
             nftOwner = chosenAccount;
-            tokensOwned!.push(nftData, nftOwner, tokensMinted) as unknown as any;
-
-            console.log(`Tokens owned : `, tokensOwned);
+            tokensOwned!.push(nftOwner, boughtNft) as unknown as any;
 
             fetchAllNftsOnSale();
             return nftData
@@ -291,9 +282,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
 
-
             const listedNftsOnSale = await nftContract.methods.fetchAllNftsOnSale().call()
-            console.log(listedNftsOnSale);
+            
             return listedNftsOnSale // Return all of the nfts on sale
         } 
         
