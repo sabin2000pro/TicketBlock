@@ -200,7 +200,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             if(error) {
                 return console.error(error);
             }
-
         }
 
     }
@@ -214,10 +213,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
-            const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any});
+            const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any}); // Invoke smart contract routine to place the NFT we want to place on sale given the ID and price
 
-            // Code below to delist the NFT from available NFTs (send DELETE request)
-
+            // 1. First we need to 
 
             return nftOnSale;
         } 
