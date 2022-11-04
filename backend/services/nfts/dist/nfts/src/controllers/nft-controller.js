@@ -62,12 +62,14 @@ const uploadNftImage = (request, response, next) => __awaiter(void 0, void 0, vo
     const file = request.files.file;
     const nft = yield nft_model_1.Nft.findById(id);
     if (!nft) {
+        return next(new nft_error_handler_2.NotFoundError("NFT Not found with that ID", http_status_codes_1.StatusCodes.NOT_FOUND));
     }
     if (!request.files) {
-        return next(new nft_error_handler_1.BadRequestError(`Please ensure that the file is an actual image`, 400));
+        return next(new nft_error_handler_1.BadRequestError(`Please ensure that the file is an actual image`, http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
     // 1. Ensure that the file is an actual image
     if (!file.mimetype.startsWith("image")) {
+        return next(new nft_error_handler_1.BadRequestError("Please make sure the uploaded file is an image", http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
     return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "All Nfts Here" });
 });

@@ -17,7 +17,7 @@ type IWeb3Context = {
     fetchNftData: () => any
     mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
-    
+
     setNftOnSale: (id: number, price: number) => any
     fetchAllNftsOnSale: (nfts: any[]) => Promise<any>
     chosenAccount: any
@@ -129,7 +129,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         }
 
-
     }
 
     const validateNftId = () => {
@@ -159,8 +158,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const tokenResponse = await axios.post(URL, {tokenId, name, price, creator});
         const tokenData = tokenResponse.data.data;
-        let creatorId = tokenResponse.data.data.id
 
+        let creatorId = tokenResponse.data.data.id
         creatorId = creator;
 
         const txHash = mintedNft.events.EventNftCreated.transactionHash
@@ -241,8 +240,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftPrice = nftValues.price
 
             const nftData = {nftOwner, nftId, nftTokenListed, nftPrice};
-
-            console.log(nftValues);
 
             // Buy NFT Logic. First fetch the user data and extract the owned NFTs value. When the function is invoked
             // Increment the ownedNfts++ by 1 every time and store that number in the Owned NFts on User Profile
