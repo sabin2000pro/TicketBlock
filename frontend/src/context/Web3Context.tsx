@@ -42,6 +42,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
+
     const [tokensOwned, setTokensOwned] = useState([]);
     const [idValidated, setIdValidated] = useState<boolean | undefined>(false);
 
@@ -144,24 +145,24 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         setTokenMinted(!tokenMinted)
 
         const nftValues = mintedNft.events.EventNftCreated.returnValues;
-
         const tokenId = parseInt(nftValues.id)
 
-        const creator = nftValues.creator
+        let creator = nftValues.creator
         let isTokenListed = nftValues.isTokenListed
-        isTokenListed = !isTokenListed;
+        isTokenListed = !(isTokenListed);
     
         const mintedNftData = {tokenId, name, price, creator, isTokenListed}
 
         const tokenResponse = await axios.post(URL, {tokenId, name, price});
         const tokenData = tokenResponse.data;
-        const creatorId = tokenResponse.data.data.id
+        let creatorId = tokenResponse.data.data.id
 
         // Once we have the creator ID, we now overwrite the creator field in the database with the creator account address
 
-        console.log(nftValues);
-        console.log(`Token Creator : `, creatorId);
-        console.log(tokenData);
+        creatorId = creator;
+
+        console.log(`New Token Creator Address: `, creatorId);
+        console.log(`Token data : `, tokenData);
         
         return mintedNftData;
     }
