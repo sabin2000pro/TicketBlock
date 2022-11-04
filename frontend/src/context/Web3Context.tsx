@@ -169,12 +169,12 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const userData = await getLoggedInUser(); // Get logged in user and extract number of minted nfts field and increment by 1 every time an nft is minted
 
         const userAccountData = userData.data
-
         let userNftsMinted = userAccountData.nftsMinted;
 
         if(tokenMinted) {
             userNftsMinted++;
         }
+
     
         return mintedNftData;
     }
@@ -188,7 +188,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             let txReceipt = await web3.eth.getTransactionReceipt(txHash);
 
             if (txReceipt.blockNumber === undefined) {
-                 throw new Error("Transaction is not valid")
+                 throw new Error("The minted NFT transaction is not valid")
              }
 
             return txReceipt.transactionHash
@@ -210,7 +210,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const setNftOnSale = async (id: number, price: number) => {
 
         try {
-
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
             const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any}); // Invoke smart contract routine to place the NFT we want to place on sale given the ID and price
