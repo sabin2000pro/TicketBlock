@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {useContext, useState, createContext, ReactNode, useEffect} from 'react';
 import Web3 from 'web3';
 import EventNftContract from '../contracts/EventNftMarket.json';
@@ -154,7 +155,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     
         const mintedNftData = {tokenId, name, price, creator, isTokenListed}
 
-        const tokenResponse = await axios.post(URL, {tokenId, name, price});
+        const tokenResponse = await axios.post(URL, {tokenId, name, price, creator});
         const tokenData = tokenResponse.data;
         let creatorId = tokenResponse.data.data.id
 

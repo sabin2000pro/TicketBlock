@@ -20,14 +20,13 @@ interface NftDocument extends mongoose.Model<NftAttributes> {
 
 const NftSchema = new mongoose.Schema({
 
-    tokenCreator: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    },
-
     tokenId: {
         type: Number,
         default: 0
+    },
+
+    creator: {
+        type: String
     },
 
     name: {
