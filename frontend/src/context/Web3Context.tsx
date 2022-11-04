@@ -12,15 +12,12 @@ type Web3ContextProps = {
 type IWeb3Context = {
     accounts: any,
     balance: any,
-
     connectWallet: () => void
     handleAccountChange: () => void
-
     fetchNftData: () => any
-
     mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
-
+    
     setNftOnSale: (id: number, price: number) => any
     fetchAllNftsOnSale: (nfts: any[]) => Promise<any>
     chosenAccount: any
@@ -135,6 +132,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
+    const validateNftId = () => {
+        // Code to make sure that the created NFT id is not equal to an existing one in the database
+    }
+
     // This sub-routine is going to be invoked when creating a new NFT on the server-side (POST data to the database)
     // After data is POSTED, invoke the mintNft routine with the name and price being sent to activate the smart contract which calls the mintNft function
 
@@ -166,11 +167,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         fetchTransactionReceipt(txHash);
 
         tokensOwned!.push(tokenData) as unknown as any;
-
-        for(const element of tokensOwned!) {
-             console.log(element);
-        }
-    
         return mintedNftData;
     }
 
