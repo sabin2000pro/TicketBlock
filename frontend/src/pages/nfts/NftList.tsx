@@ -73,6 +73,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
         {nfts.map((nft, key) => {
 
       return (
+
   
       <Row key = {key} md = {2} xs = {1} lg = {3} className = "g-1 d-inline-flex m-4">
 

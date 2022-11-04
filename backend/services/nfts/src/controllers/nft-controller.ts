@@ -45,7 +45,7 @@ export const editNftByID = async (request: Request, response: Response, next: Ne
 }
 
 export const deleteAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-    await Nft.remove();
+    await Nft.deleteMany();
     return response.status(StatusCodes.OK).json({success: true, data: null })
 }
 
