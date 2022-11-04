@@ -10,8 +10,7 @@ interface IUserAttributes {
     isVerified: boolean;
     isActive: boolean;
 
-    nftsOwned: number; // Number of NFTs the user owns
-    nftsMinted: number
+    ownedNfts: number; // Number of NFTs the user owns
     compareLoginPasswords: (enteredPassword: string | undefined) => Promise<boolean>
     returnAuthToken: () => any;
 }
@@ -29,7 +28,7 @@ interface IUserDocument extends mongoose.Model<IUserAttributes> {
     passwordConfirm: string;
 
     accountAddress: string;
-    nftsOwned: number;
+    ownedNfts: number;
 
     isVerified: boolean;
     isActive: boolean;
@@ -62,12 +61,7 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
         default: "0x2826f4846f107F6bE5Ef2Cc83221398594b50e97"
     },
 
-    nftsOwned: { // The number of NFTs that this user owns. Once a user buys an NFT (invoke smart contract routine ) -> nftsOwned += 1; otherwise nftsOwned--;
-        type: Number,
-        default: 0
-    },
-
-    nftsMinted: {
+    ownedNfts: { // The number of NFTs that this user owns. Once a user buys an NFT (invoke smart contract routine ) -> nftsOwned += 1; otherwise nftsOwned--;
         type: Number,
         default: 0
     },
