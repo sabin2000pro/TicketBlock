@@ -37,19 +37,23 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
    getAllNfts();
 
-
   }, [])
 
-  const addToCartHandler = () => {
+  const addToCartHandler = (event: any) => {
+
      try {
        
      } 
      
      catch(error: any) {
-       if(error) {
 
+
+       if(error) {
+        setIsError(!isError);
          return console.error(error);
        }
+
+       
      }
 
 
