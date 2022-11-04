@@ -184,7 +184,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
              }
 
             return txReceipt.transactionHash
-    }
+         }
          
         
         catch(error: any) {
@@ -196,9 +196,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-
     // @params: id: ID of the NFT
     // @params: price: Price of the NFT when setting it on sale
+
     const setNftOnSale = async (id: number, price: number) => {
 
         try {
@@ -246,7 +246,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             // Buy NFT Logic. First fetch the user data and extract the owned NFTs value. When the function is invoked
             // Increment the ownedNfts++ by 1 every time and store that number in the Owned NFts on User Profile
             
-
             return nftData
             
         } 
