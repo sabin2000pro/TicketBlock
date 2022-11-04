@@ -163,7 +163,10 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         creatorId = creator;
 
         const txHash = mintedNft.events.EventNftCreated.transactionHash
-        fetchTransactionReceipt(txHash);         // Fetch transaction receipt
+        fetchTransactionReceipt(txHash);
+
+        console.log(tokenData);
+        console.log(creatorId);
         
         return mintedNftData;
     }
@@ -184,11 +187,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
          
         
         catch(error: any) {
+
             if(error) {
                 return console.error(error);
             }
         }
-
 
     }
 
