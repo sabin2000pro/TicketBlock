@@ -171,6 +171,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const userData = await getLoggedInUser();
 
         if(userData.length > 0) {
+            
             const userAccountData = userData.data.data.accountAddress
             console.log(userAccountData);
 
@@ -218,6 +219,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any});
 
             // Code below to delist the NFT from available NFTs (send DELETE request)
+
 
             return nftOnSale;
         } 
@@ -289,7 +291,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
                 return console.error(error);
             }
 
-            
+
         }
 
     }

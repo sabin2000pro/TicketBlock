@@ -35,11 +35,7 @@ const UserSchema = new mongoose_1.default.Schema({
         type: String,
         default: "0x2826f4846f107F6bE5Ef2Cc83221398594b50e97"
     },
-    nftsOwned: {
-        type: Number,
-        default: 0
-    },
-    nftsMinted: {
+    ownedNfts: {
         type: Number,
         default: 0
     },
