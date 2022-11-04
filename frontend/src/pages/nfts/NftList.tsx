@@ -63,7 +63,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
           <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
 
-            <p style = {{marginLeft: "80px", marginTop: "30px", fontSize: "18px", marginBottom: "30px"}}>{nft.name}</p>
+            <p style = {{marginLeft: "100px", marginTop: "20px", fontSize: "18px", marginBottom: "30px"}}>{nft.name}</p>
 
             </Card.Title>
 
