@@ -18,14 +18,6 @@ const AuthProvider = createContext(defaultAuthState)
 export const AuthContext: React.FC<ChildrenProps> = ({children}) => {
     const [authState, setAuthState] = useState(defaultAuthState);
 
-    const registerUserAccount = async () => {
-
-    }
-
-    const loginAccount = async () => {
-
-    }
-
     return <AuthProvider.Provider value = {authState}>
         {children}
     </AuthProvider.Provider>
