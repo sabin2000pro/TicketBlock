@@ -20,7 +20,7 @@ type IWeb3Context = {
     buyNft: (id: number) => void
 
     setNftOnSale: (id: number, price: number) => any
-    fetchAllNftsOnSale: () => any
+    fetchAllNftsOnSale: (nfts: any[]) => Promise<any>
     chosenAccount: any
    
 }
@@ -74,7 +74,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             localStorage.setItem("balance", formattedBalance);
         }
 
-    
         balance = formattedBalance
 
     }
