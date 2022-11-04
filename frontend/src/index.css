@@ -393,7 +393,7 @@
 .nft-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 24px;
+  padding: 18px;
 }
 
 .custom-btn {
@@ -402,14 +402,22 @@
 }
 
 .price-container {
-  text-align: center
+  text-align: center;
+  margin-right: 65px;
+  margin-top: 45px;
 }
 
 .nft-image-container {
   text-align: center;
-  margin-left: 100px;
-  margin-bottom: 50px;
+  margin-left: -30px;
+  margin-bottom: 25px;
   margin-right: 30px;
   gap: 20px;
  
+}
+
+.creator-container {
+  margin-left: 100px;
+  padding: 20px;
+  margin-bottom: 20px;
 }

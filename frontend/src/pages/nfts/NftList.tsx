@@ -48,11 +48,11 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
       return (
   
-      <Row key = {key} md = {2} xs = {1} lg = {3} className = "g-3 d-inline-flex m-3">
+      <Row key = {key} md = {2} xs = {1} lg = {3} className = "g-1 d-inline-flex m-4">
 
-      <Card className = "h-50 w-100 m-3 mx-5 mt-5 d-flex">
+      <Card className = "h-50 w-100 m-3 mx-2 mt-5 d-flex">
 
-          <Card.Body className = "d-flex flex-column custom m-4 w-75">
+          <Card.Body className = "d-flex flex-column custom m-4 w-100">
 
           <div className = "nft-image-container">
                <h3>Image here</h3>
@@ -61,9 +61,14 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
           <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
 
-            <p style = {{marginLeft: "100px", marginTop: "20px", fontSize: "18px", marginBottom: "30px"}}>{nft.name}</p>
+            <p style = {{marginLeft: "100px", marginTop: "15px", fontSize: "20px", marginBottom: "40px"}}>{nft.name}</p>
 
+          
             </Card.Title>
+
+          
+            <span>Creator: {nft.creator}  </span>
+           
 
             <div className = "price-container">
                 <p>Price:  <strong>  {nft.price}  ETH</strong>   </p>
@@ -71,7 +76,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
 
             <div className = "logo-container">
-              <img style = {{height: '35px', marginLeft: '260px', marginRight: '-20px', marginTop: "-30px", marginBottom: "20px"}} src = {ethlogo} alt = "ethlogo" />
+              <img style = {{height: '35px', marginLeft: '330px', marginRight: '-20px', marginTop: "-30px", marginBottom: "20px"}} src = {ethlogo} alt = "ethlogo" />
             </div>
 
             <Button className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Add To Cart</Button>
