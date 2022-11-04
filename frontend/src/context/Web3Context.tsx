@@ -2,7 +2,6 @@ import {useContext, useState, createContext, ReactNode, useEffect} from 'react';
 import Web3 from 'web3';
 import EventNftContract from '../contracts/EventNftMarket.json';
 import axios from 'axios';
-import { ethers } from 'ethers';
 
 type Web3ContextProps = {
     children: ReactNode
@@ -31,7 +30,7 @@ const web3 = new Web3(provider as any)
 let chosenAccount = "" as any
 
 let PORT = 5201 as number;
-let URL = `http://localhost:5201/api/v1/nfts`;
+let URL = `http://localhost:${PORT}/api/v1/nfts`;
 
 export const Web3Context = createContext({} as IWeb3Context)
 
@@ -106,9 +105,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             await connectWallet();
         }
 
-        
         connectToWallet();
-        
 
     }, [])
 
@@ -117,11 +114,11 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         try {
 
             const response = await axios.get(`http://localhost:5201/api/v1/nfts`);
-            const tokenData = response.data.data;
+            const nftData = response.data.data;
 
-            console.log(tokenData);
+            console.log(nftData);
 
-            return tokenData;
+            return nftData;
         } 
         
         catch(error: any) {
@@ -149,7 +146,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const nftValues = mintedNft.events.EventNftCreated.returnValues;
 
         const tokenId = parseInt(nftValues.id)
-        const nftName = nftValues.name;
 
         const creator = nftValues.creator
         const isTokenListed = nftValues.isTokenListed
@@ -158,8 +154,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const tokenResponse = await axios.post(URL, {tokenId, name, price});
         const tokenData = tokenResponse.data;
-
         const creatorId = tokenResponse.data.data.id
+
+        // Once we have the creator ID, we now overwrite the creator field in the database with the creator account address
 
         console.log(`Token Creator : `, creatorId);
         console.log(tokenData);
@@ -176,7 +173,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftOnSale = await nftContract.methods.setNftOnSale(id, price).send({from: localStorage.getItem("account") as any});
 
             // Code below to delist the NFT from available NFTs (send DELETE request)
-            
 
             return nftOnSale;
         } 
@@ -210,7 +206,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
             console.log(nftValues);
 
-            // After buying an NFT, remove that NFT with its ID from the database by filtering it out
+            // Buy NFT Logic: 
 
 
             return nftData
