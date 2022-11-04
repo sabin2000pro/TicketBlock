@@ -22,7 +22,7 @@ type IWeb3Context = {
     fetchOwnerOfToken: () => void
 
     setNftOnSale: (id: number, name: string, price: number) => any
-    fetchAllNftsOnSale: () => Promise<any>
+    fetchAllNftsOnSale: (allNftsOnSale: any) => Promise<any>
     chosenAccount: any
    
 }
@@ -270,9 +270,13 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const userTxHash = await fetchTransactionReceipt(txHash);
 
             nftOwner = chosenAccount;
-            tokensOwned!.push(nftOwner, boughtNft, userTxHash) as unknown as any;
+            
+            let allNftsOnSale = tokensOwned!.push(nftOwner, boughtNft, userTxHash) as unknown as any;
 
-            fetchAllNftsOnSale();
+            fetchAllNftsOnSale(allNftsOnSale);
+
+            fetchOwnerOfToken();
+
             return nftData;
             
         } 
@@ -289,16 +293,18 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     // Smart Contract Function: Get all of the nfts on sale (in the background fetch the nfts that are on sale and store them in an array)
     // @Returns: Array of NFTs on sale
     
-    const fetchAllNftsOnSale = async (): Promise<any> => {
+    const fetchAllNftsOnSale = async (allNftsOnSale: any): Promise<any> => {
 
         try {
 
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
 
-            const listedNftsOnSale = await nftContract.methods.fetchAllNftsOnSale().call()
+            allNftsOnSale = await nftContract.methods.fetchAllNftsOnSale().call()
+
+            console.log(allNftsOnSale)
             
-            return listedNftsOnSale // Return all of the nfts on sale
+            return allNftsOnSale // Return all of the nfts on sale
         } 
         
         catch(error: any) {
