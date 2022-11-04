@@ -225,7 +225,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     // Smart Contract Function: Get all of the nfts on sale (in the background fetch the nfts that are on sale and store them in an array)
     // @Returns: Array of NFTs on sale
     
-    const fetchAllNftsOnSale = async () => {
+    const fetchAllNftsOnSale = async (nfts: any[]): Promise<any> => {
 
         try {
 
