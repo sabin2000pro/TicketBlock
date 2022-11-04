@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap'
 import { Button } from "@chakra-ui/react"
 import {useNavigate} from "react-router-dom"
@@ -12,6 +12,8 @@ type INftVals = {
 const NftList: React.FC<INftVals> = ({nfts}) => {
   const navigate = useNavigate();
   const {fetchNftData} = useContext(Web3Context)
+  const [isError, setIsError] = useState<boolean | false>(false);
+  const [error, setError] = useState<string | undefined>("");
 
   useEffect(() => {
 
@@ -37,6 +39,21 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
 
   }, [])
+
+  const addToCartHandler = () => {
+     try {
+       
+     } 
+     
+     catch(error: any) {
+       if(error) {
+
+         return console.error(error);
+       }
+     }
+
+
+  }
 
     return (
 
@@ -79,7 +96,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
               <img style = {{height: '35px', marginLeft: '330px', marginRight: '-20px', marginTop: "-30px", marginBottom: "20px"}} src = {ethlogo} alt = "ethlogo" />
             </div>
 
-            <Button className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Add To Cart</Button>
+            <Button onClick = {addToCartHandler} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Add To Cart</Button>
 
 
             </Card.Body>
