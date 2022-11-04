@@ -9,7 +9,6 @@
 
     {
         "tokenId": 1,
-       
         "owner": "5d7a514b5d2c12c7449ac9051",
         "name": "Three Sisters VIP Event NFT",
         "image": "no-photo.jpg",
@@ -22,7 +21,7 @@
         "owner": "5d7a514b5d2c12c7449ac9052",
         "name": "Agile Project Management Ticket",
         "image": "no-photo.jpg",
-        "price": 0.0045
+        "price": 0.035
     }
 
 

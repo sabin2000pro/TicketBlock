@@ -20,7 +20,7 @@ const toastPositions = [
 const UserProfile: React.FC = (props: any) => {
 
     const navigate = useNavigate();
-    const toast = useToast(); // Displayed after updating profiel details
+    const toast = useToast(); // Displayed after updating profile details
 
     const [user, setUser] = useState([])
     const [username, setUsername] = useState<string | undefined>("");
