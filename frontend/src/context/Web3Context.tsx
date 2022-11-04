@@ -164,11 +164,12 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const txHash = mintedNft.events.EventNftCreated.transactionHash
         fetchTransactionReceipt(txHash);
-
         tokensOwned!.push(tokenData) as unknown as any;
 
         const userData = await getLoggedInUser();
-        console.log(userData);
+        const userAccountData = userData.data.data.accountAddress
+
+        console.log(userAccountData);
 
         return mintedNftData;
     }
