@@ -20,7 +20,6 @@ export interface IGetUserData extends Request {
     user: any | undefined;
 }
 
-
 const sendConfirmationEmail = (transporter: any, newUser: any, userOTP: number) => {
 
     return transporter.sendMail({
@@ -222,7 +221,7 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
     const user = await User.findById(userId);
 
     if(!isValidObjectId(userId)) {
-        return next(new NotFoundError("User ID not valid", 404));
+        return next(new NotFoundError("User ID not valid", StatusCodes.NOT_FOUND));
     }
 
     if(!token) {
@@ -235,7 +234,7 @@ export const verifyLoginMfa = async(request: Request, response: Response, next: 
 
 
     if(!factorToken) {
-        return next(new BadRequestError("The token associated to the user is invalid", 400));
+        return next(new BadRequestError("The token associated to the user is invalid", StatusCodes.BAD_REQUEST));
     }
 
     // Verify to see if the tokens match
@@ -270,9 +269,10 @@ export const logout = asyncHandler(async (request: Request, response: Response, 
 
 });
 
-export const lockAccount = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
-    return response.status(StatusCodes.OK).json({success: true, message: "Locked User Account" })
+export const lockAccount = asyncHandler(async (request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
+    const user = await User.findById(request.user._id);
 
+    return response.status(StatusCodes.OK).json({success: true, message: "Locked User Account" })
 });
 
 export const unlockAccount = asyncHandler(async (request: Request, response: Response, next: NextFunction): Promise<any | Response> => {
@@ -348,12 +348,11 @@ export const updatePassword = async(request: IGetUserData, response: Response, n
     // Update Password fields
     user.password = newPassword;
     await user.save();
-
 }  
 
 // @desc      Update Profile Settings
 // @route     POST /api/v1/auth/update-details
-// @access    Public (No Authorization Token Required)
+// @access    Private (Authorization Token Required)
 
 export const updateProfileDetails = async(request: IGetUserData, response: Response, next: NextFunction): Promise<any> => {
     const fieldsToUpdate = {email: request.body.email, username: request.body.username, password: request.body.password}

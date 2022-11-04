@@ -40,6 +40,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     let [accounts, setAccounts] = useState<string>("")
     let [balance, setBalance] = useState<string | undefined>("");
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
+    let [tokensMinted, setTokensMinted] = useState<number | undefined>(0);
 
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false) // True or false that determines if the token has been minted or not
@@ -152,6 +153,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         let creator = nftValues.creator
         let isTokenListed = nftValues.isTokenListed
+
         isTokenListed = !(isTokenListed);
     
         const mintedNftData = {tokenId, name, price, creator, isTokenListed}
@@ -165,18 +167,17 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const txHash = mintedNft.events.EventNftCreated.transactionHash
         const userTxHash = await fetchTransactionReceipt(txHash);
 
-        tokensOwned!.push(tokenData, {userTxHash}) as unknown as any;
+        
         const userData = await getLoggedInUser(); // Get logged in user and extract number of minted nfts field and increment by 1 every time an nft is minted
 
         const userAccountData = userData.data
         let userNftsMinted = userAccountData;
 
+        userAccountData.nftsMinted++
+        tokensMinted = userAccountData.nftsMinted;
+
         userNftsMinted.accountAddress = chosenAccount; // Overwrite the account
-        console.log(`Your account adddress used to mint the token`, userNftsMinted.accountAddress);
-
-        userNftsMinted++;
-         console.log(`You have minted`, userNftsMinted);
-
+        tokensOwned!.push(tokenData, tokensMinted, {userTxHash}) as unknown as any;
         return mintedNftData;
     }
 
@@ -250,9 +251,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const nftPrice = nftValues.price
 
             const nftData = {nftOwner, nftId, nftTokenListed, nftPrice};
-
-            // Buy NFT Logic. First fetch the user data and extract the owned NFTs value. When the function is invoked
-            // Increment the ownedNfts++ by 1 every time and store that number in the Owned NFts on User Profile
             
             return nftData
             

@@ -169,7 +169,7 @@ const verifyLoginMfa = (request, response, next) => __awaiter(void 0, void 0, vo
     const { userId, token } = request.body;
     const user = yield user_model_1.User.findById(userId);
     if (!(0, mongoose_1.isValidObjectId)(userId)) {
-        return next(new error_handler_1.NotFoundError("User ID not valid", 404));
+        return next(new error_handler_1.NotFoundError("User ID not valid", http_status_codes_1.StatusCodes.NOT_FOUND));
     }
     if (!token) {
         user.isActive = (!user.isActive);
@@ -178,7 +178,7 @@ const verifyLoginMfa = (request, response, next) => __awaiter(void 0, void 0, vo
     const factorToken = yield two_factor_verification_model_1.TwoFactorVerification.findOne({ owner: userId });
     const mfaTokensMatch = factorToken.compareMfaTokens(token);
     if (!factorToken) {
-        return next(new error_handler_1.BadRequestError("The token associated to the user is invalid", 400));
+        return next(new error_handler_1.BadRequestError("The token associated to the user is invalid", http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
     // Verify to see if the tokens match
     if (!mfaTokensMatch) {
@@ -202,6 +202,7 @@ exports.logout = (0, express_async_handler_1.default)((request, response, next) 
     return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "You have logged out", data: {} });
 }));
 exports.lockAccount = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield user_model_1.User.findById(request.user._id);
     return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "Locked User Account" });
 }));
 exports.unlockAccount = (0, express_async_handler_1.default)((request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -263,7 +264,7 @@ const updatePassword = (request, response, next) => __awaiter(void 0, void 0, vo
 exports.updatePassword = updatePassword;
 // @desc      Update Profile Settings
 // @route     POST /api/v1/auth/update-details
-// @access    Public (No Authorization Token Required)
+// @access    Private (Authorization Token Required)
 const updateProfileDetails = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const fieldsToUpdate = { email: request.body.email, username: request.body.username, password: request.body.password };
     const userId = request.user._id;
