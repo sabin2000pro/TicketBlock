@@ -45,7 +45,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false)
 
-    const [tokensOwned, setTokensOwned] = useState<any[] | undefined>([]);
+    let [tokensOwned, setTokensOwned] = useState<any[] | undefined>([]);
     const [idValidated, setIdValidated] = useState<boolean | undefined>(false);
 
     const networks = EventNftContract.networks
@@ -165,12 +165,12 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const txHash = mintedNft.events.EventNftCreated.transactionHash
         fetchTransactionReceipt(txHash);
 
-        setTokensOwned(tokenData);
-        
-       for(const tokensData of tokensOwned) {
-         console.log(`Token data : `, tokensData);
-       }
-        
+        tokensOwned!.push(tokenData) as unknown as any;
+
+        for(const element of tokensOwned!) {
+             console.log(element);
+        }
+    
         return mintedNftData;
     }
 
