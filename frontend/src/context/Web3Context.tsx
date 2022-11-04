@@ -19,6 +19,7 @@ type IWeb3Context = {
     fetchNftData: () => any
     mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
+    fetchOwnerOfToken: () => void
 
     setNftOnSale: (id: number, name: string, price: number) => any
     fetchAllNftsOnSale: () => Promise<any>
@@ -47,7 +48,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false) // True or false that determines if the token has been minted or not
 
     let [tokensOwned, setTokensOwned] = useState<any[] | undefined>([]);
-    const [idValidated, setIdValidated] = useState<boolean | undefined>(false);
 
     const networks = EventNftContract.networks
     let networkId = Object.keys(networks)[0] as keyof typeof networks; // Network ID 5777
@@ -176,6 +176,26 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         return mintedNftData;
     }
 
+    const fetchOwnerOfToken = async () => {
+         try {
+            const contractAbi = EventNftContract.abi;
+            const currentAccount = localStorage.getItem("account");
+    
+            const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
+            const tokenOwner = await nftContract.methods.fetchTokenOwner().send({from: currentAccount as unknown as WindowLocalStorage})
+
+            console.log(`Token owner : `, tokenOwner);
+
+            return tokenOwner;
+         } 
+         
+         catch(error: any) {
+            
+         }
+
+
+    }
+
     // VERY IMPORTANT - TO ENSURE THAT THE TRANSACTION IS AUTHENTIC AND WENT THROUGH
 
     const fetchTransactionReceipt = async (txHash: any): Promise<any> => {
@@ -292,7 +312,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-    return <Web3Context.Provider value = {{connectWallet, chosenAccount, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale, fetchAllNftsOnSale}}>
+    return <Web3Context.Provider value = {{connectWallet, fetchOwnerOfToken, chosenAccount, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale, fetchAllNftsOnSale}}>
             {children}
     </Web3Context.Provider>
 }
