@@ -12,12 +12,9 @@ type INftVals = {
 
 const NftList: React.FC<INftVals> = ({nfts}) => {
   const navigate = useNavigate();
-  const {fetchNftData, buyNft} = useContext(Web3Context)
+  let {fetchNftData, buyNft} = useContext(Web3Context)
 
   const [isError, setIsError] = useState<boolean | false>(false);
-
-  const [error, setError] = useState<string | undefined>("");
-  let [nftData, setNftData] = useState<any[] | undefined>([]);
 
   const [tokenPurchased, setTokenPurchased] = useState<boolean | undefined>(false)
 
@@ -36,11 +33,14 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
      await fetchNftData();
     
-
     }
 
    getAllNfts();
 
+  }, [])
+
+  useEffect(() => {
+    console.log(localStorage.getItem("nftowner"))
   }, [])
 
   const addToCartHandler = async (id: number) => {
@@ -90,12 +90,11 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
           <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
 
             <p style = {{marginLeft: "100px", marginTop: "15px", fontSize: "20px", marginBottom: "40px"}}>{nft.name}</p>
-
           
             </Card.Title>
 
           
-             {tokenPurchased ? <span>New Owner: {nft.creator} </span> : <span>Creator: {nft.creator}  </span>}
+             {tokenPurchased ? <span>New Owner: {localStorage.getItem("account")} </span> : <span>Creator: {nft.creator}  </span>}
             <span>Token ID : {nft.tokenId}</span>
            
 

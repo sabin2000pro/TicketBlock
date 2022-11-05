@@ -13,6 +13,9 @@ const NftSchema = new mongoose_1.default.Schema({
     creator: {
         type: String
     },
+    newNftOwner: {
+        type: String
+    },
     name: {
         type: String
     },

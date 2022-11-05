@@ -16,9 +16,7 @@ const http_status_codes_1 = require("http-status-codes");
 const nft_model_1 = require("../models/nft-model");
 const fetchAllNfts = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const nfts = yield nft_model_1.Nft.find();
-    if (nfts.length > 0) {
-        return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, data: nfts });
-    }
+    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, data: nfts });
 });
 exports.fetchAllNfts = fetchAllNfts;
 const fetchNftByID = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {

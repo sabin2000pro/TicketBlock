@@ -116,7 +116,6 @@ const UserProfile: React.FC = (props: any) => {
             userOwnedNfts.accountAddress = chosenAccount
             
             const accountUserProfileAddress = userOwnedNfts.accountAddress;
-            console.log(`Account user profile " `, accountUserProfileAddress);
 
         }
 

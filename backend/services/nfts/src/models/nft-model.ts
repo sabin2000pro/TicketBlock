@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 interface NftAttributes {
     tokenCreator: mongoose.Schema.Types.ObjectId;
     tokenId: number
+    newNftOwner: string | undefined
     name: string | undefined;
     image: string | undefined
     price: string | undefined;
@@ -10,7 +11,8 @@ interface NftAttributes {
 
 interface NftDocument extends mongoose.Model<NftAttributes> {
     tokenCreator: mongoose.Schema.Types.ObjectId;
-    tokenId: number
+    tokenId: number,
+    newNftOwner: string | undefined;
     name: string | undefined;
     image: string | undefined
     price: string | undefined;
@@ -26,6 +28,10 @@ const NftSchema = new mongoose.Schema({
     },
 
     creator: {
+        type: String
+    },
+
+    newNftOwner: {
         type: String
     },
 
