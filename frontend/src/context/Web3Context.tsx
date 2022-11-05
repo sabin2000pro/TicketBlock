@@ -277,8 +277,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
             localStorage.setItem('nftowner', nftOwner);
 
-            console.log(`All Nfts on sale `, allNftsOnSale);
-
             newNftOwner = nftOwner;
             return nftData;
             
