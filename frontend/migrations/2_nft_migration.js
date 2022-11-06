@@ -1,6 +1,6 @@
-// eslint-disable-next-line no-undef
-const Migrations = artifacts.require("EventNftMarket");
+/* eslint-disable no-undef */
+const EventNftMarket = artifacts.require("EventNftMarket");
 
 module.exports = function(deployer) {
-  deployer.deploy(Migrations);
+  deployer.deploy(EventNftMarket);
 };

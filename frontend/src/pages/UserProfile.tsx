@@ -178,7 +178,8 @@ const UserProfile: React.FC = (props: any) => {
 
                 <span className = "fs-2 card-text">Profile Settings </span>
 
-        
+                
+            
             </Card.Title>
 
             
