@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button } from '@chakra-ui/react';
 import { MetaMaskInpageProvider } from "@metamask/providers";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {useContext} from "react";
 import { Web3Context } from '../context/Web3Context';
 import logo from '../images/ticket.png';
 
@@ -159,11 +158,9 @@ const NavBar: React.FC = () => {
                {tokenPresent && isLoggedIn && <a href = "/create-nft"> <li className = "link">Mint NFT</li></a>}
                {tokenPresent && isLoggedIn && <a href = "/profile"> <li className = "link">My Profile</li></a>}
 
-               <a href = "/cart"> <li className = "link">Cart</li></a>
-
 
                <div className='search-container'>
-                   <input className = "search-icon" placeholder='Search NFT' type = "text" />
+                   <input placeholder='Search NFT' type = "text" />
                </div>
 
        </ul>

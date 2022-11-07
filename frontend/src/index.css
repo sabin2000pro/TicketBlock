@@ -421,3 +421,32 @@
   padding: 20px;
   margin-bottom: 20px;
 }
+
+.img-container {
+  text-align: center;
+  transform: translate(60%, 20%);
+  margin-top: -370px;
+
+}
+
+.eth-img {
+  height: 450px;
+  width: auto;
+}
+
+.btn-container {
+  margin-top: 150px;
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: #3278ab;
+  padding: 12px 24px;
+  width: 20%;
+  margin-left: 150px;
+  border-radius: 50px;
+  transition: all 0.5s;
+}
+
+.btn-container:hover {
+  background-color: lightblue;
+}

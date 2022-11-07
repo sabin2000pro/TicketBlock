@@ -1,4 +1,5 @@
 import React from 'react'
+import ethereum from '../images/ethereum.jpg';
 
 const Homepage = () => {
 
@@ -13,25 +14,23 @@ const Homepage = () => {
 
              <h2 className = "heading-secondary heading-other">Event Ticket NFT Marketplace</h2>
 
-             <p className = "cta-text">This is a decentralized web application where you can browse available event tickets in the form of NFTS </p>
+             <p className = "cta-text">A decentralized blockchain based web application where you can mint your own event ticket NFT to prevent fraudulent activity </p>
+
+               <div className = "btn-container">
+                 <button className = "cta-btn">Get Started</button>
+               
+               </div>
 
           </div>
 
-          <div className = "rectangle-box">
+           <div className = "img-container">
+              <img className = "eth-img" src = {ethereum} alt = "Eth Image" />
+           </div>
 
-          </div>
-
-          
+      
        </div> 
 
-       <section className = "info-section">
-
-         <div className = "works-container">
-            <h1 className = "heading-primary info-h">How It Works</h1>
-         </div>
-        
-        </section>  
-
+   
 
        
     </>

@@ -39,14 +39,13 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
   }, [])
 
-  useEffect(() => {
-    console.log(localStorage.getItem("nftowner"))
-  }, [])
-
   const addToCartHandler = async (id: number) => {
 
      try {
-        await buyNft(id)
+
+        const nft = nfts.find(theNft => theNft.tokenId === id);
+    
+        await buyNft(nft.tokenId)
         setTokenPurchased(!tokenPurchased);
      } 
      

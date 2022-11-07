@@ -76,7 +76,7 @@ const CreateNft: React.FC = (props: any) => {
 
  <form onSubmit = {handleMintNft} method = "POST">
 
- <h1 className = "heading-primary">Mint New NFT</h1>
+ <h1 className = "heading-primary">Mint Token</h1>
 
      <div className = "email-container">
 
@@ -97,7 +97,7 @@ const CreateNft: React.FC = (props: any) => {
               <input value = {price} onChange = {(event) => setPrice(event.target.value)} type = "text" placeholder = 'Token Price'/>
        </div>
 
-     <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='md'>Mint NFT</Button>
+     <Button type = "submit" className = "submit-btn" colorScheme='teal' size ='md'>Mint Event Ticket</Button>
 
  </form>
 

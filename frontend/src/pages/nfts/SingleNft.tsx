@@ -12,8 +12,9 @@ const SingleNft: React.FC = (props: any) => {
             Single NFT Here
          </h1>
 
-
       </div>
+
+      
     </>
 
 

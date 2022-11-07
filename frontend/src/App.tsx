@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Route, Routes} from 'react-router-dom'
 import { Register } from './pages/auth-index';
 import ForgotPassword from './pages/authentication/ForgotPassword';
@@ -14,7 +14,6 @@ import LoginMfaVerification from './pages/authentication/LoginMfaVerification';
 import SingleNft from './pages/nfts/SingleNft';
 import EditNft from './pages/nfts/EditNft';
 import Homepage from './pages/Homepage';
-import { useContext } from 'react';
 import { Web3Context } from './context/Web3Context';
 
 const App: React.FC = () => {
@@ -39,8 +38,7 @@ const App: React.FC = () => {
 
   }, [])
 
-
-
+  
   return (
 
     <>

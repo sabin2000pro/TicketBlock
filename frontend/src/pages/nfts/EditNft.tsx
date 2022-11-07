@@ -5,6 +5,7 @@ type IEditProps = {
 }
 
 const EditNft: React.FC = (props: any) => {
+  
   return (
 
     

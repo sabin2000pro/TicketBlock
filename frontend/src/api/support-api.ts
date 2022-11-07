@@ -6,3 +6,6 @@ export const deleteSupport = async (id: number) => {
 
 }
 
+export const fetchAllSupports = async () => {
+
+}
