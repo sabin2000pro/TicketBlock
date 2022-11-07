@@ -457,3 +457,10 @@
   margin-right: 100px;
   margin-top: -50px;
 }
+
+.file-container {
+  text-align: center;
+  margin-left: 120px;
+  padding: 12px;
+  margin-top: 30px;
+}

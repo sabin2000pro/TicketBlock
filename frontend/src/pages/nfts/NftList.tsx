@@ -1,7 +1,7 @@
 import React, {FormEvent, useContext, useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap'
 import { Button, Badge } from "@chakra-ui/react"
-import {useNavigate} from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 import { Web3Context } from '../../context/Web3Context'
 import ethlogo from '../../images/ethlogo.png';
 import axios from 'axios'
@@ -13,6 +13,7 @@ type INftVals = {
 const NftList: React.FC<INftVals> = ({nfts}) => {
   
   const navigate = useNavigate();
+  const {id} = useParams();
   let {fetchNftData, buyNft} = useContext(Web3Context)
 
   const [isError, setIsError] = useState<boolean | false>(false);
@@ -64,14 +65,17 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
   } 
 
-  const handleFileUpload = async (event: any) => {
+  const handleFileUpload = async (tokenId: number) => {
 
     try {
 
-      const newFileData = new Form();
+      console.log(`Uploading Image for token : `, tokenId);
+
+      const newFileData = new FormData() as any;
       newFileData.append("File", chosenFile);
 
-      const fileUploadResponse = await axios.post(`http://`)
+      const fileUploadResponse = await axios.post(`http://http://localhost:5299/api/v1/nfts/upload/${tokenId}`, {newFileData});
+
     } 
     
     catch(error: any) {
@@ -113,14 +117,6 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
       <h1 className = "heading-primary nft-h"> Tokens For Sale </h1>
 
-        <div className = "upload-container">
-          <input type = "file" name = "file" onChange = {onFileChangeHandler} />
-
-          <Button onClick = {handleFileUpload} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Upload Image</Button>
-
-
-        </div>
-
         {nfts.map((nft, key) => {
 
       return (
@@ -155,6 +151,14 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
             </div>
 
             <Button disabled = {tokenPurchased} onClick = {() => buyTokenHandler(nft.tokenId)} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Buy NFT</Button>
+
+
+          <div className = "file-container">
+            <input type = "file" name = "file" onChange = {onFileChangeHandler} />
+
+          </div>
+
+            <Button onClick = {() => handleFileUpload(nft.tokenId) }  className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Upload Image</Button>
 
         </Card.Body>
 
