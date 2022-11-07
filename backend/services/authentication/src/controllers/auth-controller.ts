@@ -11,6 +11,7 @@ import asyncHandler from 'express-async-handler';
 import { PasswordReset } from "../models/password-reset-model";
 import { TwoFactorVerification } from '../models/two-factor-verification-model';
 import { EmailVerification } from '../models/email-verification-model';
+import path from 'path';
 
 // @desc      Register New User
 // @route     POST /api/v1/auth/register
@@ -379,7 +380,49 @@ export const updateProfileDetails = async(request: IGetUserData, response: Respo
 }
 
 export const uploadUserAvatar = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
-    return response.status(StatusCodes.OK).json({success: true, message: "User Avatar Uploaded"});
+    const id = request.params.id as any;
+    const fileReq = request.files!.file as unknown as any;
+
+    const user = await User.findById(id);
+
+
+    if(!user) {
+        return next(new NotFoundError("NFT Not found with that ID", StatusCodes.NOT_FOUND));
+    }
+
+    if(!request.files) {
+        return next(new BadRequestError(`Please upload a file`, StatusCodes.BAD_REQUEST));
+    }
+
+    // 1. Ensure that the file is an actual image
+
+    if(!fileReq.mimetype.startsWith("image")) {
+        return next(new BadRequestError("Please make sure the uploaded file is an image", StatusCodes.BAD_REQUEST));
+    }
+
+    // Validate File size
+    if(fileReq.size > process.env.MAX_FILE_UPLOAD_SIZE!) {
+        return next(new BadRequestError("File Size Too Large", StatusCodes.BAD_REQUEST));
+
+    }
+
+     // Create custom filename
+  fileReq.name = `photo_${user._id}${path.parse(fileReq.name).ext}`;
+  console.log(fileReq.name);
+
+  fileReq.mv(`${process.env.FILE_UPLOAD_PATH}/${fileReq.name}`, async (error: any) => {
+
+        if(error) {
+           return next(new BadRequestError("Problem with file upload", StatusCodes.INTERNAL_SERVER_ERROR));
+        }
+
+        await User.findByIdAndUpdate(request.params.id, { photo: fileReq.name });
+
+        // Send the file to the upload path
+        return response.status(StatusCodes.OK).json({success: true, message: "User Avatar Uploaded"})
+  })
+
+ 
 }
 
 const sendTokenResponse = (request: Express.Request, user: any, statusCode: number, response: Response)=> {
