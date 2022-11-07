@@ -56,10 +56,6 @@ const NftSchema = new mongoose.Schema({
 
 }, {timestamps: true, toJSON: {virtuals: true}})
 
-// @TODO
-NftSchema.methods.fetchRareNfts = function() {
-
-};
 
 const Nft = mongoose.model<NftDocument>("Nft", NftSchema);
 export {Nft}
