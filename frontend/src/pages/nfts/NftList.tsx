@@ -1,9 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap'
-import { Button } from "@chakra-ui/react"
+import { Button, Badge } from "@chakra-ui/react"
 import {useNavigate} from "react-router-dom"
 import { Web3Context } from '../../context/Web3Context'
-import { Badge } from '@chakra-ui/react'
 import ethlogo from '../../images/ethlogo.png';
 
 type INftVals = {
@@ -11,11 +10,11 @@ type INftVals = {
 }
 
 const NftList: React.FC<INftVals> = ({nfts}) => {
+  
   const navigate = useNavigate();
   let {fetchNftData, buyNft} = useContext(Web3Context)
 
   const [isError, setIsError] = useState<boolean | false>(false);
-
   const [tokenPurchased, setTokenPurchased] = useState<boolean | undefined>(false)
 
   useEffect(() => {
@@ -39,7 +38,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
   }, [])
 
-  const addToCartHandler = async (id: number) => {
+  const buyTokenHandler = async (id: number) => {
 
      try {
 
@@ -105,7 +104,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
               <img style = {{height: '35px', marginLeft: '330px', marginRight: '-20px', marginTop: "-30px", marginBottom: "20px"}} src = {ethlogo} alt = "ethlogo" />
             </div>
 
-            <Button disabled = {tokenPurchased} onClick = {() => addToCartHandler(nft.tokenId)} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Buy NFT</Button>
+            <Button disabled = {tokenPurchased} onClick = {() => buyTokenHandler(nft.tokenId)} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Buy NFT</Button>
 
         </Card.Body>
 
