@@ -9,7 +9,7 @@ export default () => {
         try {
 
             // Conent to the NFT Schema
-            return await mongoose.connect(process.env.DB_URI!).then(dbConn => {
+            return await mongoose.connect("mongodb+srv://sabin2000:123mini123@ticketblock.erhl8xc.mongodb.net/?retryWrites=true&w=majority").then(dbConn => {
 
                 if(dbConn.connection) {
                     console.log("Connected to NFT Schema")
