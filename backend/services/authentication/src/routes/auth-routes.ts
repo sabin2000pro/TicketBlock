@@ -1,7 +1,7 @@
 import { updateProfileDetails } from './../controllers/auth-controller';
 import { verifyUserAuth } from './../middleware/verify-auth';
 import express, {Router} from 'express';
-import { registerUser, verifyEmailAddress, login, verifyLoginMfa, forgotPassword, resetPassword, logout, getCurrentUser } from '../controllers/auth-controller'
+import { registerUser, verifyEmailAddress, login, verifyLoginMfa, forgotPassword, resetPassword, logout, getCurrentUser , uploadUserAvatar} from '../controllers/auth-controller'
 
 const authRouter: Router = express.Router();
 
@@ -15,5 +15,6 @@ authRouter.route('/me').get(verifyUserAuth as any, getCurrentUser as any);
 authRouter.route('/verify-mfa').post(verifyLoginMfa as any)
 
 authRouter.route('/update-profile').post(verifyUserAuth as any, updateProfileDetails as any);
+authRouter.route('/upload-avatar/:id').post(uploadUserAvatar as any)
 
 export default authRouter
