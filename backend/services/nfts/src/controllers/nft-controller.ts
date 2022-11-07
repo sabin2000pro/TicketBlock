@@ -84,8 +84,9 @@ export const uploadNftImage = async (request: Request, response: Response, next:
 
      // Create custom filename
   fileReq.name = `photo_${nft._id}${path.parse(fileReq.name).ext}`;
+  console.log(fileReq.name);
 
-  fileReq.mv(`${process.env.FILE_UPLOAD_PATH}/${fileReq.name}`, async (error: any) => {
+  fileReq.mv(`public/images/${fileReq.name}`, async (error: any) => {
 
         if(error) {
            console.error(error);
