@@ -75,7 +75,6 @@ const NavBar: React.FC = () => {
 
     fetchAccountAddress();
 
-
   }, [])
 
   const logoutHandler = async (event: any) => {
@@ -153,7 +152,7 @@ const NavBar: React.FC = () => {
       
       !tokenPresent && !isLoggedIn &&
 
-    <a href = "/login"> <li className = "link"> Login </li> </a>  }
+             <a href = "/login"> <li className = "link"> Login </li> </a>  }
     
                {tokenPresent && isLoggedIn && <a href = "/create-nft"> <li className = "link">Mint NFT</li></a>}
                {tokenPresent && isLoggedIn && <a href = "/profile"> <li className = "link">My Profile</li></a>}

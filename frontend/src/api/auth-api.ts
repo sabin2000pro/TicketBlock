@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import {useEffect} from "react";
 
 type IVerifyEmail = {
     OTP: string

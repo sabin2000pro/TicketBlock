@@ -266,6 +266,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         }
     } 
+
+    
     return <Web3Context.Provider value = {{connectWallet, newNftOwner, tokensOwned, chosenAccount, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale}}>
             {children}
     </Web3Context.Provider>

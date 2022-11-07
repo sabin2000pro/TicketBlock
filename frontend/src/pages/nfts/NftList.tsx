@@ -71,6 +71,11 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
       <>
 
       <h1 className = "heading-primary nft-h"> Tokens For Sale </h1>
+
+      <div className = "upload-container">
+         <Button className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Upload Token Image</Button>
+      </div>
+
       
         {nfts.map((nft, key) => {
 

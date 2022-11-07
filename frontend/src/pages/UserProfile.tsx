@@ -1,10 +1,9 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useContext} from 'react'
 import { Card, Row } from 'react-bootstrap';
 import { Alert, AlertIcon, Button, useToast, Avatar } from "@chakra-ui/react";
 import { getLoggedInUser, updateProfileSettings } from '../api/auth-api';
 import { useNavigate } from 'react-router-dom';
 import { Web3Context } from '../context/Web3Context';
-import { useContext } from 'react';
 
 const toastPositions = [
     'top',
@@ -66,7 +65,7 @@ const UserProfile: React.FC = (props: any) => {
     }
 
     const handleUpdateProfileSettings = async (event: any): Promise<void> => {
-        
+
         try {
 
             event.preventDefault();

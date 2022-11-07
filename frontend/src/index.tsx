@@ -14,26 +14,18 @@ root.render(
 
   <Web3Provider>
 
-
-  
-
   <ChakraProvider>
   
         <BrowserRouter>
-      <App />
+        <App />
 
 
     </BrowserRouter>
-
-    
 
   </ChakraProvider>
 
 
   </Web3Provider>
-
-
-  
 
 
 );
