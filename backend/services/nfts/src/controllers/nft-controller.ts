@@ -12,8 +12,8 @@ export const fetchAllNfts = async (request: Request, response: Response, next: N
 }
 
 export const fetchNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-    const id = request.params.id;
-    const nft = await Nft.findById(id);
+    const tokenId = request.params.tokenId;
+    const nft = await Nft.findById(tokenId);
 
     if(!nft) {
         return next(new NotFoundError("NFT Not found", StatusCodes.NOT_FOUND));

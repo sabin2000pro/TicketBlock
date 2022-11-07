@@ -250,12 +250,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             newNftOwner = nftOwner;
 
             const boughtNftData = boughtNft.events.NftPurchased.returnValues
-            console.log(`Bought NFT Data : `, boughtNftData);
-
             const boughtTokenId = parseInt(boughtNftData.tokenId);
-            console.log(`You bought token : `, boughtTokenId);
 
-            return {nftData, userTxHash};
+            return {nftData, userTxHash, boughtTokenId};
         } 
         
         catch(error: any) {
@@ -267,7 +264,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         }
     } 
 
-    
+
     return <Web3Context.Provider value = {{connectWallet, newNftOwner, tokensOwned, chosenAccount, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale}}>
             {children}
     </Web3Context.Provider>

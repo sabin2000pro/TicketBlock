@@ -75,13 +75,27 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
       newFileData.append("File", chosenFile);
 
       const fileUploadResponse = await axios.post(`http://http://localhost:5299/api/v1/nfts/upload/${tokenId}`, {newFileData});
+      const fileUploadData = fileUploadResponse.data;
+
+      console.log(fileUploadData);
+
+
+      return fileUploadData
 
     } 
     
     catch(error: any) {
 
+      if(error) {
+         return console.error(error);
+      }
+
     }
      
+  }
+
+  const removeNftHandler = async (tokenId: number) => {
+     return nfts.filter(nftId => nftId !== tokenId);
   }
 
   const buyTokenHandler = async (id: number) => {
@@ -128,8 +142,8 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
           <Card.Body className = "d-flex flex-column custom m-4 w-100">
 
           <div className = "nft-image-container">
-              {tokenPurchased ? <Badge colorScheme='green'>NFT Purchased</Badge> : <span>NFT Image</span>}
-            </div>
+              {tokenPurchased ? <Badge colorScheme='green'>NFT Purchased</Badge> : <span> <img className = "nft-image" src = {`/images/${nft.image}`} />  </span>}
+          </div>
           
 
           <Card.Title className = "d-flex align-items-baseline justify-content-between mb-4">
