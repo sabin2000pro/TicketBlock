@@ -1,9 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {FormEvent, useContext, useEffect, useState} from 'react'
 import { Card, Row } from 'react-bootstrap'
 import { Button, Badge } from "@chakra-ui/react"
 import {useNavigate} from "react-router-dom"
 import { Web3Context } from '../../context/Web3Context'
 import ethlogo from '../../images/ethlogo.png';
+import axios from 'axios'
 
 type INftVals = {
   nfts: any[]
@@ -17,6 +18,9 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
   const [isError, setIsError] = useState<boolean | false>(false);
   const [tokenPurchased, setTokenPurchased] = useState<boolean | undefined>(false)
   let [boughtToken, setBoughtToken] = useState<number | undefined>(0);
+
+  const [chosenFile, setChosenFile] = useState<string | undefined>("");
+  const [fileSelected, setFileSelected] = useState<boolean | undefined>(false);
 
   useEffect(() => {
 
@@ -38,6 +42,43 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
    getAllNfts();
 
   }, [])
+
+  const onFileChangeHandler = async (event: any) => {
+
+     try {
+
+       setChosenFile(event.target.files[0]);
+       setFileSelected(!fileSelected);
+
+     } 
+     
+     catch(err: any) {
+
+       if(err) {
+        return console.error(err);
+       }
+
+
+     }  
+
+
+  } 
+
+  const handleFileUpload = async (event: any) => {
+
+    try {
+
+      const newFileData = new Form();
+      newFileData.append("File", chosenFile);
+
+      const fileUploadResponse = await axios.post(`http://`)
+    } 
+    
+    catch(error: any) {
+
+    }
+     
+  }
 
   const buyTokenHandler = async (id: number) => {
 
@@ -72,11 +113,14 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
       <h1 className = "heading-primary nft-h"> Tokens For Sale </h1>
 
-      <div className = "upload-container">
-         <Button className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Upload Token Image</Button>
-      </div>
+        <div className = "upload-container">
+          <input type = "file" name = "file" onChange = {onFileChangeHandler} />
 
-      
+          <Button onClick = {handleFileUpload} className = "nft-btn w-150 custom-btn" type = "submit" colorScheme='teal' size='md'>Upload Image</Button>
+
+
+        </div>
+
         {nfts.map((nft, key) => {
 
       return (
