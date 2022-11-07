@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/dotenv": "^8.2.0",
+    "dotenv": "^16.0.3",
+    "ts-node": "^10.9.1"
+  }
+}
