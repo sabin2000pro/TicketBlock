@@ -110,9 +110,7 @@ const UserProfile: React.FC = (props: any) => {
 
         const fetchUserOwnedNfts = async () => {
             let userData = await getLoggedInUser();
-            let userOwnedNfts = userData.data;
-            console.log(userOwnedNfts);
-            
+            let userOwnedNfts = userData.data;            
             userOwnedNfts.accountAddress = chosenAccount
             
             const accountUserProfileAddress = userOwnedNfts.accountAddress;
