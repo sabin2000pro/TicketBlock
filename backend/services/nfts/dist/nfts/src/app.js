@@ -9,6 +9,7 @@ const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const hpp_1 = __importDefault(require("hpp"));
 const helmet_1 = __importDefault(require("helmet"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const cors_1 = __importDefault(require("cors"));
 const nft_schema_1 = __importDefault(require("./database/nft-schema"));
 const nft_routes_1 = require("./routes/nft-routes");
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express_1.default.json());
 app.set('trust proxy', true);
+app.use((0, express_fileupload_1.default)());
 app.use((0, hpp_1.default)());
 app.use((0, cors_1.default)());
 app.use((0, helmet_1.default)());

@@ -32,8 +32,5 @@ const NftSchema = new mongoose_1.default.Schema({
         default: Date.now
     },
 }, { timestamps: true, toJSON: { virtuals: true } });
-// @TODO
-NftSchema.methods.fetchRareNfts = function () {
-};
 const Nft = mongoose_1.default.model("Nft", NftSchema);
 exports.Nft = Nft;

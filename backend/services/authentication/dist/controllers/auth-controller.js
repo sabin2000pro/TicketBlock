@@ -25,6 +25,7 @@ const express_async_handler_1 = __importDefault(require("express-async-handler")
 const password_reset_model_1 = require("../models/password-reset-model");
 const two_factor_verification_model_1 = require("../models/two-factor-verification-model");
 const email_verification_model_1 = require("../models/email-verification-model");
+const path_1 = __importDefault(require("path"));
 const sendConfirmationEmail = (transporter, newUser, userOTP) => {
     return transporter.sendMail({
         from: 'verification@ticketblock.com',
@@ -284,7 +285,34 @@ const updateProfileDetails = (request, response, next) => __awaiter(void 0, void
 });
 exports.updateProfileDetails = updateProfileDetails;
 const uploadUserAvatar = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "User Avatar Uploaded" });
+    const id = request.params.id;
+    const fileReq = request.files.file;
+    const user = yield user_model_1.User.findById(id);
+    if (!user) {
+        return next(new error_handler_1.NotFoundError("NFT Not found with that ID", http_status_codes_1.StatusCodes.NOT_FOUND));
+    }
+    if (!request.files) {
+        return next(new error_handler_1.BadRequestError(`Please upload a file`, http_status_codes_1.StatusCodes.BAD_REQUEST));
+    }
+    // 1. Ensure that the file is an actual image
+    if (!fileReq.mimetype.startsWith("image")) {
+        return next(new error_handler_1.BadRequestError("Please make sure the uploaded file is an image", http_status_codes_1.StatusCodes.BAD_REQUEST));
+    }
+    // Validate File size
+    if (fileReq.size > process.env.MAX_FILE_UPLOAD_SIZE) {
+        return next(new error_handler_1.BadRequestError("File Size Too Large", http_status_codes_1.StatusCodes.BAD_REQUEST));
+    }
+    // Create custom filename
+    fileReq.name = `photo_${user._id}${path_1.default.parse(fileReq.name).ext}`;
+    console.log(fileReq.name);
+    fileReq.mv(`${process.env.FILE_UPLOAD_PATH}/${fileReq.name}`, (error) => __awaiter(void 0, void 0, void 0, function* () {
+        if (error) {
+            return next(new error_handler_1.BadRequestError("Problem with file upload", http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR));
+        }
+        yield user_model_1.User.findByIdAndUpdate(request.params.id, { photo: fileReq.name });
+        // Send the file to the upload path
+        return response.status(http_status_codes_1.StatusCodes.OK).json({ success: true, message: "User Avatar Uploaded" });
+    }));
 });
 exports.uploadUserAvatar = uploadUserAvatar;
 const sendTokenResponse = (request, user, statusCode, response) => {

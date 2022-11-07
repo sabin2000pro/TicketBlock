@@ -17,4 +17,5 @@ authRouter.route('/reset-password').post(auth_controller_2.resetPassword);
 authRouter.route('/me').get(verify_auth_1.verifyUserAuth, auth_controller_2.getCurrentUser);
 authRouter.route('/verify-mfa').post(auth_controller_2.verifyLoginMfa);
 authRouter.route('/update-profile').post(verify_auth_1.verifyUserAuth, auth_controller_1.updateProfileDetails);
+authRouter.route('/upload-avatar/:id').post(auth_controller_2.uploadUserAvatar);
 exports.default = authRouter;
