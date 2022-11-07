@@ -111,7 +111,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
         emit NftPurchased(tokenId, newTokenOwner[tokenId], name, price);
     }
 
-    // Place the NFT for sale function.
+    // @params: Token ID, Name and Price
     function mintNftToken(uint tokenId, string memory name, uint newPrice) public payable {
 
         _idToNftItem[tokenId].isListed = true;
