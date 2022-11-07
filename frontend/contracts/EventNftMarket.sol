@@ -31,6 +31,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
     mapping(address => mapping(uint => uint)) private _ownedTokens; // Mapping between the address of the owner and an integer that stores the owner tokens ID
     mapping(uint => uint) private _idToOwnedIndex;
+    mapping(uint256 => address) public newTokenOwner;
 
     event NftItemCreated (
         uint tokenId,
@@ -42,6 +43,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
     event NftPurchased (
         uint tokenId,
+        address newTokenOwner,
         string name,
         uint price
     );
@@ -101,11 +103,12 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
         _idToNftItem[tokenId].isListed = false;
         _listedItems.decrement(); // Delist the token from sale
+        newTokenOwner[tokenId] = ERC721.ownerOf(tokenId);
         
         _transfer(owner, msg.sender, tokenId); // Transfer ownership of the token with its associating ID
         payable(owner).transfer(msg.value); // Transfer the token to the new owner and pay them in ETH
 
-        emit NftPurchased(tokenId, name, price);
+        emit NftPurchased(tokenId, newTokenOwner[tokenId], name, price);
     }
 
     // Place the NFT for sale function.

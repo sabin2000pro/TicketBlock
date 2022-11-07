@@ -66,6 +66,7 @@ const UserProfile: React.FC = (props: any) => {
     }
 
     const handleUpdateProfileSettings = async (event: any): Promise<void> => {
+        
         try {
 
             event.preventDefault();

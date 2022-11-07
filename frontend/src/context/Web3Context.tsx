@@ -10,9 +10,10 @@ type Web3ContextProps = {
 }
 
 type IWeb3Context = {
-    accounts: any,
-    balance: any,
-    newNftOwner: any,
+    accounts: any
+    balance: any
+    newNftOwner: any
+    tokensOwned: number | undefined
 
     connectWallet: () => void
     handleAccountChange: () => void
@@ -42,6 +43,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
     let [tokensMinted, setTokensMinted] = useState<number | undefined>(0);
+    let [tokensOwned, setTokensOwned] = useState<number | undefined>(0);
 
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false) // True or false that determines if the token has been minted or not
@@ -162,15 +164,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         creatorId = creator;
 
         const userData = await getLoggedInUser(); // Get logged in user and extract number of minted nfts field and increment by 1 every time an nft is minted
-
-        const userAccountData = userData.data
-        let userNftsMinted = userAccountData;
-
-        userAccountData.nftsMinted++
-        tokensMinted = userAccountData.nftsMinted;
-
-        userNftsMinted.accountAddress = chosenAccount; // Overwrite the account
-
         setNftOnSale(tokenId, price);
 
         return mintedNftData;
@@ -234,7 +227,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     const buyNft = async (id: number) => {
 
         try {
-            
+
             const contractAbi = EventNftContract.abi;
             const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as any)
             const boughtNft = await nftContract.methods.buyNft(id).send({from: localStorage.getItem("account") as any})
@@ -251,8 +244,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             const txHash = boughtNft.transactionHash
             const userTxHash = await fetchTransactionReceipt(txHash);
 
-            console.log(userTxHash);
-
             nftOwner = chosenAccount;
         
             localStorage.setItem('nftowner', nftOwner);
@@ -262,9 +253,9 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
             console.log(`Bought NFT Data : `, boughtNftData);
 
             const boughtTokenId = parseInt(boughtNftData.tokenId);
+            console.log(`You bought token : `, boughtTokenId);
 
-            return nftData;
-            
+            return {nftData, userTxHash};
         } 
         
         catch(error: any) {
@@ -275,7 +266,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         }
     } 
-    return <Web3Context.Provider value = {{connectWallet, newNftOwner, chosenAccount, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale}}>
+    return <Web3Context.Provider value = {{connectWallet, newNftOwner, tokensOwned, chosenAccount, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale}}>
             {children}
     </Web3Context.Provider>
 }
