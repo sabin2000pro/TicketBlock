@@ -16,6 +16,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
   const [isError, setIsError] = useState<boolean | false>(false);
   const [tokenPurchased, setTokenPurchased] = useState<boolean | undefined>(false)
+  let [boughtToken, setBoughtToken] = useState<number | undefined>(0);
 
   useEffect(() => {
 
@@ -43,8 +44,12 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
      try {
 
         const nft = nfts.find(theNft => theNft.tokenId === id);
-    
+        boughtToken = nft;
         await buyNft(nft.tokenId)
+
+        setBoughtToken(boughtToken);
+        console.log(`Bought token : `, boughtToken);
+
         setTokenPurchased(!tokenPurchased);
      } 
      
@@ -57,9 +62,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
        }
 
-
      }
-
 
   }
 
@@ -67,12 +70,11 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
       <>
 
-      <h1 className = "heading-primary nft-h"> NFTs For Sale </h1>
+      <h1 className = "heading-primary nft-h"> Tokens For Sale </h1>
       
         {nfts.map((nft, key) => {
 
       return (
-
   
       <Row key = {key} md = {2} xs = {1} lg = {3} className = "g-1 d-inline-flex m-4">
 
@@ -90,12 +92,11 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
             <p style = {{marginLeft: "100px", marginTop: "15px", fontSize: "20px", marginBottom: "40px"}}>{nft.name}</p>
           
             </Card.Title>
-
-          
+    
              {tokenPurchased ? <span>New Owner: {localStorage.getItem("account")} </span> : <span>Creator: {nft.creator}  </span>}
+
             <span>Token ID : {nft.tokenId}</span>
            
-
             <div className = "price-container">
                 <p>Price:  <strong>  {nft.price}  ETH</strong>   </p>
             </div>
