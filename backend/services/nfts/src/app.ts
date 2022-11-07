@@ -3,6 +3,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import morgan from "morgan"
 import hpp from "hpp"
 import helmet from "helmet"
+import fileUpload from 'express-fileupload';
 import cors from "cors";
 import connectNftSchema from './database/nft-schema';
 import {nftRoutes} from './routes/nft-routes';
@@ -18,6 +19,7 @@ if(process.env.NODE_ENV === 'development') {
 app.use(express.json());
 app.set('trust proxy', true);
 
+app.use(fileUpload());
 app.use(hpp());
 app.use(cors());
 app.use(helmet());

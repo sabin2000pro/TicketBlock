@@ -1,7 +1,8 @@
 
 export const fetchAllNfts = async () => {
-    try {
 
+    try {
+        // API to fetch all of the token data
     } 
     
     catch(error: any) {
