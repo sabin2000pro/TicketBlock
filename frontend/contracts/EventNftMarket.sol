@@ -128,7 +128,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
         _idToNftItem[tokenId] = NftItem(tokenId, name, price, sender, true);
         emit NftItemCreated(tokenId, name, price, msg.sender, true); // Emit an NFT item created event
-
     }
 
        // Place the NFT for sale function.

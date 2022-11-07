@@ -166,7 +166,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         const userData = await getLoggedInUser(); // Get logged in user and extract number of minted nfts field and increment by 1 every time an nft is minted
         setNftOnSale(tokenId, price);
 
-        return mintedNftData;
+        return {mintedNftData, creatorId, userData};
     }
 
 

@@ -7,7 +7,7 @@ const LoginMfaVerification = (props: any) => {
   const navigate = useNavigate();
   const [token, setToken] = useState<string | undefined>("");
   const [showErrorModal, setShowErrorModal] = useState<boolean | undefined>(false);
-  const {isOpen, onOpen, onClose} = useDisclosure();
+  const {onClose} = useDisclosure();
 
   const [userId, setUserId] = useState([]);
   const [userVerified, setUserVerified] = useState<boolean | undefined>(false);

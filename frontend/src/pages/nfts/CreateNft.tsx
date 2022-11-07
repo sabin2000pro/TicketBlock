@@ -28,7 +28,9 @@ const CreateNft: React.FC = (props: any) => {
       await mintNft(name as any, price as any);
 
       setTokenMinted(!tokenMinted);
-      setTokensMinted(tokensMinted! + 1);
+      setTokensMinted((tokensMinted) => tokensMinted! + 1);
+
+      console.log(`Tokens minted : `, tokensMinted);
 
       setTokenId("")
       setName("");
