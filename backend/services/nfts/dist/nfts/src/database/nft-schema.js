@@ -19,7 +19,7 @@ exports.default = () => {
     const connectNftSchema = () => __awaiter(void 0, void 0, void 0, function* () {
         try {
             // Conent to the NFT Schema
-            return yield mongoose_1.default.connect(process.env.DB_URI).then(dbConn => {
+            return yield mongoose_1.default.connect("mongodb+srv://sabin2000:123mini123@ticketblock.erhl8xc.mongodb.net/?retryWrites=true&w=majority").then(dbConn => {
                 if (dbConn.connection) {
                     console.log("Connected to NFT Schema");
                 }
