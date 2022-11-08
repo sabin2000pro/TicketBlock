@@ -13,7 +13,6 @@ type IWeb3Context = {
     accounts: any
     balance: any
     newNftOwner: any
-    tokensOwned: number | undefined
 
     connectWallet: () => void
     handleAccountChange: () => void
@@ -42,8 +41,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     let [balance, setBalance] = useState<string | undefined>("");
 
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
-    let [tokensMinted, setTokensMinted] = useState<number | undefined>(0);
-    let [tokensOwned, setTokensOwned] = useState<number | undefined>(0);
 
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false) // True or false that determines if the token has been minted or not
@@ -264,8 +261,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         }
     } 
 
-
-    return <Web3Context.Provider value = {{connectWallet, newNftOwner, tokensOwned, chosenAccount, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale}}>
+    return <Web3Context.Provider value = {{connectWallet, newNftOwner, chosenAccount, handleAccountChange, accounts, balance, fetchNftData, mintNft, buyNft, setNftOnSale}}>
             {children}
     </Web3Context.Provider>
 }
