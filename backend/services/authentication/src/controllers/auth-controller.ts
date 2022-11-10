@@ -156,8 +156,7 @@ export const login = asyncHandler(async (request: Request, response: Response, n
 
     // Code to send MFA Code
     const mfaToken = generateMfaToken();
-    console.log(`Your MFA TOKEN : ${mfaToken}`);
-
+    
     const transporter = emailTransporter();
     sendLoginMFA(transporter, user, mfaToken as unknown as any);
 
@@ -408,7 +407,6 @@ export const uploadUserAvatar = async (request: Request, response: Response, nex
 
      // Create custom filename
   fileReq.name = `photo_${user._id}${path.parse(fileReq.name).ext}`;
-  console.log(fileReq.name);
 
   fileReq.mv(`${process.env.FILE_UPLOAD_PATH}/${fileReq.name}`, async (error: any) => {
 

@@ -5,20 +5,10 @@ import { getLoggedInUser, updateProfileSettings } from '../api/auth-api';
 import { useNavigate } from 'react-router-dom';
 import { Web3Context } from '../context/Web3Context';
 
-const toastPositions = [
-    'top',
-    'top-right',
-    'top-left',
-    'bottom',
-    'bottom-right',
-    'bottom-left',
-  ]
 
 const UserProfile: React.FC = (props: any) => {
 
     const navigate = useNavigate();
-    const toast = useToast(); // Displayed after updating profile details
-
     const [user, setUser] = useState([])
     const [username, setUsername] = useState<string | undefined>("");
     const [email, setEmail] = useState<string | undefined>("");
@@ -79,7 +69,7 @@ const UserProfile: React.FC = (props: any) => {
            else {
 
             setUsername(username);
-            setEmail(email);
+            setEmail(email as any);
 
             updateProfileSettings(username as any, email as any);
 
@@ -109,6 +99,7 @@ const UserProfile: React.FC = (props: any) => {
 
 
         const fetchUserOwnedNfts = async () => {
+            
             let userData = await getLoggedInUser();
             let userOwnedNfts = userData.data;            
             userOwnedNfts.accountAddress = chosenAccount
@@ -176,8 +167,6 @@ const UserProfile: React.FC = (props: any) => {
 
                 <span className = "fs-2 card-text">Profile Settings </span>
 
-                
-            
             </Card.Title>
 
             

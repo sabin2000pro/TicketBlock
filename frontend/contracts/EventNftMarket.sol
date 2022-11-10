@@ -8,28 +8,27 @@ import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
 contract EventNftMarket is ERC721URIStorage, Ownable {
 
-    using Counters for Counters.Counter;
-    Counters.Counter private _listedItems;
-    Counters.Counter private _tokenIds; 
+    using Counters for Counters.Counter; 
 
-    uint public listingPrice = 0.025 ether; // For how much we place the NFT on sale
-    uint256[] private _allNfts; // Array of all the NFTS
+    Counters.Counter private _listedItems; // 1.0 Store all of the listed items in a counter variable
+    Counters.Counter private _tokenIds; // 1.1 Store all of the token IDs 
 
-        // Group Multiple Related Data for the token
-    struct NftItem {
-        uint tokenId; // Token ID
+    uint public listingPrice = 0.025 ether; // 1.2 Set out how much we want to list the token for sale for
+    uint256[] private _allNfts;  // 1.3 Store all of the NFTs in an integer array
+ 
+    struct NftItem { // 1.4 Create a Struct for the NFT Token with the token Id, name, price, creator and if it is listed or not
+        uint tokenId; 
         string name;
         uint price; 
-
-        address creator; // Creator of the token
+        address creator; 
         bool isListed;
     }
 
-    mapping(string => bool) private _usedTokenURIs;
-    mapping(uint => NftItem) private _idToNftItem;
-    mapping(uint => uint) private _idToNftIndex;
+    mapping(string => bool) private _usedTokenURIs; // 1.5 Create a mapping for all of the used token names
+    mapping(uint => NftItem) private _idToNftItem;  // 1.6 Map every NFT To an ID
+    mapping(uint => uint) private _idToNftIndex; // 1.7 - Map the NFT to an Index that it's currently being stored at
 
-    mapping(address => mapping(uint => uint)) private _ownedTokens; // Mapping between the address of the owner and an integer that stores the owner tokens ID
+    mapping(address => mapping(uint => uint)) private _ownedTokens;
     mapping(uint => uint) private _idToOwnedIndex;
     mapping(uint256 => address) public newTokenOwner;
 
@@ -52,28 +51,24 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
     function mintToken(string memory name, uint price) public payable returns (uint) {
 
-       _tokenIds.increment(); // Increment the Token ID by 1
-       _listedItems.increment(); // Increment number of listed tokens by 1
+       _tokenIds.increment();
+       _listedItems.increment(); 
 
-       address sender = msg.sender; // The address of the sender
-       uint newTokenId = _tokenIds.current(); // Get the current token ID
+       address sender = msg.sender;
+       uint newTokenId = _tokenIds.current(); 
 
-       _safeMint(sender, newTokenId); // Call the _safeMint function on the sender with the new token id
-       _setTokenURI(newTokenId, name); // Set the new token URI with the token ID
+       _safeMint(sender, newTokenId); 
+       _setTokenURI(newTokenId, name);
 
-       _createNftItem(newTokenId, name, price); // Create new NFT item after minting it.
+       _createNftItem(newTokenId, name, price); 
        _usedTokenURIs[name] = true;
 
-       return newTokenId; // Return the new token ID
+       return newTokenId;
     }
 
-    // Returns how many NFTs we have in circulation
     function totalSupply() public view returns (uint) {
         return _allNfts.length; 
     }
-
-    // Function to retrieve a particular NFT token by its index.
-    // @returns: The index as an integer
 
     function getTokenByIndex(uint index) public view returns (uint) {
         return _allNfts[index]; // Return index of the NFT
@@ -89,7 +84,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
         return _idToNftItem[tokenId];
     }
 
-    // Function gets a list of items
+  
     function getListedItemsCount() public view returns (uint) {
         return _listedItems.current();
     }
@@ -115,7 +110,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
     function mintNftToken(uint tokenId, string memory name, uint newPrice) public payable {
 
         _idToNftItem[tokenId].isListed = true;
-        
         _idToNftItem[tokenId].name = name;
         _idToNftItem[tokenId].price = newPrice; // Set new price
 

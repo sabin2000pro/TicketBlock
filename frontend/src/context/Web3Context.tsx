@@ -98,7 +98,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
              chosenAccount = accounts as any;
         })
 
-
     }
 
     useEffect(() => {

@@ -58,6 +58,5 @@ EmailVerificationSchema.methods.compareOtpTokens = async function(enteredToken: 
     return await bcrypt.compare(enteredToken, this.token);
 }
 
-
 const EmailVerification = mongoose.model<IEmailVerificationDocument>("EmailVerification", EmailVerificationSchema);
 export {EmailVerification};
