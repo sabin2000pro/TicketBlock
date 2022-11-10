@@ -1,12 +1,19 @@
 
-export const fetchAllNfts = async () => {
+import axios from 'axios'
+
+export const fetchAllNfts = async (URL: any) => {
 
     try {
-        // API to fetch all of the token data
+        const nftResponse = await axios.get(`http://localhost:5201/api/v1/nfts`);
+        const nftData = nftResponse.data;
+
+        return nftData;
     } 
     
     catch(error: any) {
-
+        if(error) {
+            return console.error(error);
+        }
     }
 
     

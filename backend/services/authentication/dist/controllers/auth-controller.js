@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadUserAvatar = exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.unlockAccount = exports.lockAccount = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = exports.getUserOwnedNfts = void 0;
+exports.uploadUserAvatar = exports.updateProfileDetails = exports.updatePassword = exports.resetPassword = exports.getCurrentUser = exports.unlockAccount = exports.lockAccount = exports.logout = exports.verifyLoginMfa = exports.forgotPassword = exports.login = exports.verifyEmailAddress = exports.registerUser = void 0;
 const generate_mfa_token_1 = require("./../utils/generate-mfa-token");
 const generate_otp_token_1 = require("./../utils/generate-otp-token");
 const send_email_1 = require("./../utils/send-email");
@@ -50,10 +50,6 @@ const sendLoginMFA = (transporter, newUser, mfaCode) => {
         `
     });
 };
-const getUserOwnedNfts = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-    return response.status(200).json({ success: true, message: "User owned NFTs here" });
-});
-exports.getUserOwnedNfts = getUserOwnedNfts;
 const registerUser = (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = request.body;
     const existingUser = yield user_model_1.User.findOne({ email });
@@ -84,10 +80,10 @@ exports.verifyEmailAddress = (0, express_async_handler_1.default)((request, resp
     const { userId, OTP } = request.body;
     const user = yield user_model_1.User.findById(userId);
     if (!(0, mongoose_1.isValidObjectId)(userId)) {
-        return next(new error_handler_1.BadRequestError("Invalid User ID", 400));
+        return next(new error_handler_1.BadRequestError("Invalid User ID", http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
     if (!user) {
-        return next(new error_handler_1.NotFoundError("Could not find that user", 404));
+        return next(new error_handler_1.NotFoundError("Could not find that user", http_status_codes_1.StatusCodes.NOT_FOUND));
     }
     if (!OTP) {
         return next(new error_handler_1.NotFoundError("No OTP found. Please check entry again", http_status_codes_1.StatusCodes.NOT_FOUND));
@@ -125,7 +121,6 @@ exports.login = (0, express_async_handler_1.default)((request, response, next) =
     }
     // Code to send MFA Code
     const mfaToken = (0, generate_mfa_token_1.generateMfaToken)();
-    console.log(`Your MFA TOKEN : ${mfaToken}`);
     const transporter = (0, send_email_1.emailTransporter)();
     sendLoginMFA(transporter, user, mfaToken);
     const mfaCodeVerification = new two_factor_verification_model_1.TwoFactorVerification({ owner: user._id, token: mfaToken });
@@ -304,7 +299,6 @@ const uploadUserAvatar = (request, response, next) => __awaiter(void 0, void 0, 
     }
     // Create custom filename
     fileReq.name = `photo_${user._id}${path_1.default.parse(fileReq.name).ext}`;
-    console.log(fileReq.name);
     fileReq.mv(`${process.env.FILE_UPLOAD_PATH}/${fileReq.name}`, (error) => __awaiter(void 0, void 0, void 0, function* () {
         if (error) {
             return next(new error_handler_1.BadRequestError("Problem with file upload", http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR));

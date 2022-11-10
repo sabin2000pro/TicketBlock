@@ -31,7 +31,7 @@ const rateLimiter = (0, express_rate_limit_1.default)({
     windowMs: 10 * 60 * 1000,
     max: 30,
     standardHeaders: true,
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    legacyHeaders: false,
 });
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
@@ -41,7 +41,8 @@ app.use((0, hpp_1.default)());
 app.use((0, express_mongo_sanitize_1.default)()); // Used to prevent NoSQLI injections
 app.use((0, cors_1.default)({
     origin: "*",
-    methods: ['POST', "GET", "PUT", "DELETE"]
+    methods: ['POST', "GET", "PUT", "DELETE"],
+    credentials: true,
 }));
 app.use((0, helmet_1.default)());
 app.use((0, cookie_session_1.default)({
@@ -49,5 +50,5 @@ app.use((0, cookie_session_1.default)({
     secure: process.env.NODE_ENV !== 'development'
 }));
 app.use(rateLimiter);
-app.use('/api/v1/auth', auth_routes_1.default);
+app.use('/api/v1/auth', auth_routes_1.default); // Mount the auth routes as middleware 
 app.use(error_handler_1.default);
