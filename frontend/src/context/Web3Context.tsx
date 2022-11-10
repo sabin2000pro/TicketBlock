@@ -139,9 +139,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
         const nftContract = new web3.eth.Contract(contractAbi as any, EventNftContract.networks[networkId].address as unknown as any)
         const mintedNft = await nftContract.methods.mintToken(name, price).send({from: currentAccount as unknown as WindowLocalStorage})
-
-        console.log(`Minted NFT : `, mintedNft);
-
+        
         setTokenMinted(!tokenMinted)
 
         const nftValues = mintedNft.events.NftItemCreated.returnValues;
