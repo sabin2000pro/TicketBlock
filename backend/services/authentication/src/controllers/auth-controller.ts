@@ -49,11 +49,6 @@ const sendLoginMFA = (transporter: any, newUser: any, mfaCode: number) => {
     })
 }
 
-export const getUserOwnedNfts = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
-    return response.status(200).json({success: true, message: "User owned NFTs here"});
-}
-
-
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
        const {username, email, password} = request.body;
@@ -97,11 +92,11 @@ export const verifyEmailAddress = asyncHandler(async (request: Request, response
     const user = await User.findById(userId);
 
     if(!isValidObjectId(userId)) {
-        return next(new BadRequestError("Invalid User ID", 400));
+        return next(new BadRequestError("Invalid User ID", StatusCodes.BAD_REQUEST));
     }
 
     if(!user) {
-        return next(new NotFoundError("Could not find that user", 404));
+        return next(new NotFoundError("Could not find that user", StatusCodes.NOT_FOUND));
     }
 
     if(!OTP) {
@@ -156,7 +151,7 @@ export const login = asyncHandler(async (request: Request, response: Response, n
 
     // Code to send MFA Code
     const mfaToken = generateMfaToken();
-    
+
     const transporter = emailTransporter();
     sendLoginMFA(transporter, user, mfaToken as unknown as any);
 
