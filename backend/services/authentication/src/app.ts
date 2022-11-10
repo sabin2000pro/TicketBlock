@@ -43,10 +43,12 @@ app.use(mongoSanitize()); // Used to prevent NoSQLI injections
 
 app.use(cors({
     origin: "*",
-    methods: ['POST', "GET", "PUT", "DELETE"]
+    methods: ['POST', "GET", "PUT", "DELETE"],
+    credentials: true,
 }));
 
 app.use(helmet());
+
 app.use(cookieSession({
     keys: ['session'],
     secure: process.env.NODE_ENV !== 'development'
