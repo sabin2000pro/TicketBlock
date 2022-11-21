@@ -10,7 +10,6 @@ const EmailVerification: React.FC = () => {
 
        const userId = localStorage.getItem("userId");
        setUserId(userId as any);
-
     }
 
     fetchUserId();

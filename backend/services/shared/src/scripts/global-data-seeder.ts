@@ -20,6 +20,7 @@ const connectSchemas = () => {
 connectSchemas();
 
 const loadData = async () => {
+    
     try {
          await Nft.create(nfts);
          await User.create(users);

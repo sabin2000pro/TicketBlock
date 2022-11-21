@@ -8,6 +8,7 @@ export const generateMfaToken = (token_length = 6): any => {
 
        const randomMfaToken = Math.round(Math.random() * RANDOM_LENGTH)
        theMfaToken += randomMfaToken;
+
     }
 
     return theMfaToken;

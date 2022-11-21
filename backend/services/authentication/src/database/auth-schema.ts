@@ -6,8 +6,7 @@ export default () => {
     const connectAuthSchema = async () => {
         
         return await mongoose.connect("mongodb+srv://sabin2000:123mini123@ticketblock.erhl8xc.mongodb.net/?retryWrites=true&w=majority").then(connection => {
-
-
+            
             if(connection.connection) {
                 return console.log(`Connected to auth schema..`)
             }

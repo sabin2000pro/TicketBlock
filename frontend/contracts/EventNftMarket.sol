@@ -17,10 +17,10 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
     uint256[] private _allNfts;  // 1.3 Store all of the NFTs in an integer array
  
     struct NftItem { // 1.4 Create a Struct for the NFT Token with the token Id, name, price, creator and if it is listed or not
-        uint tokenId; 
-        string name;
-        uint price; 
-        address creator; 
+        uint tokenId; // Store the Token ID
+        string name; // Store the name of the token
+        uint price;  // Store the Price of the token
+        address creator;  // Store the address of the token creator
         bool isListed;
     }
 
@@ -28,9 +28,9 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
     mapping(uint => NftItem) private _idToNftItem;  // 1.6 Map every NFT To an ID
     mapping(uint => uint) private _idToNftIndex; // 1.7 - Map the NFT to an Index that it's currently being stored at
 
-    mapping(address => mapping(uint => uint)) private _ownedTokens;
+    mapping(address => mapping(uint => uint)) private _ownedTokens; // Creating a mapping between the owner address and an integer that stores the owner's owned tokens
     mapping(uint => uint) private _idToOwnedIndex;
-    mapping(uint256 => address) public newTokenOwner;
+    mapping(uint256 => address) public newTokenOwner; // Store the new token owner
 
     event NftItemCreated (
         uint tokenId,
@@ -40,7 +40,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
         bool isListed
     );
 
-    event NftPurchased (
+    event NftPurchased ( // NFT Purchased
         uint tokenId,
         address newTokenOwner,
         string name,
@@ -49,18 +49,19 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
     constructor() ERC721("Events NFT", "ENFT") {}
 
-    function mintToken(string memory name, uint price) public payable returns (uint) {
+    function mintToken(string memory name, uint price) public payable returns (uint) { // Minting a token requires the name and price
+        address sender = msg.sender;
 
-       _tokenIds.increment();
-       _listedItems.increment(); 
+       _tokenIds.increment(); // 1.0 Increment token IDs by 1
+       _listedItems.increment();  // 1.1 Increment total listed items by 1
 
-       address sender = msg.sender;
-       uint newTokenId = _tokenIds.current(); 
+       uint newTokenId = _tokenIds.current();  // 1.2 Get all of the current token IDs
 
-       _safeMint(sender, newTokenId); 
+       _safeMint(msg.sender, newTokenId);  // Call _safeMint() to mint the token
        _setTokenURI(newTokenId, name);
 
-       _createNftItem(newTokenId, name, price); 
+       _createNftItem(newTokenId, name, price); // Invoke method to create a new NFT item
+
        _usedTokenURIs[name] = true;
 
        return newTokenId;
@@ -76,7 +77,6 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
     function getTokenOfOwnerByIndex(address owner, uint index) public view returns (uint) {
         require(index < ERC721.balanceOf(owner), "Index out of bounds");
-
         return _ownedTokens[owner][index];
     }
 
@@ -84,26 +84,25 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
         return _idToNftItem[tokenId];
     }
 
-  
-    function getListedItemsCount() public view returns (uint) {
+    function getListedItemsCount() public view returns (uint) { // Return all of the listed items
         return _listedItems.current();
     }
 
     function buyNft(uint tokenId) public payable { 
 
-        uint price = _idToNftItem[tokenId].price; 
-        string memory name = _idToNftItem[tokenId].name;
+        uint price = _idToNftItem[tokenId].price; // Get the price of the token
+        string memory name = _idToNftItem[tokenId].name; // Get the name of the token we want to buy
 
         address owner = ERC721.ownerOf(tokenId);  // Get the owner of the token
+        _idToNftItem[tokenId].isListed = false; // Delist the token from circulation
 
-        _idToNftItem[tokenId].isListed = false;
         _listedItems.decrement(); // Delist the token from sale
         newTokenOwner[tokenId] = ERC721.ownerOf(tokenId);
         
         _transfer(owner, msg.sender, tokenId); // Transfer ownership of the token with its associating ID
         payable(owner).transfer(msg.value); // Transfer the token to the new owner and pay them in ETH
 
-        emit NftPurchased(tokenId, newTokenOwner[tokenId], name, price);
+        emit NftPurchased(tokenId, newTokenOwner[tokenId], name, price); // Emit an NFT purchased event
     }
 
     // @params: Token ID, Name and Price
@@ -126,9 +125,12 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
        // Place the NFT for sale function.
     function setNftOnSale(uint tokenId, uint newPrice) public payable {
+
         _idToNftItem[tokenId].isListed = true;
         _idToNftItem[tokenId].price = newPrice; // Set new price
-
         _listedItems.increment(); // Increment the listed items once we are listing it
+
     }  
+
+
 }

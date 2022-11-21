@@ -13,17 +13,13 @@ type IWeb3Context = {
     accounts: any
     balance: any
     newNftOwner: any
-
     connectWallet: () => void
     handleAccountChange: () => void
-
     fetchNftData: () => any
     mintNft: (name: string, price: number) => void
     buyNft: (id: number) => void
-
     setNftOnSale: (id: number, price: number) => any
     chosenAccount: any
-   
 }
 
 const provider = window.ethereum;
@@ -33,23 +29,22 @@ let chosenAccount = "" as any
 let PORT = 5201 as number;
 let URL = `http://localhost:${PORT}/api/v1/nfts`;
 
-export const Web3Context = createContext({} as IWeb3Context)
+export const Web3Context = createContext({} as IWeb3Context) // Create initial context
 
 export const Web3Provider = ({children}: Web3ContextProps) => {
 
     let [accounts, setAccounts] = useState<string>("")
     let [balance, setBalance] = useState<string | undefined>("");
-
     let [accountChanged, setAccountChanged] = useState<boolean | undefined>(false);
 
     const [accountChosen, setAccountChosen] = useState<boolean | undefined>(false);
     const [tokenMinted, setTokenMinted] = useState<boolean | false>(false) // True or false that determines if the token has been minted or not
-
     let [newNftOwner, setNewNftOwner] = useState<string | undefined>("")
 
     const networks = EventNftContract.networks
     let networkId = Object.keys(networks)[0] as keyof typeof networks; // Network ID 5777
 
+    // Connect to the meta mask wallet
     const connectWallet = async () => {
 
     try {
@@ -84,6 +79,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         catch(error: any) {
             return console.log(`Error : `, error);
         }
+
+
     }
 
     const processAuthToken = () => {
@@ -134,6 +131,7 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
     // After data is POSTED, invoke the mintNft routine with the name and price being sent to activate the smart contract which calls the mintNft function
 
     const mintNft = async (name: string, price: number): Promise<any> => {
+
         const contractAbi = EventNftContract.abi;
         const currentAccount = localStorage.getItem("account");
 
@@ -190,8 +188,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
     }
 
-    // @params: id: ID of the NFT
-    // @params: price: Price of the NFT when setting it on sale
+    // @description: Place NFT on sale
+    // @params: id: Unique Identifier for the NFT && price: Price of the NFT to put on sale
 
     const setNftOnSale = async (id: number, price: number) => {
 

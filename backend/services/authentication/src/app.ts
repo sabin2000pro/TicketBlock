@@ -1,4 +1,3 @@
-import { StatusCodes } from 'http-status-codes';
 require('dotenv').config();
 import cookieSession from 'cookie-session';
 import express, { Application, NextFunction, Request, Response } from "express";
@@ -29,7 +28,7 @@ if(process.env.NODE_ENV === 'production') {
 
 const rateLimiter = rateLimit({
     windowMs: 10 * 60 * 1000, // 10 minutes per request
-	max: 30, 
+	max: 100, 
 	standardHeaders: true, 
 	legacyHeaders: false,
 })

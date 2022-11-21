@@ -14,6 +14,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
   
   const navigate = useNavigate();
   const {id} = useParams();
+  
   let {fetchNftData, buyNft} = useContext(Web3Context)
 
   const [isError, setIsError] = useState<boolean | false>(false);
@@ -26,6 +27,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
   useEffect(() => {
 
    if(localStorage.getItem("token") === null) {
+
        alert("You must be logged in before viewing all NFTs");
        return navigate("/login")
    }
@@ -56,7 +58,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
      catch(err: any) {
 
        if(err) {
-        return console.error(err);
+          return console.error(err);
        }
 
 
@@ -76,9 +78,6 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
 
       const fileUploadResponse = await axios.post(`http://http://localhost:5299/api/v1/nfts/upload/${tokenId}`, {newFileData});
       const fileUploadData = fileUploadResponse.data;
-
-      console.log(fileUploadData);
-
 
       return fileUploadData
 
@@ -107,8 +106,7 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
         await buyNft(nft.tokenId)
 
         setBoughtToken(boughtToken);
-        console.log(`Bought token : `, boughtToken);
-
+        
         setTokenPurchased(!tokenPurchased);
      } 
      

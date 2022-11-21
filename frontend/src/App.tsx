@@ -48,10 +48,8 @@ const App: React.FC = () => {
         <Routes>
 
           <Route path = '/' element = {<Homepage />} />
-
           <Route path = '/register' element = {<Register />} />
           <Route path = "/profile" element = {<UserProfile />} />
-
           <Route path = '/login' element = {<Login />} />
           <Route path = '/forgot-password' element = {<ForgotPassword />} />
           <Route path = '/reset-password' element = {<ResetPassword />} />
@@ -59,18 +57,14 @@ const App: React.FC = () => {
           <Route path = "/verify-email" element = {<EmailVerification />} />
           <Route path = "/verify-login" element = {<LoginMfaVerification />} />
 
-
           <Route path = '/create-nft' element = {<CreateNft />} />
           <Route path = '/nfts' element = {<NftList nfts = {nftData as any} />} />
           <Route path = '/nfts/:id' element = {<SingleNft />} />
           <Route path = '/nfts/edit/:id' element = {<EditNft />} />
 
-
         </Routes>
 
-     
-
-
+    
     </>
 
 

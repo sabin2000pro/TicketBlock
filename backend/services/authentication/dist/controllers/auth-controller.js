@@ -157,6 +157,7 @@ const sendPasswordResetEmail = (user, resetPasswordURL) => {
         subject: 'Reset Password',
         html: `
             
+
             <h1> ${resetPasswordURL}</h1>
             `
     });
@@ -297,7 +298,6 @@ const uploadUserAvatar = (request, response, next) => __awaiter(void 0, void 0, 
     if (fileReq.size > process.env.MAX_FILE_UPLOAD_SIZE) {
         return next(new error_handler_1.BadRequestError("File Size Too Large", http_status_codes_1.StatusCodes.BAD_REQUEST));
     }
-    // Create custom filename
     fileReq.name = `photo_${user._id}${path_1.default.parse(fileReq.name).ext}`;
     fileReq.mv(`${process.env.FILE_UPLOAD_PATH}/${fileReq.name}`, (error) => __awaiter(void 0, void 0, void 0, function* () {
         if (error) {

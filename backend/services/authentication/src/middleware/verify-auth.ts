@@ -4,16 +4,12 @@ import { NextFunction } from 'express';
 import jwt from "jsonwebtoken";
 import { User } from "../models/user-model";
 
-// Bearer <token>
-
 export interface IUserData {
-    _id: string;
-    email: string;
-    username: string
+    user: any
 }
 
 export interface IRequestUser extends Request {
-    user: IUserData
+   user: IUserData
 }
 
 export type IAuthRequest = IRequestUser & {

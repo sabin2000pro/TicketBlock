@@ -34,7 +34,6 @@ services:
     ports:
       - "5201:5201"
 
-    
   frontend:
     image: sabin2000/ticketblock-frontend-service
 

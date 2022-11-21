@@ -1,10 +1,9 @@
 import {useEffect, useState, useContext} from 'react'
 import { Card, Row } from 'react-bootstrap';
-import { Alert, AlertIcon, Button, useToast, Avatar } from "@chakra-ui/react";
+import { Alert, AlertIcon, Button, Avatar } from "@chakra-ui/react";
 import { getLoggedInUser, updateProfileSettings } from '../api/auth-api';
 import { useNavigate } from 'react-router-dom';
 import { Web3Context } from '../context/Web3Context';
-
 
 const UserProfile: React.FC = (props: any) => {
 
@@ -103,8 +102,6 @@ const UserProfile: React.FC = (props: any) => {
             let userData = await getLoggedInUser();
             let userOwnedNfts = userData.data;            
             userOwnedNfts.accountAddress = chosenAccount
-            
-            const accountUserProfileAddress = userOwnedNfts.accountAddress;
 
         }
 
@@ -116,29 +113,25 @@ const UserProfile: React.FC = (props: any) => {
 
     <>
 
-    {isValidationError && <Alert status='error'>
+    {isValidationError && <Alert status = 'error'>
 
-<AlertIcon />
+        <AlertIcon />
 
-    Missing Profile Entries
-    
-</Alert>}
+            Missing Profile Entries
+            
+        </Alert>}
 
   <form onSubmit = {handleUpdateProfileSettings} method = "POST">
 
     <div className = "profile-container">
 
-
      <h1 className = "heading-primary">You are logged in as : {user}</h1>
      
-
    <div className = "account-container">
-   
 
    <Button type = "submit" colorScheme='teal' size='md'>Upload Avatar</Button>
 
-   <span style = {{textAlign: 'center', display: 'block', marginTop: "40px"}}>Your account address: {chosenAccount} </span>
-
+       <span style = {{textAlign: 'center', display: 'block', marginTop: "40px"}}>Your account address: {chosenAccount} </span>
    </div>
 
      <Row md = {2} xs = {1} lg = {3} className = "g-3">
@@ -169,16 +162,14 @@ const UserProfile: React.FC = (props: any) => {
 
             </Card.Title>
 
-            
             <div className = "avatar-container">
-               <Avatar src='https://bit.ly/broken-link' className = "avatar" />
+               <Avatar src = 'https://bit.ly/broken-link' className = "avatar" />
             </div>
 
 
             <h2 className = "heading-secondary profile-heading">Username</h2>
 
-            <input value = {username} onChange = {(event) => setUsername(event.target.value)} className = "update-username" type = "text" />
-
+              <input value = {username} onChange = {(event) => setUsername(event.target.value)} className = "update-username" type = "text" />
         
             <h2 className = "heading-secondary profile-heading">E-mail</h2>
 
@@ -212,8 +203,9 @@ const UserProfile: React.FC = (props: any) => {
         </div>
 
  </form>
-    </>
 
+
+    </>
 
   )
 }

@@ -30,10 +30,10 @@ const Homepage = () => {
       
        </div> 
 
-   
-
-       
+  
     </>
+
+    
   )
 }
 

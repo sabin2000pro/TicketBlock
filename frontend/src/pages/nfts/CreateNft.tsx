@@ -16,7 +16,7 @@ const CreateNft: React.FC = (props: any) => {
   const handleMintNft = async (event: any): Promise<any | undefined> => {
 
      try {
-
+      
       event.preventDefault();
 
       setTokenId(tokenId);
@@ -30,8 +30,6 @@ const CreateNft: React.FC = (props: any) => {
       setTokenMinted(!tokenMinted);
       setTokensMinted((tokensMinted) => tokensMinted! + 1);
 
-      console.log(`Tokens minted : `, tokensMinted);
-
       setTokenId("")
       setName("");
       setPrice("");
@@ -42,8 +40,6 @@ const CreateNft: React.FC = (props: any) => {
 
 
       if(error) {
-
-        console.log(error);
         setMintError("");
         setTokenMinted(false);
       }

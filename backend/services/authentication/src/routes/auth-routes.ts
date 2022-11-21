@@ -17,4 +17,4 @@ authRouter.route('/verify-mfa').post(verifyLoginMfa as any)
 authRouter.route('/update-profile').post(verifyUserAuth as any, updateProfileDetails as any);
 authRouter.route('/upload-avatar/:id').post(uploadUserAvatar as any)
 
-export default authRouter
+export default authRouter;

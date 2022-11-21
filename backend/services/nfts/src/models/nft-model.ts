@@ -13,6 +13,7 @@ interface NftDocument extends mongoose.Model<NftAttributes> {
     tokenCreator: mongoose.Schema.Types.ObjectId;
     tokenId: number,
     newNftOwner: string | undefined;
+    
     name: string | undefined;
     image: string | undefined
     price: string | undefined;

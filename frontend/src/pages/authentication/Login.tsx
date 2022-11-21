@@ -7,11 +7,9 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string | undefined>("")
   const [password, setPassword] = useState<string | undefined>("");
-
   const [formSubmitted, setFormSubmitted] = useState<boolean | undefined> (false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(false);
   const [authTokenPresent, setAuthTokenPresent] = useState<boolean | undefined>(false);
-
   const [isError, setIsError] = useState<boolean | undefined>(false);
   const [error, setError] = useState<string | undefined>("");
 

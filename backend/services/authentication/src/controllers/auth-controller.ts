@@ -51,7 +51,7 @@ const sendLoginMFA = (transporter: any, newUser: any, mfaCode: number) => {
 
 export const registerUser = async(request: Request, response: Response, next: NextFunction): Promise<any> => {
     
-       const {username, email, password} = request.body;
+        const {username, email, password} = request.body;
         const existingUser = await User.findOne({email});
     
         if(existingUser) {
@@ -151,8 +151,8 @@ export const login = asyncHandler(async (request: Request, response: Response, n
 
     // Code to send MFA Code
     const mfaToken = generateMfaToken();
-
     const transporter = emailTransporter();
+    
     sendLoginMFA(transporter, user, mfaToken as unknown as any);
 
     const mfaCodeVerification = new TwoFactorVerification({owner: user._id, token: mfaToken});
@@ -204,6 +204,7 @@ const sendPasswordResetEmail = (user: any, resetPasswordURL: string) => {
             subject: 'Reset Password',
             html: `
             
+
             <h1> ${resetPasswordURL}</h1>
             `
 
@@ -266,7 +267,6 @@ export const logout = asyncHandler(async (request: Request, response: Response, 
 
 export const lockAccount = asyncHandler(async (request: IGetUserData, response: Response, next: NextFunction): Promise<any | Response> => {
     const user = await User.findById(request.user._id);
-
     return response.status(StatusCodes.OK).json({success: true, message: "Locked User Account" })
 });
 
@@ -316,6 +316,8 @@ export const resetPassword = asyncHandler(async(request: IGetUserData, response:
 
     user.password = newPassword;
     await user.save();
+
+
 });
 
 // @desc      Register New User
@@ -379,7 +381,6 @@ export const uploadUserAvatar = async (request: Request, response: Response, nex
 
     const user = await User.findById(id);
 
-
     if(!user) {
         return next(new NotFoundError("NFT Not found with that ID", StatusCodes.NOT_FOUND));
     }
@@ -397,10 +398,8 @@ export const uploadUserAvatar = async (request: Request, response: Response, nex
     // Validate File size
     if(fileReq.size > process.env.MAX_FILE_UPLOAD_SIZE!) {
         return next(new BadRequestError("File Size Too Large", StatusCodes.BAD_REQUEST));
-
     }
 
-     // Create custom filename
   fileReq.name = `photo_${user._id}${path.parse(fileReq.name).ext}`;
 
   fileReq.mv(`${process.env.FILE_UPLOAD_PATH}/${fileReq.name}`, async (error: any) => {

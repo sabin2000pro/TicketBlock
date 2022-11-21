@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 type IVerifyInput = {
   userId: string | undefined
 }
+
 const VerifyInput: React.FC<IVerifyInput> = ({userId}) => {
 
   const [OTP, setOTP] = useState<string | undefined>("");
@@ -24,7 +25,6 @@ const VerifyInput: React.FC<IVerifyInput> = ({userId}) => {
         const data = response.data;
 
         setIsVerified(!isVerified);
-
         setOTP("");
 
         setTimeout(() => {
@@ -41,8 +41,7 @@ const VerifyInput: React.FC<IVerifyInput> = ({userId}) => {
         if(error) {
           return console.log(error.response);
         }
-
-
+        
      }
 
   }

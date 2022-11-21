@@ -35,8 +35,6 @@ export const register = async (email: string, username: string, password: string
     try {
 
          const response = await axios.post(`http://localhost:5299/api/v1/auth/register`, {email, username, password});
-         console.log(response.data.data.id);
-
          localStorage.setItem("userId", response.data.data.id);
 
          return response.data;
@@ -81,7 +79,6 @@ export const forgotPassword = async (email: string) => {
     try {
 
         const response = await axios.post(`http://localhost:5299/api/v1/auth/forgot-password`, {email});  
-        console.log(response);     
         return response.data;
 
    } 
@@ -108,8 +105,8 @@ export const getLoggedInUser = async () => {
         }
        
         const response = await axios.get(`http://localhost:5299/api/v1/auth/me`, config);
-
         return response.data
+
     }
     
     catch(error: any) {
@@ -124,11 +121,10 @@ export const getLoggedInUser = async () => {
 export const verifyEmailAddress = async (OTP: IVerifyEmail) => {
 
 
+
     try {
         const response = await axios.post(`http://localhost:5299/api/v1/auth/verify-email`, {OTP});
         const data = response.data;
-
-        console.log(data);
 
         return data;
     }
@@ -136,7 +132,7 @@ export const verifyEmailAddress = async (OTP: IVerifyEmail) => {
     catch(err: any) {
 
         if(err) {
-            console.log(err.response);
+            return console.error(err.response);
         }
 
         
@@ -151,8 +147,6 @@ export const verifyLoginMFA = async (userId: any, token: IVerifyLoginMfa) => {
 
         const response = await axios.post("http://localhost:5299/api/v1/auth/verify-mfa", {userId, token})
         const data = response.data
-
-        console.log(data);
 
         return data;
     } 
@@ -175,6 +169,7 @@ export const uploadUserAvatar = async () => {
     } 
     
     catch(err: any) {
+
         if(err) {
             return console.error(err);
         }
@@ -186,7 +181,6 @@ export const uploadUserAvatar = async () => {
 export const updateProfileSettings = async (username: string, email: string) => {
 
     try {
-
         
         const token = localStorage.getItem("token");
 
@@ -197,8 +191,6 @@ export const updateProfileSettings = async (username: string, email: string) => 
         const updateProfileResponse = await axios.post("http://localhost:5299/api/v1/auth/update-profile", config, {username, email} as AxiosRequestConfig);
         const responseData = updateProfileResponse.data;
 
-        console.log(responseData);
-
         return responseData;
     } 
     
@@ -208,6 +200,8 @@ export const updateProfileSettings = async (username: string, email: string) => 
         if(err) {
             return console.error(err);
         }
+
+
     }
 
     
