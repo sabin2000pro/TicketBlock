@@ -9,6 +9,7 @@ type Web3ContextProps = {
     children: ReactNode
 }
 
+// Types for the Web Context
 type IWeb3Context = {
     accounts: any
     balance: any
@@ -149,7 +150,6 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
         isTokenListed = !(isTokenListed);
     
         const mintedNftData = {tokenId, name, price, creator, isTokenListed}
-
         const tokenResponse = await axios.post(URL, {tokenId, name, price, creator});
 
         let creatorId = tokenResponse.data.data.id
