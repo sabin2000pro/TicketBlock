@@ -90,3 +90,10 @@ Figure shows a minted token being displayed for sale which can be bought
 Figure shows the meta mask interface when we invoke the buy NFT function
 
 <img width="600" height = "370" alt="image" src="https://user-images.githubusercontent.com/29733613/204001142-9b6982fb-1fe0-4d8e-9a36-602316c77709.png">
+
+## Figure 1.8 – New NFT Owner
+
+Figure shows the result when the NFT is purchased. The creator field is changed to the new owner.
+
+<img width="620" height = "380" alt="image" src="https://user-images.githubusercontent.com/29733613/204001268-84126780-6f10-471f-aa27-3ac8a90c4a7b.png">
+
