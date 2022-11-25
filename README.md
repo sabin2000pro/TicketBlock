@@ -38,6 +38,16 @@ When regular users are accessing the application, by default they should not hav
 
 Figure 1.1 - Register User Account Interface
 
+Figure shows the user interface for registering a new account on the application
+
 <img width="600" height = "350" alt="image" src="https://user-images.githubusercontent.com/29733613/203999834-6d6ee3b0-0474-43cb-b3f1-ade5e292d7ed.png">
 
 When regular users are accessing the application, by default they should not have access to all the NFTs that are available to mint on the Ethereum network. The application supports a fully-fledged authentication system whereby users must register an account, verify their e-mail and login before viewing available tokens for sale. Figures 1.1 and 1.2 below shows the user interface for registering and verifying the e-mail address. Furthermore, after the authentication process is complete, users can proceed to the section where they can mint an NFT on the blockchain. As previously mentioned, minting a token refers to creating an instance of a transaction on the blockchain for a specific token. This elevates the notion of proof of ownership. Also, whenever a user decides to change accounts using meta mask, the creator address is always stored in an object that is unique from the other accounts. Figures 1.3 and 1.4 shows the form for minting a token and the output that it produces which is vital in proving that the owner of the token is authentic in the form of JSON data.
+
+Figure 1.2 – Verify E-mail Address User Interface
+
+Figure shows the user interface for verifying the e-mail address used to register
+
+<img width="600" height = "370" alt="image" src="https://user-images.githubusercontent.com/29733613/204000060-8a1e0330-317f-4677-9e3d-f17ba12c4ee6.png">
+
+
