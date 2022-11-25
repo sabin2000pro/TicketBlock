@@ -61,3 +61,8 @@ Figure shows the backend microservices running in parallel through docker contai
 
 <img width="500" height = "360" alt="image" src="https://user-images.githubusercontent.com/29733613/204000388-3d24d768-5655-44df-bec4-2a1e2ba955dc.png">
 
+## Figure 1.3 – Mint Non-Fungible Token UI
+
+Figure shows the form for inserting a new token into circulation on the blockchain
+
+<img width="600" height = "360" alt="image" src="https://user-images.githubusercontent.com/29733613/204000546-8ef3323a-99ed-405f-a319-f805ff8411d2.png">
