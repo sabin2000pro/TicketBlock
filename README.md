@@ -85,3 +85,8 @@ Figure shows a minted token being displayed for sale which can be bought
 
 <img width="620" height = "380" alt="image" src="https://user-images.githubusercontent.com/29733613/204000889-74d43d55-2047-4f78-8299-9cc5d9ed65b0.png">
 
+## Figure 1.7 – Meta Mask Buy Token Event
+
+Figure shows the meta mask interface when we invoke the buy NFT function
+
+<img width="600" height = "370" alt="image" src="https://user-images.githubusercontent.com/29733613/204001142-9b6982fb-1fe0-4d8e-9a36-602316c77709.png">
