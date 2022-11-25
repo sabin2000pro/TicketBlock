@@ -5,10 +5,22 @@ import {Nft} from '../models/nft-model';
 import { Request, Response, NextFunction } from 'express';
 import path from 'path';
 
-
 export const fetchAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-     const nfts = await Nft.find();
-     return response.status(StatusCodes.OK).json({success: true, data: nfts});
+    
+     try {
+        const nfts = await Nft.find();
+        return response.status(StatusCodes.OK).json({success: true, data: nfts});
+     }     
+     
+     catch(error: any) {
+
+        if(error) {
+            return response.status(StatusCodes.BAD_REQUEST).json({success: false, data: error.message})
+        }
+
+     }
+
+
 }
 
 export const fetchNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
