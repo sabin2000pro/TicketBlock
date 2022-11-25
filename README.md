@@ -79,3 +79,9 @@ The initial work that has been set out has successfully been met up to a certain
 
 Figure 1.7 below displays the results of interacting with the contract. It clearly shows how the buy token function is being invoked. The transaction also displays the amount of gas that needs to be paid. As mentioned previously in the paper, the implementation makes use of 8 bytes of data to store the token data which reduced the total amount of gas to be paid. Furthermore, immediately after the token is purchased by a different account than the creator of the token, the creator field no longer displays who minted the token, but the new owner of the token. Local storage is used to store the new owner in the browsers storage so it can display the parsed data back to the screen. And when the token is bought, the page is reloaded which then displays the owner field in lieu of the creator with a tag that identifies that the token has been purchased. When a token is purchased, the buy NFT button is made disabled which means it cannot be purchased again. Figure 1.8 shows the new owner of the token being displayed on the screen. Finally, in Figure 1.9 we can see the receipt that has been generated for the account that bought the token, this way we can keep track of all the tokens that are being purchased and sold.
 
+## Figure 1.6 – Tokens Available for Sale
+
+Figure shows a minted token being displayed for sale which can be bought
+
+<img width="620" height = "380" alt="image" src="https://user-images.githubusercontent.com/29733613/204000889-74d43d55-2047-4f78-8299-9cc5d9ed65b0.png">
+
