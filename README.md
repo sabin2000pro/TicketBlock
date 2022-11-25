@@ -22,7 +22,7 @@ According to [4], the authors of the paper mention that smart contracts are capa
 
 According to [4], the authors of the paper mention that smart contracts are capable of handling externally owned accounts (EOAs). These are independent accounts that are unique to a single individual. Each account has an associated private key that must never be shared. Tokens that are bought by that specific account is only available to that user and no other account. Unless ownership is transferred again to a different account. In other words, the new person who purchases the previously bought token becomes the new owner of the token. Users can also view all the transactions the account has made, however, only if the owner of the account decides to transfer ownership of the token to a different account, then a new transaction regarding that purchase is recorded. Figure 1.0 below represents how we can switch between accounts using a piece of software called Meta Mask. Similarly, according to [5], the authors explain how communication with smart contracts can be rendered possible through a JavaScript library called Web3.js. Also, ganache is a popular testing blockchain environment that can be used alongside Web3 APIs to view account balances and the transactions recorded inside the blockchain in real-time. The more transactions that are recorded, the higher the amount of gas fees that are accumulated. To bypass this, the authors in [3] mention that one way to gradually reduce the fees is to store integer variables with less bytes. The results show that on average using 8 bytes of unsigned integer data reduces the gas fees by “18%” compared to integer sizes of 256 bytes.
 
-Figure 1.0 - Externally Owned Meta Mask Accounts
+## Figure 1.0 - Externally Owned Meta Mask Accounts
 
 <img width="500" height = "500" alt="image" src="https://user-images.githubusercontent.com/29733613/203999537-e05c49a5-a0a5-4d20-82ca-c19c0419a779.png">
 
@@ -36,7 +36,7 @@ In [7] the author analyses an advantage of using non-fungible tokens. Every toke
 
 When regular users are accessing the application, by default they should not have access to all the NFTs that are available to mint on the Ethereum network. The application supports a fully-fledged authentication system whereby users must register an account, verify their e-mail and login before viewing available tokens for sale. Figures 1.1 and 1.2 below shows the user interface for registering and verifying the e-mail address. Furthermore, after the authentication process is complete, users can proceed to the section where they can mint an NFT on the blockchain. As previously mentioned, minting a token refers to creating an instance of a transaction on the blockchain for a specific token. This elevates the notion of proof of ownership. Also, whenever a user decides to change accounts using meta mask, the creator address is always stored in an object that is unique from the other accounts. Figures 1.3 and 1.4 shows the form for minting a token and the output that it produces which is vital in proving that the owner of the token is authentic in the form of JSON data.
 
-Figure 1.1 - Register User Account Interface
+## Figure 1.1 - Register User Account Interface
 
 Figure shows the user interface for registering a new account on the application
 
@@ -44,7 +44,7 @@ Figure shows the user interface for registering a new account on the application
 
 When regular users are accessing the application, by default they should not have access to all the NFTs that are available to mint on the Ethereum network. The application supports a fully-fledged authentication system whereby users must register an account, verify their e-mail and login before viewing available tokens for sale. Figures 1.1 and 1.2 below shows the user interface for registering and verifying the e-mail address. Furthermore, after the authentication process is complete, users can proceed to the section where they can mint an NFT on the blockchain. As previously mentioned, minting a token refers to creating an instance of a transaction on the blockchain for a specific token. This elevates the notion of proof of ownership. Also, whenever a user decides to change accounts using meta mask, the creator address is always stored in an object that is unique from the other accounts. Figures 1.3 and 1.4 shows the form for minting a token and the output that it produces which is vital in proving that the owner of the token is authentic in the form of JSON data.
 
-Figure 1.2 – Verify E-mail Address User Interface
+## Figure 1.2 – Verify E-mail Address User Interface
 
 Figure shows the user interface for verifying the e-mail address used to register
 
