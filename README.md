@@ -66,3 +66,16 @@ Figure shows the backend microservices running in parallel through docker contai
 Figure shows the form for inserting a new token into circulation on the blockchain
 
 <img width="600" height = "360" alt="image" src="https://user-images.githubusercontent.com/29733613/204000546-8ef3323a-99ed-405f-a319-f805ff8411d2.png">
+
+## Figure 1.4 – Minted Token Output
+
+Figure shows the JSON data returned by the smart contract after minting a token
+
+<img width="600" height = "360" alt="image" src="https://user-images.githubusercontent.com/29733613/204000695-28e6f7b3-9f7f-4dea-a43f-523eb967ab9d.png">
+
+# Implementation Results
+
+The initial work that has been set out has successfully been met up to a certain extent. There are a couple of small issues with the smart contract code. Firstly, when ownership of a token is transferred from one account to another, the creator of the token does not receive the ether payment. A significant amount of time was spent troubleshooting the root cause of the problem, but it could be identified. Secondly, when a token is purchased, the transaction does not record the price of the token that has to be paid. Which for this application is not really that important, however if the application were to be pushed into production, then these issues would be looked over in more depth. Nevertheless, the required functionality such as listing a token for sale and purchasing it has been implemented successfully. When it is minted on the blockchain it sends the data to the database and whenever the user views all the available tokens for sale a GET request is sent which allows the server to retrieve all available tokens for sale, returning a 200 OK status code indicating that the request has been successful. Figure 1.6 below shows the result of listing all the tokens for sale. Furthermore, the function for buying a token is invoked from the smart contract gives back the newly created token ID and after the user decides to buy the token, a meta mask window modal appears that displays the data regarding the transaction. 
+
+Figure 1.7 below displays the results of interacting with the contract. It clearly shows how the buy token function is being invoked. The transaction also displays the amount of gas that needs to be paid. As mentioned previously in the paper, the implementation makes use of 8 bytes of data to store the token data which reduced the total amount of gas to be paid. Furthermore, immediately after the token is purchased by a different account than the creator of the token, the creator field no longer displays who minted the token, but the new owner of the token. Local storage is used to store the new owner in the browsers storage so it can display the parsed data back to the screen. And when the token is bought, the page is reloaded which then displays the owner field in lieu of the creator with a tag that identifies that the token has been purchased. When a token is purchased, the buy NFT button is made disabled which means it cannot be purchased again. Figure 1.8 shows the new owner of the token being displayed on the screen. Finally, in Figure 1.9 we can see the receipt that has been generated for the account that bought the token, this way we can keep track of all the tokens that are being purchased and sold.
+
