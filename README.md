@@ -97,3 +97,32 @@ Figure shows the result when the NFT is purchased. The creator field is changed 
 
 <img width="620" height = "380" alt="image" src="https://user-images.githubusercontent.com/29733613/204001268-84126780-6f10-471f-aa27-3ac8a90c4a7b.png">
 
+## Figure 1.9 – Buy NFT Transaction Receipt
+
+Figure shows the receipt generated after the token is bought
+
+<img width="620" height = "380" alt="image" src="https://user-images.githubusercontent.com/29733613/204001416-08601c9d-f23c-4cb0-b014-b46605cc9f75.png">
+
+# Project Conclusion
+
+Overall, non-fungible tokens are very useful in preventing real-world problems such as assets being counterfeited by individuals. These types of tokens are preferred over semi-fungible and fungible tokens because their meta data cannot be mutated. The application of NFTs to the application that has been built was successful in preventing fake event tickets from being copied and replicated by other users. By developing the backend business logic separately from the frontend, we were able to implement two different services that perform different tasks independently from each other. Both authentication and NFT services were capable of consuming RESTful APIs that allows the frontend to communicate with and consume. Furthermore, the authentication service allowed the users to register a new account and verify it before logging in. This was very important because generally we should not allow any random user minting tokens without being authenticated first. Also, after a significant amount of time that has been spent on learning solidity to implement the functionality for the NFT smart contract, the important functions for selling and purchasing tokens(s) was implemented successfully without any issues. Nevertheless, as there were a couple of problems with transferring ether to the creator of the token, we were able to make use of the buy and sell functions effectively using the Web3 React API without any critical errors being thrown that would hinder the web application. The next section outlines one important feature that is taken into consideration regarding future work.
+
+In addition to the previous section, as there is a tight one-month deadline for the application, there were a couple of additional features that were planned out to be developed should the deadline be longer. A Dutch Auction system would be integrated into the existing application as future work which would be implemented as a smart contract which would then be utilised throughout the frontend using React components. Initially there would be an extremely high listing price for the token and gradually over a span of 10 minutes the price would decrease significantly. Until an individual places a bid that is slightly above the current value of the token. An advantage of using this kind of bidding system compared to First Priced Sealed Bid is that it prevents multiple bids from being placed at a single time. Thus, as soon as a bid is casted by an individual, the auction ends. However, a disadvantage of applying this method of bidding is that this method can place emotional stress upon the individuals that are participating in the bidding session due to uncertainty of the bid placed.
+
+# References
+
+[1] F.Khan, R.Kothari, M.Patel and N.Banoth. “Enhancing Non-Fungible Tokens For the Evolution of Blockchain Technology”, 2022 IEEE Proceedings of the International Conference on Sustainable Computing and Data Communication Systems, pp. 1148-1152
+
+[2] H.R.Hasan, K.Salah, A.Battah, M.Madine, I.Yaqoob, R. Jayaraman, M.Omar, “Incorporating Registration, Reputation, and Incentivization Into the NFT Ecosystem”, 2022 RCII-2019-002–Center for Digital Supply Chain and Operations Management. pp. 76416-76433
+
+[3] N.Masla, V.Vyas, J.Gautam, R.N.Shaw, A.Ghosh, “Reduction in Gas Cost for Blockchain Enabled Smart Contract”, 2021, IEEE 4th International Conference on Computing, Power and Communication Technologies (GUCON). Pp 1-6.
+
+[4] B.K, Mohanta, S.S, Panda, D. Jena, “An Overview of Smart Contract and Use cases in Blockchain Technology”. 2018, IEEE 9th ICCCNT 2018, Pp 1-4.
+
+[5] D.Zinca, V.A, Negrean, “Development of a Road Tax Payment Application using the Ethereum Platform”, 2018, IEEE, pp. 1-4.
+
+[6] S.Drakshayani, U.Vijayalakshmi, S.Rupa Sri, A.Srivani, A.Vyshnavi, “Online Voting System Using Blockchain”, 2022, IEEE Proceedings of the International Conference on Electronics and Renewable Systems, pp 1-6
+
+[7] W. Rehman, H.Zainab, J.Imran, N, Zakaria, “NFTs Applications And Challenges”, 2021 IEEE Paper, pp. 1-7
+
+Dutch Auction: https://www.masterclass.com/articles/dutch-auction
