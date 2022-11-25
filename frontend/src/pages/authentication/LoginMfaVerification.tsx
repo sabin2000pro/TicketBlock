@@ -9,7 +9,7 @@ const LoginMfaVerification = (props: any) => {
   const [showErrorModal, setShowErrorModal] = useState<boolean | undefined>(false);
   const {onClose} = useDisclosure();
 
-  const [userId, setUserId] = useState([]);
+  const [userId, setUserId] = useState<[]>([])
   const [userVerified, setUserVerified] = useState<boolean | undefined>(false);
 
   useEffect(() => {

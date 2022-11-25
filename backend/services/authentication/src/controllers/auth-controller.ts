@@ -209,7 +209,6 @@ const sendPasswordResetEmail = (user: any, resetPasswordURL: string) => {
             `
 
         })
-
 }
 
 export const verifyLoginMfa = async(request: Request, response: Response, next: NextFunction): Promise<any> => {

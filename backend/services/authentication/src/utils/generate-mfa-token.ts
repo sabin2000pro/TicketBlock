@@ -10,6 +10,6 @@ export const generateMfaToken = (token_length = 6): any => {
        theMfaToken += randomMfaToken;
 
     }
-
+    
     return theMfaToken;
 }

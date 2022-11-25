@@ -29,8 +29,6 @@ const loadData = async () => {
             
         return process.exit(1);
             
-        
-
     } 
     
     catch(err: any) {

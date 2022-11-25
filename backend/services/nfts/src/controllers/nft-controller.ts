@@ -7,7 +7,7 @@ import path from 'path';
 
 
 export const fetchAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-    const nfts = await Nft.find();
+     const nfts = await Nft.find();
      return response.status(StatusCodes.OK).json({success: true, data: nfts});
 }
 
@@ -79,22 +79,18 @@ export const uploadNftImage = async (request: Request, response: Response, next:
     // Validate File size
     if(fileReq.size > process.env.MAX_FILE_UPLOAD_SIZE!) {
         return next(new BadRequestError("File Size Too Large", StatusCodes.BAD_REQUEST));
-
     }
 
      // Create custom filename
   fileReq.name = `photo_${nft._id}${path.parse(fileReq.name).ext}`;
-  console.log(fileReq.name);
 
   fileReq.mv(`${process.env.FILE_UPLOAD_PATH}/${fileReq.name}`, async (error: any) => {
 
         if(error) {
-           console.error(error);
-
            return next(new BadRequestError("Problem with file upload", 500));
         }
 
-        await Nft.findByIdAndUpdate(request.params.id, { image: fileReq.name });
+        await Nft.findByIdAndUpdate(request.params.id, { image: fileReq.name }); // Update the NFT by its ID and add the respective file
 
         // Send the file to the upload path
         return response.status(StatusCodes.OK).json({success: true, message: "File Uploaded"})

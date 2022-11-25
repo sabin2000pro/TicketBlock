@@ -17,9 +17,6 @@ import Homepage from './pages/Homepage';
 import { Web3Context } from './context/Web3Context';
 
 const App: React.FC = () => {
-  
-  // Code to detect if metamask is installed // connected
-
   const {fetchNftData} = useContext(Web3Context)
   let [nftData, setNftData] = useState<any[]>([]);
 

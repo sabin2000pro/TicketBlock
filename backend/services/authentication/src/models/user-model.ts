@@ -40,6 +40,7 @@ interface IUserDocument extends mongoose.Model<IUserAttributes> {
 }
 
 const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
+    
     username: { 
         type: String,
         required: [true, "Please specify a username for the user"]
@@ -72,7 +73,7 @@ const UserSchema = new mongoose.Schema<IUserDocument>({ // User Schema
         default: 0
     },
 
-    isVerified: {
+    isVerified: { // True or false if the account is verified or not
         type: Boolean,
         default: false
     },

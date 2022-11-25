@@ -57,17 +57,16 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
        uint newTokenId = _tokenIds.current();  // 1.2 Get all of the current token IDs
 
-       _safeMint(msg.sender, newTokenId);  // Call _safeMint() to mint the token
+       _safeMint(sender, newTokenId);  // Call _safeMint() to mint the token
        _setTokenURI(newTokenId, name);
 
        _createNftItem(newTokenId, name, price); // Invoke method to create a new NFT item
-
        _usedTokenURIs[name] = true;
 
        return newTokenId;
     }
 
-    function totalSupply() public view returns (uint) {
+    function totalSupply() public view returns (uint) { // Return the total supply of the NFTs
         return _allNfts.length; 
     }
 
@@ -80,7 +79,7 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
         return _ownedTokens[owner][index];
     }
 
-    function getNftItem(uint tokenId) public view returns (NftItem memory) {
+    function getNftItem(uint tokenId) public view returns (NftItem memory) { // Get the NFT item
         return _idToNftItem[tokenId];
     }
 
@@ -131,6 +130,4 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
         _listedItems.increment(); // Increment the listed items once we are listing it
 
     }  
-
-
 }
