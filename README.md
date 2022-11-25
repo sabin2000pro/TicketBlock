@@ -24,4 +24,4 @@ According to [4], the authors of the paper mention that smart contracts are capa
 
 Figure 1.0 - Externally Owned Meta Mask Accounts
 
-<img width="288" alt="image" src="https://user-images.githubusercontent.com/29733613/203999537-e05c49a5-a0a5-4d20-82ca-c19c0419a779.png">
+<img width="500" height = "500" alt="image" src="https://user-images.githubusercontent.com/29733613/203999537-e05c49a5-a0a5-4d20-82ca-c19c0419a779.png">
