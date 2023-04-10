@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {useContext, useState, createContext, ReactNode, useEffect} from 'react';
 import Web3 from 'web3';
-import EventNftContract from '../contracts/EventNftMarket.json'
+import EventNftContract from '../contracts/EventNftMarket.json';
 import axios from 'axios';
 import {getLoggedInUser} from '../api/auth-api';
 
@@ -114,6 +114,8 @@ export const Web3Provider = ({children}: Web3ContextProps) => {
 
             const response = await axios.get(URL);
             const nftData = response.data.data;
+
+            console.log(`Your NFT Data : `, nftData);
 
             return nftData;
         } 

@@ -9,4 +9,4 @@ const nft_controller_1 = require("../controllers/nft-controller");
 exports.nftRoutes = express_1.default.Router({ mergeParams: true });
 exports.nftRoutes.route("/").get(nft_controller_1.fetchAllNfts).post(nft_controller_1.createNewNft).delete(nft_controller_1.deleteAllNfts);
 exports.nftRoutes.route('/:id').get(nft_controller_1.fetchNftByID).delete(nft_controller_1.deleteNftByID);
-exports.nftRoutes.route('/:upload/:tokenId').post(nft_controller_1.uploadNftImage);
+exports.nftRoutes.route('/:upload/:id').post(nft_controller_1.uploadNftImage);

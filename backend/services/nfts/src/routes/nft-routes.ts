@@ -5,4 +5,4 @@ export const nftRoutes: Router = express.Router({mergeParams: true});
 
 nftRoutes.route("/").get(fetchAllNfts).post(createNewNft).delete(deleteAllNfts)
 nftRoutes.route('/:id').get(fetchNftByID).delete(deleteNftByID)
-nftRoutes.route('/:upload/:tokenId').post(uploadNftImage as any);
+nftRoutes.route('/:upload/:id').post(uploadNftImage as any);

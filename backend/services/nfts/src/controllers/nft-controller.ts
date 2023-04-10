@@ -6,7 +6,7 @@ import { Request, Response, NextFunction } from 'express';
 import path from 'path';
 
 export const fetchAllNfts = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-    
+
      try {
         const nfts = await Nft.find();
         return response.status(StatusCodes.OK).json({success: true, data: nfts});
@@ -24,14 +24,26 @@ export const fetchAllNfts = async (request: Request, response: Response, next: N
 }
 
 export const fetchNftByID = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
-    const tokenId = request.params.tokenId;
-    const nft = await Nft.findById(tokenId);
+    try {
 
-    if(!nft) {
-        return next(new NotFoundError("NFT Not found", StatusCodes.NOT_FOUND));
-    }
+        const tokenId = request.params.id;
+        const nft = await Nft.findById(tokenId);
     
-    return response.status(StatusCodes.OK).json({success: true, data: nft});
+        if(!nft) {
+            return next(new NotFoundError("NFT Not found", StatusCodes.NOT_FOUND));
+        }
+        
+        return response.status(StatusCodes.OK).json({success: true, data: nft});
+    } 
+    
+    catch(error: any) {
+
+        if(error) {
+            return response.status(StatusCodes.BAD_REQUEST).json({success: false, data: error.message})
+        }
+
+    }
+
 }
 
 export const createNewNft = async (request: Request, response: Response, next: NextFunction): Promise<Response | any> => {
@@ -68,11 +80,10 @@ export const deleteNftByID = async (request: Request, response: Response, next: 
 }
 
 export const uploadNftImage = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
+
     const id = request.params.id as any;
     const fileReq = request.files!.file as unknown as any;
-
     const nft = await Nft.findById(id);
-
 
     if(!nft) {
         return next(new NotFoundError("NFT Not found with that ID", StatusCodes.NOT_FOUND));
@@ -88,7 +99,7 @@ export const uploadNftImage = async (request: Request, response: Response, next:
         return next(new BadRequestError("Please make sure the uploaded file is an image", StatusCodes.BAD_REQUEST));
     }
 
-    // Validate File size
+    // Validate File size. Check if file size exceeds the maximum size
     if(fileReq.size > process.env.MAX_FILE_UPLOAD_SIZE!) {
         return next(new BadRequestError("File Size Too Large", StatusCodes.BAD_REQUEST));
     }

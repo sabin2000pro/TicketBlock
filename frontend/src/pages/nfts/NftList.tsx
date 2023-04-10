@@ -13,7 +13,6 @@ type INftVals = {
 const NftList: React.FC<INftVals> = ({nfts}) => {
   
   const navigate = useNavigate();
-  const {id} = useParams();
   
   let {fetchNftData, buyNft} = useContext(Web3Context)
 
@@ -93,9 +92,6 @@ const NftList: React.FC<INftVals> = ({nfts}) => {
      
   }
 
-  const removeNftHandler = async (tokenId: number) => {
-     return nfts.filter(nftId => nftId !== tokenId);
-  }
 
   const buyTokenHandler = async (id: number) => {
 

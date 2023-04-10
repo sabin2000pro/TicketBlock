@@ -63,8 +63,8 @@ export const registerUser = async(request: Request, response: Response, next: Ne
         }
     
         const user = await User.create({username, email, password});
-        
         await user.save();
+
         const currentUser = user._id; // Get the current user's ID
         const userOTP = generateOTPToken();
 
