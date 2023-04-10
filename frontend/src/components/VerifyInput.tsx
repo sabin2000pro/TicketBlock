@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {AlertIcon, Button} from "@chakra-ui/react";
+import {AlertIcon, Alert, Button} from "@chakra-ui/react";
 import axios from 'axios';
-import { Alert } from "@chakra-ui/react"
+
 import { useNavigate } from 'react-router-dom';
 
 type IVerifyInput = {
@@ -10,7 +10,7 @@ type IVerifyInput = {
 
 const VerifyInput: React.FC<IVerifyInput> = ({userId}) => {
 
-  const [OTP, setOTP] = useState<string | undefined>("");
+  const [OTP, setOTP] = useState<string>("");
   const [isVerified, setIsVerified] = useState<boolean | undefined>(false);
   const navigate = useNavigate();
 
