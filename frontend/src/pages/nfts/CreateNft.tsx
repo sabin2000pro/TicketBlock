@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react'
 import { Alert, AlertIcon, Button } from "@chakra-ui/react";
 import { Web3Context } from '../../context/Web3Context';
 
-const CreateNft: React.FC = (props: any) => {
+const CreateNft: React.FC = () => {
   let [tokenId, setTokenId] = useState<string | undefined>("")
   let [name, setName] = useState<string | undefined>("")
   let [price, setPrice] = useState<string | undefined>("");

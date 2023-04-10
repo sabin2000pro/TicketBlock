@@ -1,15 +1,14 @@
+require('dotenv').config("../.env")
+import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose"
 import request from "supertest";
-require('dotenv').config("../.env")
 import {app} from '../app';
 
 beforeAll(async() => {
-    // Connect to MongoDB database
     return await mongoose.connect("mongodb+srv://sabin2000:123mini123@ticketblock.erhl8xc.mongodb.net/?retryWrites=true&w=majority")
 })
 
 describe("Register Account - Test Suite", () => {
-
 
     it("Register Account - Missing Username", async () => {
         const bodyData = [{email: "sifojfs", password: "123mini123"}]
@@ -17,7 +16,8 @@ describe("Register Account - Test Suite", () => {
         for (const data of bodyData) {
             const response = await request(app).post("/api/v1/auth/register").send(data);
 
-            return expect(response.statusCode).toBe(400);
+            expect(response.statusCode).toBe(400);
+            expect(response.body.length).toBeGreaterThan(0);
         }
 
     })
@@ -36,8 +36,8 @@ describe("Register Account - Test Suite", () => {
 
 describe("Verify E-mail Address Test Suite", () => {
 
-
     it("Verify E-mail Address With Invalid Entries", async () => {
+
         const invalidOtpFields = [{userId: "", OTP: "09"}]
 
         for(const data of invalidOtpFields) {
@@ -54,7 +54,7 @@ describe("Verify E-mail Address Test Suite", () => {
         for(const data of malformedInputs) {
             const response = await request(app).post("/api/v1/auth/verify-email").send(data);
 
-            return expect(response.statusCode).toBe(404)
+            return expect(response.statusCode).toBe(StatusCodes.NOT_FOUND)
         }
 
     })
@@ -69,10 +69,7 @@ describe("Verify E-mail Address Test Suite", () => {
         }
     })
 
-
-
 })
-
 
 describe("Login - Test Suite", () => {
 
@@ -80,9 +77,10 @@ describe("Login - Test Suite", () => {
         const malformedInputs = [{email: "jfjehwfhew@gmail.com", password: "123mini123"}]
 
         for(const data of malformedInputs) {
+
             const response = await request(app).post("/api/v1/auth/login").send(data);
 
-            return expect(response.statusCode).toBe(400)
+            expect(response.statusCode).toBe(StatusCodes.BAD_REQUEST)
         }
     })
 
@@ -100,6 +98,7 @@ describe("Login - Test Suite", () => {
 })
 
 describe("Verify Login MFA Test Suite", () => {
+
 
     it("Verify Login MFA - Valid Code", async () => {
 

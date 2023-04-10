@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {useContext, useState, createContext, ReactNode, useEffect} from 'react';
+
+import React, {useContext, useState, createContext, ReactNode, useEffect} from 'react';
 import Web3 from 'web3';
 import EventNftContract from '../contracts/EventNftMarket.json';
 import axios from 'axios';

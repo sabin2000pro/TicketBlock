@@ -10,17 +10,17 @@ contract EventNftMarket is ERC721URIStorage, Ownable {
 
     using Counters for Counters.Counter; 
 
-    Counters.Counter private _listedItems; // 1.0 Store all of the listed items in a counter variable
-    Counters.Counter private _tokenIds; // 1.1 Store all of the token IDs 
+    Counters.Counter private _listedItems; 
+    Counters.Counter private _tokenIds;
 
-    uint public listingPrice = 0.025 ether; // 1.2 Set out how much we want to list the token for sale for
-    uint256[] private _allNfts;  // 1.3 Store all of the NFTs in an integer array
+    uint public listingPrice = 0.025 ether;
+    uint256[] private _allNfts; 
  
-    struct NftItem { // 1.4 Create a Struct for the NFT Token with the token Id, name, price, creator and if it is listed or not
-        uint tokenId; // Store the Token ID
-        string name; // Store the name of the token
-        uint price;  // Store the Price of the token
-        address creator;  // Store the address of the token creator
+    struct NftItem {
+        uint tokenId;
+        string name;
+        uint price;
+        address creator; 
         bool isListed;
     }
 
